@@ -1,0 +1,28 @@
+{
+  "name": "insightful-server",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch-build": "npm run build -- -w",
+    "start": "node dist/app",
+    "build": "tsc -p ./"
+  },
+  "author": "Xyfir, LLC <contact@xyfir.com> (https://www.xyfir.com)",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "app-module-path": "^2.2.0",
+    "dotenv": "^7.0.0",
+    "enve": "^1.0.1",
+    "express": "^4.16.4"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.16.1",
+    "@types/node": "^11.13.4",
+    "typescript": "^3.4.3"
+  }
+}
