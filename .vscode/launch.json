@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "S: Run",
+      "program": "${workspaceFolder}/server/app.ts",
+      "outFiles": ["${workspaceFolder}/server/dist/**/*"],
+      "cwd": "${workspaceFolder}/server",
+      "outputCapture": "std"
+    }
+  ]
+}
