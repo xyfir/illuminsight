@@ -52,7 +52,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
           onChange={e =>
             setFiles(
               files.concat(
-                [...e.target.files].filter(
+                [...(e.target.files as FileList)].filter(
                   f => files.findIndex(_f => f.name == _f.name) == -1
                 )
               )

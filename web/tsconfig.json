@@ -8,6 +8,7 @@
     "target": "esnext",
     "module": "commonjs",
     "outDir": "./dist",
+    "strict": true,
     "paths": {
       "types/*": ["../types/*"]
     },
