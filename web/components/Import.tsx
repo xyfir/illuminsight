@@ -3,6 +3,7 @@ import {
   InputAdornment,
   ListItemText,
   createStyles,
+  IconButton,
   WithStyles,
   withStyles,
   TextField,
@@ -12,6 +13,7 @@ import {
 } from '@material-ui/core';
 import {
   InsertDriveFile as FileIcon,
+  RemoveCircle as RemoveIcon,
   TextFields as TextIcon,
   Link as LinkIcon,
   Add as AddIcon
@@ -66,9 +68,17 @@ function _Import({ classes }: WithStyles<typeof styles>) {
         </label>
 
         {files.length ? (
-          <List>
+          <List dense>
             {files.map(f => (
               <ListItem key={f.name}>
+                <IconButton
+                  aria-label="Remove"
+                  onClick={() =>
+                    setFiles(files.filter(_f => _f.name != f.name))
+                  }
+                >
+                  <RemoveIcon />
+                </IconButton>
                 <ListItemText primary={f.name} secondary={`${f.size} bytes`} />
               </ListItem>
             ))}
