@@ -23,9 +23,6 @@ const styles = (theme: Theme) =>
   createStyles({
     title: {
       flexGrow: 1
-    },
-    button: {
-      color: theme.palette.getContrastText(theme.palette.primary.main)
     }
   });
 
@@ -40,7 +37,7 @@ class _Navigation extends React.Component<
   render() {
     const { classes } = this.props;
     return (
-      <AppBar position="fixed">
+      <AppBar position="fixed" color="default">
         <Toolbar>
           <Typography
             className={classes.title}
@@ -50,23 +47,23 @@ class _Navigation extends React.Component<
           >
             Insightful
           </Typography>
-          <Tooltip title="Toggle light/dark theme" color="inherit">
+          <Tooltip title="Toggle light/dark theme">
             <IconButton
               onClick={() => this.onTheme(localStorage.theme != 'dark')}
             >
               {localStorage.theme == 'dark' ? <SunIcon /> : <MoonIcon />}
             </IconButton>
           </Tooltip>
-          <Tooltip title="Import content into library" color="inherit">
+          <Tooltip title="Import content into library">
             <Link to="/import">
-              <IconButton className={classes.button}>
+              <IconButton>
                 <ImportIcon />
               </IconButton>
             </Link>
           </Tooltip>
-          <Tooltip title="Search items in library" color="inherit">
+          <Tooltip title="Search items in library">
             <Link to="/library">
-              <IconButton className={classes.button}>
+              <IconButton>
                 <LibraryIcon />
               </IconButton>
             </Link>
