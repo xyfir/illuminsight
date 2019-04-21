@@ -1,4 +1,22 @@
 export namespace Insightful {
+  export interface Tag {
+    id: number;
+    name: string;
+  }
+
+  export interface LibraryItem {
+    id: number;
+    name: string;
+    tags: Tag['id'][];
+    link?: string;
+    source: 'link' | 'file' | 'paste';
+    content: Blob;
+    bookmark: {
+      section: number;
+      line: number;
+    };
+  }
+
   export namespace Env {
     export interface Common {
       /**
