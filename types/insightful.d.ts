@@ -4,17 +4,29 @@ export namespace Insightful {
     name: string;
   }
 
-  export interface LibraryItem {
+  export interface Entity {
     id: number;
     name: string;
     tags: Tag['id'][];
-    link?: string;
+    /**
+     * Present if `source == 'link'`.
+     */
+    link: string | undefined;
+    /**
+     * Name of the cover file within the zip's `resources` directory.
+     */
+    cover: string | undefined;
+    /**
+     * How was the entity imported?
+     */
     source: 'link' | 'file' | 'paste';
-    content: Blob;
+    authors: string[];
     bookmark: {
       section: number;
       line: number;
     };
+    published: string | undefined;
+    publisher: string | undefined;
   }
 
   export namespace Env {
