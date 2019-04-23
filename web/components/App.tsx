@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { Navigation } from 'components/Navigation';
+import { Library } from 'components/Library';
 import { Import } from 'components/Import';
 import * as React from 'react';
 import { theme } from 'constants/theme';
@@ -44,6 +45,7 @@ const _App = ({ classes }: WithStyles<typeof styles>) => (
             <Navigation />
             <main className={classes.content}>
               <div className={classes.toolbar} />
+              <Route path="/library" render={() => <Library />} />
               <Route path="/import" render={() => <Import />} />
             </main>
           </div>
