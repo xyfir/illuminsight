@@ -1,7 +1,9 @@
 import { Search as SearchIcon } from '@material-ui/icons';
+import { formatRelative } from 'date-fns';
 import * as localforage from 'localforage';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
+import { Cover } from 'components/Cover';
 import * as Fuse from 'fuse.js';
 import { Link } from 'react-router-dom';
 import {
@@ -10,6 +12,7 @@ import {
   createStyles,
   ListItemText,
   WithStyles,
+  Typography,
   withStyles,
   TextField,
   ListItem,
@@ -27,6 +30,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   const [entities, setEntities] = React.useState<Insightful.Entity[]>([]);
   const [search, setSearch] = React.useState('');
   const [tags, setTags] = React.useState<Insightful.Tag[]>([]);
+  const now = new Date();
 
   // Load entities and tags from local storage on mount
   React.useEffect(() => {
@@ -110,22 +114,35 @@ function _Library({ classes }: WithStyles<typeof styles>) {
         ))}
       </List>
 
-      {/* Display matching entities + cover/fallback */}
+      {/* Display matching entities */}
       <ul>
         {matches.map(match => (
           <li key={match.id}>
             <Link to={`/read/${match.id}`}>
-              {/*
-              name
-              tags
-              cover
-              words
-              authors
-              created
-              published
-              publisher
-              */}
+              <Cover id={match.id} />
             </Link>
+            <Link to={`/read/${match.id}`}>
+              <Typography variant="h2">{match.name}</Typography>
+            </Link>
+            <Typography>
+              {match.tags
+                .map(
+                  tag =>
+                    `#${(tags.find(t => t.id == tag) as Insightful.Tag).name}`
+                )
+                .join(' ')}
+            </Typography>
+            {match.authors ? <Typography>{match.authors}</Typography> : null}
+            {match.published || match.publisher ? (
+              <Typography>
+                {match.published}
+                {match.published && match.publisher ? ' — ' : null}
+                {match.publisher}
+              </Typography>
+            ) : null}
+            <Typography>
+              {match.words} — added {formatRelative(match.id, now)}
+            </Typography>
           </li>
         ))}
       </ul>
