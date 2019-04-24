@@ -1,4 +1,4 @@
-import { Search as SearchIcon } from '@material-ui/icons';
+import { Search as SearchIcon, Star as StarIcon } from '@material-ui/icons';
 import { formatRelative } from 'date-fns';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
@@ -25,7 +25,8 @@ import {
 const styles = (theme: Theme) =>
   createStyles({
     entityName: {
-      fontSize: '150%'
+      fontSize: '150%',
+      display: 'flex'
     },
     entityInfo: {
       color: theme.palette.grey[500]
@@ -72,6 +73,13 @@ function _Library({ classes }: WithStyles<typeof styles>) {
     });
     matches = fuse.search(search);
   }
+
+  // Starred items stick to top
+  matches = matches.sort((a, b) => {
+    if (!a.starred && b.starred) return 1;
+    if (a.starred && !b.starred) return -1;
+    return 0;
+  });
 
   return (
     <div>
@@ -138,6 +146,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
               <Cover id={match.id} />
               <div>
                 <Typography className={classes.entityName} variant="h2">
+                  {match.starred ? <StarIcon color="primary" /> : null}
                   {match.name}
                 </Typography>
                 <Typography className={classes.entityInfo}>
