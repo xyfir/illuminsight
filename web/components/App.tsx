@@ -18,8 +18,10 @@ import {
 const styles = (theme: Theme) =>
   createStyles({
     toolbar: theme.mixins.toolbar,
-    content: {
+    main: {
+      flexDirection: 'column',
       overflow: 'auto',
+      display: 'flex',
       height: '100vh'
     }
   });
@@ -39,7 +41,7 @@ const _App = ({ classes }: WithStyles<typeof styles>) => (
       <BrowserRouter>
         <div>
           <Navigation />
-          <main className={classes.content}>
+          <main className={classes.main}>
             <div className={classes.toolbar} />
             <Switch>
               <Route path="/library" render={() => <Library />} />
