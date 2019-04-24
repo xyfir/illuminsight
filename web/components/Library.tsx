@@ -24,10 +24,6 @@ import {
 
 const styles = (theme: Theme) =>
   createStyles({
-    entityList: {
-      listStyle: 'none',
-      padding: '0'
-    },
     entityName: {
       fontSize: '150%'
     },
@@ -35,10 +31,7 @@ const styles = (theme: Theme) =>
       color: theme.palette.grey[500]
     },
     entity: {
-      textDecoration: 'none',
-      alignItems: 'center',
-      display: 'flex',
-      margin: '1em'
+      textDecoration: 'none'
     }
   });
 
@@ -138,10 +131,10 @@ function _Library({ classes }: WithStyles<typeof styles>) {
       </List>
 
       {/* Display matching entities */}
-      <ul className={classes.entityList}>
+      <List dense>
         {matches.map(match => (
-          <li key={match.id}>
-            <Link to={`/read/${match.id}`} className={classes.entity}>
+          <Link to={`/read/${match.id}`} className={classes.entity}>
+            <ListItem key={match.id} button>
               <Cover id={match.id} />
               <div>
                 <Typography className={classes.entityName} variant="h2">
@@ -161,10 +154,10 @@ function _Library({ classes }: WithStyles<typeof styles>) {
                     .join(' ')}
                 </Typography>
               </div>
-            </Link>
-          </li>
+            </ListItem>
+          </Link>
         ))}
-      </ul>
+      </List>
     </div>
   );
 }
