@@ -1,3 +1,4 @@
+import * as InfiniteScroll from 'react-infinite-scroller';
 import { formatRelative } from 'date-fns';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
@@ -35,6 +36,11 @@ const styles = (theme: Theme) =>
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.primary.contrastText
     },
+    infiniteScroll: {
+      overflowY: 'auto',
+      height: '100%',
+      flex: 1
+    },
     drawerPaper: {
       zIndex: theme.zIndex.appBar - 1,
       width: 240
@@ -50,7 +56,9 @@ const styles = (theme: Theme) =>
     content: {
       [theme.breakpoints.up('sm')]: {
         marginLeft: 240
-      }
+      },
+      flexDirection: 'column',
+      display: 'flex'
     },
     entity: {
       textDecoration: 'none'
@@ -60,6 +68,11 @@ const styles = (theme: Theme) =>
         width: 240,
         flexShrink: 0
       }
+    },
+    root: {
+      flexDirection: 'column',
+      padding: theme.spacing.unit * 3,
+      display: 'flex'
     }
   });
 
@@ -70,6 +83,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   const [showDrawer, setShowDrawer] = React.useState(false);
   const [entities, setEntities] = React.useState<Insightful.Entity[]>([]);
   const [search, setSearch] = React.useState('');
+  const [page, setPage] = React.useState(0);
   const [tags, setTags] = React.useState<Insightful.Tag[]>([]);
   const now = new Date();
 
@@ -108,6 +122,9 @@ function _Library({ classes }: WithStyles<typeof styles>) {
     if (a.starred && !b.starred) return -1;
     return 0;
   });
+
+  // Only load enough for "pages"
+  const paginatedMatches = matches.slice(0, (page + 1) * 5);
 
   const DrawerContent = () => (
     <React.Fragment>
@@ -160,7 +177,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   );
 
   return (
-    <div>
+    <div className={classes.root}>
       {/* Fixed / temporary drawer for tags */}
       <div className={classes.drawer}>
         <Hidden smUp>
@@ -222,37 +239,52 @@ function _Library({ classes }: WithStyles<typeof styles>) {
         />
 
         {/* Display matching entities */}
-        <List dense>
-          {matches.map(match => (
-            <Link to={`/read/${match.id}`} className={classes.entity}>
-              <ListItem key={match.id} button>
-                <Cover id={match.id} />
-                <div>
-                  <Typography className={classes.entityName} variant="h2">
-                    {match.starred ? <StarIcon color="primary" /> : null}
-                    {match.name}
-                  </Typography>
-                  <Typography className={classes.entityInfo}>
-                    Added {formatRelative(match.id, now)}
-                  </Typography>
-                  <Typography className={classes.entityInfo}>
-                    {match.words} words
-                  </Typography>
-                  <Typography className={classes.entityInfo}>
-                    {match.tags
-                      .map(
-                        tag =>
-                          `#${
-                            (tags.find(t => t.id == tag) as Insightful.Tag).name
-                          }`
-                      )
-                      .join(' ')}
-                  </Typography>
-                </div>
-              </ListItem>
-            </Link>
-          ))}
-        </List>
+        <div className={classes.infiniteScroll}>
+          <InfiniteScroll
+            useWindow={false}
+            threshold={25}
+            loadMore={p => setPage(p)}
+            hasMore={matches.length > paginatedMatches.length}
+            loader={<Typography>...</Typography>}
+          >
+            <List dense>
+              {paginatedMatches.map(match => (
+                <Link
+                  to={`/read/${match.id}`}
+                  key={match.id}
+                  className={classes.entity}
+                >
+                  <ListItem button>
+                    <Cover id={match.id} />
+                    <div>
+                      <Typography className={classes.entityName} variant="h2">
+                        {match.starred ? <StarIcon color="primary" /> : null}
+                        {match.name}
+                      </Typography>
+                      <Typography className={classes.entityInfo}>
+                        Added {formatRelative(match.id, now)}
+                      </Typography>
+                      <Typography className={classes.entityInfo}>
+                        {match.words} words
+                      </Typography>
+                      <Typography className={classes.entityInfo}>
+                        {match.tags
+                          .map(
+                            tag =>
+                              `#${
+                                (tags.find(t => t.id == tag) as Insightful.Tag)
+                                  .name
+                              }`
+                          )
+                          .join(' ')}
+                      </Typography>
+                    </div>
+                  </ListItem>
+                </Link>
+              ))}
+            </List>
+          </InfiniteScroll>
+        </div>
       </div>
     </div>
   );
