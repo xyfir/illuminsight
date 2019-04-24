@@ -1,4 +1,4 @@
-import * as localforage from 'localforage';
+import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
 import { render } from 'react-dom';
 import * as React from 'react';
@@ -14,6 +14,6 @@ declare global {
   }
 }
 
-localforage.config({ driver: localforage.INDEXEDDB, name: 'insightful' });
+localForage.config({ driver: localForage.INDEXEDDB, name: 'insightful' });
 
 render(React.createElement(hot(App)), document.getElementById('content'));

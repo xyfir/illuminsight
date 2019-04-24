@@ -1,6 +1,6 @@
 import { Search as SearchIcon } from '@material-ui/icons';
 import { formatRelative } from 'date-fns';
-import * as localforage from 'localforage';
+import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
 import { Cover } from 'components/Cover';
@@ -34,13 +34,14 @@ function _Library({ classes }: WithStyles<typeof styles>) {
 
   // Load entities and tags from local storage on mount
   React.useEffect(() => {
-    localforage
+    localForage
       .getItem('entity-list')
-      .then(r => {
-        if (r !== null) setEntities(r as Insightful.Entity[]);
-        return localforage.getItem('tag-list');
+      .then(entities => {
+        if (entities !== null) setEntities(entities as Insightful.Entity[]);
+        return localForage.getItem('tag-list');
       })
-      .then(r => setTags((r as Insightful.Tag[]) || []));
+      .then(tags => setTags((tags as Insightful.Tag[]) || []))
+      .catch(() => undefined);
   }, []);
 
   // Filter by tags
@@ -56,7 +57,6 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   });
   matches = fuse.search(search);
 
-  // ** Scrolling pagination
   return (
     <div>
       {/* Search field */}
