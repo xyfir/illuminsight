@@ -254,7 +254,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
             threshold={25}
             loadMore={p => setPage(p)}
             hasMore={matches.length > paginatedMatches.length}
-            loader={<Typography>...</Typography>}
+            loader={<Typography key="loader">...</Typography>}
           >
             <List dense>
               {paginatedMatches.map(match => (
