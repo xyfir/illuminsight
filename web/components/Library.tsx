@@ -17,11 +17,30 @@ import {
   TextField,
   ListItem,
   Avatar,
+  Theme,
   Chip,
   List
 } from '@material-ui/core';
 
-const styles = createStyles({});
+const styles = (theme: Theme) =>
+  createStyles({
+    entityList: {
+      listStyle: 'none',
+      padding: '0'
+    },
+    entityName: {
+      fontSize: '200%'
+    },
+    entity: {
+      alignItems: 'center',
+      display: 'flex',
+      margin: '1em'
+    },
+    link: {
+      textDecoration: 'none',
+      color: theme.palette.primary.main
+    }
+  });
 
 function _Library({ classes }: WithStyles<typeof styles>) {
   const [selectedTags, setSelectedTags] = React.useState<
@@ -35,27 +54,31 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   // Load entities and tags from local storage on mount
   React.useEffect(() => {
     localForage
-      .getItem('entity-list')
-      .then(entities => {
-        if (entities !== null) setEntities(entities as Insightful.Entity[]);
-        return localForage.getItem('tag-list');
+      .getItem('tag-list')
+      .then(tags => {
+        if (tags !== null) setTags(tags as Insightful.Tag[]);
+        return localForage.getItem('entity-list');
       })
-      .then(tags => setTags((tags as Insightful.Tag[]) || []))
+      .then(entities => setEntities((entities as Insightful.Entity[]) || []))
       .catch(() => undefined);
   }, []);
 
   // Filter by tags
-  let matches = entities.filter(
-    entity => entity.tags.findIndex(tag => selectedTags.includes(tag)) > -1
-  );
+  let matches = selectedTags.length
+    ? entities.filter(
+        entity => entity.tags.findIndex(tag => selectedTags.includes(tag)) > -1
+      )
+    : entities;
 
   // Filter by search
-  const fuse = new Fuse(entities, {
-    shouldSort: true,
-    threshold: 0.4,
-    keys: ['name', 'link', 'authors', 'published', 'publisher']
-  });
-  matches = fuse.search(search);
+  if (search) {
+    const fuse = new Fuse(matches, {
+      shouldSort: true,
+      threshold: 0.4,
+      keys: ['name', 'link', 'authors', 'published', 'publisher']
+    });
+    matches = fuse.search(search);
+  }
 
   return (
     <div>
@@ -115,34 +138,42 @@ function _Library({ classes }: WithStyles<typeof styles>) {
       </List>
 
       {/* Display matching entities */}
-      <ul>
+      <ul className={classes.entityList}>
         {matches.map(match => (
-          <li key={match.id}>
-            <Link to={`/read/${match.id}`}>
+          <li key={match.id} className={classes.entity}>
+            <Link to={`/read/${match.id}`} className={classes.link}>
               <Cover id={match.id} />
             </Link>
-            <Link to={`/read/${match.id}`}>
-              <Typography variant="h2">{match.name}</Typography>
-            </Link>
-            <Typography>
-              {match.tags
-                .map(
-                  tag =>
-                    `#${(tags.find(t => t.id == tag) as Insightful.Tag).name}`
-                )
-                .join(' ')}
-            </Typography>
-            {match.authors ? <Typography>{match.authors}</Typography> : null}
-            {match.published || match.publisher ? (
+            <div>
+              <Link to={`/read/${match.id}`} className={classes.link}>
+                <Typography
+                  className={classes.entityName}
+                  variant="h2"
+                  color="inherit"
+                >
+                  {match.name}
+                </Typography>
+              </Link>
               <Typography>
-                {match.published}
-                {match.published && match.publisher ? ' — ' : null}
-                {match.publisher}
+                {match.tags
+                  .map(
+                    tag =>
+                      `#${(tags.find(t => t.id == tag) as Insightful.Tag).name}`
+                  )
+                  .join(' ')}
               </Typography>
-            ) : null}
-            <Typography>
-              {match.words} — added {formatRelative(match.id, now)}
-            </Typography>
+              {match.authors ? <Typography>{match.authors}</Typography> : null}
+              {match.published || match.publisher ? (
+                <Typography>
+                  {match.published}
+                  {match.published && match.publisher ? ' — ' : null}
+                  {match.publisher}
+                </Typography>
+              ) : null}
+              <Typography>
+                {match.words} — added {formatRelative(match.id, now)}
+              </Typography>
+            </div>
           </li>
         ))}
       </ul>
