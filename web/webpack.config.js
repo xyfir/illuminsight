@@ -20,6 +20,9 @@ module.exports = {
   },
 
   resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    },
     modules: [__dirname, 'node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
