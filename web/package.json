@@ -13,6 +13,7 @@
   "author": "Xyfir, LLC <contact@xyfir.com> (https://www.xyfir.com)",
   "license": "UNLICENSED",
   "dependencies": {
+    "@hot-loader/react-dom": "^16.8.6",
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
     "date-fns": "^2.0.0-alpha.27",
@@ -25,6 +26,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.4",
+    "react-infinite-scroller": "^1.2.4",
     "react-router-dom": "^5.0.0",
     "typeface-roboto": "0.0.54"
   },
@@ -38,6 +40,7 @@
     "@types/jszip": "^3.1.5",
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",
+    "@types/react-infinite-scroller": "^1.2.1",
     "@types/react-router-dom": "^4.3.2",
     "babel-loader": "^8.0.5",
     "compression-webpack-plugin": "^2.0.0",
