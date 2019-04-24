@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import {
   ListItemAvatar,
   InputAdornment,
+  ListSubheader,
   createStyles,
   ListItemText,
   WithStyles,
@@ -16,14 +17,23 @@ import {
   withStyles,
   TextField,
   ListItem,
+  Hidden,
+  Drawer,
   Avatar,
   Theme,
-  Chip,
   List
 } from '@material-ui/core';
 
 const styles = (theme: Theme) =>
   createStyles({
+    selectedTagAvatar: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText
+    },
+    drawerPaper: {
+      zIndex: theme.zIndex.appBar - 1,
+      width: 240
+    },
     entityName: {
       fontSize: '150%',
       display: 'flex'
@@ -31,8 +41,18 @@ const styles = (theme: Theme) =>
     entityInfo: {
       color: theme.palette.grey[500]
     },
+    toolbar: theme.mixins.toolbar,
+    content: {
+      marginLeft: 240
+    },
     entity: {
       textDecoration: 'none'
+    },
+    drawer: {
+      [theme.breakpoints.up('sm')]: {
+        width: 240,
+        flexShrink: 0
+      }
     }
   });
 
@@ -40,6 +60,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   const [selectedTags, setSelectedTags] = React.useState<
     Insightful.Tag['id'][]
   >([]);
+  const [showDrawer, setShowDrawer] = React.useState(false);
   const [entities, setEntities] = React.useState<Insightful.Entity[]>([]);
   const [search, setSearch] = React.useState('');
   const [tags, setTags] = React.useState<Insightful.Tag[]>([]);
@@ -83,90 +104,135 @@ function _Library({ classes }: WithStyles<typeof styles>) {
 
   return (
     <div>
-      {/* Search field */}
-      <TextField
-        id="search"
-        label="Search"
-        value={search}
-        margin="normal"
-        variant="outlined"
-        onChange={e => setSearch(e.target.value)}
-        fullWidth
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          )
-        }}
-        placeholder="A Tale of Two Cities"
-      />
-
-      {/* Display selected tags */}
-      {selectedTags.map(tag => (
-        <Chip
-          key={tag}
-          label={(tags.find(t => t.id == tag) as Insightful.Tag).name}
-          avatar={<Avatar>#</Avatar>}
-          variant="outlined"
-          onDelete={() => setSelectedTags(selectedTags.filter(t => t != tag))}
-        />
-      ))}
-
-      {/* Display unselected tags linked to matching entities */}
-      <List dense>
-        {Array.from(
-          new Set(
-            matches
-              .map(m => m.tags)
-              .flat()
-              .filter(t => !selectedTags.includes(t))
-          )
-        ).map(tag => (
-          <ListItem
-            key={tag}
-            button
-            onClick={() => setSelectedTags(selectedTags.concat(tag))}
+      {/* Fixed / temporary drawer for tags */}
+      <div className={classes.drawer}>
+        <Hidden smUp>
+          <Drawer
+            open={showDrawer}
+            anchor="left"
+            variant="temporary"
+            onClose={() => setShowDrawer(!showDrawer)}
+            classes={{ paper: classes.drawerPaper }}
           >
-            <ListItemAvatar>
-              <Avatar>#</Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
-            />
-          </ListItem>
-        ))}
-      </List>
+            {/* <DrawerContent /> */}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown>
+          <Drawer
+            classes={{ paper: classes.drawerPaper }}
+            variant="permanent"
+            open
+          >
+            <div className={classes.toolbar} />
 
-      {/* Display matching entities */}
-      <List dense>
-        {matches.map(match => (
-          <Link to={`/read/${match.id}`} className={classes.entity}>
-            <ListItem key={match.id} button>
-              <Cover id={match.id} />
-              <div>
-                <Typography className={classes.entityName} variant="h2">
-                  {match.starred ? <StarIcon color="primary" /> : null}
-                  {match.name}
-                </Typography>
-                <Typography className={classes.entityInfo}>
-                  {match.words} words — Added {formatRelative(match.id, now)}
-                </Typography>
-                <Typography className={classes.entityInfo}>
-                  {match.tags
-                    .map(
-                      tag =>
-                        `#${
-                          (tags.find(t => t.id == tag) as Insightful.Tag).name
-                        }`
-                    )
-                    .join(' ')}
-                </Typography>
-              </div>
-            </ListItem>
-          </Link>
-        ))}
-      </List>
+            {/* Display selected tags */}
+            <List dense>
+              <ListSubheader>Active Filters</ListSubheader>
+              {selectedTags.map(tag => (
+                <ListItem
+                  key={tag}
+                  button
+                  onClick={() =>
+                    setSelectedTags(selectedTags.filter(t => t != tag))
+                  }
+                  selected
+                >
+                  <ListItemAvatar>
+                    <Avatar className={classes.selectedTagAvatar}>#</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      (tags.find(t => t.id == tag) as Insightful.Tag).name
+                    }
+                  />
+                </ListItem>
+              ))}
+            </List>
+
+            {/* Display unselected tags linked to matching entities */}
+            <List dense>
+              <ListSubheader>Tags</ListSubheader>
+              {Array.from(
+                new Set(
+                  matches
+                    .map(m => m.tags)
+                    .flat()
+                    .filter(t => !selectedTags.includes(t))
+                )
+              ).map(tag => (
+                <ListItem
+                  key={tag}
+                  button
+                  onClick={() => setSelectedTags(selectedTags.concat(tag))}
+                >
+                  <ListItemAvatar>
+                    <Avatar>#</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      (tags.find(t => t.id == tag) as Insightful.Tag).name
+                    }
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </Drawer>
+        </Hidden>
+      </div>
+
+      <div className={classes.content}>
+        {/* Search field */}
+        <TextField
+          id="search"
+          label="Search"
+          value={search}
+          margin="normal"
+          variant="outlined"
+          onChange={e => setSearch(e.target.value)}
+          fullWidth
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            )
+          }}
+          placeholder="A Tale of Two Cities"
+        />
+
+        {/* Display matching entities */}
+        <List dense>
+          {matches.map(match => (
+            <Link to={`/read/${match.id}`} className={classes.entity}>
+              <ListItem key={match.id} button>
+                <Cover id={match.id} />
+                <div>
+                  <Typography className={classes.entityName} variant="h2">
+                    {match.starred ? <StarIcon color="primary" /> : null}
+                    {match.name}
+                  </Typography>
+                  <Typography className={classes.entityInfo}>
+                    Added {formatRelative(match.id, now)}
+                  </Typography>
+                  <Typography className={classes.entityInfo}>
+                    {match.words} words
+                  </Typography>
+                  <Typography className={classes.entityInfo}>
+                    {match.tags
+                      .map(
+                        tag =>
+                          `#${
+                            (tags.find(t => t.id == tag) as Insightful.Tag).name
+                          }`
+                      )
+                      .join(' ')}
+                  </Typography>
+                </div>
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+      </div>
     </div>
   );
 }
