@@ -8,24 +8,37 @@ export namespace Insightful {
     id: number;
     name: string;
     tags: Tag['id'][];
-    /**
-     * Present if `source == 'link'`.
-     */
     link: string | undefined;
     /**
      * Name of the cover file within the zip's `resources` directory.
      */
     cover: string | undefined;
     /**
-     * How was the entity imported?
+     * How many words the entity contains.
+     * @example "920" | "20k" | "1.25m"
      */
-    source: 'link' | 'file' | 'paste';
-    authors: string[];
+    words: string;
+    starred: boolean;
+    authors: string | undefined;
     bookmark: {
+      /**
+       * Index of section.
+       */
       section: number;
+      /**
+       * Index of element in section. Used as fallback for `line`.
+       */
+      element: number;
+      /**
+       * Screen width at last bookmark update.
+       */
+      width: number;
+      /**
+       * Index of line in section. Discarded if `width` has changed.
+       */
       line: number;
     };
-    published: string | undefined;
+    published: number | undefined;
     publisher: string | undefined;
   }
 
