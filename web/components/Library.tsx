@@ -29,16 +29,16 @@ const styles = (theme: Theme) =>
       padding: '0'
     },
     entityName: {
-      fontSize: '200%'
+      fontSize: '150%'
+    },
+    entityInfo: {
+      color: theme.palette.grey[500]
     },
     entity: {
+      textDecoration: 'none',
       alignItems: 'center',
       display: 'flex',
       margin: '1em'
-    },
-    link: {
-      textDecoration: 'none',
-      color: theme.palette.primary.main
     }
   });
 
@@ -140,40 +140,28 @@ function _Library({ classes }: WithStyles<typeof styles>) {
       {/* Display matching entities */}
       <ul className={classes.entityList}>
         {matches.map(match => (
-          <li key={match.id} className={classes.entity}>
-            <Link to={`/read/${match.id}`} className={classes.link}>
+          <li key={match.id}>
+            <Link to={`/read/${match.id}`} className={classes.entity}>
               <Cover id={match.id} />
-            </Link>
-            <div>
-              <Link to={`/read/${match.id}`} className={classes.link}>
-                <Typography
-                  className={classes.entityName}
-                  variant="h2"
-                  color="inherit"
-                >
+              <div>
+                <Typography className={classes.entityName} variant="h2">
                   {match.name}
                 </Typography>
-              </Link>
-              <Typography>
-                {match.tags
-                  .map(
-                    tag =>
-                      `#${(tags.find(t => t.id == tag) as Insightful.Tag).name}`
-                  )
-                  .join(' ')}
-              </Typography>
-              {match.authors ? <Typography>{match.authors}</Typography> : null}
-              {match.published || match.publisher ? (
-                <Typography>
-                  {match.published}
-                  {match.published && match.publisher ? ' — ' : null}
-                  {match.publisher}
+                <Typography className={classes.entityInfo}>
+                  {match.words} words — Added {formatRelative(match.id, now)}
                 </Typography>
-              ) : null}
-              <Typography>
-                {match.words} — added {formatRelative(match.id, now)}
-              </Typography>
-            </div>
+                <Typography className={classes.entityInfo}>
+                  {match.tags
+                    .map(
+                      tag =>
+                        `#${
+                          (tags.find(t => t.id == tag) as Insightful.Tag).name
+                        }`
+                    )
+                    .join(' ')}
+                </Typography>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
