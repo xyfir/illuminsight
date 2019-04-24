@@ -126,53 +126,62 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   // Only load enough for "pages"
   const paginatedMatches = matches.slice(0, (page + 1) * 5);
 
+  // Unselected tags linked to matching entities
+  const availableTags = Array.from(
+    new Set(
+      matches
+        .map(m => m.tags)
+        .flat()
+        .filter(t => !selectedTags.includes(t))
+    )
+  );
+
   const DrawerContent = () => (
     <React.Fragment>
       {/* Display selected tags */}
-      <List dense>
-        <ListSubheader>Active Filters</ListSubheader>
-        {selectedTags.map(tag => (
-          <ListItem
-            key={tag}
-            button
-            onClick={() => setSelectedTags(selectedTags.filter(t => t != tag))}
-            selected
-          >
-            <ListItemAvatar>
-              <Avatar className={classes.selectedTagAvatar}>#</Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
-            />
-          </ListItem>
-        ))}
-      </List>
+      {selectedTags.length ? (
+        <List dense>
+          <ListSubheader>Active Filters</ListSubheader>
+          {selectedTags.map(tag => (
+            <ListItem
+              key={tag}
+              button
+              onClick={() =>
+                setSelectedTags(selectedTags.filter(t => t != tag))
+              }
+              selected
+            >
+              <ListItemAvatar>
+                <Avatar className={classes.selectedTagAvatar}>#</Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
+              />
+            </ListItem>
+          ))}
+        </List>
+      ) : null}
 
-      {/* Display unselected tags linked to matching entities */}
-      <List dense>
-        <ListSubheader>Tags</ListSubheader>
-        {Array.from(
-          new Set(
-            matches
-              .map(m => m.tags)
-              .flat()
-              .filter(t => !selectedTags.includes(t))
-          )
-        ).map(tag => (
-          <ListItem
-            key={tag}
-            button
-            onClick={() => setSelectedTags(selectedTags.concat(tag))}
-          >
-            <ListItemAvatar>
-              <Avatar>#</Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
-            />
-          </ListItem>
-        ))}
-      </List>
+      {/* Display tags available to filter by */}
+      {availableTags.length ? (
+        <List dense>
+          <ListSubheader>Tags</ListSubheader>
+          {availableTags.map(tag => (
+            <ListItem
+              key={tag}
+              button
+              onClick={() => setSelectedTags(selectedTags.concat(tag))}
+            >
+              <ListItemAvatar>
+                <Avatar>#</Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
+              />
+            </ListItem>
+          ))}
+        </List>
+      ) : null}
     </React.Fragment>
   );
 
