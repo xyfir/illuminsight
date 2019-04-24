@@ -7,6 +7,9 @@ import { App } from 'components/App';
 import 'typeface-roboto';
 
 declare global {
+  interface Window {
+    localForage: LocalForage;
+  }
   namespace NodeJS {
     interface Process {
       enve: Insightful.Env.Web;
@@ -15,5 +18,6 @@ declare global {
 }
 
 localForage.config({ driver: localForage.INDEXEDDB, name: 'insightful' });
+window.localForage = localForage;
 
 render(React.createElement(hot(App)), document.getElementById('content'));
