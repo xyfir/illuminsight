@@ -1,4 +1,3 @@
-import { Search as SearchIcon, Star as StarIcon } from '@material-ui/icons';
 import { formatRelative } from 'date-fns';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
@@ -7,11 +6,17 @@ import { Cover } from 'components/Cover';
 import * as Fuse from 'fuse.js';
 import { Link } from 'react-router-dom';
 import {
+  FilterList as FilterIcon,
+  Search as SearchIcon,
+  Star as StarIcon
+} from '@material-ui/icons';
+import {
   ListItemAvatar,
   InputAdornment,
   ListSubheader,
   createStyles,
   ListItemText,
+  IconButton,
   WithStyles,
   Typography,
   withStyles,
@@ -43,7 +48,9 @@ const styles = (theme: Theme) =>
     },
     toolbar: theme.mixins.toolbar,
     content: {
-      marginLeft: 240
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: 240
+      }
     },
     entity: {
       textDecoration: 'none'
@@ -102,21 +109,74 @@ function _Library({ classes }: WithStyles<typeof styles>) {
     return 0;
   });
 
+  const DrawerContent = () => (
+    <React.Fragment>
+      {/* Display selected tags */}
+      <List dense>
+        <ListSubheader>Active Filters</ListSubheader>
+        {selectedTags.map(tag => (
+          <ListItem
+            key={tag}
+            button
+            onClick={() => setSelectedTags(selectedTags.filter(t => t != tag))}
+            selected
+          >
+            <ListItemAvatar>
+              <Avatar className={classes.selectedTagAvatar}>#</Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
+            />
+          </ListItem>
+        ))}
+      </List>
+
+      {/* Display unselected tags linked to matching entities */}
+      <List dense>
+        <ListSubheader>Tags</ListSubheader>
+        {Array.from(
+          new Set(
+            matches
+              .map(m => m.tags)
+              .flat()
+              .filter(t => !selectedTags.includes(t))
+          )
+        ).map(tag => (
+          <ListItem
+            key={tag}
+            button
+            onClick={() => setSelectedTags(selectedTags.concat(tag))}
+          >
+            <ListItemAvatar>
+              <Avatar>#</Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
+            />
+          </ListItem>
+        ))}
+      </List>
+    </React.Fragment>
+  );
+
   return (
     <div>
       {/* Fixed / temporary drawer for tags */}
       <div className={classes.drawer}>
         <Hidden smUp>
+          {/* Temporary drawer for narrow screens */}
           <Drawer
             open={showDrawer}
             anchor="left"
             variant="temporary"
-            onClose={() => setShowDrawer(!showDrawer)}
+            onClose={() => setShowDrawer(false)}
             classes={{ paper: classes.drawerPaper }}
           >
-            {/* <DrawerContent /> */}
+            <DrawerContent />
           </Drawer>
         </Hidden>
+
+        {/* Permanent drawer for wide screens */}
         <Hidden xsDown>
           <Drawer
             classes={{ paper: classes.drawerPaper }}
@@ -124,58 +184,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
             open
           >
             <div className={classes.toolbar} />
-
-            {/* Display selected tags */}
-            <List dense>
-              <ListSubheader>Active Filters</ListSubheader>
-              {selectedTags.map(tag => (
-                <ListItem
-                  key={tag}
-                  button
-                  onClick={() =>
-                    setSelectedTags(selectedTags.filter(t => t != tag))
-                  }
-                  selected
-                >
-                  <ListItemAvatar>
-                    <Avatar className={classes.selectedTagAvatar}>#</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      (tags.find(t => t.id == tag) as Insightful.Tag).name
-                    }
-                  />
-                </ListItem>
-              ))}
-            </List>
-
-            {/* Display unselected tags linked to matching entities */}
-            <List dense>
-              <ListSubheader>Tags</ListSubheader>
-              {Array.from(
-                new Set(
-                  matches
-                    .map(m => m.tags)
-                    .flat()
-                    .filter(t => !selectedTags.includes(t))
-                )
-              ).map(tag => (
-                <ListItem
-                  key={tag}
-                  button
-                  onClick={() => setSelectedTags(selectedTags.concat(tag))}
-                >
-                  <ListItemAvatar>
-                    <Avatar>#</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      (tags.find(t => t.id == tag) as Insightful.Tag).name
-                    }
-                  />
-                </ListItem>
-              ))}
-            </List>
+            <DrawerContent />
           </Drawer>
         </Hidden>
       </div>
@@ -195,6 +204,18 @@ function _Library({ classes }: WithStyles<typeof styles>) {
               <InputAdornment position="start">
                 <SearchIcon />
               </InputAdornment>
+            ),
+            endAdornment: (
+              <Hidden smUp>
+                <InputAdornment position="end">
+                  <IconButton
+                    color="secondary"
+                    onClick={() => setShowDrawer(true)}
+                  >
+                    <FilterIcon />
+                  </IconButton>
+                </InputAdornment>
+              </Hidden>
             )
           }}
           placeholder="A Tale of Two Cities"
