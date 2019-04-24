@@ -17,13 +17,10 @@ import {
 
 const styles = (theme: Theme) =>
   createStyles({
-    root: {
-      display: 'flex'
-    },
     toolbar: theme.mixins.toolbar,
     content: {
-      flexGrow: 1,
-      padding: theme.spacing.unit * 3
+      overflow: 'auto',
+      height: '100vh'
     }
   });
 
@@ -40,16 +37,16 @@ const _App = ({ classes }: WithStyles<typeof styles>) => (
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     >
       <BrowserRouter>
-        <Switch>
-          <div className={classes.root}>
-            <Navigation />
-            <main className={classes.content}>
-              <div className={classes.toolbar} />
+        <div>
+          <Navigation />
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Switch>
               <Route path="/library" render={() => <Library />} />
               <Route path="/import" render={() => <Import />} />
-            </main>
-          </div>
-        </Switch>
+            </Switch>
+          </main>
+        </div>
       </BrowserRouter>
     </SnackbarProvider>
   </MuiThemeProvider>
