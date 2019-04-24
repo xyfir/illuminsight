@@ -9,6 +9,7 @@ import {
   TextField,
   ListItem,
   Button,
+  Theme,
   List
 } from '@material-ui/core';
 import {
@@ -19,17 +20,21 @@ import {
   Add as AddIcon
 } from '@material-ui/icons';
 
-const styles = createStyles({
-  fileInput: {
-    display: 'none'
-  },
-  fieldset: {
-    marginBottom: '1.5em',
-    padding: '0',
-    border: 'none',
-    margin: '0'
-  }
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      padding: theme.spacing.unit * 3
+    },
+    fileInput: {
+      display: 'none'
+    },
+    fieldset: {
+      marginBottom: '1.5em',
+      padding: '0',
+      border: 'none',
+      margin: '0'
+    }
+  });
 
 function _Import({ classes }: WithStyles<typeof styles>) {
   const [files, setFiles] = React.useState<File[]>([]);
@@ -43,7 +48,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
   function onImportText() {}
 
   return (
-    <form onSubmit={e => e.preventDefault()}>
+    <form onSubmit={e => e.preventDefault()} className={classes.root}>
       <fieldset className={classes.fieldset}>
         <input
           id="file-input"
