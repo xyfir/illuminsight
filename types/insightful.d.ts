@@ -8,18 +8,18 @@ export namespace Insightful {
     id: number;
     name: string;
     tags: Tag['id'][];
-    link: string | undefined;
+    link?: string;
     /**
      * Name of the cover file within the zip's `resources` directory.
      */
-    cover: string | undefined;
+    cover?: string;
     /**
      * How many words the entity contains.
      * @example "920" | "20k" | "1.25m"
      */
     words: string;
     starred: boolean;
-    authors: string | undefined;
+    authors?: string;
     bookmark: {
       /**
        * Index of section.
@@ -51,6 +51,11 @@ export namespace Insightful {
     }
 
     export interface Server extends Insightful.Env.Common {
+      /**
+       * Path to directory which Insightful will use for file uploads,
+       *  conversions, and downloads.
+       */
+      TEMP_DIR: string;
       /**
        * The port to host the API server on.
        * @example 2700
