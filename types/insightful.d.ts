@@ -18,6 +18,7 @@ export namespace Insightful {
      * @example "920" | "20k" | "1.25m"
      */
     words: string;
+    spine: string[];
     starred: boolean;
     authors?: string;
     bookmark: {
