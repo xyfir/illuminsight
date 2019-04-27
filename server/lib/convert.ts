@@ -162,8 +162,9 @@ export async function convert({
   const jpubWriter = createWriteStream(jpubFile);
   const jpubArchive = archiver('zip');
   jpubArchive.pipe(jpubWriter);
-  // Wait for archiver
-  // Loop through items appending files
+  jpubArchive.directory(jpubDirectory, false);
+  jpubArchive.finalize();
+  await new Promise(resolve => jpubWriter.on('end', resolve));
 
   // Delete unzipped jpub directory
   await remove(jpubDirectory);
