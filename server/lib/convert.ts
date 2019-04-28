@@ -3,6 +3,7 @@ import * as archiver from 'archiver';
 import { Calibre } from 'node-calibre';
 import { resolve } from 'path';
 import { Extract } from 'unzipper';
+import { pandoc } from 'lib/pandoc';
 import { JSDOM } from 'jsdom';
 import {
   createWriteStream,
@@ -35,13 +36,38 @@ export async function convert({
 
   // Create EPUB from webpage
   if (link) {
-    // Download HTML
-    // Parse HTML with jsdom
-    // Convert links and images
-    // Convert HTML to commonmark-raw_html to throw out unwanted elements
-    // Download images remaining in Markdown (read as JSON?)
-    // Convert Markdown to EPUB (outside of dir)
-    // Delete directory
+    // Set file and directory paths we'll use later
+    const webpageDirectory = resolve(
+      process.enve.TEMP_DIR,
+      `webpage-${Date.now()}`
+    );
+    const webpageImgDirectory = resolve(webpageDirectory, 'images');
+    const markdownFile = resolve(webpageDirectory, 'index.md');
+    const htmlFile = resolve(webpageDirectory, 'index.html');
+
+    // Pandoc converts page to CommonMark-raw_html to discard unwanted elements
+    await pandoc({
+      'extract-media': webpageImgDirectory,
+      output: markdownFile,
+      input: link,
+      from: 'html',
+      to: 'commonmark-raw_html'
+    });
+
+    // Convert Markdown back to HTML
+    await pandoc({
+      output: htmlFile,
+      input: markdownFile,
+      from: 'commonmark',
+      to: 'html'
+    });
+
+    // Convert HTML to EPUB
+    file = resolve(process.enve.TEMP_DIR, `${Date.now()}.epub`);
+    await pandoc({ output: file, input: htmlFile, from: 'html', to: 'epub' });
+
+    // Delete webpage directory
+    await remove(webpageDirectory);
   }
 
   if (!file) throw new Error('Bad or missing input');
@@ -70,7 +96,7 @@ export async function convert({
 
   // Create directories for unzipped JPUB
   const jpubDirectory = resolve(process.enve.TEMP_DIR, `jpub-${Date.now()}`);
-  const jpubImgDirectory = resolve(jpubDirectory, 'img');
+  const jpubImgDirectory = resolve(jpubDirectory, 'images');
   await mkdir(jpubDirectory);
   await mkdir(jpubImgDirectory);
 
