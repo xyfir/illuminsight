@@ -1,9 +1,12 @@
+import { useSnackbar } from 'notistack';
 import * as React from 'react';
+import axios from 'axios';
 import {
   InputAdornment,
   ListItemText,
   createStyles,
   IconButton,
+  Typography,
   WithStyles,
   withStyles,
   TextField,
@@ -37,18 +40,72 @@ const styles = (theme: Theme) =>
   });
 
 function _Import({ classes }: WithStyles<typeof styles>) {
+  const { enqueueSnackbar } = useSnackbar();
   const [files, setFiles] = React.useState<File[]>([]);
   const [link, setLink] = React.useState('');
   const [text, setText] = React.useState('');
+  const [busy, setBusy] = React.useState(false);
 
-  function onImportFiles() {}
+  async function onImportFiles() {
+    setBusy(true);
+    for (let file of files) {
+      await onImportFile(file);
+    }
+    setBusy(false);
+  }
 
-  function onImportLink() {}
+  async function onImportFile(file: File) {
+    const data = new FormData();
+    data.append('file', file);
 
-  function onImportText() {}
+    axios
+      .post('/convert', data)
+      .then(res => {
+        saveFile(res.data);
+        setFiles(files.filter(_f => _f.name != file.name));
+      })
+      .catch(err => {
+        enqueueSnackbar(err.response.data.message);
+      });
+  }
+
+  async function onImportLink() {
+    setBusy(true);
+    await axios
+      .post('/convert', { link })
+      .then(res => {
+        saveFile(res.data);
+        setLink('');
+      })
+      .catch(err => enqueueSnackbar(err.response.data.message));
+    setBusy(false);
+  }
+
+  async function onImportText() {
+    setBusy(true);
+    await axios
+      .post('/convert', { text })
+      .then(res => {
+        saveFile(res.data);
+        setText('');
+      })
+      .catch(err => enqueueSnackbar(err.response.data.message));
+    setBusy(false);
+  }
+
+  function saveFile(file: Buffer) {
+    // Save file to entity-id
+    // Extract cover and if available save to entity-cover-id
+    // Extract meta.json and update entity-list
+    // Automatically infer (link/create) tags from metadata
+  }
 
   return (
     <form onSubmit={e => e.preventDefault()} className={classes.root}>
+      {busy ? (
+        <Typography>Importing content. This may take a while...</Typography>
+      ) : null}
+
       <fieldset className={classes.fieldset}>
         <input
           id="file-input"
@@ -91,7 +148,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
         ) : null}
 
         <Button
-          disabled={!files.length}
+          disabled={!files.length || busy}
           onClick={onImportFiles}
           variant="text"
           color="primary"
@@ -122,7 +179,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
           placeholder="https://example.com/article-123"
         />
         <Button
-          disabled={!link}
+          disabled={!link || busy}
           onClick={onImportLink}
           variant="text"
           color="primary"
@@ -155,7 +212,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
           placeholder="Paste content here..."
         />
         <Button
-          disabled={!text}
+          disabled={!text || busy}
           onClick={onImportText}
           variant="text"
           color="primary"
