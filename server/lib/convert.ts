@@ -1,4 +1,6 @@
 import { Insightful } from 'types/insightful';
+import { countWords } from 'lib/count-words';
+import { nodeToAst } from 'lib/node-to-ast';
 import * as archiver from 'archiver';
 import { Calibre } from 'node-calibre';
 import { resolve } from 'path';
@@ -134,10 +136,25 @@ export async function convert({
         else if (href.startsWith('cover')) covers.href = href;
       }
     }
-    // Convert XHTML to our JSON via jsdom or from Pandoc
+    // Convert XHTML to our JSON via jsdom
     if (/xhtml|html|xml/.test(mediaType)) {
-      // Convert XHTML to our JSON via jsdom or from Pandoc
-      // Count words
+      // Read file
+      const xhtmlDom = new JSDOM(await readFile(resolve(epubDirectory, href)), {
+        contentType: 'text/xml'
+      });
+      const xhtmlDoc = xhtmlDom.window.document;
+
+      // Convert document starting at body to AST
+      const ast = nodeToAst(xhtmlDoc.body) as Insightful.AST;
+
+      // Count words in tree
+      words = countWords(ast);
+
+      // Write AST to file
+      await writeFile(
+        resolve(jpubDirectory, `${href}.json`),
+        JSON.stringify(ast)
+      );
     }
   }
 
@@ -172,6 +189,7 @@ export async function convert({
     ),
     starred: false,
     tags: [],
+    version: 1,
     words:
       words > 999999
         ? `${(words / 1000000).toFixed(2)}m`
