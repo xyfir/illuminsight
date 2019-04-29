@@ -96,11 +96,14 @@ export async function convert({
   );
   const opfDoc = opfDom.window.document;
 
-  // Create directories for unzipped JPUB
-  const jpubDirectory = resolve(process.enve.TEMP_DIR, `jpub-${Date.now()}`);
-  const jpubImgDirectory = resolve(jpubDirectory, 'images');
-  await mkdir(jpubDirectory);
-  await mkdir(jpubImgDirectory);
+  // Create directories for unzipped astpub
+  const astpubDirectory = resolve(
+    process.enve.TEMP_DIR,
+    `astpub-${Date.now()}`
+  );
+  const astpubImgDirectory = resolve(astpubDirectory, 'images');
+  await mkdir(astpubDirectory);
+  await mkdir(astpubImgDirectory);
 
   // Hash map for item id->href
   const idToHref: { [id: string]: string } = {};
@@ -121,9 +124,12 @@ export async function convert({
 
     idToHref[id] = href;
 
-    // Move images from EPUB directory to JPUB directory
+    // Move images from EPUB directory to astpub directory
     if (mediaType.startsWith('image/')) {
-      await move(resolve(epubDirectory, href), resolve(jpubImgDirectory, href));
+      await move(
+        resolve(epubDirectory, href),
+        resolve(astpubImgDirectory, href)
+      );
 
       // Search for href of cover image
       if (!cover) {
@@ -152,7 +158,7 @@ export async function convert({
 
       // Write AST to file
       await writeFile(
-        resolve(jpubDirectory, `${href}.json`),
+        resolve(astpubDirectory, `${href}.json`),
         JSON.stringify(ast)
       );
     }
@@ -199,26 +205,29 @@ export async function convert({
   };
 
   // Write meta.json
-  await writeFile(resolve(jpubDirectory, 'meta.json'), JSON.stringify(entity));
+  await writeFile(
+    resolve(astpubDirectory, 'meta.json'),
+    JSON.stringify(entity)
+  );
 
   // Zip directory
-  const jpubFile = resolve(process.enve.TEMP_DIR, `jpub-${Date.now()}.zip`);
-  const jpubWriter = createWriteStream(jpubFile);
-  const jpubArchive = archiver('zip');
-  jpubArchive.pipe(jpubWriter);
-  jpubArchive.directory(jpubDirectory, false);
-  jpubArchive.finalize();
-  await new Promise(resolve => jpubWriter.on('end', resolve));
+  const astpubFile = resolve(process.enve.TEMP_DIR, `astpub-${Date.now()}.zip`);
+  const astpubWriter = createWriteStream(astpubFile);
+  const astpubArchive = archiver('zip');
+  astpubArchive.pipe(astpubWriter);
+  astpubArchive.directory(astpubDirectory, false);
+  astpubArchive.finalize();
+  await new Promise(resolve => astpubWriter.on('end', resolve));
 
-  // Delete unzipped jpub directory
-  await remove(jpubDirectory);
+  // Delete unzipped astpub directory
+  await remove(astpubDirectory);
 
-  // Create stream to return for jpub file
-  const jpubReader = createReadStream(jpubFile);
+  // Create stream to return for astpub file
+  const astpubReader = createReadStream(astpubFile);
 
   // Delete file after it's been consumed
-  jpubReader.on('close', () => remove(jpubFile, () => undefined));
+  astpubReader.on('close', () => remove(astpubFile, () => undefined));
 
-  // Return string to jpub file
-  return jpubReader;
+  // Return string to astpub file
+  return astpubReader;
 }
