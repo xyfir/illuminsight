@@ -19,6 +19,10 @@ export namespace Insightful {
      */
     words: string;
     spine: string[];
+    /**
+     * Schema version
+     */
+    version: number;
     starred: boolean;
     authors?: string;
     bookmark: {
@@ -41,6 +45,23 @@ export namespace Insightful {
     };
     published: number | undefined;
     publisher: string | undefined;
+  }
+
+  export interface AST {
+    /**
+     * Node name
+     * @example "div" | "span"
+     */
+    n: Node['nodeName'];
+    /**
+     * Children
+     */
+    c: Array<AST | string>;
+    /**
+     * Attributes
+     * @example { href: '/link' }
+     */
+    a?: { [attribute: string]: string };
   }
 
   export namespace Env {
