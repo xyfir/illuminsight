@@ -63,7 +63,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     data.append('file', file);
 
     api
-      .post('/convert', data)
+      .post('/convert', data, { responseType: 'arraybuffer' })
       .then(res => {
         saveFile(res.data);
         setFiles(files.filter(_f => _f.name != file.name));
@@ -76,7 +76,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
   async function onImportLink() {
     setBusy(true);
     await api
-      .post('/convert', { link })
+      .post('/convert', { link }, { responseType: 'arraybuffer' })
       .then(res => {
         saveFile(res.data);
         setLink('');
@@ -88,7 +88,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
   async function onImportText() {
     setBusy(true);
     await api
-      .post('/convert', { text })
+      .post('/convert', { text }, { responseType: 'arraybuffer' })
       .then(res => {
         saveFile(res.data);
         setText('');
@@ -99,7 +99,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
 
   async function saveFile(file: Blob) {
     // Parse zip file
-    const zip = new JSZip(file);
+    const zip = await JSZip.loadAsync(file);
 
     // Extract meta.json
     const entity: Insightful.Entity = JSON.parse(
