@@ -79,9 +79,6 @@ export async function convert({
       // Convert HTML to EPUB
       file = resolve(workDirectory, `${Date.now()}.epub`);
       await pandoc({ output: file, input: htmlFile, from: 'html', to: 'epub' });
-
-      // Delete webpage directory
-      await remove(webpageDirectory);
     }
 
     if (!file) throw new Error('Bad or missing input');
@@ -98,10 +95,6 @@ export async function convert({
         Extract({ path: epubDirectory }).on('close', resolve)
       )
     );
-
-    // Delete converted EPUB file and original source
-    await remove(originalFile);
-    await remove(file);
 
     // Parse OPF with jsdom
     const opfDom = new JSDOM(
@@ -180,9 +173,6 @@ export async function convert({
     // Use fallbacks for cover image if available
     if (!cover) cover = covers.id1 || covers.id2 || covers.href;
 
-    // Delete extracted epub directory
-    await remove(epubDirectory);
-
     // Populate entity object which will be used for meta.json
     const entity: Insightful.Entity = {
       authors:
@@ -229,9 +219,6 @@ export async function convert({
     astpubArchive.directory(astpubDirectory, false);
     astpubArchive.finalize();
     await astpubPromise;
-
-    // Delete unzipped astpub directory
-    await remove(astpubDirectory);
 
     // Create stream to return for astpub file
     const astpubReader = createReadStream(astpubFile);
