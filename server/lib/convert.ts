@@ -157,10 +157,11 @@ export async function convert({
       if (!xhtmlDoc.body) continue;
 
       // Convert document starting at body to AST
-      const ast = nodeToAst(xhtmlDoc.body) as Insightful.AST;
+      // Do not include body node itself in AST (only its children)
+      const { c: ast } = nodeToAst(xhtmlDoc.body) as Insightful.AST;
 
-      // Count words in tree
-      words += countWords(ast);
+      // Count words in AST nodes
+      for (let node in ast) words += countWords(node);
 
       // Write AST to file
       await writeJSON(resolve(astpubDirectory, `${href}.json`), ast);
