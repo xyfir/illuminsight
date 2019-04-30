@@ -6,6 +6,7 @@ import * as JSZip from 'jszip';
 import * as React from 'react';
 import { api } from 'lib/api';
 import {
+  LinearProgress,
   InputAdornment,
   ListItemText,
   createStyles,
@@ -40,6 +41,14 @@ const styles = (theme: Theme) =>
       padding: '0',
       border: 'none',
       margin: '0'
+    },
+    importingText: {
+      fontWeight: 'bold',
+      marginBottom: '1em',
+      fontSize: '125%'
+    },
+    importingContainer: {
+      marginBottom: '2em'
     }
   });
 
@@ -62,7 +71,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     const data = new FormData();
     data.append('file', file);
 
-    api
+    return api
       .post('/convert', data, { responseType: 'arraybuffer' })
       .then(res => {
         saveFile(res.data);
@@ -182,7 +191,12 @@ function _Import({ classes }: WithStyles<typeof styles>) {
   return (
     <form onSubmit={e => e.preventDefault()} className={classes.root}>
       {busy ? (
-        <Typography>Importing content. This may take a while...</Typography>
+        <div className={classes.importingContainer}>
+          <Typography className={classes.importingText}>
+            Importing content. This may take a while...
+          </Typography>
+          <LinearProgress />
+        </div>
       ) : null}
 
       <fieldset className={classes.fieldset}>
