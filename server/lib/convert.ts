@@ -82,8 +82,9 @@ export async function convert({
   // Extract files from EPUB
   const epubDirectory = resolve(process.enve.TEMP_DIR, `unzip-${Date.now()}`);
   const epubReader = createReadStream(file);
-  epubReader.pipe(Extract({ path: epubDirectory }));
-  await new Promise(resolve => epubReader.on('close', resolve));
+  const extractor = Extract({ path: epubDirectory });
+  epubReader.pipe(extractor);
+  await new Promise(resolve => extractor.on('close', resolve));
 
   // Delete converted EPUB file and original source
   await remove(originalFile);
