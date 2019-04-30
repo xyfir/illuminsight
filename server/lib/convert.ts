@@ -11,6 +11,7 @@ import {
   createWriteStream,
   createReadStream,
   ReadStream,
+  writeJSON,
   writeFile,
   readFile,
   remove,
@@ -81,10 +82,11 @@ export async function convert({
 
   // Extract files from EPUB
   const epubDirectory = resolve(process.enve.TEMP_DIR, `unzip-${Date.now()}`);
-  const epubReader = createReadStream(file);
-  const extractor = Extract({ path: epubDirectory });
-  epubReader.pipe(extractor);
-  await new Promise(resolve => extractor.on('close', resolve));
+  await new Promise(resolve =>
+    createReadStream(file as string).pipe(
+      Extract({ path: epubDirectory }).on('close', resolve)
+    )
+  );
 
   // Delete converted EPUB file and original source
   await remove(originalFile);
@@ -151,6 +153,9 @@ export async function convert({
       });
       const xhtmlDoc = xhtmlDom.window.document;
 
+      // Check for body element since document could be XML (like toc.ncx)
+      if (!xhtmlDoc.body) continue;
+
       // Convert document starting at body to AST
       const ast = nodeToAst(xhtmlDoc.body) as Insightful.AST;
 
@@ -158,10 +163,7 @@ export async function convert({
       words = countWords(ast);
 
       // Write AST to file
-      await writeFile(
-        resolve(astpubDirectory, `${href}.json`),
-        JSON.stringify(ast)
-      );
+      await writeJSON(resolve(astpubDirectory, `${href}.json`), ast);
     }
   }
 
@@ -178,7 +180,7 @@ export async function convert({
         .map(creator => creator.textContent)
         .join(', ') || undefined,
     bookmark: { element: 0, section: 0, width: 0, line: 0 },
-    cover,
+    cover: `images/${cover}`,
     id: Date.now(),
     link,
     name: opfDoc.getElementsByTagName('dc:title')[0].textContent || '',
@@ -206,19 +208,17 @@ export async function convert({
   };
 
   // Write meta.json
-  await writeFile(
-    resolve(astpubDirectory, 'meta.json'),
-    JSON.stringify(entity)
-  );
+  await writeJSON(resolve(astpubDirectory, 'meta.json'), entity);
 
   // Zip directory
   const astpubFile = resolve(process.enve.TEMP_DIR, `astpub-${Date.now()}.zip`);
   const astpubWriter = createWriteStream(astpubFile);
   const astpubArchive = archiver('zip');
+  const astpubPromise = new Promise(r => astpubWriter.on('close', r));
   astpubArchive.pipe(astpubWriter);
   astpubArchive.directory(astpubDirectory, false);
   astpubArchive.finalize();
-  await new Promise(resolve => astpubWriter.on('end', resolve));
+  await astpubPromise;
 
   // Delete unzipped astpub directory
   await remove(astpubDirectory);
