@@ -1,4 +1,8 @@
+import * as localForage from 'localforage';
 import { useSnackbar } from 'notistack';
+import { Insightful } from 'types/insightful';
+import { getYear } from 'date-fns';
+import * as JSZip from 'jszip';
 import * as React from 'react';
 import axios from 'axios';
 import {
@@ -93,11 +97,86 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     setBusy(false);
   }
 
-  function saveFile(file: Buffer) {
-    // Save file to entity-id
-    // Extract cover and if available save to entity-cover-id
-    // Extract meta.json and update entity-list
-    // Automatically infer (link/create) tags from metadata
+  async function saveFile(file: Blob) {
+    // Parse zip file
+    const zip = new JSZip(file);
+
+    // Extract meta.json
+    const entity: Insightful.Entity = JSON.parse(
+      await zip.file('meta.json').async('text')
+    );
+
+    // Ensure we can handle the returned file
+    if (entity.version != process.enve.ASTPUB_VERSION)
+      return enqueueSnackbar('Client/server ASTPub version mismatch');
+
+    // Extract cover if available and save copy outside of zip
+    if (entity.cover) {
+      await localForage.setItem(
+        `entity-cover-${entity.id}`,
+        await zip.file(entity.cover).async('blob')
+      );
+    }
+
+    // Get indexes from local storage which we'll use and update
+    const entities: Insightful.Entity[] =
+      (await localForage.getItem('entity-list')) || [];
+    const tags: Insightful.Tag[] =
+      (await localForage.getItem('tag-list')) || [];
+
+    // Automatically infer tags from meta.json
+    let inferredTags: string[] = [];
+
+    // Create tags from authors
+    if (entity.authors) {
+      // Use entire author string as a tag
+      inferredTags.push(entity.authors);
+
+      // Use individual authors as tags
+      const authors = entity.authors.split(' & ');
+      if (authors.length > 1) inferredTags = inferredTags.concat(authors);
+    }
+
+    // Create tag from publisher
+    if (entity.publisher) inferredTags.push(entity.publisher);
+
+    // Create tag from published date (year)
+    if (entity.published)
+      inferredTags.push(getYear(entity.published).toString());
+
+    // Create tag from link (domain)
+    if (entity.link) {
+      const a = document.createElement('a');
+      a.href = entity.link;
+      inferredTags.push(a.hostname);
+    }
+
+    // Force lowercase for all tags
+    inferredTags = inferredTags.map(t => t.toLocaleLowerCase());
+
+    // Convert inferredTags to actual tags in tag-list
+    // Link tags to entity and insert into meta.json
+    for (let inferredTag of inferredTags) {
+      // Check if this tag already exists
+      const tag = tags.find(t => t.name == inferredTag);
+
+      // Link to existing tag
+      if (tag) {
+        entity.tags.push(tag.id);
+      }
+      // Create and link new tag
+      else {
+        const tag: Insightful.Tag = { name: inferredTag, id: Date.now() };
+        entity.tags.push(tag.id);
+        tags.push(tag);
+      }
+    }
+
+    // Add to and update local storage
+    entities.push(entity);
+    await localForage.setItem(`entity-${entity.id}`, file);
+    await localForage.setItem('tag-list', tags);
+    await localForage.setItem('entity-list', entities);
   }
 
   return (
