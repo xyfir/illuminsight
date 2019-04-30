@@ -101,6 +101,11 @@ export namespace Insightful {
 
     export interface Web extends Insightful.Env.Common {
       /**
+       * The app's root API URL.
+       * @example "https://example.com/api/0"
+       */
+      API_URL: string;
+      /**
        * Port for the Webpack dev server. Only needed for developers.
        * @example 2701
        */

@@ -3,8 +3,10 @@ import { config } from 'dotenv';
 config();
 import 'enve';
 
+import * as bodyParser from 'body-parser';
 import { Insightful } from 'types/insightful';
 import * as Express from 'express';
+import { router } from 'api/router';
 import * as path from 'path';
 
 declare global {
@@ -35,6 +37,9 @@ app.use(
   '/static',
   Express.static(path.resolve(process.enve.WEB_DIRECTORY, 'dist'))
 );
+app.use(bodyParser.json({ limit: '200mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '200mb' }));
+app.use('/api/0', router);
 app.get('/*', (req, res) =>
   res.sendFile(path.resolve(process.enve.WEB_DIRECTORY, 'dist', 'index.html'))
 );

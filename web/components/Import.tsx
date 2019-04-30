@@ -4,7 +4,7 @@ import { Insightful } from 'types/insightful';
 import { getYear } from 'date-fns';
 import * as JSZip from 'jszip';
 import * as React from 'react';
-import axios from 'axios';
+import { api } from 'lib/api';
 import {
   InputAdornment,
   ListItemText,
@@ -62,38 +62,38 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     const data = new FormData();
     data.append('file', file);
 
-    axios
+    api
       .post('/convert', data)
       .then(res => {
         saveFile(res.data);
         setFiles(files.filter(_f => _f.name != file.name));
       })
       .catch(err => {
-        enqueueSnackbar(err.response.data.message);
+        enqueueSnackbar(err.response.data.error);
       });
   }
 
   async function onImportLink() {
     setBusy(true);
-    await axios
+    await api
       .post('/convert', { link })
       .then(res => {
         saveFile(res.data);
         setLink('');
       })
-      .catch(err => enqueueSnackbar(err.response.data.message));
+      .catch(err => enqueueSnackbar(err.response.data.error));
     setBusy(false);
   }
 
   async function onImportText() {
     setBusy(true);
-    await axios
+    await api
       .post('/convert', { text })
       .then(res => {
         saveFile(res.data);
         setText('');
       })
-      .catch(err => enqueueSnackbar(err.response.data.message));
+      .catch(err => enqueueSnackbar(err.response.data.error));
     setBusy(false);
   }
 
