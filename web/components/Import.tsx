@@ -69,7 +69,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
         setFiles(files.filter(_f => _f.name != file.name));
       })
       .catch(err => {
-        enqueueSnackbar(err.response.data.error);
+        err.response && enqueueSnackbar(err.response.data.error);
       });
   }
 
@@ -81,7 +81,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
         saveFile(res.data);
         setLink('');
       })
-      .catch(err => enqueueSnackbar(err.response.data.error));
+      .catch(err => err.response && enqueueSnackbar(err.response.data.error));
     setBusy(false);
   }
 
@@ -93,7 +93,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
         saveFile(res.data);
         setText('');
       })
-      .catch(err => enqueueSnackbar(err.response.data.error));
+      .catch(err => err.response && enqueueSnackbar(err.response.data.error));
     setBusy(false);
   }
 
