@@ -11,7 +11,7 @@ router.post(
     storage: multer.diskStorage({
       destination: process.enve.TEMP_DIR,
       filename(req, file, cb) {
-        cb(null, `${Date.now()}.${extname(file.originalname)}`);
+        cb(null, Date.now() + extname(file.originalname));
       }
     }),
     limits: {
