@@ -43,8 +43,8 @@ export namespace Insightful {
        */
       line: number;
     };
-    published: number | undefined;
-    publisher: string | undefined;
+    published?: number;
+    publisher?: string;
   }
 
   export interface AST {
@@ -70,6 +70,10 @@ export namespace Insightful {
        * Node environment.
        */
       NODE_ENV: 'development' | 'production';
+      /**
+       * Version of ASTPUB format this instance of Insightful supports.
+       */
+      ASTPUB_VERSION: 1;
     }
 
     export interface Server extends Insightful.Env.Common {

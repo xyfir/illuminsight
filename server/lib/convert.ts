@@ -195,7 +195,7 @@ export async function convert({
     ),
     starred: false,
     tags: [],
-    version: 1,
+    version: process.enve.ASTPUB_VERSION,
     words:
       words > 999999
         ? `${(words / 1000000).toFixed(2)}m`
