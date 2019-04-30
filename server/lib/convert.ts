@@ -160,7 +160,7 @@ export async function convert({
       const ast = nodeToAst(xhtmlDoc.body) as Insightful.AST;
 
       // Count words in tree
-      words = countWords(ast);
+      words += countWords(ast);
 
       // Write AST to file
       await writeJSON(resolve(astpubDirectory, `${href}.json`), ast);

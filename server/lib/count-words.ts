@@ -5,7 +5,10 @@ import { Insightful } from 'types/insightful';
  */
 export function countWords(node: Insightful.AST | string): number {
   // Count words in string
-  if (typeof node == 'string') return node.split(/\s+|\-+/).length;
+  if (typeof node == 'string') {
+    const text = node.trim();
+    return !text ? 0 : text.split(/\s+|\-+/).length;
+  }
 
   // Count words recursively in child nodes
   let words = 0;
