@@ -20,13 +20,16 @@ import {
 } from 'fs-extra';
 import 'jest-extended';
 
-test('nodeToAst()', async () => {
-  // Set file paths
-  const htmlFile = resolve(process.enve.SERVER_DIRECTORY, 'res/lorem.html');
-  const astFile = resolve(process.enve.SERVER_DIRECTORY, 'res/lorem.ast.json');
+// Extract environment variables
+const { SERVER_DIRECTORY } = process.enve;
 
+// Set file paths used in some tests
+const loremHtmlFile = resolve(SERVER_DIRECTORY, 'res/lorem.html');
+const loremAstFile = resolve(SERVER_DIRECTORY, 'res/lorem.ast.json');
+
+test('nodeToAst()', async () => {
   // Parse HTML into DOM
-  const dom = new JSDOM(await readFile(htmlFile));
+  const dom = new JSDOM(await readFile(loremHtmlFile));
 
   // Convert document starting at body to AST
   const { c: ast } = nodeToAst(dom.window.document.body) as Insightful.AST;
@@ -35,6 +38,17 @@ test('nodeToAst()', async () => {
   // await writeFile(astFile, JSON.stringify(ast, null, 2));
 
   // Validate that AST output has not changed from last snapshot
-  const snapshot: Array<Insightful.AST | string> = await readJSON(astFile);
+  const snapshot: Array<Insightful.AST | string> = await readJSON(loremAstFile);
   expect(ast).toMatchObject(snapshot);
+});
+
+test('countWords()', async () => {
+  // Load AST snapshot
+  const ast: Array<Insightful.AST | string> = await readJSON(loremAstFile);
+
+  // Count words in AST nodes
+  let words = 0;
+  for (let node of ast) words += countWords(node);
+
+  expect(words).toBe(449);
 });
