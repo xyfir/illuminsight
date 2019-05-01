@@ -10,7 +10,7 @@ export namespace Insightful {
     tags: Tag['id'][];
     link?: string;
     /**
-     * Name of the cover file within the zip's `resources` directory.
+     * Path/name to the cover file relative to zip's root.
      */
     cover?: string;
     /**
@@ -18,6 +18,9 @@ export namespace Insightful {
      * @example "920" | "20k" | "1.25m"
      */
     words: string;
+    /**
+     * Paths to section files in order relative to zip's root.
+     */
     spine: string[];
     /**
      * Schema version
