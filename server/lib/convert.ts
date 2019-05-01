@@ -59,6 +59,9 @@ export async function convert({
       const markdownFile = resolve(webpageDirectory, 'index.md');
       const htmlFile = resolve(webpageDirectory, 'index.html');
 
+      // Create webpage directory
+      await mkdir(webpageDirectory);
+
       // Pandoc converts page to CommonMark-raw_html to discard unwanted elements
       await pandoc({
         'extract-media': webpageImgDirectory,
@@ -76,6 +79,14 @@ export async function convert({
         to: 'html'
       });
 
+      // Convert to a proper HTML document so next pandoc call doesn't complain
+      await writeFile(
+        htmlFile,
+        `<!DOCTYPE html><html><head><title>.</title></head>${await readFile(
+          htmlFile
+        )}</html>`
+      );
+
       // Convert HTML to EPUB
       file = resolve(workDirectory, `${Date.now()}.epub`);
       await pandoc({ output: file, input: htmlFile, from: 'html', to: 'epub' });
@@ -85,7 +96,6 @@ export async function convert({
 
     // Convert to EPUB
     // Even if already an EPUB, it will validate and rebuild as we expect it
-    const originalFile = file;
     file = await calibre.ebookConvert(file, 'epub');
 
     // Extract files from EPUB
