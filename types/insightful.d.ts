@@ -100,6 +100,11 @@ export namespace Insightful {
        * @example "/path/to/insightful/web"
        */
       WEB_DIRECTORY: string;
+      /**
+       * Absolute path for insightful-server.
+       * @example "/path/to/insightful/server"
+       */
+      SERVER_DIRECTORY: string;
     }
 
     export interface Web extends Insightful.Env.Common {
