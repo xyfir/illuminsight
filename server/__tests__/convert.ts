@@ -21,11 +21,19 @@ import {
 import 'jest-extended';
 
 // Extract environment variables
-const { SERVER_DIRECTORY } = process.enve;
+const { SERVER_DIRECTORY, TEMP_DIR } = process.enve;
 
-// Set file paths used in some tests
+// Set paths used in tests
+const convertDirectory = resolve(TEMP_DIR, 'convert-test');
 const loremHtmlFile = resolve(SERVER_DIRECTORY, 'res/lorem.html');
 const loremAstFile = resolve(SERVER_DIRECTORY, 'res/lorem.ast.json');
+const loremMdFile = resolve(convertDirectory, 'lorem.md');
+
+// Ensure test directory exists and is empty
+beforeEach(async () => {
+  await ensureDir(convertDirectory);
+  await emptyDir(convertDirectory);
+});
 
 test('nodeToAst()', async () => {
   // Parse HTML into DOM
@@ -50,5 +58,24 @@ test('countWords()', async () => {
   let words = 0;
   for (let node of ast) words += countWords(node);
 
+  // Validate that words counted has not changed since last snapshot
   expect(words).toBe(449);
+});
+
+test('pandoc()', async () => {
+  // Convert HTML to CommonMark
+  await pandoc({
+    output: loremMdFile,
+    input: loremHtmlFile,
+    from: 'html',
+    to: 'commonmark-raw_html'
+  });
+
+  // Read Markdown content
+  const markdown = await readFile(loremMdFile, 'utf8');
+
+  // Validate content was converted properly
+  expect(markdown).toMatch(/^# Lorem Ipsum/m);
+  expect(markdown).toMatch(/^#### "Neque porro/m);
+  expect(markdown).toMatch(/^Lorem ipsum dolor/m);
 });
