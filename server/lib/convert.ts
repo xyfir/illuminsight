@@ -1,4 +1,4 @@
-import { basename, resolve } from 'path';
+import { basename, dirname, resolve } from 'path';
 import { Insightful } from 'types/insightful';
 import { countWords } from 'lib/count-words';
 import { nodeToAst } from 'lib/node-to-ast';
@@ -12,6 +12,7 @@ import {
   createReadStream,
   ReadStream,
   writeJSON,
+  ensureDir,
   writeFile,
   readFile,
   remove,
@@ -176,7 +177,10 @@ export async function convert({
         for (let node in ast) words += countWords(node);
 
         // Write AST to file
-        await writeJSON(resolve(astpubDirectory, `${href}.json`), ast);
+        // File might be nested in other directories
+        const xhtmlFile = resolve(astpubDirectory, `${href}.json`);
+        await ensureDir(dirname(xhtmlFile));
+        await writeJSON(xhtmlFile, ast);
       }
     }
 
