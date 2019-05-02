@@ -174,3 +174,107 @@ test(
   },
   30 * 1000
 );
+
+test(
+  'convert({file})',
+  async () => {
+    // Move test ebook to temp_dir
+    const file = resolve(TEMP_DIR, `${Date.now()}.epub`);
+    await copy(resolve(SERVER_DIRECTORY, 'res/ebook.epub'), file);
+
+    // Convert content to astpub format then extract
+    const readStream = await convert({ file });
+    await new Promise(resolve =>
+      readStream.pipe(Extract({ path: astpubDirectory }).on('close', resolve))
+    );
+
+    // Validate meta.json
+    const entity: Insightful.Entity = await readJSON(astpubMetaFile);
+    const _entity: Insightful.Entity = {
+      ...entity,
+      authors: 'Charles Dickens',
+      bookmark: { element: 0, line: 0, section: 0, width: 0 },
+      cover: 'images/cover_image.jpg',
+      name: 'A Tale of Two Cities',
+      published: 757411200000,
+      spine: [
+        'titlepage.xhtml',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_003.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_004.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_005.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_006.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_007.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-1.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-1.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-2.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-2.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-2.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-2.htm_split_003.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-3.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-3.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-3.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-3.htm_split_003.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-4.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-4.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-4.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-5.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-5.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-5.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-5.htm_split_003.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-6.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-6.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-7.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-7.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-7.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-8.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-8.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-8.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-9.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-9.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-9.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-10.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-10.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-10.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-10.htm_split_003.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-11.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-11.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-11.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-11.htm_split_003.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-12.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-12.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-12.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-13.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-13.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-13.htm_split_002.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-14.htm_split_000.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-14.htm_split_001.html',
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-15.htm.html'
+      ],
+      starred: false,
+      tags: [],
+      version: 1,
+      words: '140k'
+    };
+    expect(entity).toMatchObject(_entity);
+
+    // Validate cover
+    await access(resolve(astpubDirectory, 'images/cover_image.jpg'), FS.F_OK);
+
+    // Validate AST
+    const ast: Array<Insightful.AST | string> = await readJSON(
+      resolve(
+        astpubDirectory,
+        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_004.html.json'
+      )
+    );
+    expect(
+      // typescript why
+      (((ast[3] as Insightful.AST).c[0] as Insightful.AST)
+        .c[1] as Insightful.AST).c[0]
+    ).toBe('It was the best of times,');
+  },
+  30 * 1000
+);
