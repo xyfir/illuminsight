@@ -121,3 +121,56 @@ test('convert({text})', async () => {
   ];
   expect(ast).toMatchObject(_ast);
 });
+
+test(
+  'convert({link})',
+  async () => {
+    // Convert content to astpub format then extract
+    const readStream = await convert({
+      link:
+        'https://www.nytimes.com/2019/05/01/magazine/ehren-tool-war-cups-smithsonian.html'
+    });
+    await new Promise(resolve =>
+      readStream.pipe(Extract({ path: astpubDirectory }).on('close', resolve))
+    );
+
+    // Validate meta.json
+    const entity: Insightful.Entity = await readJSON(astpubMetaFile);
+    const _entity: Insightful.Entity = {
+      ...entity,
+      authors: 'Unknown',
+      bookmark: { element: 0, line: 0, section: 0, width: 0 },
+      cover: 'images/cover_image.jpg',
+      link:
+        'https://www.nytimes.com/2019/05/01/magazine/ehren-tool-war-cups-smithsonian.html',
+      name: '.',
+      spine: [
+        'titlepage.xhtml',
+        'EPUB/text/title_page.xhtml',
+        'EPUB/text/ch001.xhtml',
+        'EPUB/text/ch002.xhtml'
+      ],
+      starred: false,
+      tags: [],
+      version: 1,
+      words: '3k'
+    };
+    expect(entity).toMatchObject(_entity);
+
+    // Validate cover
+    await access(resolve(astpubDirectory, 'images/cover_image.jpg'), FS.F_OK);
+
+    // Validate AST
+    const ast: Array<Insightful.AST | string> = await readJSON(
+      resolve(astpubDirectory, 'EPUB/text/ch002.xhtml.json')
+    );
+    const node: Insightful.AST = {
+      n: 'h1',
+      c: [
+        'The Price of This Artist’s Work? A Conversation About the Horrors of War'
+      ]
+    };
+    expect((ast[1] as Insightful.AST).c[1]).toMatchObject(node);
+  },
+  30 * 1000
+);
