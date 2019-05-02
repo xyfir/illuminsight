@@ -174,7 +174,7 @@ export async function convert({
         const { c: ast } = nodeToAst(xhtmlDoc.body) as Insightful.AST;
 
         // Count words in AST nodes
-        for (let node in ast) words += countWords(node);
+        for (let node of ast) words += countWords(node);
 
         // Write AST to file
         // File might be nested in other directories
