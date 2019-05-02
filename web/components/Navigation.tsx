@@ -1,4 +1,3 @@
-import { withSnackbar, withSnackbarProps } from 'notistack';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -9,8 +8,7 @@ import {
   Typography,
   Tooltip,
   Toolbar,
-  AppBar,
-  Theme
+  AppBar
 } from '@material-ui/core';
 import {
   LibraryBooks as LibraryIcon,
@@ -19,16 +17,9 @@ import {
   WbSunny as SunIcon
 } from '@material-ui/icons';
 
-const styles = (theme: Theme) =>
-  createStyles({
-    title: {
-      flexGrow: 1
-    }
-  });
+const styles = createStyles({ title: { flexGrow: 1 } });
 
-class _Navigation extends React.Component<
-  WithStyles<typeof styles> & withSnackbarProps
-> {
+class _Navigation extends React.Component<WithStyles<typeof styles>> {
   onTheme(dark: boolean) {
     localStorage.theme = dark ? 'dark' : 'light';
     location.reload();
@@ -74,4 +65,4 @@ class _Navigation extends React.Component<
   }
 }
 
-export const Navigation = withSnackbar(withStyles(styles)(_Navigation));
+export const Navigation = withStyles(styles)(_Navigation);
