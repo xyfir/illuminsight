@@ -1,169 +1,116 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Navigation> 1`] = `
-<header
-  className="MuiPaper-root-11 MuiPaper-elevation4-17 MuiAppBar-root-2 MuiAppBar-positionFixed-3 MuiAppBar-colorDefault-8 mui-fixed"
->
-  <div
-    className="MuiToolbar-root-38 MuiToolbar-regular-40 MuiToolbar-gutters-39"
+<DocumentFragment>
+  <header
+    class="MuiPaper-root-11 MuiPaper-elevation4-17 MuiAppBar-root-2 MuiAppBar-positionFixed-3 MuiAppBar-colorDefault-8 mui-fixed"
   >
-    <h6
-      className="MuiTypography-root-42 MuiTypography-h6-59 MuiTypography-colorInherit-71 MuiTypography-noWrap-68 _Navigation-title-1"
+    <div
+      class="MuiToolbar-root-38 MuiToolbar-regular-40 MuiToolbar-gutters-39"
     >
-      Insightful
-    </h6>
-    <button
-      aria-describedby={null}
-      className="MuiButtonBase-root-92 MuiIconButton-root-86"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onContextMenu={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseOver={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex="0"
-      title="Toggle light/dark theme"
-      type="button"
-    >
-      <span
-        className="MuiIconButton-label-91"
+      <h6
+        class="MuiTypography-root-42 MuiTypography-h6-59 MuiTypography-colorInherit-71 MuiTypography-noWrap-68 _Navigation-title-1"
       >
-        <svg
-          aria-hidden="true"
-          className="MuiSvgIcon-root-95"
-          focusable="false"
-          role="presentation"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z"
-          />
-          <path
-            d="M0 0h24v24H0z"
-            fill="none"
-          />
-        </svg>
-      </span>
-      <span
-        className="MuiTouchRipple-root-104"
-      />
-    </button>
-    <a
-      aria-describedby={null}
-      className=""
-      href="/import"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onMouseLeave={[Function]}
-      onMouseOver={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      title="Import content into library"
-    >
+        Insightful
+      </h6>
       <button
-        className="MuiButtonBase-root-92 MuiIconButton-root-86"
-        disabled={false}
-        onBlur={[Function]}
-        onContextMenu={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex="0"
+        class="MuiButtonBase-root-92 MuiIconButton-root-86"
+        tabindex="0"
+        title="Toggle light/dark theme"
         type="button"
       >
         <span
-          className="MuiIconButton-label-91"
+          class="MuiIconButton-label-91"
         >
           <svg
             aria-hidden="true"
-            className="MuiSvgIcon-root-95"
+            class="MuiSvgIcon-root-95"
             focusable="false"
             role="presentation"
             viewBox="0 0 24 24"
           >
             <path
-              d="M0 0h24v24H0z"
-              fill="none"
+              d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z"
             />
             <path
-              d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"
+              d="M0 0h24v24H0z"
+              fill="none"
             />
           </svg>
         </span>
         <span
-          className="MuiTouchRipple-root-104"
+          class="MuiTouchRipple-root-104"
         />
       </button>
-    </a>
-    <a
-      aria-describedby={null}
-      className=""
-      href="/library"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onMouseLeave={[Function]}
-      onMouseOver={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      title="Search items in library"
-    >
-      <button
-        className="MuiButtonBase-root-92 MuiIconButton-root-86"
-        disabled={false}
-        onBlur={[Function]}
-        onContextMenu={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex="0"
-        type="button"
+      <a
+        class=""
+        href="/import"
+        title="Import content into library"
       >
-        <span
-          className="MuiIconButton-label-91"
+        <button
+          class="MuiButtonBase-root-92 MuiIconButton-root-86"
+          tabindex="0"
+          type="button"
         >
-          <svg
-            aria-hidden="true"
-            className="MuiSvgIcon-root-95"
-            focusable="false"
-            role="presentation"
-            viewBox="0 0 24 24"
+          <span
+            class="MuiIconButton-label-91"
           >
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-            <path
-              d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
-            />
-          </svg>
-        </span>
-        <span
-          className="MuiTouchRipple-root-104"
-        />
-      </button>
-    </a>
-  </div>
-</header>
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-95"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root-104"
+          />
+        </button>
+      </a>
+      <a
+        class=""
+        href="/library"
+        title="Search items in library"
+      >
+        <button
+          class="MuiButtonBase-root-92 MuiIconButton-root-86"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiIconButton-label-91"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-95"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root-104"
+          />
+        </button>
+      </a>
+    </div>
+  </header>
+</DocumentFragment>
 `;
