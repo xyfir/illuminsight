@@ -111,7 +111,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
     const fuse = new Fuse(matches, {
       shouldSort: true,
       threshold: 0.4,
-      keys: ['name', 'link', 'authors', 'published', 'publisher']
+      keys: ['name', 'link', 'authors']
     });
     matches = fuse.search(search);
   }
@@ -269,6 +269,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
                       <Typography className={classes.entityName} variant="h2">
                         {match.starred ? <StarIcon color="primary" /> : null}
                         {match.name}
+                        {match.authors ? ` — ${match.authors}` : null}
                       </Typography>
                       <Typography className={classes.entityInfo}>
                         Added {formatRelative(match.id, now)}
