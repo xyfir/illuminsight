@@ -7,6 +7,7 @@ import * as React from 'react';
 
 test('<Library>', async () => {
   let id = 1556915133437;
+  Date.prototype.getTime = () => id + 1000;
 
   // Mock localForage.getItem()
   const mockGetItem = ((localForage as any).getItem = jest.fn());

@@ -215,7 +215,7 @@ exports[`<Library> 1`] = `
                         fill="none"
                       />
                     </svg>
-                    A Tale of Two Cities
+                    A Tale of Two Cities — Charles Dickens
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -270,7 +270,7 @@ exports[`<Library> 1`] = `
                   <h2
                     class="MuiTypography-root-155 MuiTypography-h2-168 _Library-entityName-4"
                   >
-                    Pride and Prejudice
+                    Pride and Prejudice — Jane Austen
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -325,7 +325,7 @@ exports[`<Library> 1`] = `
                   <h2
                     class="MuiTypography-root-155 MuiTypography-h2-168 _Library-entityName-4"
                   >
-                    Moby Dick; Or, The Whale
+                    Moby Dick; Or, The Whale — Herman Melville
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -557,7 +557,7 @@ exports[`<Library> 2`] = `
                         fill="none"
                       />
                     </svg>
-                    A Tale of Two Cities
+                    A Tale of Two Cities — Charles Dickens
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -612,7 +612,7 @@ exports[`<Library> 2`] = `
                   <h2
                     class="MuiTypography-root-155 MuiTypography-h2-168 _Library-entityName-4"
                   >
-                    Pride and Prejudice
+                    Pride and Prejudice — Jane Austen
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -835,7 +835,7 @@ exports[`<Library> 3`] = `
                         fill="none"
                       />
                     </svg>
-                    A Tale of Two Cities
+                    A Tale of Two Cities — Charles Dickens
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -890,7 +890,7 @@ exports[`<Library> 3`] = `
                   <h2
                     class="MuiTypography-root-155 MuiTypography-h2-168 _Library-entityName-4"
                   >
-                    Pride and Prejudice
+                    Pride and Prejudice — Jane Austen
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -1136,7 +1136,7 @@ exports[`<Library> 4`] = `
                         fill="none"
                       />
                     </svg>
-                    A Tale of Two Cities
+                    A Tale of Two Cities — Charles Dickens
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -1191,7 +1191,7 @@ exports[`<Library> 4`] = `
                   <h2
                     class="MuiTypography-root-155 MuiTypography-h2-168 _Library-entityName-4"
                   >
-                    Pride and Prejudice
+                    Pride and Prejudice — Jane Austen
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -1246,7 +1246,7 @@ exports[`<Library> 4`] = `
                   <h2
                     class="MuiTypography-root-155 MuiTypography-h2-168 _Library-entityName-4"
                   >
-                    Moby Dick; Or, The Whale
+                    Moby Dick; Or, The Whale — Herman Melville
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
@@ -1427,7 +1427,7 @@ exports[`<Library> 5`] = `
                   <h2
                     class="MuiTypography-root-155 MuiTypography-h2-168 _Library-entityName-4"
                   >
-                    Moby Dick; Or, The Whale
+                    Moby Dick; Or, The Whale — Herman Melville
                   </h2>
                   <p
                     class="MuiTypography-root-155 MuiTypography-body1-164 _Library-entityInfo-5"
