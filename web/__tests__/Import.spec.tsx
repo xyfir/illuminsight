@@ -17,6 +17,7 @@ test('<Import>', async () => {
   // Render <Import>
   const {
     getByPlaceholderText,
+    getAllByLabelText,
     getByLabelText,
     asFragment,
     getByText
@@ -133,9 +134,13 @@ test('<Import>', async () => {
 
   // Add files
   fireEvent.change(getByLabelText('Upload File'), {
-    target: { files: [new File([], 'book.epub')] }
+    target: { files: [new File([], 'book.epub'), new File([], 'book.pdf')] }
   });
   await waitForElement(() => getByText('book.epub'));
+
+  // Remove first file
+  fireEvent.click(getAllByLabelText('Remove')[0]);
+  expect(() => getByText('book.epub')).toThrow();
 
   await testImport(async mockPost => {
     // Import from files
