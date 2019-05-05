@@ -39,71 +39,92 @@ test('<Import>', async () => {
   zip.file('images/cover.jpg', 'shhh not actually a cover');
   zip.file('meta.json', JSON.stringify(entity));
 
-  // Mock localForage and axios
-  const mockSetItem = ((localForage as any).setItem = jest.fn());
-  const mockGetItem = ((localForage as any).getItem = jest.fn());
-  const mockPost = ((api as any).post = jest.fn());
+  async function testImport(start: (mockPost: jest.Mock) => Promise<void>) {
+    // Mock localForage and axios
+    const mockSetItem = ((localForage as any).setItem = jest.fn());
+    const mockGetItem = ((localForage as any).getItem = jest.fn());
+    const mockPost = ((api as any).post = jest.fn());
 
-  // Mock localForage.setItem()
-  mockSetItem.mockResolvedValue(undefined);
+    // Mock localForage.setItem()
+    mockSetItem.mockResolvedValue(undefined);
 
-  // Mock getting entity-list
-  mockGetItem.mockResolvedValueOnce([]);
+    // Mock getting entity-list
+    mockGetItem.mockResolvedValueOnce([]);
 
-  // Mock getting tag-list
-  // Contains one so we can test linking existing tags
-  const tags: Insightful.Tag[] = [{ id: Date.now(), name: 'Jane Austen' }];
-  mockGetItem.mockResolvedValueOnce(tags);
+    // Mock getting tag-list
+    // Contains one so we can test linking existing tags
+    const tags: Insightful.Tag[] = [{ id: Date.now(), name: 'Jane Austen' }];
+    mockGetItem.mockResolvedValueOnce(tags);
 
-  // Mock API to convert content
-  mockPost.mockResolvedValueOnce({
-    data: await zip.generateAsync({ type: 'blob' })
+    // Mock API to convert content
+    mockPost.mockResolvedValueOnce({
+      data: await zip.generateAsync({ type: 'blob' })
+    });
+
+    await start(mockPost);
+
+    // Validate localforage
+    await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(4));
+
+    // Validate cover
+    expect(mockSetItem.mock.calls[0][0]).toBe(`entity-cover-${entity.id}`);
+    expect((mockSetItem.mock.calls[0][1] as Blob).size).toBe(25);
+
+    // Validate file
+    // Must have been edited (new tags added) before save
+    expect(mockSetItem.mock.calls[1][0]).toBe(`entity-${entity.id}`);
+    const _zip = await JSZip.loadAsync(mockSetItem.mock.calls[1][1]);
+    const _entity: Insightful.Entity = JSON.parse(
+      await _zip.file('meta.json').async('text')
+    );
+    expect(entity.tags).not.toMatchObject(_entity.tags);
+    expect({ ...entity, tags: _entity.tags }).toMatchObject(_entity);
+
+    // Validate tags have been added (two additional)
+    expect(mockSetItem.mock.calls[2][0]).toBe('tag-list');
+    expect(mockSetItem.mock.calls[2][1]).toBeArrayOfSize(3);
+
+    // Validate entity has been added
+    expect(mockSetItem.mock.calls[3][0]).toBe('entity-list');
+    expect(mockSetItem.mock.calls[3][1]).toMatchObject([_entity]);
+  }
+
+  await testImport(async mockPost => {
+    // Import from text
+    fireEvent.change(getByPlaceholderText('Paste content here...'), {
+      target: { value: 'Hello, world.' }
+    });
+    fireEvent.click(getByText('Import from Text'));
+    await waitForElementToBeRemoved(() =>
+      getByText('Importing content. This may take a while...')
+    );
+
+    // Validate API call
+    expect(mockPost).toHaveBeenCalledWith(
+      '/convert',
+      { text: 'Hello, world.' },
+      { responseType: 'arraybuffer' }
+    );
   });
 
-  // Import from text
-  fireEvent.change(getByPlaceholderText('Paste content here...'), {
-    target: { value: 'Hello, world.' }
+  await testImport(async mockPost => {
+    // Import from link
+    fireEvent.change(getByPlaceholderText('https://example.com/article-123'), {
+      target: { value: 'https://example.com/article-123' }
+    });
+    fireEvent.click(getByText('Import from Link'));
+    await waitForElementToBeRemoved(() =>
+      getByText('Importing content. This may take a while...')
+    );
+
+    // Validate API call
+    expect(mockPost).toHaveBeenCalledWith(
+      '/convert',
+      { link: 'https://example.com/article-123' },
+      { responseType: 'arraybuffer' }
+    );
   });
-  fireEvent.click(getByText('Import from Text'));
-  await waitForElementToBeRemoved(() =>
-    getByText('Importing content. This may take a while...')
-  );
 
-  // Validate API call
-  expect(mockPost).toHaveBeenCalledWith(
-    '/convert',
-    { text: 'Hello, world.' },
-    { responseType: 'arraybuffer' }
-  );
-
-  // Validate localforage
-  await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(4));
-
-  // Validate cover
-  expect(mockSetItem.mock.calls[0][0]).toBe(`entity-cover-${entity.id}`);
-  expect((mockSetItem.mock.calls[0][1] as Blob).size).toBe(25);
-
-  // Validate file
-  // Must have been edited (new tags added) before save
-  expect(mockSetItem.mock.calls[1][0]).toBe(`entity-${entity.id}`);
-  const _zip = await JSZip.loadAsync(mockSetItem.mock.calls[1][1]);
-  const _entity: Insightful.Entity = JSON.parse(
-    await _zip.file('meta.json').async('text')
-  );
-  expect(entity.tags).not.toMatchObject(_entity.tags);
-  expect({ ...entity, tags: _entity.tags }).toMatchObject(_entity);
-
-  // Validate tags have been added (two additional)
-  expect(mockSetItem.mock.calls[2][0]).toBe('tag-list');
-  expect(mockSetItem.mock.calls[2][1]).toBeArrayOfSize(3);
-
-  // Validate entity has been added
-  expect(mockSetItem.mock.calls[3][0]).toBe('entity-list');
-  expect(mockSetItem.mock.calls[3][1]).toMatchObject([_entity]);
-
-  // Add link
-  // Import from link
-  // ---
   // Add files
   // Remove file
   // Import from files
