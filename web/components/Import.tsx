@@ -182,8 +182,12 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     }
 
     // Add to and update local storage
+    zip.file('meta.json', JSON.stringify(entity));
     entities.push(entity);
-    await localForage.setItem(`entity-${entity.id}`, file);
+    await localForage.setItem(
+      `entity-${entity.id}`,
+      await zip.generateAsync({ type: 'blob' })
+    );
     await localForage.setItem('tag-list', tags);
     await localForage.setItem('entity-list', entities);
   }
