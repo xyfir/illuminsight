@@ -7,6 +7,7 @@ import * as React from 'react';
 import { api } from 'lib/api';
 import {
   waitForElementToBeRemoved,
+  waitForElement,
   fireEvent,
   render,
   wait
@@ -14,7 +15,12 @@ import {
 
 test('<Import>', async () => {
   // Render <Import>
-  const { getByPlaceholderText, asFragment, getByText } = render(
+  const {
+    getByPlaceholderText,
+    getByLabelText,
+    asFragment,
+    getByText
+  } = render(
     <SnackbarProvider>
       <Import />
     </SnackbarProvider>
@@ -126,6 +132,23 @@ test('<Import>', async () => {
   });
 
   // Add files
-  // Remove file
-  // Import from files
+  fireEvent.change(getByLabelText('Upload File'), {
+    target: { files: [new File([], 'book.epub')] }
+  });
+  await waitForElement(() => getByText('book.epub'));
+
+  await testImport(async mockPost => {
+    // Import from files
+    fireEvent.click(getByText('Import from Files'));
+    await waitForElementToBeRemoved(() =>
+      getByText('Importing content. This may take a while...')
+    );
+
+    // Validate API call
+    expect(mockPost.mock.calls[0][0]).toBe('/convert');
+    expect(mockPost.mock.calls[0][1]).toBeInstanceOf(FormData);
+    expect(mockPost.mock.calls[0][2]).toMatchObject({
+      responseType: 'arraybuffer'
+    });
+  });
 });
