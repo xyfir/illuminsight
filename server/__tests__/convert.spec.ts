@@ -1,8 +1,3 @@
-import 'app-module-path/register';
-import { config } from 'dotenv';
-config();
-import 'enve';
-
 import { Insightful } from 'types/insightful';
 import { countWords } from 'lib/count-words';
 import { nodeToAst } from 'lib/node-to-ast';
@@ -45,24 +40,18 @@ test('nodeToAst()', async () => {
 
   // Convert document starting at body to AST
   const { c: ast } = nodeToAst(dom.window.document.body) as Insightful.AST;
-
-  // Uncomment to update AST snapshot
-  // await writeFile(astFile, JSON.stringify(ast, null, 2));
-
-  // Validate that AST output has not changed from last snapshot
-  const snapshot: Array<Insightful.AST | string> = await readJSON(loremAstFile);
-  expect(ast).toMatchObject(snapshot);
+  expect(ast).toMatchSnapshot();
 });
 
 test('countWords()', async () => {
-  // Load AST snapshot
+  // Load AST
   const ast: Array<Insightful.AST | string> = await readJSON(loremAstFile);
 
   // Count words in AST nodes
   let words = 0;
   for (let node of ast) words += countWords(node);
 
-  // Validate that words counted has not changed since last snapshot
+  // Validate that words counted has not changed
   expect(words).toBe(449);
 });
 
