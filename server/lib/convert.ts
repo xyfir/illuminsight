@@ -172,6 +172,7 @@ export async function convert({
         // Convert document starting at body to AST
         // Do not include body node itself in AST (only its children)
         const { c: ast } = nodeToAST(xhtmlDoc.body) as Insightful.AST;
+        if (!ast) continue;
 
         // Count words in AST nodes
         for (let node of ast) words += countWords(node);
