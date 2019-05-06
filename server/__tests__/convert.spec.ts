@@ -1,6 +1,6 @@
 import { Insightful } from 'types/insightful';
 import { countWords } from 'lib/count-words';
-import { nodeToAst } from 'lib/node-to-ast';
+import { nodeToAST } from 'lib/node-to-ast';
 import { convert } from 'lib/convert';
 import { Extract } from 'unzipper';
 import { resolve } from 'path';
@@ -34,12 +34,12 @@ beforeEach(async () => {
   await emptyDir(convertDirectory);
 });
 
-test('nodeToAst()', async () => {
+test('nodeToAST()', async () => {
   // Parse HTML into DOM
   const dom = new JSDOM(await readFile(loremHtmlFile));
 
   // Convert document starting at body to AST
-  const { c: ast } = nodeToAst(dom.window.document.body) as Insightful.AST;
+  const { c: ast } = nodeToAST(dom.window.document.body) as Insightful.AST;
   expect(ast).toMatchSnapshot();
 });
 

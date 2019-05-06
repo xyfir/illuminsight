@@ -1,7 +1,7 @@
 import { basename, dirname, resolve } from 'path';
 import { Insightful } from 'types/insightful';
 import { countWords } from 'lib/count-words';
-import { nodeToAst } from 'lib/node-to-ast';
+import { nodeToAST } from 'lib/node-to-ast';
 import * as archiver from 'archiver';
 import { Calibre } from 'node-calibre';
 import { Extract } from 'unzipper';
@@ -171,7 +171,7 @@ export async function convert({
 
         // Convert document starting at body to AST
         // Do not include body node itself in AST (only its children)
-        const { c: ast } = nodeToAst(xhtmlDoc.body) as Insightful.AST;
+        const { c: ast } = nodeToAST(xhtmlDoc.body) as Insightful.AST;
 
         // Count words in AST nodes
         for (let node of ast) words += countWords(node);

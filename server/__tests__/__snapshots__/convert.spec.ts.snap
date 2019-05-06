@@ -2814,7 +2814,7 @@ Array [
 ]
 `;
 
-exports[`nodeToAst() 1`] = `
+exports[`nodeToAST() 1`] = `
 Array [
   Object {
     "c": Array [

@@ -3,7 +3,7 @@ import { Insightful } from 'types/insightful';
 /**
  * Convert a DOM node to AST.
  */
-export function nodeToAst(node: Node): Insightful.AST | string | undefined {
+export function nodeToAST(node: Node): Insightful.AST | string | undefined {
   // Element node
   if (node.nodeType == node.ELEMENT_NODE) {
     const ast: Insightful.AST = { n: node.nodeName.toLowerCase() };
@@ -15,7 +15,7 @@ export function nodeToAst(node: Node): Insightful.AST | string | undefined {
 
     // Recursively build AST for child nodes
     for (let childNode of node.childNodes) {
-      const childAST = nodeToAst(childNode);
+      const childAST = nodeToAST(childNode);
       if (childAST) {
         // Add child to list
         if (ast.c) ast.c.push(childAST);
