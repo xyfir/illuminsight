@@ -6,7 +6,7 @@ import { Insightful } from 'types/insightful';
 export function nodeToAst(node: Node): Insightful.AST | string | undefined {
   // Element node
   if (node.nodeType == node.ELEMENT_NODE) {
-    const ast: Insightful.AST = { n: node.nodeName.toLowerCase(), c: [] };
+    const ast: Insightful.AST = { n: node.nodeName.toLowerCase() };
 
     // Save link's href attribute
     if (ast.n == 'a') ast.a = { href: (node as HTMLAnchorElement).href };
@@ -16,7 +16,12 @@ export function nodeToAst(node: Node): Insightful.AST | string | undefined {
     // Recursively build AST for child nodes
     for (let childNode of node.childNodes) {
       const childAST = nodeToAst(childNode);
-      if (childAST) ast.c.push(childAST);
+      if (childAST) {
+        // Add child to list
+        if (ast.c) ast.c.push(childAST);
+        // Create list with child
+        else ast.c = [childAST];
+      }
     }
 
     return ast;
@@ -27,6 +32,8 @@ export function nodeToAst(node: Node): Insightful.AST | string | undefined {
       node.nodeType == node.CDATA_SECTION_NODE) &&
     node.textContent
   ) {
-    return node.textContent;
+    // Only return if it still has content after trimming
+    const text = node.textContent.trim();
+    if (text) return text;
   }
 }
