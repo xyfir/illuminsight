@@ -57,9 +57,9 @@ export namespace Insightful {
      */
     n: Node['nodeName'];
     /**
-     * Children
+     * Child nodes
      */
-    c: Array<AST | string>;
+    c?: Array<AST | string>;
     /**
      * Attributes
      * @example { href: '/link' }

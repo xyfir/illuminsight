@@ -103,11 +103,7 @@ test('convert({text})', async () => {
   const ast: Array<Insightful.AST | string> = await readJSON(
     resolve(astpubDirectory, 'index-1.html.json')
   );
-  const _ast: Array<Insightful.AST | string> = [
-    '\n',
-    { c: ['Hello World'], n: 'p' },
-    '\n'
-  ];
+  const _ast: Insightful.AST[] = [{ c: ['Hello World'], n: 'p' }];
   expect(ast).toMatchObject(_ast);
 });
 
@@ -153,13 +149,7 @@ test(
     const ast: Array<Insightful.AST | string> = await readJSON(
       resolve(astpubDirectory, 'EPUB/text/ch002.xhtml.json')
     );
-    const node: Insightful.AST = {
-      n: 'h1',
-      c: [
-        'The Price of This Artist’s Work? A Conversation About the Horrors of War'
-      ]
-    };
-    expect((ast[1] as Insightful.AST).c[1]).toMatchObject(node);
+    expect(ast).toMatchSnapshot();
   },
   30 * 1000
 );
@@ -259,11 +249,7 @@ test(
         'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_004.html.json'
       )
     );
-    expect(
-      // typescript why
-      (((ast[3] as Insightful.AST).c[0] as Insightful.AST)
-        .c[1] as Insightful.AST).c[0]
-    ).toBe('It was the best of times,');
+    expect(ast).toMatchSnapshot();
   },
   30 * 1000
 );

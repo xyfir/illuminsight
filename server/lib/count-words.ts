@@ -9,9 +9,11 @@ export function countWords(node: Insightful.AST | string): number {
     const text = node.trim();
     return !text ? 0 : text.split(/\s+|\-+/).length;
   }
-
   // Count words recursively in child nodes
-  let words = 0;
-  for (let child of node.c) words += countWords(child);
-  return words;
+  else if (node.c) {
+    let words = 0;
+    for (let child of node.c) words += countWords(child);
+    return words;
+  }
+  return 0;
 }
