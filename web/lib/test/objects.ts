@@ -1,6 +1,20 @@
 import { Insightful } from 'types/insightful';
 
-export const ast: Insightful.AST[] = [
+export const testEntity: Insightful.Entity = {
+  authors: 'Jane Austen',
+  bookmark: { section: 0, block: 0 },
+  id: 1556915133437,
+  name: 'Pride and Prejudice',
+  cover: 'images/cover.jpg',
+  published: -4952074022000,
+  spine: [],
+  starred: false,
+  tags: [],
+  version: process.enve.ASTPUB_VERSION,
+  words: '123'
+};
+
+export const testAST: Insightful.AST[] = [
   {
     n: 'h1',
     c: ['Heading 1']

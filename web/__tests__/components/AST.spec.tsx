@@ -1,13 +1,13 @@
 import { render } from 'react-testing-library';
 import * as React from 'react';
 import { AST } from 'components/AST';
-import { ast } from 'lib/test/ast';
+import { testAST } from 'lib/test/objects';
 
 test('<AST>', async () => {
   // Render AST
   const { getByAltText, getByText, container } = render(
     <div>
-      {ast.map((node, i) => (
+      {testAST.map((node, i) => (
         <AST key={i} ast={node} />
       ))}
     </div>

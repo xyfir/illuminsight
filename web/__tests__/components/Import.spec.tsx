@@ -1,6 +1,7 @@
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
+import { testEntity } from 'lib/test/objects';
 import { Import } from 'components/Import';
 import * as JSZip from 'jszip';
 import * as React from 'react';
@@ -29,22 +30,9 @@ test('<Import>', async () => {
   expect(asFragment()).toMatchSnapshot();
 
   // Create zip file
-  const entity: Insightful.Entity = {
-    authors: 'Jane Austen',
-    bookmark: { section: 0, block: 0 },
-    id: Date.now(),
-    name: 'Pride and Prejudice',
-    cover: 'images/cover.jpg',
-    published: -4952074022000,
-    spine: [],
-    starred: false,
-    tags: [],
-    version: process.enve.ASTPUB_VERSION,
-    words: '123'
-  };
   const zip = new JSZip();
   zip.file('images/cover.jpg', 'shhh not actually a cover');
-  zip.file('meta.json', JSON.stringify(entity));
+  zip.file('meta.json', JSON.stringify(testEntity));
 
   async function testImport(start: (mockPost: jest.Mock) => Promise<void>) {
     // Mock localForage and axios
@@ -74,18 +62,18 @@ test('<Import>', async () => {
     await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(4));
 
     // Validate cover
-    expect(mockSetItem.mock.calls[0][0]).toBe(`entity-cover-${entity.id}`);
+    expect(mockSetItem.mock.calls[0][0]).toBe(`entity-cover-${testEntity.id}`);
     expect((mockSetItem.mock.calls[0][1] as Blob).size).toBe(25);
 
     // Validate file
     // Must have been edited (new tags added) before save
-    expect(mockSetItem.mock.calls[1][0]).toBe(`entity-${entity.id}`);
+    expect(mockSetItem.mock.calls[1][0]).toBe(`entity-${testEntity.id}`);
     const _zip = await JSZip.loadAsync(mockSetItem.mock.calls[1][1]);
     const _entity: Insightful.Entity = JSON.parse(
       await _zip.file('meta.json').async('text')
     );
-    expect(entity.tags).not.toMatchObject(_entity.tags);
-    expect({ ...entity, tags: _entity.tags }).toMatchObject(_entity);
+    expect(testEntity.tags).not.toMatchObject(_entity.tags);
+    expect({ ...testEntity, tags: _entity.tags }).toMatchObject(_entity);
 
     // Validate tags have been added (two additional)
     expect(mockSetItem.mock.calls[2][0]).toBe('tag-list');
