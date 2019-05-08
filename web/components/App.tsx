@@ -3,8 +3,9 @@ import { SnackbarProvider } from 'notistack';
 import { Navigation } from 'components/Navigation';
 import { Library } from 'components/Library';
 import { Import } from 'components/Import';
+import { Reader } from 'components/Reader';
 import * as React from 'react';
-import { theme } from 'constants/theme';
+import { theme } from 'lib/theme';
 import {
   MuiThemeProvider,
   createStyles,
@@ -44,8 +45,9 @@ const _App = ({ classes }: WithStyles<typeof styles>) => (
           <main className={classes.main}>
             <div className={classes.toolbar} />
             <Switch>
-              <Route path="/library" render={() => <Library />} />
-              <Route path="/import" render={() => <Import />} />
+              <Route path="/read/:entity" component={Reader} />
+              <Route path="/library" component={Library} />
+              <Route path="/import" component={Import} />
             </Switch>
           </main>
         </div>
