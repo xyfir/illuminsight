@@ -100,36 +100,37 @@ test('<AST>', async () => {
   // Expect properly rendered AST
   el = getByText('Heading 1');
   expect(el.tagName).toBe('H1');
-  el = getByText(
-    'This is a paragraph with a link and strongly emphasised text and inline code'
-  );
+  el = getByText('This is a paragraph', { exact: false });
   expect(el.tagName).toBe('P');
   el = getByText('with a link');
   expect(el.tagName).toBe('A');
-  expect((el as HTMLAnchorElement).href).toBe('https://example.com');
-  el = getByText('strongly emphasised text');
+  expect((el as HTMLAnchorElement).href).toBe('https://example.com/');
+  expect((el.parentElement as HTMLParagraphElement).tagName).toBe('P');
+  el = getByText('emphasised text');
   expect(el.tagName).toBe('EM');
+  expect((el.parentElement as HTMLParagraphElement).tagName).toBe('P');
   el = getByText('strongly');
   expect(el.tagName).toBe('STRONG');
   el = getByText('inline code');
   expect(el.tagName).toBe('CODE');
+  expect((el.parentElement as HTMLParagraphElement).tagName).toBe('P');
   expect(container.querySelector('hr')).not.toBeNull();
   el = getByAltText('A picture of ...');
   expect(el.tagName).toBe('IMG');
   expect((el as HTMLImageElement).src).toBe('https://example.com/img.png');
-  el = getByAltText('UL item #1');
+  el = getByText('UL item #1');
   expect(el.tagName).toBe('LI');
   expect((el.parentElement as HTMLUListElement).tagName).toBe('UL');
-  el = getByAltText('UL item #2');
+  el = getByText('UL item #2');
   expect(el.tagName).toBe('LI');
-  el = getByAltText('OL item #1');
+  el = getByText('OL item #1');
   expect(el.tagName).toBe('LI');
   expect((el.parentElement as HTMLOListElement).tagName).toBe('OL');
-  el = getByAltText('OL item #2');
+  el = getByText('OL item #2');
   expect(el.tagName).toBe('LI');
-  el = getByAltText('OL item #2');
+  el = getByText('OL item #2');
   expect(el.tagName).toBe('LI');
-  el = getByAltText('code block line 1\ncode block line 2');
+  el = getByText('code block line 1', { exact: false });
   expect(el.tagName).toBe('CODE');
   expect((el.parentElement as HTMLPreElement).tagName).toBe('PRE');
 });
