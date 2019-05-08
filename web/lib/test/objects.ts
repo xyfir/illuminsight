@@ -7,7 +7,7 @@ export const testEntity: Insightful.Entity = {
   name: 'Pride and Prejudice',
   cover: 'images/cover.jpg',
   published: -4952074022000,
-  spine: [],
+  spine: ['sections/1.json'],
   starred: false,
   tags: [],
   version: process.enve.ASTPUB_VERSION,
@@ -54,7 +54,7 @@ export const testAST: Insightful.AST[] = [
   {
     n: 'img',
     a: {
-      src: 'https://example.com/img.png',
+      src: '/images/1.png',
       alt: 'A picture of ...'
     }
   },
