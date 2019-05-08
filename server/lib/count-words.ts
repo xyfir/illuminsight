@@ -3,7 +3,7 @@ import { Insightful } from 'types/insightful';
 /**
  * Count words in AST node.
  */
-export function countWords(node: Insightful.AST | string): number {
+export function countWords(node: Insightful.AST): number {
   // Count words in string
   if (typeof node == 'string') {
     const text = node.trim();

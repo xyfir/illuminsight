@@ -35,17 +35,13 @@ beforeEach(async () => {
 });
 
 test('nodeToAST()', async () => {
-  // Parse HTML into DOM
   const dom = new JSDOM(await readFile(loremHtmlFile));
-
-  // Convert document starting at body to AST
-  const { c: ast } = nodeToAST(dom.window.document.body) as Insightful.AST;
-  expect(ast).toMatchSnapshot();
+  expect(nodeToAST(dom.window.document.body)).toMatchSnapshot();
 });
 
 test('countWords()', async () => {
   // Load AST
-  const ast: Array<Insightful.AST | string> = await readJSON(loremAstFile);
+  const ast: Insightful.AST[] = await readJSON(loremAstFile);
 
   // Count words in AST nodes
   let words = 0;
@@ -84,7 +80,7 @@ test('convert({text})', async () => {
   const entity: Insightful.Entity = await readJSON(astpubMetaFile);
   const _entity: Insightful.Entity = {
     authors: 'Unknown',
-    bookmark: { element: 0, line: 0, section: 0, width: 0 },
+    bookmark: { section: 0, block: 0 },
     cover: 'images/cover_image.jpg',
     id: entity.id,
     name: entity.name,
@@ -100,7 +96,7 @@ test('convert({text})', async () => {
   await access(resolve(astpubDirectory, 'images/cover_image.jpg'), FS.F_OK);
 
   // Validate AST
-  const ast: Array<Insightful.AST | string> = await readJSON(
+  const ast: Insightful.AST[] = await readJSON(
     resolve(astpubDirectory, 'index-1.html.json')
   );
   const _ast: Insightful.AST[] = [{ c: ['Hello World'], n: 'p' }];
@@ -124,7 +120,7 @@ test(
     const _entity: Insightful.Entity = {
       ...entity,
       authors: 'Unknown',
-      bookmark: { element: 0, line: 0, section: 0, width: 0 },
+      bookmark: { section: 0, block: 0 },
       cover: 'images/cover_image.jpg',
       link:
         'https://www.nytimes.com/2019/05/01/magazine/ehren-tool-war-cups-smithsonian.html',
@@ -146,7 +142,7 @@ test(
     await access(resolve(astpubDirectory, 'images/cover_image.jpg'), FS.F_OK);
 
     // Validate AST
-    const ast: Array<Insightful.AST | string> = await readJSON(
+    const ast: Insightful.AST[] = await readJSON(
       resolve(astpubDirectory, 'EPUB/text/ch002.xhtml.json')
     );
     expect(ast).toMatchSnapshot();
@@ -172,7 +168,7 @@ test(
     const _entity: Insightful.Entity = {
       ...entity,
       authors: 'Charles Dickens',
-      bookmark: { element: 0, line: 0, section: 0, width: 0 },
+      bookmark: { section: 0, block: 0 },
       cover: 'images/cover_image.jpg',
       name: 'A Tale of Two Cities',
       published: 757411200000,
@@ -243,7 +239,7 @@ test(
     await access(resolve(astpubDirectory, 'images/cover_image.jpg'), FS.F_OK);
 
     // Validate AST
-    const ast: Array<Insightful.AST | string> = await readJSON(
+    const ast: Insightful.AST[] = await readJSON(
       resolve(
         astpubDirectory,
         'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_004.html.json'

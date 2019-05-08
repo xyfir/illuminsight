@@ -170,18 +170,17 @@ export async function convert({
         if (!xhtmlDoc.body) continue;
 
         // Convert document starting at body to AST
-        // Do not include body node itself in AST (only its children)
-        const { c: ast } = nodeToAST(xhtmlDoc.body) as Insightful.AST;
-        if (!ast) continue;
+        const ast = nodeToAST(xhtmlDoc.body);
+        if (!ast || typeof ast == 'string' || !ast.c || !ast.c.length) continue;
 
         // Count words in AST nodes
-        for (let node of ast) words += countWords(node);
+        for (let node of ast.c) words += countWords(node);
 
-        // Write AST to file
+        // Write AST (only body's children) to file
         // File might be nested in other directories
         const xhtmlFile = resolve(astpubDirectory, `${href}.json`);
         await ensureDir(dirname(xhtmlFile));
-        await writeJSON(xhtmlFile, ast);
+        await writeJSON(xhtmlFile, ast.c);
       }
     }
 
@@ -194,7 +193,7 @@ export async function convert({
         Array.from(opfDoc.getElementsByTagName('dc:creator'))
           .map(creator => creator.textContent)
           .join(', ') || undefined,
-      bookmark: { element: 0, section: 0, width: 0, line: 0 },
+      bookmark: { section: 0, block: 0 },
       cover: `images/${cover}`,
       id: Date.now(),
       link,

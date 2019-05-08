@@ -31,7 +31,7 @@ test('<Import>', async () => {
   // Create zip file
   const entity: Insightful.Entity = {
     authors: 'Jane Austen',
-    bookmark: { element: 0, section: 0, width: 0, line: 0 },
+    bookmark: { section: 0, block: 0 },
     id: Date.now(),
     name: 'Pride and Prejudice',
     cover: 'images/cover.jpg',

@@ -30,42 +30,36 @@ export namespace Insightful {
     authors?: string;
     bookmark: {
       /**
-       * Index of section.
+       * Index of section (file in spine).
        */
       section: number;
       /**
-       * Index of element in section. Used as fallback for `line`.
+       * Index of block in section.
        */
-      element: number;
-      /**
-       * Screen width at last bookmark update.
-       */
-      width: number;
-      /**
-       * Index of line in section. Discarded if `width` has changed.
-       */
-      line: number;
+      block: number;
     };
     published?: number;
     publisher?: string;
   }
 
-  export interface AST {
-    /**
-     * Node name
-     * @example "div" | "span"
-     */
-    n: Node['nodeName'];
-    /**
-     * Child nodes
-     */
-    c?: Array<AST | string>;
-    /**
-     * Attributes
-     * @example { href: '/link' }
-     */
-    a?: { [attribute: string]: string };
-  }
+  export type AST =
+    | {
+        /**
+         * Node name
+         * @example "div" | "span"
+         */
+        n: Node['nodeName'];
+        /**
+         * Child nodes
+         */
+        c?: AST[];
+        /**
+         * Attributes
+         * @example { href: '/link' }
+         */
+        a?: { [attribute: string]: string };
+      }
+    | string;
 
   export namespace Env {
     export interface Common {
