@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "incremental": true,
     "sourceMap": true,
     "allowJs": true,
     "baseUrl": "./",
