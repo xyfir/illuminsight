@@ -9,9 +9,15 @@ export function nodeToAST(node: Node): Insightful.AST | undefined {
     const ast: Insightful.AST = { n: node.nodeName.toLowerCase() };
 
     // Save link's href attribute
-    if (ast.n == 'a') ast.a = { href: (node as HTMLAnchorElement).href };
+    if (ast.n == 'a') {
+      ast.a = { href: (node as HTMLAnchorElement).href };
+    }
     // Save image's src attribute
-    if (ast.n == 'img') ast.a = { src: (node as HTMLImageElement).src };
+    if (ast.n == 'img') {
+      const { src, alt } = node as HTMLImageElement;
+      ast.a = { src };
+      if (alt) ast.a.alt = alt;
+    }
 
     // Recursively build AST for child nodes
     for (let childNode of node.childNodes) {

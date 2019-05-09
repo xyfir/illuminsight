@@ -164,6 +164,7 @@ Array [
             "c": Array [
               Object {
                 "a": Object {
+                  "alt": "C. J. Chivers",
                   "src": "../media/file1.png",
                 },
                 "n": "img",
@@ -294,6 +295,7 @@ Array [
         "c": Array [
           Object {
             "a": Object {
+              "alt": "Tool sits at a pottery wheel and forms blank cups in batches, then he lets them sit for several days before decorating them.CreditKelsey McClellan for The New York Times",
               "src": "../media/file2.jpg",
             },
             "n": "img",
