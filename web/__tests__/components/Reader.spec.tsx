@@ -1,6 +1,7 @@
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { waitForDomChange, render } from 'react-testing-library';
 import { testEntity, testAST } from 'lib/test/objects';
+import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
 import { Reader } from 'components/Reader';
 import * as React from 'react';
@@ -41,11 +42,13 @@ test('<Reader>', async () => {
 
   // Render <Reader>
   const { getByAltText, unmount } = render(
-    <MemoryRouter initialEntries={['/read/1556915133437']}>
-      <Switch>
-        <Route path="/read/:entity" component={Reader} />
-      </Switch>
-    </MemoryRouter>
+    <SnackbarProvider>
+      <MemoryRouter initialEntries={['/read/1556915133437']}>
+        <Switch>
+          <Route path="/read/:entityId" component={Reader} />
+        </Switch>
+      </MemoryRouter>
+    </SnackbarProvider>
   );
 
   // Await DOM change
@@ -64,16 +67,16 @@ test('<Reader>', async () => {
   expect(mockAsync).toHaveBeenCalledTimes(3);
 
   // Validate mock loading meta.json from zip
-  expect(mockFile.mock.calls[0][0]).toHaveBeenCalledWith('meta.json');
-  expect(mockAsync.mock.calls[0][0]).toHaveBeenCalledWith('text');
+  expect(mockFile.mock.calls[0][0]).toBe('meta.json');
+  expect(mockAsync.mock.calls[0][0]).toBe('text');
 
   // Validate mock loading AST from zip
   expect(mockFile.mock.calls[1][0]).toBe('sections/1.json');
-  expect(mockAsync.mock.calls[1][0]).toHaveBeenCalledWith('text');
+  expect(mockAsync.mock.calls[1][0]).toBe('text');
 
   // Validate mock loading image from zip
   expect(mockFile.mock.calls[2][0]).toBe('images/1.png');
-  expect(mockAsync.mock.calls[2][0]).toHaveBeenCalledWith('text');
+  expect(mockAsync.mock.calls[2][0]).toBe('blob');
 
   // Validate mock creating image blob url
   expect(mockCreateObjectURL).toHaveBeenCalledTimes(1);
