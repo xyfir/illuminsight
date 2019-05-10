@@ -1,18 +1,13 @@
+import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
 import { withSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
+import { SectionNavigation } from 'components/SectionNavigation';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
 import { queryAST } from 'lib/query-ast';
 import * as React from 'react';
 import * as JSZip from 'jszip';
 import { AST } from 'components/AST';
-import {
-  createStyles,
-  WithStyles,
-  withStyles,
-  Button,
-  Theme
-} from '@material-ui/core';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -34,6 +29,11 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   state: ReaderState = { ast: [] };
   zip?: JSZip;
 
+  constructor(props: ReaderProps) {
+    super(props);
+    this.loadSection = this.loadSection.bind(this);
+  }
+
   componentDidMount() {
     this.loadZip();
   }
@@ -41,12 +41,6 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   componentWillUnmount() {
     // Revoke image blob urls
     this.imgURLs.forEach(url => URL.revokeObjectURL(url));
-  }
-
-  onChangeSection(section: Insightful.Entity['bookmark']['section']) {
-    const entity: Insightful.Entity = Object.assign({}, this.state.entity);
-    entity.bookmark.section = section;
-    this.loadSection(entity);
   }
 
   async loadZip() {
@@ -122,33 +116,13 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     const { entity, ast } = this.state;
     const { classes } = this.props;
 
-    const SectionControls = () =>
-      !entity ? null : (
-        <div>
-          {entity.bookmark.section > 0 ? (
-            <Button
-              onClick={() => this.onChangeSection(entity.bookmark.section - 1)}
-            >
-              Previous Section
-            </Button>
-          ) : null}
-          {entity.spine.length - 1 > entity.bookmark.section ? (
-            <Button
-              onClick={() => this.onChangeSection(entity.bookmark.section + 1)}
-            >
-              Next Section
-            </Button>
-          ) : null}
-        </div>
-      );
-
     return (
       <div className={classes.root}>
-        <SectionControls />
+        <SectionNavigation onChange={this.loadSection} entity={entity} />
         {ast.map((node, i) => (
           <AST key={i} ast={node} />
         ))}
-        <SectionControls />
+        <SectionNavigation onChange={this.loadSection} entity={entity} />
       </div>
     );
   }
