@@ -90,10 +90,6 @@ test('<Reader>', async () => {
   expect(el.tagName).toBe('IMG');
   expect((el as HTMLImageElement).src).toBe(blobUrl);
 
-  // Validate a following section exists, while a previous does not
-  expect(getAllByText('Next Section')).toBeArrayOfSize(2);
-  expect(() => getAllByText('Previous Section')).toThrow();
-
   // Validate image urls have not yet been revoked
   expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);
 
@@ -107,10 +103,6 @@ test('<Reader>', async () => {
   // Validate image urls have been revoked
   expect(mockRevokeObjectURL).toHaveBeenCalledWith(blobUrl);
 
-  // Validate next/previous section exists
-  expect(getAllByText('Next Section')).toBeArrayOfSize(2);
-  expect(getAllByText('Previous Section')).toBeArrayOfSize(2);
-
   // Validate content has changed
   el = getByText('Lorem Ipsum ...');
   expect(el.tagName).toBe('H1');
@@ -122,12 +114,8 @@ test('<Reader>', async () => {
   mockAsync.mockReturnValueOnce(imgBlob);
 
   // Go to next section
-  fireEvent.click(getAllByText('Next Section')[0]);
+  fireEvent.click(getAllByText('Next Section')[1]);
   await waitForDomChange();
-
-  // Validate previous section exists, next does not
-  expect(getAllByText('Previous Section')).toBeArrayOfSize(2);
-  expect(() => getAllByText('Next Section')).toThrow();
 
   // Validate content has changed
   el = getByText('Heading 1');
