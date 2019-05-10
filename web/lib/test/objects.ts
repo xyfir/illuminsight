@@ -7,7 +7,7 @@ export const testEntity: Insightful.Entity = {
   name: 'Pride and Prejudice',
   cover: 'images/cover.jpg',
   published: -4952074022000,
-  spine: ['sections/1.json'],
+  spine: ['sections/0.json', 'sections/1.json', 'sections/2.json'],
   starred: false,
   tags: [],
   version: process.enve.ASTPUB_VERSION,
@@ -54,7 +54,7 @@ export const testAST: Insightful.AST[] = [
   {
     n: 'img',
     a: {
-      src: '/images/1.png',
+      src: '/images/0.png',
       alt: 'A picture of ...'
     }
   },
@@ -91,6 +91,16 @@ export const testAST: Insightful.AST[] = [
         n: 'code',
         c: ['code block line 1\ncode block line 2']
       }
+    ]
+  }
+];
+
+export const alternateTestAST: Insightful.AST[] = [
+  { n: 'h1', c: ['Lorem Ipsum ...'] },
+  {
+    n: 'p',
+    c: [
+      '... dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     ]
   }
 ];

@@ -48,7 +48,7 @@ test('<AST>', async () => {
   // img
   el = getByAltText('A picture of ...');
   expect(el.tagName).toBe('IMG');
-  expect((el as HTMLImageElement).src).toEndWith('images/1.png');
+  expect((el as HTMLImageElement).src).toEndWith('images/0.png');
 
   // ul > li
   el = getByText('UL item #1');
