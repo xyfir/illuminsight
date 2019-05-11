@@ -208,7 +208,7 @@ export async function convert({
       })(),
       // Order content items for spine
       spine: Array.from(opfDoc.getElementsByTagName('itemref')).map(
-        ref => idToHref[ref.getAttribute('idref') as string]
+        ref => `${idToHref[ref.getAttribute('idref') as string]}.json`
       ),
       starred: false,
       tags: [],
