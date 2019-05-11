@@ -1,6 +1,10 @@
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
 import {
+  NavigateBefore as PreviousIcon,
+  NavigateNext as NextIcon
+} from '@material-ui/icons';
+import {
   createStyles,
   WithStyles,
   withStyles,
@@ -8,10 +12,30 @@ import {
   Theme
 } from '@material-ui/core';
 
-const styles = (theme: Theme) => createStyles({});
+const styles = (theme: Theme) =>
+  createStyles({
+    buttonContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    },
+    button: {
+      opacity: 0.4,
+      flex: 1
+    },
+    root: {
+      justifyContent: 'center',
+      display: 'flex'
+    },
+    icon: {
+      fontSize: '4em',
+      display: 'block'
+    }
+  });
 
 function _SectionNavigation({
   onChange,
+  classes,
   entity
 }: {
   onChange: (entity: Insightful.Entity) => void;
@@ -24,15 +48,27 @@ function _SectionNavigation({
   }
 
   return !entity ? null : (
-    <div>
+    <div className={classes.root}>
       {entity.bookmark.section > 0 ? (
-        <Button onClick={() => onChangeSection(entity.bookmark.section - 1)}>
-          Previous Section
+        <Button
+          className={classes.button}
+          onClick={() => onChangeSection(entity.bookmark.section - 1)}
+        >
+          <div className={classes.buttonContent}>
+            <PreviousIcon className={classes.icon} />
+            Prev. Section
+          </div>
         </Button>
       ) : null}
       {entity.spine.length - 1 > entity.bookmark.section ? (
-        <Button onClick={() => onChangeSection(entity.bookmark.section + 1)}>
-          Next Section
+        <Button
+          className={classes.button}
+          onClick={() => onChangeSection(entity.bookmark.section + 1)}
+        >
+          <div className={classes.buttonContent}>
+            <NextIcon className={classes.icon} />
+            Next Section
+          </div>
         </Button>
       ) : null}
     </div>
