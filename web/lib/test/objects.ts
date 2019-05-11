@@ -54,7 +54,7 @@ export const testAST: Insightful.AST[] = [
   {
     n: 'img',
     a: {
-      src: '/images/0.png',
+      src: 'images/0.png',
       alt: 'A picture of ...'
     }
   },

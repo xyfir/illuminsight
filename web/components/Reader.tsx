@@ -94,7 +94,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         if (typeof node == 'string' || !node.a) continue;
 
         // Load image from zip file
-        const imgBlob = await zip.file(node.a.src.substr(1)).async('blob');
+        const imgBlob = await zip.file(node.a.src).async('blob');
 
         // Convert node's src to use object url
         const url = URL.createObjectURL(imgBlob);

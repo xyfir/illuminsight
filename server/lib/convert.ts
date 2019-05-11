@@ -114,11 +114,9 @@ export async function convert({
     );
     const opfDoc = opfDom.window.document;
 
-    // Create directories for unzipped astpub
+    // Create directory for unzipped astpub
     const astpubDirectory = resolve(workDirectory, `astpub-${Date.now()}`);
-    const astpubImgDirectory = resolve(astpubDirectory, 'images');
     await mkdir(astpubDirectory);
-    await mkdir(astpubImgDirectory);
 
     // Hash map for item id->href
     const idToHref: { [id: string]: string } = {};
@@ -143,7 +141,7 @@ export async function convert({
       if (mediaType.startsWith('image/')) {
         await move(
           resolve(epubDirectory, href),
-          resolve(astpubImgDirectory, href)
+          resolve(astpubDirectory, href)
         );
 
         // Search for href of cover image
@@ -194,7 +192,7 @@ export async function convert({
           .map(creator => creator.textContent)
           .join(', ') || undefined,
       bookmark: { section: 0, block: 0 },
-      cover: `images/${cover}`,
+      cover,
       id: Date.now(),
       link,
       name: opfDoc.getElementsByTagName('dc:title')[0].textContent || '',

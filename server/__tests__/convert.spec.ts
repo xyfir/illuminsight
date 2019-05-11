@@ -81,7 +81,7 @@ test('convert({text})', async () => {
   const _entity: Insightful.Entity = {
     authors: 'Unknown',
     bookmark: { section: 0, block: 0 },
-    cover: 'images/cover_image.jpg',
+    cover: 'cover_image.jpg',
     id: entity.id,
     name: entity.name,
     spine: ['titlepage.xhtml.json', 'index-1.html.json'],
@@ -93,7 +93,7 @@ test('convert({text})', async () => {
   expect(entity).toMatchObject(_entity);
 
   // Validate cover
-  await access(resolve(astpubDirectory, 'images/cover_image.jpg'), FS.F_OK);
+  await access(resolve(astpubDirectory, 'cover_image.jpg'), FS.F_OK);
 
   // Validate AST
   const ast: Insightful.AST[] = await readJSON(
@@ -121,7 +121,7 @@ test(
       ...entity,
       authors: 'Unknown',
       bookmark: { section: 0, block: 0 },
-      cover: 'images/cover_image.jpg',
+      cover: 'cover_image.jpg',
       link:
         'https://www.nytimes.com/2019/05/01/magazine/ehren-tool-war-cups-smithsonian.html',
       name: '.',
@@ -139,7 +139,7 @@ test(
     expect(entity).toMatchObject(_entity);
 
     // Validate cover
-    await access(resolve(astpubDirectory, 'images/cover_image.jpg'), FS.F_OK);
+    await access(resolve(astpubDirectory, 'cover_image.jpg'), FS.F_OK);
 
     // Validate AST
     const ast: Insightful.AST[] = await readJSON(
@@ -169,7 +169,7 @@ test(
       ...entity,
       authors: 'Charles Dickens',
       bookmark: { section: 0, block: 0 },
-      cover: 'images/cover_image.jpg',
+      cover: 'cover_image.jpg',
       name: 'A Tale of Two Cities',
       published: 757411200000,
       spine: [
@@ -236,7 +236,7 @@ test(
     expect(entity).toMatchObject(_entity);
 
     // Validate cover
-    await access(resolve(astpubDirectory, 'images/cover_image.jpg'), FS.F_OK);
+    await access(resolve(astpubDirectory, 'cover_image.jpg'), FS.F_OK);
 
     // Validate AST
     const ast: Insightful.AST[] = await readJSON(
