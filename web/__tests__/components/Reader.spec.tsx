@@ -125,7 +125,7 @@ test('<Reader>', async () => {
   mockAsync.mockReturnValueOnce(JSON.stringify(alternateTestAST));
 
   // Go to previous section
-  fireEvent.click(getAllByText('Previous Section')[0]);
+  fireEvent.click(getAllByText('Prev. Section')[0]);
   await waitForDomChange();
 
   // Validate content has changed

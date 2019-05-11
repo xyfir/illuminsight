@@ -14,13 +14,13 @@ test('<SectionNavigation>', async () => {
   const { getByText } = render(<SectionNavigationConsumer />);
 
   // Validate previous section doesn't to exist
-  expect(() => getByText('Previous Section')).toThrow();
+  expect(() => getByText('Prev. Section')).toThrow();
 
   // Go to next section
   fireEvent.click(getByText('Next Section'));
 
   // Validate previous section exists
-  getByText('Previous Section');
+  getByText('Prev. Section');
 
   // Go to next section
   fireEvent.click(getByText('Next Section'));
@@ -29,5 +29,5 @@ test('<SectionNavigation>', async () => {
   expect(() => getByText('Next Section')).toThrow();
 
   // Go to previous section
-  fireEvent.click(getByText('Previous Section'));
+  fireEvent.click(getByText('Prev. Section'));
 });
