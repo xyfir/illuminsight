@@ -45,7 +45,7 @@ const _App = ({ classes }: WithStyles<typeof styles>) => (
           <main className={classes.main}>
             <div className={classes.toolbar} />
             <Switch>
-              <Route path="/read/:entity" component={Reader} />
+              <Route path="/read/:entityId" component={Reader} />
               <Route path="/library" component={Library} />
               <Route path="/import" component={Import} />
             </Switch>
