@@ -43,7 +43,7 @@ function _SectionNavigation({
 } & WithStyles<typeof styles>) {
   function onChangeSection(section: Insightful.Entity['bookmark']['section']) {
     const _entity: Insightful.Entity = Object.assign({}, entity);
-    _entity.bookmark.section = section;
+    _entity.bookmark = { section, block: 0 };
     onChange(_entity);
   }
 
