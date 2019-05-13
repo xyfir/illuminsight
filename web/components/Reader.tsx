@@ -1,5 +1,5 @@
 import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
-import { withSnackbarProps, withSnackbar } from 'notistack';
+import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
 import { SectionNavigation } from 'components/SectionNavigation';
 import * as localForage from 'localforage';
@@ -22,7 +22,7 @@ interface ReaderState {
 }
 type ReaderProps = WithStyles<typeof styles> &
   RouteComponentProps &
-  withSnackbarProps;
+  WithSnackbarProps;
 
 class _Reader extends React.Component<ReaderProps, ReaderState> {
   imgURLs: string[] = [];
@@ -39,10 +39,16 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   }
 
   componentWillUnmount() {
+    // Save file immediately
+    if (this.state.entity) this.saveFile(this.state.entity);
+
     // Revoke image blob urls
     this.imgURLs.forEach(url => URL.revokeObjectURL(url));
   }
 
+  /**
+   * Load zip file for corresponding entity.
+   */
   async loadZip() {
     const { enqueueSnackbar, history, match } = this.props;
     const { entityId } = match.params as { entityId: number };
@@ -70,6 +76,9 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     }
   }
 
+  /**
+   * Load section from zip file by bookmark.
+   */
   async loadSection(entity: Insightful.Entity) {
     const { enqueueSnackbar, history } = this.props;
     const zip = this.zip as JSZip;
@@ -102,6 +111,9 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         this.imgURLs.push(url);
       }
 
+      // Update file if we've changed sections (not first load)
+      if (this.state.entity) await this.saveFile(entity);
+
       // Update state
       this.setState({ entity, ast });
     } catch (err) {
@@ -110,6 +122,18 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       enqueueSnackbar(typeof err == 'string' ? err : 'Cannot read content');
       history.goBack();
     }
+  }
+
+  /**
+   * Save meta.json in zip file and update storage.
+   */
+  async saveFile(entity: Insightful.Entity) {
+    const zip = this.zip as JSZip;
+    zip.file('meta.json', JSON.stringify(entity));
+    await localForage.setItem(
+      `entity-${entity.id}`,
+      await zip.generateAsync({ type: 'blob' })
+    );
   }
 
   render() {

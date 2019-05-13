@@ -2,6 +2,7 @@ import { alternateTestAST, testEntity, testAST } from 'lib/test/objects';
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
+import { Insightful } from 'types/insightful';
 import { Reader } from 'components/Reader';
 import * as React from 'react';
 import * as JSZip from 'jszip';
@@ -16,19 +17,23 @@ test('<Reader>', async () => {
   // Mock localForage and URL
   const mockRevokeObjectURL = ((URL as any).revokeObjectURL = jest.fn());
   const mockCreateObjectURL = ((URL as any).createObjectURL = jest.fn());
+  const mockSetItem = ((localForage as any).setItem = jest.fn());
   const mockGetItem = ((localForage as any).getItem = jest.fn());
 
   // Used for mocks
   const fileBlob = new Blob();
   const imgBlob = new Blob();
+  const zipBlob = new Blob();
 
   // Mock loading file from localForage
   mockGetItem.mockResolvedValueOnce(fileBlob);
 
   // Mock loading blob into JSZip
+  const mockGenerateAsync = jest.fn();
   const mockAsync = jest.fn();
   const mockFile = jest.fn(file => ({ async: mockAsync }));
   const mockLoadAsync = ((JSZip as any).loadAsync = jest.fn(blob => ({
+    generateAsync: mockGenerateAsync,
     file: mockFile
   })));
 
@@ -48,7 +53,7 @@ test('<Reader>', async () => {
   // Render <Reader>
   const { getByAltText, getAllByText, getByText } = render(
     <SnackbarProvider>
-      <MemoryRouter initialEntries={['/read/1556915133437']}>
+      <MemoryRouter initialEntries={[`/read/${testEntity.id}`]}>
         <Switch>
           <Route path="/read/:entityId" component={Reader} />
         </Switch>
@@ -58,7 +63,7 @@ test('<Reader>', async () => {
 
   // Validate mock loading file from localForage
   await wait(() => expect(mockGetItem).toHaveBeenCalledTimes(1));
-  expect(mockGetItem).toHaveBeenCalledWith('entity-1556915133437');
+  expect(mockGetItem).toHaveBeenCalledWith(`entity-${testEntity.id}`);
 
   // Validate mock loading blob into JSZip
   await wait(() => expect(mockLoadAsync).toHaveBeenCalledTimes(1));
@@ -96,6 +101,9 @@ test('<Reader>', async () => {
   // Mock loading AST from zip
   mockAsync.mockReturnValueOnce(JSON.stringify(alternateTestAST));
 
+  // Mock generating blob from zip
+  mockGenerateAsync.mockResolvedValueOnce(zipBlob);
+
   // Go to next section
   fireEvent.click(getAllByText('Next Section')[0]);
   await waitForDomChange();
@@ -107,28 +115,19 @@ test('<Reader>', async () => {
   el = getByText('Lorem Ipsum ...');
   expect(el.tagName).toBe('H1');
 
-  // Mock loading AST from zip
-  mockAsync.mockReturnValueOnce(JSON.stringify(testAST));
+  // Validate mock setting meta.json in zip file
+  const entity: Insightful.Entity = {
+    ...testEntity,
+    bookmark: { section: 1, block: 0 }
+  };
+  expect(mockFile).toHaveBeenCalledTimes(5);
+  expect(mockFile).toHaveBeenCalledWith('meta.json', JSON.stringify(entity));
 
-  // Mock loading image from zip
-  mockAsync.mockReturnValueOnce(imgBlob);
+  // Validate mock zip.generateAsync() requests blob
+  expect(mockGenerateAsync).toHaveBeenCalledTimes(1);
+  expect(mockGenerateAsync.mock.calls[0][0]).toMatchObject({ type: 'blob' });
 
-  // Go to next section
-  fireEvent.click(getAllByText('Next Section')[1]);
-  await waitForDomChange();
-
-  // Validate content has changed
-  el = getByText('Heading 1');
-  expect(el.tagName).toBe('H1');
-
-  // Mock loading AST from zip
-  mockAsync.mockReturnValueOnce(JSON.stringify(alternateTestAST));
-
-  // Go to previous section
-  fireEvent.click(getAllByText('Prev. Section')[0]);
-  await waitForDomChange();
-
-  // Validate content has changed
-  el = getByText('Lorem Ipsum ...');
-  expect(el.tagName).toBe('H1');
+  // Validate mock setItem() receives entity-id and zipBlob
+  expect(mockSetItem).toHaveBeenCalledTimes(1);
+  expect(mockSetItem).toHaveBeenCalledWith(`entity-${testEntity.id}`, zipBlob);
 });
