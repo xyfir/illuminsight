@@ -31,7 +31,7 @@ test('<Reader>', async () => {
   // Mock loading blob into JSZip
   const mockGenerateAsync = jest.fn();
   const mockAsync = jest.fn();
-  const mockFile = jest.fn(file => ({ async: mockAsync }));
+  const mockFile = jest.fn((file, data) => ({ async: mockAsync }));
   const mockLoadAsync = ((JSZip as any).loadAsync = jest.fn(blob => ({
     generateAsync: mockGenerateAsync,
     file: mockFile
@@ -51,7 +51,7 @@ test('<Reader>', async () => {
   mockCreateObjectURL.mockReturnValue(blobUrl);
 
   // Render <Reader>
-  const { getByAltText, getAllByText, getByText } = render(
+  const { getByAltText, getAllByText, getByTestId, getByText } = render(
     <SnackbarProvider>
       <MemoryRouter initialEntries={[`/read/${testEntity.id}`]}>
         <Switch>
@@ -130,4 +130,32 @@ test('<Reader>', async () => {
   // Validate mock setItem() receives entity-id and zipBlob
   expect(mockSetItem).toHaveBeenCalledTimes(1);
   expect(mockSetItem).toHaveBeenCalledWith(`entity-${testEntity.id}`, zipBlob);
+
+  // Mock document.querySelectorAll()
+  const mockQuerySelectorAll = ((document as any).querySelectorAll = jest.fn(
+    () => [
+      null,
+      { offsetTop: 0 },
+      { offsetTop: 50 },
+      { offsetTop: 100 },
+      { offsetTop: 150 },
+      { offsetTop: 200 },
+      null
+    ]
+  ));
+
+  // Scroll through reader content
+  fireEvent.scroll(getByTestId('reader'), { target: { scrollTop: 100 } });
+
+  // Wait for Reader#saveFile() to finish
+  await wait(() => expect(mockGenerateAsync).toHaveBeenCalledTimes(2));
+
+  // Validate entity.bookmark has been set correctly
+  expect(mockFile.mock.calls[5][1]).toInclude('{"section":1,"block":2}');
+
+  // Trigger onScroll() again
+  fireEvent.scroll(getByTestId('reader'), { target: { scrollTop: 200 } });
+
+  // Validate onScroll() throttled itself and did not continue
+  expect(mockQuerySelectorAll).toHaveBeenCalledTimes(1);
 });

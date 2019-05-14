@@ -172,7 +172,11 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root} onScroll={e => this.onScroll(e)}>
+      <div
+        data-testid="reader"
+        className={classes.root}
+        onScroll={e => this.onScroll(e)}
+      >
         <SectionNavigation onChange={this.loadSection} entity={entity} />
         {ast.map((node, i) => (
           <AST key={i} ast={node} />
