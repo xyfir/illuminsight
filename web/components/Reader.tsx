@@ -12,6 +12,7 @@ import { AST } from 'components/AST';
 const styles = (theme: Theme) =>
   createStyles({
     root: {
+      overflowY: 'auto',
       padding: '1em'
     }
   });
@@ -25,6 +26,7 @@ type ReaderProps = WithStyles<typeof styles> &
   WithSnackbarProps;
 
 class _Reader extends React.Component<ReaderProps, ReaderState> {
+  lastBookmark: number = 0;
   imgURLs: string[] = [];
   state: ReaderState = { ast: [] };
   zip?: JSZip;
@@ -44,6 +46,35 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
     // Revoke image blob urls
     this.imgURLs.forEach(url => URL.revokeObjectURL(url));
+  }
+
+  onScroll(event: React.UIEvent<HTMLDivElement>) {
+    const { entity } = this.state;
+    if (!entity) return;
+
+    // Ignore scroll if we updated bookmark within past minute
+    if (Date.now() - 60 * 1000 < this.lastBookmark) return;
+    this.lastBookmark = Date.now();
+
+    // Get top level block elements
+    const blocks: HTMLElement[] = Array.from(
+      document.querySelectorAll(`.${this.props.classes.root} > *`)
+    );
+
+    // Remove section navigation
+    blocks.shift();
+    blocks.pop();
+
+    // Calculate bookmark.block
+    for (let i = 0; i < blocks.length; i++) {
+      if (blocks[i].offsetTop >= (event.target as HTMLDivElement).scrollTop) {
+        entity.bookmark.block = i;
+        break;
+      }
+    }
+
+    // Update bookmark
+    this.saveFile(entity);
   }
 
   /**
@@ -141,7 +172,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} onScroll={e => this.onScroll(e)}>
         <SectionNavigation onChange={this.loadSection} entity={entity} />
         {ast.map((node, i) => (
           <AST key={i} ast={node} />
