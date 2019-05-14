@@ -40,6 +40,20 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     this.loadZip();
   }
 
+  componentDidUpdate(prevProps: any, prevState: ReaderState) {
+    const { classes } = this.props;
+    const { entity } = this.state;
+
+    // Scroll to bookmarked block on first load
+    if (!prevState.entity && entity) {
+      // +2 since nth-child() isn't 0-based and to skip section navigation
+      const el = document.querySelector(
+        `.${classes.root} > *:nth-child(${entity.bookmark.block + 2})`
+      );
+      if (el) el.scrollIntoView(true);
+    }
+  }
+
   componentWillUnmount() {
     // Save file immediately
     if (this.state.entity) this.saveFile(this.state.entity);
@@ -66,15 +80,20 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     blocks.pop();
 
     // Calculate bookmark.block
+    let block = 0;
     for (let i = 0; i < blocks.length; i++) {
       if (blocks[i].offsetTop >= (event.target as HTMLDivElement).scrollTop) {
-        entity.bookmark.block = i;
+        block = i;
         break;
       }
     }
 
-    // Update bookmark
-    this.saveFile(entity);
+    // Update bookmark if needed
+    if (entity.bookmark.block != block) {
+      entity.bookmark.block = block;
+      this.setState({ entity });
+      this.saveFile(entity);
+    }
   }
 
   /**
