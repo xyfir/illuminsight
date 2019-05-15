@@ -1,5 +1,7 @@
 import { Insightful } from 'types/insightful';
 
+const EXCLUDED_ELEMENTS = ['iframe', 'script', 'style', 'link'];
+
 /**
  * Convert a DOM node to AST.
  */
@@ -8,15 +10,14 @@ export function nodeToAST(node: Node): Insightful.AST | undefined {
   if (node.nodeType == node.ELEMENT_NODE) {
     const ast: Insightful.AST = { n: node.nodeName.toLowerCase() };
 
-    // Save link's href attribute
-    if (ast.n == 'a') {
-      ast.a = { href: (node as HTMLAnchorElement).href };
-    }
-    // Save image's src attribute
-    if (ast.n == 'img') {
-      const { src, alt } = node as HTMLImageElement;
-      ast.a = { src };
-      if (alt) ast.a.alt = alt;
+    // Ignore excluded elements
+    if (EXCLUDED_ELEMENTS.includes(ast.n)) return;
+
+    // Copy all but `class` attribute
+    for (let attr of (node as Element).attributes) {
+      if (attr.name == 'class') continue;
+      if (ast.a) ast.a[attr.name] = attr.value;
+      else ast.a = { [attr.name]: attr.value };
     }
 
     // Recursively build AST for child nodes
