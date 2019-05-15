@@ -84,7 +84,7 @@ test('convert({text})', async () => {
     cover: 'cover_image.jpg',
     id: entity.id,
     name: entity.name,
-    spine: ['titlepage.xhtml.json', 'index-1.html.json'],
+    spine: ['titlepage.xhtml.json', entity.spine[1]],
     starred: false,
     tags: [],
     version: 1,
@@ -97,9 +97,9 @@ test('convert({text})', async () => {
 
   // Validate AST
   const ast: Insightful.AST[] = await readJSON(
-    resolve(astpubDirectory, 'index-1.html.json')
+    resolve(astpubDirectory, entity.spine[1])
   );
-  const _ast: Insightful.AST[] = [{ c: ['Hello World'], n: 'p' }];
+  const _ast: Insightful.AST[] = [{ c: ['Hello World'], n: 'pre' }];
   expect(ast).toMatchObject(_ast);
 });
 

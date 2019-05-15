@@ -45,10 +45,17 @@ export async function convert({
       await move(originalFile, file);
     }
 
-    // Save to .txt file
+    // Save to .html file
+    // Calibre seems to have issues with just plain .txt files
     else if (text) {
-      file = resolve(workDirectory, `${Date.now()}.txt`);
-      await writeFile(file, text);
+      file = resolve(workDirectory, `${Date.now()}.html`);
+      await writeFile(
+        file,
+        `<pre>${text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')}</pre>`
+      );
       text = undefined;
     }
 
