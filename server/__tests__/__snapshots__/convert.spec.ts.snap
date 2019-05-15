@@ -3,6 +3,9 @@
 exports[`convert({file}) 1`] = `
 Array [
   Object {
+    "a": Object {
+      "id": "pgepubid00003",
+    },
     "c": Array [
       "I. The Period",
     ],
@@ -100,7 +103,7 @@ Array [
     "c": Array [
       Object {
         "a": Object {
-          "href": "",
+          "id": "link2H_4_0003",
         },
         "n": "a",
       },
@@ -130,6 +133,9 @@ Array [
 exports[`convert({link}) 1`] = `
 Array [
   Object {
+    "a": Object {
+      "id": "the-price-of-this-artists-work-a-conversation-about-the-horrors-of-war",
+    },
     "c": Array [
       Object {
         "c": Array [
@@ -166,6 +172,7 @@ Array [
                 "a": Object {
                   "alt": "C. J. Chivers",
                   "src": "../media/file1.png",
+                  "title": "C. J. Chivers",
                 },
                 "n": "img",
               },
@@ -717,6 +724,9 @@ Array [
         "n": "p",
       },
       Object {
+        "a": Object {
+          "id": "site-index",
+        },
         "c": Array [
           Object {
             "c": Array [
@@ -750,7 +760,7 @@ Array [
                 "c": Array [
                   Object {
                     "a": Object {
-                      "href": "https://www.nytimes.com/",
+                      "href": "https://www.nytimes.com",
                     },
                     "c": Array [
                       "home page",
@@ -1438,7 +1448,7 @@ Array [
                 "c": Array [
                   Object {
                     "a": Object {
-                      "href": "https://thewirecutter.com/",
+                      "href": "https://thewirecutter.com",
                     },
                     "c": Array [
                       "Wirecutter",
@@ -1606,6 +1616,9 @@ Array [
             "n": "ul",
           },
           Object {
+            "a": Object {
+              "id": "news",
+            },
             "c": Array [
               Object {
                 "c": Array [
@@ -1619,7 +1632,7 @@ Array [
                     "c": Array [
                       Object {
                         "a": Object {
-                          "href": "https://www.nytimes.com/",
+                          "href": "https://www.nytimes.com",
                         },
                         "c": Array [
                           "home page",
@@ -1818,6 +1831,9 @@ Array [
             "n": "section",
           },
           Object {
+            "a": Object {
+              "id": "opinion",
+            },
             "c": Array [
               Object {
                 "c": Array [
@@ -1932,6 +1948,9 @@ Array [
             "n": "section",
           },
           Object {
+            "a": Object {
+              "id": "arts",
+            },
             "c": Array [
               Object {
                 "c": Array [
@@ -2102,6 +2121,9 @@ Array [
             "n": "section",
           },
           Object {
+            "a": Object {
+              "id": "living",
+            },
             "c": Array [
               Object {
                 "c": Array [
@@ -2300,6 +2322,9 @@ Array [
             "n": "section",
           },
           Object {
+            "a": Object {
+              "id": "more",
+            },
             "c": Array [
               Object {
                 "c": Array [
@@ -2327,7 +2352,7 @@ Array [
                     "c": Array [
                       Object {
                         "a": Object {
-                          "href": "https://thewirecutter.com/",
+                          "href": "https://thewirecutter.com",
                         },
                         "c": Array [
                           "Wirecutter",
@@ -2498,6 +2523,9 @@ Array [
             "n": "section",
           },
           Object {
+            "a": Object {
+              "id": "subscribe",
+            },
             "c": Array [
               Object {
                 "c": Array [
@@ -2621,6 +2649,9 @@ Array [
         "n": "section",
       },
       Object {
+        "a": Object {
+          "id": "site-information-navigation",
+        },
         "c": Array [
           Object {
             "c": Array [
@@ -2752,7 +2783,7 @@ Array [
                 "c": Array [
                   Object {
                     "a": Object {
-                      "href": "http://spiderbites.nytimes.com/",
+                      "href": "http://spiderbites.nytimes.com",
                     },
                     "c": Array [
                       "Site Map",
@@ -2820,12 +2851,18 @@ exports[`nodeToAST() 1`] = `
 Object {
   "c": Array [
     Object {
+      "a": Object {
+        "id": "h1",
+      },
       "c": Array [
         "Lorem Ipsum",
       ],
       "n": "h1",
     },
     Object {
+      "a": Object {
+        "id": "h4",
+      },
       "c": Array [
         "\\"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
       consectetur, adipisci velit...\\"",
@@ -2846,7 +2883,17 @@ Object {
       "c": Array [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis auctor
       erat. Sed accumsan, nibh non commodo dignissim, elit odio fringilla metus,
-      ut ultrices turpis purus et orci. Nullam posuere tempor dictum. Donec nibh
+      ut ultrices turpis purus et orci.",
+        Object {
+          "a": Object {
+            "href": "https://example.com",
+          },
+          "c": Array [
+            "Nullam posuere tempor dictum.",
+          ],
+          "n": "a",
+        },
+        "Donec nibh
       lectus, efficitur eu est quis, suscipit tempus lectus. Praesent eu
       sagittis libero, eu dapibus elit. Aliquam sed sapien magna. Fusce iaculis
       ultrices sapien, id fringilla nibh placerat eget. Phasellus cursus commodo
@@ -2857,7 +2904,17 @@ Object {
     },
     Object {
       "c": Array [
-        "Nunc lobortis posuere nulla, vel vestibulum massa viverra vitae. Maecenas
+        "Nunc lobortis posuere nulla,",
+        Object {
+          "a": Object {
+            "href": "lorem.html#h4",
+          },
+          "c": Array [
+            "vel vestibulum",
+          ],
+          "n": "a",
+        },
+        "massa viverra vitae. Maecenas
       porttitor dui et malesuada maximus. Aenean non elementum risus, et luctus
       ex. Duis feugiat orci quam, a condimentum justo sagittis eget. Curabitur
       vulputate turpis vitae tellus convallis imperdiet. Vivamus imperdiet massa
