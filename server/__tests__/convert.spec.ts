@@ -71,7 +71,7 @@ test('pandoc()', async () => {
 
 test('convert({text})', async () => {
   // Convert content to astpub format then extract
-  const readStream = await convert({ text: 'Hello World' });
+  const readStream = await convert({ text: ' Hello \n  World ' });
   await new Promise(resolve =>
     readStream.pipe(Extract({ path: astpubDirectory }).on('close', resolve))
   );
@@ -99,7 +99,7 @@ test('convert({text})', async () => {
   const ast: Insightful.AST[] = await readJSON(
     resolve(astpubDirectory, entity.spine[1])
   );
-  const _ast: Insightful.AST[] = [{ c: ['Hello World'], n: 'pre' }];
+  const _ast: Insightful.AST[] = [{ c: [' Hello \n  World '], n: 'pre' }];
   expect(ast).toMatchObject(_ast);
 });
 

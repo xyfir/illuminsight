@@ -5,7 +5,13 @@ const EXCLUDED_ELEMENTS = ['iframe', 'script', 'style', 'link'];
 /**
  * Convert a DOM node to AST.
  */
-export function nodeToAST(node: Node): Insightful.AST | undefined {
+export function nodeToAST(
+  node: Node,
+  /**
+   * Preserve whitespace if a child of a `<pre>` element.
+   */
+  pre: boolean = false
+): Insightful.AST | undefined {
   // Element node
   if (node.nodeType == node.ELEMENT_NODE) {
     const ast: Insightful.AST = { n: node.nodeName.toLowerCase() };
@@ -22,7 +28,7 @@ export function nodeToAST(node: Node): Insightful.AST | undefined {
 
     // Recursively build AST for child nodes
     for (let childNode of node.childNodes) {
-      const childAST = nodeToAST(childNode);
+      const childAST = nodeToAST(childNode, pre || ast.n == 'pre');
       if (childAST) {
         // Add child to list
         if (ast.c) ast.c.push(childAST);
@@ -39,8 +45,11 @@ export function nodeToAST(node: Node): Insightful.AST | undefined {
       node.nodeType == node.CDATA_SECTION_NODE) &&
     node.textContent
   ) {
+    // Preserve text content as is without manipulating whitespace
+    if (pre) return node.textContent;
+
     // Only return if it still has content after trimming
     const text = node.textContent.trim();
-    if (text) return text;
+    if (text) return text.replace(/\n/g, ' ').replace(/\s{2,}/g, ' ');
   }
 }
