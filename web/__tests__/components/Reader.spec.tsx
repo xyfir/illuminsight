@@ -14,6 +14,9 @@ import {
 } from 'react-testing-library';
 
 test('<Reader>', async () => {
+  // Mock scrolling to bookmarked block element
+  const mockScrollIntoView = (Element.prototype.scrollIntoView = jest.fn());
+
   // Mock localForage and URL
   const mockRevokeObjectURL = ((URL as any).revokeObjectURL = jest.fn());
   const mockCreateObjectURL = ((URL as any).createObjectURL = jest.fn());
@@ -97,6 +100,9 @@ test('<Reader>', async () => {
 
   // Validate image urls have not yet been revoked
   expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);
+
+  // Validate bookmarked block was scrolled to (default block 0)
+  expect(mockScrollIntoView).toHaveBeenCalledTimes(1);
 
   // Mock loading AST from zip
   mockAsync.mockReturnValueOnce(JSON.stringify(alternateTestAST));
