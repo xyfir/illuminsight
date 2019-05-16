@@ -60,7 +60,7 @@ function _SectionNavigation({
           </div>
         </Button>
       ) : null}
-      {entity.spine.length - 1 > entity.bookmark.section ? (
+      {entity.sections - 1 > entity.bookmark.section ? (
         <Button
           className={classes.button}
           onClick={() => onChangeSection(entity.bookmark.section + 1)}

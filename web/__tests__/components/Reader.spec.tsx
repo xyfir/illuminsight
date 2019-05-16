@@ -1,4 +1,4 @@
-import { alternateTestAST, testEntity, testAST } from 'lib/test/objects';
+import { alternateTestAST, testEntity, testAST } from 'server/lib/test/objects';
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
@@ -81,7 +81,7 @@ test('<Reader>', async () => {
   expect(mockAsync.mock.calls[0][0]).toBe('text');
 
   // Validate mock loading AST from zip
-  expect(mockFile.mock.calls[1][0]).toBe('sections/0.json');
+  expect(mockFile.mock.calls[1][0]).toBe('ast/0.json');
   expect(mockAsync.mock.calls[1][0]).toBe('text');
 
   // Validate mock loading image from zip

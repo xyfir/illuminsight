@@ -19,9 +19,9 @@ export namespace Insightful {
      */
     words: string;
     /**
-     * Paths to section files in order relative to zip's root.
+     * Number of sections.
      */
-    spine: string[];
+    sections: number;
     /**
      * Schema version
      */
@@ -30,7 +30,7 @@ export namespace Insightful {
     authors?: string;
     bookmark: {
       /**
-       * Index of section (file in spine).
+       * Index of section.
        */
       section: number;
       /**

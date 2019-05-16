@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import { SectionNavigation } from 'components/SectionNavigation';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
-import { queryAST } from 'lib/query-ast';
+import { queryAST } from 'server/lib/query-ast';
 import * as React from 'react';
 import * as JSZip from 'jszip';
 import { AST } from 'components/AST';
@@ -140,7 +140,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
       // Load AST for section
       const ast: Insightful.AST[] = JSON.parse(
-        await zip.file(entity.spine[entity.bookmark.section]).async('text')
+        await zip.file(`ast/${entity.bookmark.section}.json`).async('text')
       );
 
       // Find images in AST
