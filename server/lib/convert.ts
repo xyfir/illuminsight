@@ -1,8 +1,9 @@
-import { basename, dirname, resolve } from 'path';
+import { basename, extname, dirname, resolve } from 'path';
 import { Insightful } from 'types/insightful';
 import { countWords } from 'lib/count-words';
 import { nodeToAST } from 'lib/node-to-ast';
 import * as archiver from 'archiver';
+import { queryAST } from 'lib/query-ast';
 import { Calibre } from 'node-calibre';
 import { Extract } from 'unzipper';
 import { pandoc } from 'lib/pandoc';
@@ -14,6 +15,7 @@ import {
   writeJSON,
   ensureDir,
   writeFile,
+  readJSON,
   readFile,
   remove,
   mkdir,
@@ -121,18 +123,26 @@ export async function convert({
     );
     const opfDoc = opfDom.window.document;
 
-    // Create directory for unzipped astpub
+    // Create directories for unzipped astpub
     const astpubDirectory = resolve(workDirectory, `astpub-${Date.now()}`);
     await mkdir(astpubDirectory);
+    await mkdir(resolve(astpubDirectory, 'ast'));
+    await mkdir(resolve(astpubDirectory, 'res'));
 
-    // Hash map for item id->href
-    const idToHref: { [id: string]: string } = {};
+    // Hash map for sections and resource: `"x.html"` -> `"n.json"`
+    const linkMap: { [href: string]: string } = {};
 
     // Relative file path/name for cover image
     const covers: { id1?: string; id2?: string; href?: string } = {};
     let cover: Insightful.Entity['cover'];
 
-    // How many words are in the content
+    // How many resources (images usually) the content has
+    let resources = 0;
+
+    // How many sections the content has
+    let sections = 0;
+
+    // How many words the sections have
     let words = 0;
 
     // Loop through package>manifest>item elements
@@ -142,24 +152,26 @@ export async function convert({
       const id = item.getAttribute('id');
       if (!mediaType || !href || !id) continue;
 
-      idToHref[id] = href;
-
-      // Move images from EPUB directory to astpub directory
+      // Move images from EPUB directory to astpub res/ directory
       if (mediaType.startsWith('image/')) {
+        // Give resource a numeric name and map from original
+        const resource = `res/${resources++}${extname(href)}`;
+        linkMap[href] = resource;
+
         await move(
           resolve(epubDirectory, href),
-          resolve(astpubDirectory, href)
+          resolve(astpubDirectory, resource)
         );
 
         // Search for href of cover image
         if (!cover) {
           // Guaranteed to be cover image
           const properties = item.getAttribute('properties');
-          if (properties == 'cover-image') cover = href;
+          if (properties == 'cover-image') cover = resource;
           // Most likely the cover but a guaranteed option may still be available
-          else if (id == 'cover') covers.id1 = href;
-          else if (id == 'ci') covers.id2 = href;
-          else if (href.startsWith('cover')) covers.href = href;
+          else if (id == 'cover') covers.id1 = resource;
+          else if (id == 'ci') covers.id2 = resource;
+          else if (href.startsWith('cover')) covers.href = resource;
         }
       }
       // Convert XHTML to our JSON via jsdom
@@ -178,15 +190,51 @@ export async function convert({
         const ast = nodeToAST(xhtmlDoc.body);
         if (!ast || typeof ast == 'string' || !ast.c || !ast.c.length) continue;
 
+        // Give section a numeric name and map from original
+        const section = `ast/${sections++}.json`;
+        linkMap[href] = section;
+
         // Count words in AST nodes
         for (let node of ast.c) words += countWords(node);
 
         // Write AST (only body's children) to file
         // File might be nested in other directories
-        const xhtmlFile = resolve(astpubDirectory, `${href}.json`);
+        const xhtmlFile = resolve(astpubDirectory, section);
         await ensureDir(dirname(xhtmlFile));
         await writeJSON(xhtmlFile, ast.c);
       }
+    }
+
+    // Loop through sections updating image and section links
+    for (let sectionIndex = 0; sectionIndex < sections; sectionIndex++) {
+      const section = resolve(astpubDirectory, `ast/${sectionIndex}.json`);
+      const ast: Insightful.AST[] = await readJSON(section);
+
+      // Find any node with any attribute: xlink:href, href, src
+      const nodes = queryAST(
+        node =>
+          typeof node == 'string'
+            ? false
+            : !!node.a &&
+              !!(node.a['xlink:href'] || node.a['href'] || node.a['src']),
+        ast
+      );
+
+      // Update paths using section/resource map
+      for (let node of nodes) {
+        Object.entries(linkMap).forEach(([oldLink, newLink]) => {
+          if (typeof node == 'string' || !node.a) return;
+          if (node.a['xlink:href'] && node.a['xlink:href'].includes(oldLink))
+            node.a['xlink:href'] = newLink;
+          if (node.a['href'] && node.a['href'].includes(oldLink))
+            node.a['href'] = newLink;
+          if (node.a['src'] && node.a['src'].includes(oldLink))
+            node.a['src'] = newLink;
+        });
+      }
+
+      // Write modified file
+      await writeJSON(section, ast);
     }
 
     // Use fallbacks for cover image if available
@@ -211,10 +259,7 @@ export async function convert({
         const pub = opfDoc.getElementsByTagName('dc:publisher')[0];
         if (pub) return pub.textContent as string;
       })(),
-      // Order content items for spine
-      spine: Array.from(opfDoc.getElementsByTagName('itemref')).map(
-        ref => `${idToHref[ref.getAttribute('idref') as string]}.json`
-      ),
+      sections,
       starred: false,
       tags: [],
       version: process.enve.ASTPUB_VERSION,

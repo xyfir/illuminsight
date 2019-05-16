@@ -81,10 +81,10 @@ test('convert({text})', async () => {
   const _entity: Insightful.Entity = {
     authors: 'Unknown',
     bookmark: { section: 0, block: 0 },
-    cover: 'cover_image.jpg',
+    cover: 'res/0.jpg',
     id: entity.id,
     name: entity.name,
-    spine: ['titlepage.xhtml.json', entity.spine[1]],
+    sections: 2,
     starred: false,
     tags: [],
     version: 1,
@@ -93,11 +93,11 @@ test('convert({text})', async () => {
   expect(entity).toMatchObject(_entity);
 
   // Validate cover
-  await access(resolve(astpubDirectory, 'cover_image.jpg'), FS.F_OK);
+  await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);
 
   // Validate AST
   const ast: Insightful.AST[] = await readJSON(
-    resolve(astpubDirectory, entity.spine[1])
+    resolve(astpubDirectory, 'ast/1.json')
   );
   const _ast: Insightful.AST[] = [{ c: [' Hello \n  World '], n: 'pre' }];
   expect(ast).toMatchObject(_ast);
@@ -121,16 +121,11 @@ test(
       ...entity,
       authors: 'Unknown',
       bookmark: { section: 0, block: 0 },
-      cover: 'cover_image.jpg',
+      cover: 'res/0.jpg',
       link:
         'https://www.nytimes.com/2019/05/01/magazine/ehren-tool-war-cups-smithsonian.html',
       name: '.',
-      spine: [
-        'titlepage.xhtml.json',
-        'EPUB/text/title_page.xhtml.json',
-        'EPUB/text/ch001.xhtml.json',
-        'EPUB/text/ch002.xhtml.json'
-      ],
+      sections: 5,
       starred: false,
       tags: [],
       version: 1,
@@ -139,11 +134,11 @@ test(
     expect(entity).toMatchObject(_entity);
 
     // Validate cover
-    await access(resolve(astpubDirectory, 'cover_image.jpg'), FS.F_OK);
+    await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);
 
     // Validate AST
     const ast: Insightful.AST[] = await readJSON(
-      resolve(astpubDirectory, 'EPUB/text/ch002.xhtml.json')
+      resolve(astpubDirectory, 'ast/3.json')
     );
     expect(ast).toMatchSnapshot();
   },
@@ -169,65 +164,10 @@ test(
       ...entity,
       authors: 'Charles Dickens',
       bookmark: { section: 0, block: 0 },
-      cover: 'cover_image.jpg',
+      cover: 'res/0.jpg',
       name: 'A Tale of Two Cities',
       published: 757411200000,
-      spine: [
-        'titlepage.xhtml.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_003.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_004.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_005.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_006.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_007.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-1.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-1.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-2.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-2.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-2.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-2.htm_split_003.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-3.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-3.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-3.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-3.htm_split_003.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-4.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-4.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-4.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-5.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-5.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-5.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-5.htm_split_003.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-6.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-6.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-7.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-7.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-7.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-8.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-8.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-8.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-9.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-9.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-9.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-10.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-10.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-10.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-10.htm_split_003.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-11.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-11.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-11.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-11.htm_split_003.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-12.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-12.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-12.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-13.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-13.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-13.htm_split_002.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-14.htm_split_000.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-14.htm_split_001.html.json',
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-15.htm.html.json'
-      ],
+      sections: 54,
       starred: false,
       tags: [],
       version: 1,
@@ -236,14 +176,11 @@ test(
     expect(entity).toMatchObject(_entity);
 
     // Validate cover
-    await access(resolve(astpubDirectory, 'cover_image.jpg'), FS.F_OK);
+    await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);
 
     // Validate AST
     const ast: Insightful.AST[] = await readJSON(
-      resolve(
-        astpubDirectory,
-        'OEBPS/@public@vhost@g@gutenberg@html@files@98@98-h@98-h-0.htm_split_004.html.json'
-      )
+      resolve(astpubDirectory, 'ast/5.json')
     );
     expect(ast).toMatchSnapshot();
   },
