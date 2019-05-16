@@ -1,7 +1,7 @@
+import { testAST } from 'server/lib/test/objects';
 import { render } from 'react-testing-library';
 import * as React from 'react';
 import { AST } from 'components/AST';
-import { testAST } from 'lib/test/objects';
 
 test('<AST>', async () => {
   // Render AST

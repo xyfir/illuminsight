@@ -1,7 +1,7 @@
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
+import { testEntity } from 'server/lib/test/objects';
 import { Insightful } from 'types/insightful';
-import { testEntity } from 'lib/test/objects';
 import { Import } from 'components/Import';
 import * as JSZip from 'jszip';
 import * as React from 'react';

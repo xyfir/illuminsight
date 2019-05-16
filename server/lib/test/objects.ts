@@ -7,7 +7,7 @@ export const testEntity: Insightful.Entity = {
   name: 'Pride and Prejudice',
   cover: 'images/cover.jpg',
   published: -4952074022000,
-  spine: ['sections/0.json', 'sections/1.json', 'sections/2.json'],
+  sections: 3,
   starred: false,
   tags: [],
   version: process.enve.ASTPUB_VERSION,
