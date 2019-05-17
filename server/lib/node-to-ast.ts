@@ -1,5 +1,6 @@
 import { Insightful } from 'types/insightful';
 
+const EXCLUDED_ATTRIBUTES = ['class', 'tag'];
 const EXCLUDED_ELEMENTS = ['iframe', 'script', 'style', 'link'];
 
 /**
@@ -19,9 +20,9 @@ export function nodeToAST(
     // Ignore excluded elements
     if (EXCLUDED_ELEMENTS.includes(ast.n)) return;
 
-    // Copy all but `class` attribute
+    // Copy all but excluded attributes
     for (let attr of (node as Element).attributes) {
-      if (attr.name == 'class') continue;
+      if (EXCLUDED_ATTRIBUTES.includes(attr.name)) continue;
       if (ast.a) ast.a[attr.name] = attr.value;
       else ast.a = { [attr.name]: attr.value };
     }
