@@ -1,4 +1,4 @@
-import { basename, extname, dirname, resolve } from 'path';
+import { basename, extname, resolve } from 'path';
 import { Insightful } from 'types/insightful';
 import { countWords } from 'lib/count-words';
 import { nodeToAST } from 'lib/node-to-ast';
@@ -13,7 +13,6 @@ import {
   createReadStream,
   ReadStream,
   writeJSON,
-  ensureDir,
   writeFile,
   readJSON,
   readFile,
@@ -22,6 +21,7 @@ import {
   move
 } from 'fs-extra';
 
+const LINK_ATTRIBUTES = ['xlink:href', 'href', 'src'];
 const calibre = new Calibre({ log: process.enve.NODE_ENV == 'development' });
 
 export async function convert({
@@ -105,8 +105,8 @@ export async function convert({
     if (!file) throw new Error('Bad or missing input');
 
     // Convert to EPUB
-    // Even if already an EPUB, it will validate and rebuild as we expect it
-    file = await calibre.ebookConvert(file, 'epub');
+    // Even if it's already EPUB, it will validate and rebuild as expected
+    file = await calibre.ebookConvert(file, 'epub', { epubFlatten: null });
 
     // Extract files from EPUB
     const epubDirectory = resolve(workDirectory, `unzip-${Date.now()}`);
@@ -129,7 +129,7 @@ export async function convert({
     await mkdir(resolve(astpubDirectory, 'ast'));
     await mkdir(resolve(astpubDirectory, 'res'));
 
-    // Hash map for sections and resource: `"x.html"` -> `"n.json"`
+    // Hash map for old section and resource links to new
     const linkMap: { [href: string]: string } = {};
 
     // Relative file path/name for cover image
@@ -198,43 +198,54 @@ export async function convert({
         for (let node of ast.c) words += countWords(node);
 
         // Write AST (only body's children) to file
-        // File might be nested in other directories
-        const xhtmlFile = resolve(astpubDirectory, section);
-        await ensureDir(dirname(xhtmlFile));
-        await writeJSON(xhtmlFile, ast.c);
+        await writeJSON(resolve(astpubDirectory, section), ast.c);
       }
     }
 
     // Loop through sections updating image and section links
     for (let sectionIndex = 0; sectionIndex < sections; sectionIndex++) {
-      const section = resolve(astpubDirectory, `ast/${sectionIndex}.json`);
-      const ast: Insightful.AST[] = await readJSON(section);
-
-      // Find any node with any attribute: xlink:href, href, src
-      const nodes = queryAST(
-        node =>
-          typeof node == 'string'
-            ? false
-            : !!node.a &&
-              !!(node.a['xlink:href'] || node.a['href'] || node.a['src']),
-        ast
+      const section = `ast/${sectionIndex}.json`;
+      const ast: Insightful.AST[] = await readJSON(
+        resolve(astpubDirectory, section)
       );
 
-      // Update paths using section/resource map
-      for (let node of nodes) {
-        Object.entries(linkMap).forEach(([oldLink, newLink]) => {
-          if (typeof node == 'string' || !node.a) return;
-          if (node.a['xlink:href'] && node.a['xlink:href'].includes(oldLink))
-            node.a['xlink:href'] = newLink;
-          if (node.a['href'] && node.a['href'].includes(oldLink))
-            node.a['href'] = newLink;
-          if (node.a['src'] && node.a['src'].includes(oldLink))
-            node.a['src'] = newLink;
-        });
+      // Loop through all attributes we need to convert
+      for (let attr of LINK_ATTRIBUTES) {
+        // Find nodes with attribute
+        const nodes = queryAST(
+          node =>
+            typeof node == 'string' ? false : !!node.a && !!node.a[attr],
+          ast
+        );
+
+        // Loop through nodes with attribute that needs conversion
+        for (let node of nodes) {
+          for (let [oldLink, newLink] of Object.entries(linkMap)) {
+            if (typeof node == 'string' || !node.a) continue;
+
+            // Check if attribute contains the old link
+            const attribute = node.a[attr];
+            if (!attribute.includes(oldLink)) continue;
+
+            // Retain #hashes
+            if (attribute.includes('#') && !attribute.endsWith('#')) {
+              const [, hash] = attribute.match(/#(.+)/) as RegExpMatchArray;
+
+              // Check if link contains hash for current section
+              // Replace new link with the hash
+              if (newLink == section) newLink = `#${hash}`;
+              // Append old hash to new link
+              else newLink += `#${hash}`;
+            }
+
+            // Update attribute's value with proper link
+            node.a[attr] = newLink;
+          }
+        }
       }
 
       // Write modified file
-      await writeJSON(section, ast);
+      await writeJSON(resolve(astpubDirectory, section), ast);
     }
 
     // Use fallbacks for cover image if available

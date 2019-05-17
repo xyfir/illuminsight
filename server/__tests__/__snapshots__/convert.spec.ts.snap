@@ -171,7 +171,7 @@ Array [
               Object {
                 "a": Object {
                   "alt": "C. J. Chivers",
-                  "src": "../media/file1.png",
+                  "src": "res/6.png",
                   "title": "C. J. Chivers",
                 },
                 "n": "img",
@@ -303,7 +303,7 @@ Array [
           Object {
             "a": Object {
               "alt": "Tool sits at a pottery wheel and forms blank cups in batches, then he lets them sit for several days before decorating them.CreditKelsey McClellan for The New York Times",
-              "src": "../media/file2.jpg",
+              "src": "res/2.jpg",
             },
             "n": "img",
           },
@@ -629,7 +629,7 @@ Array [
         "c": Array [
           Object {
             "a": Object {
-              "src": "../media/file3.jpg",
+              "src": "res/3.jpg",
             },
             "n": "img",
           },
@@ -655,7 +655,7 @@ Array [
         "c": Array [
           Object {
             "a": Object {
-              "src": "../media/file4.jpg",
+              "src": "res/4.jpg",
             },
             "n": "img",
           },
@@ -681,7 +681,7 @@ Array [
         "c": Array [
           Object {
             "a": Object {
-              "src": "../media/file5.jpg",
+              "src": "res/5.jpg",
             },
             "n": "img",
           },
