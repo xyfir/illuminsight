@@ -133,626 +133,1493 @@ Array [
 exports[`convert({link}) 1`] = `
 Array [
   Object {
-    "a": Object {
-      "id": "the-price-of-this-artists-work-a-conversation-about-the-horrors-of-war",
-    },
+    "c": Array [
+      "The Price of This Artist’s Work? A Conversation About the Horrors of War",
+    ],
+    "n": "h1",
+  },
+  Object {
+    "c": Array [
+      "Ehren Tool wants his visually brutal stoneware cups to start conversations about the grief and suffering of armed conflict. But his work can’t be bought.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "W. A. Ehren Tool in his studio at his home in Berkeley, Calif.CreditCreditKelsey McClellan for The New York Times",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Supported by",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "a": Object {
+          "href": "https://www.nytimes.com/by/c-j-chivers",
+        },
+        "c": Array [
+          Object {
+            "a": Object {
+              "alt": "C. J. Chivers",
+              "src": "res/6.png",
+              "title": "C. J. Chivers",
+            },
+            "n": "img",
+          },
+        ],
+        "n": "a",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "By",
+      Object {
+        "a": Object {
+          "href": "https://www.nytimes.com/by/c-j-chivers",
+        },
+        "c": Array [
+          "C. J. Chivers",
+        ],
+        "n": "a",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
     "c": Array [
       Object {
         "c": Array [
-          "The Price of This Artist’s Work? A Conversation About the Horrors of War",
-        ],
-        "n": "h1",
-      },
-      Object {
-        "c": Array [
-          "Ehren Tool wants his visually brutal stoneware cups to start conversations about the grief and suffering of armed conflict. But his work can’t be bought.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "W. A. Ehren Tool in his studio at his home in Berkeley, Calif.CreditCreditKelsey McClellan for The New York Times",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Supported by",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
           Object {
-            "a": Object {
-              "href": "https://www.nytimes.com/by/c-j-chivers",
-            },
             "c": Array [
-              Object {
-                "a": Object {
-                  "alt": "C. J. Chivers",
-                  "src": "res/6.png",
-                  "title": "C. J. Chivers",
-                },
-                "n": "img",
-              },
+              "May 1, 2019",
             ],
-            "n": "a",
+            "n": "p",
           },
         ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "By",
-          Object {
-            "a": Object {
-              "href": "https://www.nytimes.com/by/c-j-chivers",
-            },
-            "c": Array [
-              "C. J. Chivers",
-            ],
-            "n": "a",
-          },
-        ],
-        "n": "p",
+        "n": "li",
       },
       Object {
         "c": Array [
           Object {
             "c": Array [
               Object {
-                "c": Array [
-                  "May 1, 2019",
-                ],
-                "n": "p",
+                "n": "li",
               },
-            ],
-            "n": "li",
-          },
-          Object {
-            "c": Array [
               Object {
-                "c": Array [
-                  Object {
-                    "n": "li",
-                  },
-                  Object {
-                    "n": "li",
-                  },
-                  Object {
-                    "n": "li",
-                  },
-                  Object {
-                    "n": "li",
-                  },
-                  Object {
-                    "n": "li",
-                  },
-                  Object {
-                    "n": "li",
-                  },
-                ],
-                "n": "ul",
+                "n": "li",
               },
-            ],
-            "n": "li",
-          },
-        ],
-        "n": "ul",
-      },
-      Object {
-        "c": Array [
-          "[",
-          Object {
-            "c": Array [
-              "For more articles about the experiences and costs of war,",
-            ],
-            "n": "em",
-          },
-          Object {
-            "a": Object {
-              "href": "https://www.nytimes.com/newsletters/at-war?module=inline",
-            },
-            "c": Array [
               Object {
-                "c": Array [
-                  "sign up for the weekly At War newsletter",
-                ],
-                "n": "em",
+                "n": "li",
               },
-            ],
-            "n": "a",
-          },
-          Object {
-            "c": Array [
-              ".",
-            ],
-            "n": "em",
-          },
-          "]",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "W. A. Ehren Tool lifted a partially made clay cup and rested it on his thick left thigh. Working silently, he rolled it while pressing sprig molds against its damp and malleable sides, forcing decorative shapes to emerge: sandbags, piles of bone, a soldier with a leveled bayonet, a Marine Corps insignia, a gas mask and then, at last, a skull. Less than a minute had passed.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Satisfied, Tool leaned forward and placed the cup in a row of others awaiting the kiln. One bore an engraving. “I don’t think anything I do will change the world,” it read. “But nothing in the world releases me from my obligation to try.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Tool reached for another blank cup.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Since late 2001, Tool has been relentlessly creating and distributing handmade ceramic cups, each different from the last and many purposefully harrowing and graphic. An ever-growing body of work that tells of wartime waste, grief and suffering set against the hovering constants of profit and propaganda, his cups have been displayed in several exhibits around the country, especially on the West Coast. In late March about 200 of them were re-displayed as part of the permanent collection of the Renwick Gallery of the Smithsonian American Art Museum in Washington, which first exhibited them in 2016.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          Object {
-            "a": Object {
-              "alt": "Tool sits at a pottery wheel and forms blank cups in batches, then he lets them sit for several days before decorating them.CreditKelsey McClellan for The New York Times",
-              "src": "res/2.jpg",
-            },
-            "n": "img",
-          },
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "No matter this success, Tool seeks something beyond validation in the art world. He wants to create pieces that people will receive as gifts and use in their regular lives, all in the service of starting personal discussions about the bleak madness and false glories of war. And so his cups can’t be bought. Tool gives them away — at a pace of a little more than 1,000 a year, a tally now exceeding 21,000.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "The first line of his artist statement — “I just make cups” — hints of ambitions both intimate and grand. It also echoes with humility, an implicit concession that in the effort to urge human beings away from war, art often fails. “I would like my work to vindicate the principles of peace and justice in the world,” it continues. “That is a lot to ask of a cup.” If the larger goal is impossible, Tool’s statement suggests, then his free cups can be “starting points for conversations about unspeakable things.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          Object {
-            "c": Array [
-              "Tool first displayed",
-            ],
-            "n": "strong",
-          },
-          "his pottery in a commercial gallery in Los Angeles in 2001. He and his father, David Tool, a Vietnam veteran of the Army’s First Infantry Division, exchanged unpaid labor — rough carpentry, putting up a gallery wall — for the chance to show his work. Tool had been a Marine military police officer in the 1991 Persian Gulf War, and the exhibit channeled his battlefield experience and deep disappointment in American foreign policy and the habits of war.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "He had enlisted in high spirits, against the advice of his maternal grandfather, a Marine veteran of World War II, who told him the Corps would steal his soul. “The idea was that it was glasnost, and a new world order,” Tool said. “I was a believer, man. I wanted to serve and help. I thought being a gunslinger was something I could do.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "He was changed by the Gulf War, moving through oil-fire darkness and death, seeing the full fury of modern conventional firepower and then guarding exhausted Iraqi prisoners, who Tool recognized were just as human as his fellow Marines.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Image",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Tool mails cups to people who write and ask for them. The expense does not bother him. Clay is cheap. “It’s just dirt,” he said. “It’s a fraction of what I used to spend on alcohol.”CreditKelsey McClellan for The New York Times",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "He displayed his art at the Los Angeles gallery a month after the Sept. 11 terrorist attacks, the start of an era of thus-far ceaseless war. He remembers the reaction. “People were like, ‘Oh my God, your work is so timely,’” he said. “I was talking about the Gulf War in 1991. But O.K., it will be about the next war, too, which unfortunately has come to pass.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "That was almost two decades ago, as the American attack on Afghanistan was beginning, before the invasion of Iraq and the expansion of the so-called Global War on Terror across more of the map. “The whole time I have been making cups the wars have been going on,” Tool said. “And it’s just crushingly depressing.” In sorrow, Tool cemented his mission. As he made more war-related cups, pottery became his life.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "He left the Marine Corps as a sergeant in 1994 and graduated from the University of Southern California with a Bachelor of Fine Arts in 2000. After his exhibition in 2001, he relocated to the University of California, Berkeley, where in 2005 he received a Master of Fine Arts and was hired as the senior studio technician for ceramics in the Department of Art Practice. Now 48, Tool still holds that job, which provides him his income. In his spare time he sits before a pottery wheel in the basement studio of the off-campus home he shares with his family, making more cups.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "It is a dark output. On Tool’s work, people are manipulated, misused, abused and suffer and die. The scale is vast and the images usually disturbing. Knockoffs of Sailor Jerry’s classic military tattoos float above stacked skulls. Captain America stands astride sandbags and bones. Predator drones alternate beside panels of traditionally dressed Afghan men. A soldier snarls out a single word as a warplane trailing a plume of poison mist passes overhead: “Spray!”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Pornography is presented alongside the American flag. The tools of killing — hand grenades, cluster bombs, modern rifles and cartridges, attack gunships, knives, swords, arrows and more — are assigned repeated cameos, as are military insignia and medals, including the American military’s civically sanctified Purple Heart, issued for combat deaths and wounds.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Skeletons dance or drink from a chalice of blood. The Grim Reaper’s black robe serves as advertising jersey. It reads: “Thank you for your service.” Dollar bills, dollar signs and Daddy Warbucks also appear, along with the least powerful and most abundant chess piece, the pawn, which is meant to signify, well, you. A skull opens its mouth, awaiting the bullet from a pistol barrel below.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "People scream. Faces explode. Men weep. Men stab each other. Men rush forward with bayonets. A small child is torn open by what looks like a bullet’s exit wound. A young man looks upward, face undefended, into the descending sole of a boot. The ribbon in the presidential seal does not bear the Latin motto “E pluribus unum.” It reads, “[expletive] the poor.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Tool issues no parental-guidance warnings for any of this and accepts that many people might not understand his work. “It’s like Greek or Latin,” he said. “It’s only a language if you hear it.” But he suggested a method within his mission. The pains and horrors his art emanates are not intended for universal consumption. “The most graphic stuff?” he said. “That’s not for the people who have these memories. That’s for everyone else.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Image",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "CreditKelsey McClellan for The New York Times",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Image",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "CreditKelsey McClellan for The New York Times",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "To illustrate his thinking, Tool offered a story about his grandfather, the Marine veteran of World War II. Later in life the old man told Tool that he would close his eyes and see the bodies of other Marines on the beach and hear the sound of crabs rummaging over the sheet metal that covered them. Marine life feeding on dead Marines. When Tool made his grandfather a gift, it was a simple porcelain cup with no image at all — no Grim Reaper, no weapons, no pawn, no “Rats Get Fat While Brave Men Die.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "His grandfather, he said, already knew war. He got a plain white cup.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Tool insisted that connecting on some level with his recipients matters more than fame and that highbrow recognition can be emasculating, a sentiment that informed part of his reaction when his art was first shown at the Smithsonian in early 2016. “My work is that impotent? That the state found it acceptable?” he said. “It left me kind of bummed.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "His cups were displayed at the Renwick Gallery until early 2018, when they were de-installed, along with much of the collection, to make way for a sprawling Burning Man exhibit that closed this January. Late in March, they returned to their place. “I think his perspective is one of those unusual moments when people are really exposed to the horrors of war,” said Nora Atkinson, the gallery’s acting curator-in-charge, who brought Tool’s art into the permanent collection not long after she assumed her curator role. “It’s an important part of what it means to be American.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "As part of the installation, Atkinson said, the gallery staff randomly placed 198 cups on shelves, then stepped back to examine what was shown. Certain pieces were turned or relocated higher so the most explosive or disturbing images were not at the eye level of a child. “For a government museum, we really don’t want to push that in someone’s face if we don’t have to,” she said. Atkinson added, however, that visitors grasp and accept Tool’s message, visual harshness and all. “For as graphic as Ehren’s work is,” she said, “we have never had one complaint.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          Object {
-            "c": Array [
-              "To make his art",
-            ],
-            "n": "strong",
-          },
-          ", Tool sits at a pottery wheel and forms blank cups in batches. These wait, unmarked, often for a few days or a week, which allows them to dry to a leathery consistency. He then decorates them, selecting from a collection of handmade molds and laser-engraved stamps. For some he uses a transfer process, building an image in layers on blank newsprint — screenprinted black designs, colored underglaze, a slip of liquid clay — then pressing it into place against the cup. (Tool mostly works with stoneware, which he finds less finicky than porcelain.)",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "His combinations come together from the trays of molds and stamps spread around his basement. He is in a trancelike state as he chooses, sifting through thousands of stamps and molds swiftly and without talking.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Image",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "CreditKelsey McClellan for The New York Times",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Image",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "CreditKelsey McClellan for The New York Times",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Weapons, bones, sandbags, flags. A skull leering from a television set. Within this ethos of visual brutality, Tool emanates a vibe of quiet purpose and moral rigor. He is a huge man, about 6-feet-2 and 325 pounds, built for brute strength and groaning leverage. His personal affect is gentle. He moves slowly, deliberately and with precision, as if his bulk has been tuned to the micro-movements of his art.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "When he does speak, his voice is soft, punctuating his declarations on violence and corruption with sad laughs and the occasional tear. As the hours pass, his basement manages to feel like a place of monastic reconsideration of the entire war nostalgia and propaganda game, a studio telling of mass death, squandered labor and unvarnished sorrow as counterpoints to what gets said in Pentagon briefing rooms.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "It takes a lot of time and energy to give away 21,000 cups, and Tool admits it has not all gone smoothly. He mostly hands them out at what he calls “artist-run places,” not at for-profit art centers or at museums. At art shows, he says, people often line up to meet him and receive one. At times he has been frustrated. The Smithsonian, he said, would not give his cups to the staff in 2016, so Tool and his family turned up with extras and personally presented them to security guards and volunteers.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "He mails many to people who write and ask for them. Sometimes he does not hear from the recipients again. “I have mailed boxes of cups to people I have never met for shows I’m not sure ever happened,” he said. The expense, he said, does not bother him. Clay is cheap. “It’s just dirt,” he said. “It’s a fraction of what I used to spend on alcohol.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Asked when he might reach his limit, Tool suggested his size foretells his end. “I don’t know, man,” he said. “I’m overweight. I’m not going to live that long.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Image",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Tool at The University of California, Berkeley, where he is the senior studio technician for ceramics in the Department of Art Practice.CreditKelsey McClellan for The New York Times",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "This brand of self-abnegation can at times seem total. One moment Tool will mention messages he hopes his art conveys, the next he urges people to enjoy his pieces as utilitarian objects, to drink from them as they would a mass-produced mug or Mason jar. If one breaks, so be it. Most contemporary possessions, Tool said, end up in the landfill.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Eventually he admits it: He does expect some of his art to last, cared for by people who understand. “The coolest thing about the cups is not the cup, but the conversation around the cup, and I’m not there,” he said. “If it means something to you, when you die it will mean something to someone close to you, and that’s a cooler way to travel through time than being in the permanent collection at the Smithsonian.”",
-        ],
-        "n": "p",
-      },
-      Object {
-        "n": "hr",
-      },
-      Object {
-        "c": Array [
-          Object {
-            "c": Array [
-              "Sign up for",
-            ],
-            "n": "em",
-          },
-          Object {
-            "a": Object {
-              "href": "https://www.nytimes.com/newsletters/at-war?module=inline",
-            },
-            "c": Array [
               Object {
-                "c": Array [
-                  "our newsletter",
-                ],
-                "n": "em",
+                "n": "li",
               },
-            ],
-            "n": "a",
-          },
-          Object {
-            "c": Array [
-              "to get the best of At War delivered to your inbox every week. For more coverage of conflict, visit",
-            ],
-            "n": "em",
-          },
-          Object {
-            "a": Object {
-              "href": "https://www.nytimes.com/spotlight/atwar?module=inline",
-            },
-            "c": Array [
               Object {
-                "c": Array [
-                  "nytimes.com/atwar",
-                ],
-                "n": "em",
+                "n": "li",
+              },
+              Object {
+                "n": "li",
               },
             ],
-            "n": "a",
-          },
-          Object {
-            "c": Array [
-              ".",
-            ],
-            "n": "em",
+            "n": "ul",
           },
         ],
-        "n": "p",
+        "n": "li",
       },
-      Object {
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "On Sale in Kabul: Mementos of America’s War in Afghanistan, for $2 or Less",
-        ],
-        "n": "p",
-      },
+    ],
+    "n": "ul",
+  },
+  Object {
+    "c": Array [
+      "[",
       Object {
         "c": Array [
-          "April 25, 2019",
+          "For more articles about the experiences and costs of war,",
         ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          Object {
-            "a": Object {
-              "src": "res/3.jpg",
-            },
-            "n": "img",
-          },
-        ],
-        "n": "p",
-      },
-      Object {
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "The History Behind the Graffiti of War",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "July 18, 2018",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          Object {
-            "a": Object {
-              "src": "res/4.jpg",
-            },
-            "n": "img",
-          },
-        ],
-        "n": "p",
-      },
-      Object {
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "War Without End",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Aug. 8, 2018",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          Object {
-            "a": Object {
-              "src": "res/5.jpg",
-            },
-            "n": "img",
-          },
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "C.J. Chivers is a long-form writer and reporter for the Investigations Desk and The New York Times Magazine. He won the 2017 Pulitzer Prize for Feature Writing, and is also the author of “The Gun,” a history of automatic weapons.",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          Object {
-            "n": "li",
-          },
-          Object {
-            "n": "li",
-          },
-          Object {
-            "n": "li",
-          },
-          Object {
-            "n": "li",
-          },
-        ],
-        "n": "ul",
-      },
-      Object {
-        "c": Array [
-          "Advertisement",
-        ],
-        "n": "p",
-      },
-      Object {
-        "c": Array [
-          "Open in the app",
-        ],
-        "n": "p",
+        "n": "em",
       },
       Object {
         "a": Object {
-          "id": "site-index",
+          "href": "https://www.nytimes.com/newsletters/at-war?module=inline",
         },
         "c": Array [
           Object {
             "c": Array [
-              "Site Index",
+              "sign up for the weekly At War newsletter",
             ],
-            "n": "h2",
+            "n": "em",
+          },
+        ],
+        "n": "a",
+      },
+      Object {
+        "c": Array [
+          ".",
+        ],
+        "n": "em",
+      },
+      "]",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "W. A. Ehren Tool lifted a partially made clay cup and rested it on his thick left thigh. Working silently, he rolled it while pressing sprig molds against its damp and malleable sides, forcing decorative shapes to emerge: sandbags, piles of bone, a soldier with a leveled bayonet, a Marine Corps insignia, a gas mask and then, at last, a skull. Less than a minute had passed.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Satisfied, Tool leaned forward and placed the cup in a row of others awaiting the kiln. One bore an engraving. “I don’t think anything I do will change the world,” it read. “But nothing in the world releases me from my obligation to try.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Tool reached for another blank cup.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Since late 2001, Tool has been relentlessly creating and distributing handmade ceramic cups, each different from the last and many purposefully harrowing and graphic. An ever-growing body of work that tells of wartime waste, grief and suffering set against the hovering constants of profit and propaganda, his cups have been displayed in several exhibits around the country, especially on the West Coast. In late March about 200 of them were re-displayed as part of the permanent collection of the Renwick Gallery of the Smithsonian American Art Museum in Washington, which first exhibited them in 2016.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "a": Object {
+          "alt": "Tool sits at a pottery wheel and forms blank cups in batches, then he lets them sit for several days before decorating them.CreditKelsey McClellan for The New York Times",
+          "src": "res/2.jpg",
+        },
+        "n": "img",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "No matter this success, Tool seeks something beyond validation in the art world. He wants to create pieces that people will receive as gifts and use in their regular lives, all in the service of starting personal discussions about the bleak madness and false glories of war. And so his cups can’t be bought. Tool gives them away — at a pace of a little more than 1,000 a year, a tally now exceeding 21,000.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "The first line of his artist statement — “I just make cups” — hints of ambitions both intimate and grand. It also echoes with humility, an implicit concession that in the effort to urge human beings away from war, art often fails. “I would like my work to vindicate the principles of peace and justice in the world,” it continues. “That is a lot to ask of a cup.” If the larger goal is impossible, Tool’s statement suggests, then his free cups can be “starting points for conversations about unspeakable things.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "c": Array [
+          "Tool first displayed",
+        ],
+        "n": "strong",
+      },
+      "his pottery in a commercial gallery in Los Angeles in 2001. He and his father, David Tool, a Vietnam veteran of the Army’s First Infantry Division, exchanged unpaid labor — rough carpentry, putting up a gallery wall — for the chance to show his work. Tool had been a Marine military police officer in the 1991 Persian Gulf War, and the exhibit channeled his battlefield experience and deep disappointment in American foreign policy and the habits of war.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He had enlisted in high spirits, against the advice of his maternal grandfather, a Marine veteran of World War II, who told him the Corps would steal his soul. “The idea was that it was glasnost, and a new world order,” Tool said. “I was a believer, man. I wanted to serve and help. I thought being a gunslinger was something I could do.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He was changed by the Gulf War, moving through oil-fire darkness and death, seeing the full fury of modern conventional firepower and then guarding exhausted Iraqi prisoners, who Tool recognized were just as human as his fellow Marines.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Image",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Tool mails cups to people who write and ask for them. The expense does not bother him. Clay is cheap. “It’s just dirt,” he said. “It’s a fraction of what I used to spend on alcohol.”CreditKelsey McClellan for The New York Times",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He displayed his art at the Los Angeles gallery a month after the Sept. 11 terrorist attacks, the start of an era of thus-far ceaseless war. He remembers the reaction. “People were like, ‘Oh my God, your work is so timely,’” he said. “I was talking about the Gulf War in 1991. But O.K., it will be about the next war, too, which unfortunately has come to pass.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "That was almost two decades ago, as the American attack on Afghanistan was beginning, before the invasion of Iraq and the expansion of the so-called Global War on Terror across more of the map. “The whole time I have been making cups the wars have been going on,” Tool said. “And it’s just crushingly depressing.” In sorrow, Tool cemented his mission. As he made more war-related cups, pottery became his life.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He left the Marine Corps as a sergeant in 1994 and graduated from the University of Southern California with a Bachelor of Fine Arts in 2000. After his exhibition in 2001, he relocated to the University of California, Berkeley, where in 2005 he received a Master of Fine Arts and was hired as the senior studio technician for ceramics in the Department of Art Practice. Now 48, Tool still holds that job, which provides him his income. In his spare time he sits before a pottery wheel in the basement studio of the off-campus home he shares with his family, making more cups.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "It is a dark output. On Tool’s work, people are manipulated, misused, abused and suffer and die. The scale is vast and the images usually disturbing. Knockoffs of Sailor Jerry’s classic military tattoos float above stacked skulls. Captain America stands astride sandbags and bones. Predator drones alternate beside panels of traditionally dressed Afghan men. A soldier snarls out a single word as a warplane trailing a plume of poison mist passes overhead: “Spray!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Pornography is presented alongside the American flag. The tools of killing — hand grenades, cluster bombs, modern rifles and cartridges, attack gunships, knives, swords, arrows and more — are assigned repeated cameos, as are military insignia and medals, including the American military’s civically sanctified Purple Heart, issued for combat deaths and wounds.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Skeletons dance or drink from a chalice of blood. The Grim Reaper’s black robe serves as advertising jersey. It reads: “Thank you for your service.” Dollar bills, dollar signs and Daddy Warbucks also appear, along with the least powerful and most abundant chess piece, the pawn, which is meant to signify, well, you. A skull opens its mouth, awaiting the bullet from a pistol barrel below.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "People scream. Faces explode. Men weep. Men stab each other. Men rush forward with bayonets. A small child is torn open by what looks like a bullet’s exit wound. A young man looks upward, face undefended, into the descending sole of a boot. The ribbon in the presidential seal does not bear the Latin motto “E pluribus unum.” It reads, “[expletive] the poor.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Tool issues no parental-guidance warnings for any of this and accepts that many people might not understand his work. “It’s like Greek or Latin,” he said. “It’s only a language if you hear it.” But he suggested a method within his mission. The pains and horrors his art emanates are not intended for universal consumption. “The most graphic stuff?” he said. “That’s not for the people who have these memories. That’s for everyone else.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Image",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "CreditKelsey McClellan for The New York Times",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Image",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "CreditKelsey McClellan for The New York Times",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "To illustrate his thinking, Tool offered a story about his grandfather, the Marine veteran of World War II. Later in life the old man told Tool that he would close his eyes and see the bodies of other Marines on the beach and hear the sound of crabs rummaging over the sheet metal that covered them. Marine life feeding on dead Marines. When Tool made his grandfather a gift, it was a simple porcelain cup with no image at all — no Grim Reaper, no weapons, no pawn, no “Rats Get Fat While Brave Men Die.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "His grandfather, he said, already knew war. He got a plain white cup.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Tool insisted that connecting on some level with his recipients matters more than fame and that highbrow recognition can be emasculating, a sentiment that informed part of his reaction when his art was first shown at the Smithsonian in early 2016. “My work is that impotent? That the state found it acceptable?” he said. “It left me kind of bummed.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "His cups were displayed at the Renwick Gallery until early 2018, when they were de-installed, along with much of the collection, to make way for a sprawling Burning Man exhibit that closed this January. Late in March, they returned to their place. “I think his perspective is one of those unusual moments when people are really exposed to the horrors of war,” said Nora Atkinson, the gallery’s acting curator-in-charge, who brought Tool’s art into the permanent collection not long after she assumed her curator role. “It’s an important part of what it means to be American.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "As part of the installation, Atkinson said, the gallery staff randomly placed 198 cups on shelves, then stepped back to examine what was shown. Certain pieces were turned or relocated higher so the most explosive or disturbing images were not at the eye level of a child. “For a government museum, we really don’t want to push that in someone’s face if we don’t have to,” she said. Atkinson added, however, that visitors grasp and accept Tool’s message, visual harshness and all. “For as graphic as Ehren’s work is,” she said, “we have never had one complaint.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "c": Array [
+          "To make his art",
+        ],
+        "n": "strong",
+      },
+      ", Tool sits at a pottery wheel and forms blank cups in batches. These wait, unmarked, often for a few days or a week, which allows them to dry to a leathery consistency. He then decorates them, selecting from a collection of handmade molds and laser-engraved stamps. For some he uses a transfer process, building an image in layers on blank newsprint — screenprinted black designs, colored underglaze, a slip of liquid clay — then pressing it into place against the cup. (Tool mostly works with stoneware, which he finds less finicky than porcelain.)",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "His combinations come together from the trays of molds and stamps spread around his basement. He is in a trancelike state as he chooses, sifting through thousands of stamps and molds swiftly and without talking.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Image",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "CreditKelsey McClellan for The New York Times",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Image",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "CreditKelsey McClellan for The New York Times",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Weapons, bones, sandbags, flags. A skull leering from a television set. Within this ethos of visual brutality, Tool emanates a vibe of quiet purpose and moral rigor. He is a huge man, about 6-feet-2 and 325 pounds, built for brute strength and groaning leverage. His personal affect is gentle. He moves slowly, deliberately and with precision, as if his bulk has been tuned to the micro-movements of his art.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "When he does speak, his voice is soft, punctuating his declarations on violence and corruption with sad laughs and the occasional tear. As the hours pass, his basement manages to feel like a place of monastic reconsideration of the entire war nostalgia and propaganda game, a studio telling of mass death, squandered labor and unvarnished sorrow as counterpoints to what gets said in Pentagon briefing rooms.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "It takes a lot of time and energy to give away 21,000 cups, and Tool admits it has not all gone smoothly. He mostly hands them out at what he calls “artist-run places,” not at for-profit art centers or at museums. At art shows, he says, people often line up to meet him and receive one. At times he has been frustrated. The Smithsonian, he said, would not give his cups to the staff in 2016, so Tool and his family turned up with extras and personally presented them to security guards and volunteers.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He mails many to people who write and ask for them. Sometimes he does not hear from the recipients again. “I have mailed boxes of cups to people I have never met for shows I’m not sure ever happened,” he said. The expense, he said, does not bother him. Clay is cheap. “It’s just dirt,” he said. “It’s a fraction of what I used to spend on alcohol.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Asked when he might reach his limit, Tool suggested his size foretells his end. “I don’t know, man,” he said. “I’m overweight. I’m not going to live that long.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Image",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Tool at The University of California, Berkeley, where he is the senior studio technician for ceramics in the Department of Art Practice.CreditKelsey McClellan for The New York Times",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "This brand of self-abnegation can at times seem total. One moment Tool will mention messages he hopes his art conveys, the next he urges people to enjoy his pieces as utilitarian objects, to drink from them as they would a mass-produced mug or Mason jar. If one breaks, so be it. Most contemporary possessions, Tool said, end up in the landfill.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Eventually he admits it: He does expect some of his art to last, cared for by people who understand. “The coolest thing about the cups is not the cup, but the conversation around the cup, and I’m not there,” he said. “If it means something to you, when you die it will mean something to someone close to you, and that’s a cooler way to travel through time than being in the permanent collection at the Smithsonian.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "n": "hr",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "c": Array [
+          "Sign up for",
+        ],
+        "n": "em",
+      },
+      Object {
+        "a": Object {
+          "href": "https://www.nytimes.com/newsletters/at-war?module=inline",
+        },
+        "c": Array [
+          Object {
+            "c": Array [
+              "our newsletter",
+            ],
+            "n": "em",
+          },
+        ],
+        "n": "a",
+      },
+      Object {
+        "c": Array [
+          "to get the best of At War delivered to your inbox every week. For more coverage of conflict, visit",
+        ],
+        "n": "em",
+      },
+      Object {
+        "a": Object {
+          "href": "https://www.nytimes.com/spotlight/atwar?module=inline",
+        },
+        "c": Array [
+          Object {
+            "c": Array [
+              "nytimes.com/atwar",
+            ],
+            "n": "em",
+          },
+        ],
+        "n": "a",
+      },
+      Object {
+        "c": Array [
+          ".",
+        ],
+        "n": "em",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "On Sale in Kabul: Mementos of America’s War in Afghanistan, for $2 or Less",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "April 25, 2019",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "a": Object {
+          "src": "res/3.jpg",
+        },
+        "n": "img",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "The History Behind the Graffiti of War",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "July 18, 2018",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "a": Object {
+          "src": "res/4.jpg",
+        },
+        "n": "img",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "War Without End",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Aug. 8, 2018",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "a": Object {
+          "src": "res/5.jpg",
+        },
+        "n": "img",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "C.J. Chivers is a long-form writer and reporter for the Investigations Desk and The New York Times Magazine. He won the 2017 Pulitzer Prize for Feature Writing, and is also the author of “The Gun,” a history of automatic weapons.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "n": "li",
+      },
+      Object {
+        "n": "li",
+      },
+      Object {
+        "n": "li",
+      },
+      Object {
+        "n": "li",
+      },
+    ],
+    "n": "ul",
+  },
+  Object {
+    "c": Array [
+      "Advertisement",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Open in the app",
+    ],
+    "n": "p",
+  },
+  Object {
+    "a": Object {
+      "id": "site-index",
+    },
+    "c": Array [
+      Object {
+        "c": Array [
+          "Site Index",
+        ],
+        "n": "h2",
+      },
+      Object {
+        "c": Array [
+          Object {
+            "a": Object {
+              "href": "/",
+            },
+            "c": Array [
+              "Go to Home Page »",
+            ],
+            "n": "a",
+          },
+        ],
+        "n": "p",
+      },
+      Object {
+        "c": Array [
+          "news",
+        ],
+        "n": "p",
+      },
+      Object {
+        "c": Array [
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com",
+                },
+                "c": Array [
+                  "home page",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
           },
           Object {
             "c": Array [
               Object {
                 "a": Object {
-                  "href": "/",
+                  "href": "https://www.nytimes.com/section/world",
                 },
                 "c": Array [
-                  "Go to Home Page »",
+                  "world",
                 ],
                 "n": "a",
               },
             ],
-            "n": "p",
+            "n": "li",
           },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/us",
+                },
+                "c": Array [
+                  "U.S.",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/politics",
+                },
+                "c": Array [
+                  "politics",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/nyregion",
+                },
+                "c": Array [
+                  "New York",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/business",
+                },
+                "c": Array [
+                  "business",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/technology",
+                },
+                "c": Array [
+                  "tech",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/science",
+                },
+                "c": Array [
+                  "science",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/climate",
+                },
+                "c": Array [
+                  "climate",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/sports",
+                },
+                "c": Array [
+                  "sports",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/obituaries",
+                },
+                "c": Array [
+                  "obituaries",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/upshot",
+                },
+                "c": Array [
+                  "the upshot",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/todayspaper",
+                },
+                "c": Array [
+                  "today's paper",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/corrections",
+                },
+                "c": Array [
+                  "corrections",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+        ],
+        "n": "ul",
+      },
+      Object {
+        "c": Array [
+          "opinion",
+        ],
+        "n": "p",
+      },
+      Object {
+        "c": Array [
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/opinion",
+                },
+                "c": Array [
+                  "today's opinion",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/opinion/columnists",
+                },
+                "c": Array [
+                  "op-ed columnists",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/opinion/editorials",
+                },
+                "c": Array [
+                  "editorials",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/opinion/contributors",
+                },
+                "c": Array [
+                  "op-ed Contributors",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/opinion/letters",
+                },
+                "c": Array [
+                  "letters",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/opinion/sunday",
+                },
+                "c": Array [
+                  "sunday review",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/video/opinion",
+                },
+                "c": Array [
+                  "video: opinion",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+        ],
+        "n": "ul",
+      },
+      Object {
+        "c": Array [
+          "arts",
+        ],
+        "n": "p",
+      },
+      Object {
+        "c": Array [
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/arts",
+                },
+                "c": Array [
+                  "today's arts",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/arts/design",
+                },
+                "c": Array [
+                  "art & design",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/books",
+                },
+                "c": Array [
+                  "books",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/arts/dance",
+                },
+                "c": Array [
+                  "dance",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/movies",
+                },
+                "c": Array [
+                  "movies",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/arts/music",
+                },
+                "c": Array [
+                  "music",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/spotlight/pop-culture",
+                },
+                "c": Array [
+                  "Pop Culture",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/arts/television",
+                },
+                "c": Array [
+                  "television",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/theater",
+                },
+                "c": Array [
+                  "theater",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/watching",
+                },
+                "c": Array [
+                  "watching",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/video/arts",
+                },
+                "c": Array [
+                  "video: arts",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+        ],
+        "n": "ul",
+      },
+      Object {
+        "c": Array [
+          "living",
+        ],
+        "n": "p",
+      },
+      Object {
+        "c": Array [
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/automobiles",
+                },
+                "c": Array [
+                  "automobiles",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/crosswords",
+                },
+                "c": Array [
+                  "crossword",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/food",
+                },
+                "c": Array [
+                  "food",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://cooking.nytimes.com/",
+                },
+                "c": Array [
+                  "Cooking",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/education",
+                },
+                "c": Array [
+                  "education",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/style",
+                },
+                "c": Array [
+                  "style",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/health",
+                },
+                "c": Array [
+                  "health",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/jobs",
+                },
+                "c": Array [
+                  "jobs",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/magazine",
+                },
+                "c": Array [
+                  "magazine",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/realestate",
+                },
+                "c": Array [
+                  "real estate",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/t-magazine",
+                },
+                "c": Array [
+                  "t magazine",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/travel",
+                },
+                "c": Array [
+                  "travel",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/fashion/weddings",
+                },
+                "c": Array [
+                  "weddings",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+        ],
+        "n": "ul",
+      },
+      Object {
+        "c": Array [
+          "listings & more",
+        ],
+        "n": "p",
+      },
+      Object {
+        "c": Array [
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/reader-center",
+                },
+                "c": Array [
+                  "Reader Center",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://thewirecutter.com",
+                },
+                "c": Array [
+                  "Wirecutter",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "http://nytconferences.com/",
+                },
+                "c": Array [
+                  "Live Events",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/learning",
+                },
+                "c": Array [
+                  "The Learning Network",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "http://www.nytimes.com/marketing/tools-and-services",
+                },
+                "c": Array [
+                  "tools & services",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/events",
+                },
+                "c": Array [
+                  "N.Y.C. events guide",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/multimedia",
+                },
+                "c": Array [
+                  "multimedia",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/section/lens",
+                },
+                "c": Array [
+                  "photography",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/video",
+                },
+                "c": Array [
+                  "video",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/newsletters",
+                },
+                "c": Array [
+                  "Newsletters",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/store",
+                },
+                "c": Array [
+                  "NYT store",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/times-journeys",
+                },
+                "c": Array [
+                  "times journeys",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://myaccount.nytimes.com/membercenter/myaccount.html",
+                },
+                "c": Array [
+                  "manage my account",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+        ],
+        "n": "ul",
+      },
+      Object {
+        "a": Object {
+          "id": "news",
+        },
+        "c": Array [
           Object {
             "c": Array [
               "news",
             ],
-            "n": "p",
+            "n": "h3",
           },
           Object {
             "c": Array [
@@ -955,11 +1822,19 @@ Array [
             ],
             "n": "ul",
           },
+        ],
+        "n": "section",
+      },
+      Object {
+        "a": Object {
+          "id": "opinion",
+        },
+        "c": Array [
           Object {
             "c": Array [
               "opinion",
             ],
-            "n": "p",
+            "n": "h3",
           },
           Object {
             "c": Array [
@@ -1064,11 +1939,19 @@ Array [
             ],
             "n": "ul",
           },
+        ],
+        "n": "section",
+      },
+      Object {
+        "a": Object {
+          "id": "arts",
+        },
+        "c": Array [
           Object {
             "c": Array [
               "arts",
             ],
-            "n": "p",
+            "n": "h3",
           },
           Object {
             "c": Array [
@@ -1229,11 +2112,19 @@ Array [
             ],
             "n": "ul",
           },
+        ],
+        "n": "section",
+      },
+      Object {
+        "a": Object {
+          "id": "living",
+        },
+        "c": Array [
           Object {
             "c": Array [
               "living",
             ],
-            "n": "p",
+            "n": "h3",
           },
           Object {
             "c": Array [
@@ -1422,11 +2313,19 @@ Array [
             ],
             "n": "ul",
           },
+        ],
+        "n": "section",
+      },
+      Object {
+        "a": Object {
+          "id": "more",
+        },
+        "c": Array [
           Object {
             "c": Array [
-              "listings & more",
+              "more",
             ],
-            "n": "p",
+            "n": "h3",
           },
           Object {
             "c": Array [
@@ -1615,1064 +2514,43 @@ Array [
             ],
             "n": "ul",
           },
-          Object {
-            "a": Object {
-              "id": "news",
-            },
-            "c": Array [
-              Object {
-                "c": Array [
-                  "news",
-                ],
-                "n": "h3",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com",
-                        },
-                        "c": Array [
-                          "home page",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/world",
-                        },
-                        "c": Array [
-                          "world",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/us",
-                        },
-                        "c": Array [
-                          "U.S.",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/politics",
-                        },
-                        "c": Array [
-                          "politics",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/nyregion",
-                        },
-                        "c": Array [
-                          "New York",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/business",
-                        },
-                        "c": Array [
-                          "business",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/technology",
-                        },
-                        "c": Array [
-                          "tech",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/science",
-                        },
-                        "c": Array [
-                          "science",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/climate",
-                        },
-                        "c": Array [
-                          "climate",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/sports",
-                        },
-                        "c": Array [
-                          "sports",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/obituaries",
-                        },
-                        "c": Array [
-                          "obituaries",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/upshot",
-                        },
-                        "c": Array [
-                          "the upshot",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/todayspaper",
-                        },
-                        "c": Array [
-                          "today's paper",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/corrections",
-                        },
-                        "c": Array [
-                          "corrections",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                ],
-                "n": "ul",
-              },
-            ],
-            "n": "section",
-          },
-          Object {
-            "a": Object {
-              "id": "opinion",
-            },
-            "c": Array [
-              Object {
-                "c": Array [
-                  "opinion",
-                ],
-                "n": "h3",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/opinion",
-                        },
-                        "c": Array [
-                          "today's opinion",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/opinion/columnists",
-                        },
-                        "c": Array [
-                          "op-ed columnists",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/opinion/editorials",
-                        },
-                        "c": Array [
-                          "editorials",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/opinion/contributors",
-                        },
-                        "c": Array [
-                          "op-ed Contributors",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/opinion/letters",
-                        },
-                        "c": Array [
-                          "letters",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/opinion/sunday",
-                        },
-                        "c": Array [
-                          "sunday review",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/video/opinion",
-                        },
-                        "c": Array [
-                          "video: opinion",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                ],
-                "n": "ul",
-              },
-            ],
-            "n": "section",
-          },
-          Object {
-            "a": Object {
-              "id": "arts",
-            },
-            "c": Array [
-              Object {
-                "c": Array [
-                  "arts",
-                ],
-                "n": "h3",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/arts",
-                        },
-                        "c": Array [
-                          "today's arts",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/arts/design",
-                        },
-                        "c": Array [
-                          "art & design",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/books",
-                        },
-                        "c": Array [
-                          "books",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/arts/dance",
-                        },
-                        "c": Array [
-                          "dance",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/movies",
-                        },
-                        "c": Array [
-                          "movies",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/arts/music",
-                        },
-                        "c": Array [
-                          "music",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/spotlight/pop-culture",
-                        },
-                        "c": Array [
-                          "Pop Culture",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/arts/television",
-                        },
-                        "c": Array [
-                          "television",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/theater",
-                        },
-                        "c": Array [
-                          "theater",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/watching",
-                        },
-                        "c": Array [
-                          "watching",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/video/arts",
-                        },
-                        "c": Array [
-                          "video: arts",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                ],
-                "n": "ul",
-              },
-            ],
-            "n": "section",
-          },
-          Object {
-            "a": Object {
-              "id": "living",
-            },
-            "c": Array [
-              Object {
-                "c": Array [
-                  "living",
-                ],
-                "n": "h3",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/automobiles",
-                        },
-                        "c": Array [
-                          "automobiles",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/crosswords",
-                        },
-                        "c": Array [
-                          "crossword",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/food",
-                        },
-                        "c": Array [
-                          "food",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://cooking.nytimes.com/",
-                        },
-                        "c": Array [
-                          "Cooking",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/education",
-                        },
-                        "c": Array [
-                          "education",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/style",
-                        },
-                        "c": Array [
-                          "style",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/health",
-                        },
-                        "c": Array [
-                          "health",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/jobs",
-                        },
-                        "c": Array [
-                          "jobs",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/magazine",
-                        },
-                        "c": Array [
-                          "magazine",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/realestate",
-                        },
-                        "c": Array [
-                          "real estate",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/t-magazine",
-                        },
-                        "c": Array [
-                          "t magazine",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/travel",
-                        },
-                        "c": Array [
-                          "travel",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/fashion/weddings",
-                        },
-                        "c": Array [
-                          "weddings",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                ],
-                "n": "ul",
-              },
-            ],
-            "n": "section",
-          },
-          Object {
-            "a": Object {
-              "id": "more",
-            },
-            "c": Array [
-              Object {
-                "c": Array [
-                  "more",
-                ],
-                "n": "h3",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/reader-center",
-                        },
-                        "c": Array [
-                          "Reader Center",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://thewirecutter.com",
-                        },
-                        "c": Array [
-                          "Wirecutter",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "http://nytconferences.com/",
-                        },
-                        "c": Array [
-                          "Live Events",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/learning",
-                        },
-                        "c": Array [
-                          "The Learning Network",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "http://www.nytimes.com/marketing/tools-and-services",
-                        },
-                        "c": Array [
-                          "tools & services",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/events",
-                        },
-                        "c": Array [
-                          "N.Y.C. events guide",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/multimedia",
-                        },
-                        "c": Array [
-                          "multimedia",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/section/lens",
-                        },
-                        "c": Array [
-                          "photography",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/video",
-                        },
-                        "c": Array [
-                          "video",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/newsletters",
-                        },
-                        "c": Array [
-                          "Newsletters",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/store",
-                        },
-                        "c": Array [
-                          "NYT store",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/times-journeys",
-                        },
-                        "c": Array [
-                          "times journeys",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://myaccount.nytimes.com/membercenter/myaccount.html",
-                        },
-                        "c": Array [
-                          "manage my account",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                ],
-                "n": "ul",
-              },
-            ],
-            "n": "section",
-          },
-          Object {
-            "a": Object {
-              "id": "subscribe",
-            },
-            "c": Array [
-              Object {
-                "c": Array [
-                  "Subscribe",
-                ],
-                "n": "h3",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "c": Array [
-                      "home delivery",
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      "digital subscriptions",
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      "Crossword",
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      "Cooking",
-                    ],
-                    "n": "li",
-                  },
-                ],
-                "n": "ul",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/marketing/newsletters",
-                        },
-                        "c": Array [
-                          "email newsletters",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/corporateleftnav",
-                        },
-                        "c": Array [
-                          "corporate subscriptions",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/educationleftnav",
-                        },
-                        "c": Array [
-                          "education rate",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                ],
-                "n": "ul",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "https://www.nytimes.com/services/mobile/index.html",
-                        },
-                        "c": Array [
-                          "mobile applications",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                  Object {
-                    "c": Array [
-                      Object {
-                        "a": Object {
-                          "href": "http://eedition.nytimes.com/cgi-bin/signup.cgi?cc=37FYY",
-                        },
-                        "c": Array [
-                          "replica edition",
-                        ],
-                        "n": "a",
-                      },
-                    ],
-                    "n": "li",
-                  },
-                ],
-                "n": "ul",
-              },
-            ],
-            "n": "section",
-          },
         ],
         "n": "section",
       },
       Object {
         "a": Object {
-          "id": "site-information-navigation",
+          "id": "subscribe",
         },
         "c": Array [
           Object {
             "c": Array [
-              "Site Information Navigation",
+              "Subscribe",
             ],
-            "n": "h2",
+            "n": "h3",
           },
           Object {
             "c": Array [
               Object {
                 "c": Array [
-                  Object {
-                    "a": Object {
-                      "href": "https://www.nytimes.com/content/help/rights/copyright/copyright-notice.html",
-                    },
-                    "c": Array [
-                      "© 2019",
-                    ],
-                    "n": "a",
-                  },
-                  "The New York Times Company",
+                  "home delivery",
+                ],
+                "n": "li",
+              },
+              Object {
+                "c": Array [
+                  "digital subscriptions",
+                ],
+                "n": "li",
+              },
+              Object {
+                "c": Array [
+                  "Crossword",
+                ],
+                "n": "li",
+              },
+              Object {
+                "c": Array [
+                  "Cooking",
                 ],
                 "n": "li",
               },
@@ -2685,10 +2563,10 @@ Array [
                 "c": Array [
                   Object {
                     "a": Object {
-                      "href": "https://myaccount.nytimes.com/membercenter/feedback.html",
+                      "href": "https://www.nytimes.com/marketing/newsletters",
                     },
                     "c": Array [
-                      "Contact Us",
+                      "email newsletters",
                     ],
                     "n": "a",
                   },
@@ -2699,10 +2577,10 @@ Array [
                 "c": Array [
                   Object {
                     "a": Object {
-                      "href": "http://www.nytco.com/careers",
+                      "href": "https://www.nytimes.com/corporateleftnav",
                     },
                     "c": Array [
-                      "Work with us",
+                      "corporate subscriptions",
                     ],
                     "n": "a",
                   },
@@ -2713,10 +2591,29 @@ Array [
                 "c": Array [
                   Object {
                     "a": Object {
-                      "href": "http://nytmediakit.com/",
+                      "href": "https://www.nytimes.com/educationleftnav",
                     },
                     "c": Array [
-                      "Advertise",
+                      "education rate",
+                    ],
+                    "n": "a",
+                  },
+                ],
+                "n": "li",
+              },
+            ],
+            "n": "ul",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "c": Array [
+                  Object {
+                    "a": Object {
+                      "href": "https://www.nytimes.com/services/mobile/index.html",
+                    },
+                    "c": Array [
+                      "mobile applications",
                     ],
                     "n": "a",
                   },
@@ -2727,108 +2624,10 @@ Array [
                 "c": Array [
                   Object {
                     "a": Object {
-                      "href": "https://www.nytimes.com/content/help/rights/privacy/policy/privacy-policy.html#pp",
+                      "href": "http://eedition.nytimes.com/cgi-bin/signup.cgi?cc=37FYY",
                     },
                     "c": Array [
-                      "Your Ad Choices",
-                    ],
-                    "n": "a",
-                  },
-                ],
-                "n": "li",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "a": Object {
-                      "href": "https://www.nytimes.com/privacy",
-                    },
-                    "c": Array [
-                      "Privacy",
-                    ],
-                    "n": "a",
-                  },
-                ],
-                "n": "li",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "a": Object {
-                      "href": "https://www.nytimes.com/ref/membercenter/help/agree.html",
-                    },
-                    "c": Array [
-                      "Terms of Service",
-                    ],
-                    "n": "a",
-                  },
-                ],
-                "n": "li",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "a": Object {
-                      "href": "https://www.nytimes.com/content/help/rights/sale/terms-of-sale.html",
-                    },
-                    "c": Array [
-                      "Terms of Sale",
-                    ],
-                    "n": "a",
-                  },
-                ],
-                "n": "li",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "a": Object {
-                      "href": "http://spiderbites.nytimes.com",
-                    },
-                    "c": Array [
-                      "Site Map",
-                    ],
-                    "n": "a",
-                  },
-                ],
-                "n": "li",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "a": Object {
-                      "href": "https://mobile.nytimes.com/help",
-                    },
-                    "c": Array [
-                      "Help",
-                    ],
-                    "n": "a",
-                  },
-                ],
-                "n": "li",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "a": Object {
-                      "href": "https://www.nytimes.com/membercenter/sitehelp.html",
-                    },
-                    "c": Array [
-                      "Help",
-                    ],
-                    "n": "a",
-                  },
-                ],
-                "n": "li",
-              },
-              Object {
-                "c": Array [
-                  Object {
-                    "a": Object {
-                      "href": "https://www.nytimes.com/subscription/multiproduct/lp8HYKU?campaignId=37WXW",
-                    },
-                    "c": Array [
-                      "Subscriptions",
+                      "replica edition",
                     ],
                     "n": "a",
                   },
@@ -2840,6 +2639,199 @@ Array [
           },
         ],
         "n": "section",
+      },
+    ],
+    "n": "section",
+  },
+  Object {
+    "a": Object {
+      "id": "site-information-navigation",
+    },
+    "c": Array [
+      Object {
+        "c": Array [
+          "Site Information Navigation",
+        ],
+        "n": "h2",
+      },
+      Object {
+        "c": Array [
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/content/help/rights/copyright/copyright-notice.html",
+                },
+                "c": Array [
+                  "© 2019",
+                ],
+                "n": "a",
+              },
+              "The New York Times Company",
+            ],
+            "n": "li",
+          },
+        ],
+        "n": "ul",
+      },
+      Object {
+        "c": Array [
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://myaccount.nytimes.com/membercenter/feedback.html",
+                },
+                "c": Array [
+                  "Contact Us",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "http://www.nytco.com/careers",
+                },
+                "c": Array [
+                  "Work with us",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "http://nytmediakit.com/",
+                },
+                "c": Array [
+                  "Advertise",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/content/help/rights/privacy/policy/privacy-policy.html#pp",
+                },
+                "c": Array [
+                  "Your Ad Choices",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/privacy",
+                },
+                "c": Array [
+                  "Privacy",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/ref/membercenter/help/agree.html",
+                },
+                "c": Array [
+                  "Terms of Service",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/content/help/rights/sale/terms-of-sale.html",
+                },
+                "c": Array [
+                  "Terms of Sale",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "http://spiderbites.nytimes.com",
+                },
+                "c": Array [
+                  "Site Map",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://mobile.nytimes.com/help",
+                },
+                "c": Array [
+                  "Help",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/membercenter/sitehelp.html",
+                },
+                "c": Array [
+                  "Help",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+          Object {
+            "c": Array [
+              Object {
+                "a": Object {
+                  "href": "https://www.nytimes.com/subscription/multiproduct/lp8HYKU?campaignId=37WXW",
+                },
+                "c": Array [
+                  "Subscriptions",
+                ],
+                "n": "a",
+              },
+            ],
+            "n": "li",
+          },
+        ],
+        "n": "ul",
       },
     ],
     "n": "section",

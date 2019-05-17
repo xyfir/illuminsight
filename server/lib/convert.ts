@@ -2,6 +2,7 @@ import { basename, extname, resolve } from 'path';
 import { Insightful } from 'types/insightful';
 import { countWords } from 'lib/ast/count-words';
 import { nodeToAST } from 'lib/ast/node-to-ast';
+import { unwrapAST } from 'lib/ast/unwrap-ast';
 import * as archiver from 'archiver';
 import { queryAST } from 'lib/ast/query-ast';
 import { Calibre } from 'node-calibre';
@@ -192,6 +193,7 @@ export async function convert({
         // Convert document starting at body to AST
         const ast = nodeToAST(xhtmlDoc.body);
         if (!ast || typeof ast == 'string' || !ast.c || !ast.c.length) continue;
+        ast.n = 'div';
 
         // Give section a numeric name and map from original
         const section = `ast/${sections++}.json`;
@@ -200,8 +202,8 @@ export async function convert({
         // Count words in AST nodes
         for (let node of ast.c) words += countWords(node);
 
-        // Write AST (only body's children) to file
-        await writeJSON(resolve(astpubDirectory, section), ast.c);
+        // Write unwrapped AST to file
+        await writeJSON(resolve(astpubDirectory, section), unwrapAST(ast));
       }
     }
 
