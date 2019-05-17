@@ -1,5 +1,5 @@
 import { Insightful } from 'types/insightful';
-import { queryAST } from 'lib/query-ast';
+import { queryAST } from 'lib/ast/query-ast';
 import { testAST } from 'lib/test/objects';
 
 test('queryAST()', () => {

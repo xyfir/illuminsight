@@ -1,9 +1,9 @@
 import { basename, extname, resolve } from 'path';
 import { Insightful } from 'types/insightful';
-import { countWords } from 'lib/count-words';
-import { nodeToAST } from 'lib/node-to-ast';
+import { countWords } from 'lib/ast/count-words';
+import { nodeToAST } from 'lib/ast/node-to-ast';
 import * as archiver from 'archiver';
-import { queryAST } from 'lib/query-ast';
+import { queryAST } from 'lib/ast/query-ast';
 import { Calibre } from 'node-calibre';
 import { Extract } from 'unzipper';
 import { pandoc } from 'lib/pandoc';

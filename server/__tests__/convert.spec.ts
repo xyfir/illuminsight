@@ -1,6 +1,6 @@
 import { Insightful } from 'types/insightful';
-import { countWords } from 'lib/count-words';
-import { nodeToAST } from 'lib/node-to-ast';
+import { countWords } from 'lib/ast/count-words';
+import { nodeToAST } from 'lib/ast/node-to-ast';
 import { convert } from 'lib/convert';
 import { Extract } from 'unzipper';
 import { resolve } from 'path';
