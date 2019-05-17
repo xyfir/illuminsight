@@ -53,10 +53,13 @@ export async function convert({
       file = resolve(workDirectory, `${Date.now()}.html`);
       await writeFile(
         file,
-        `<pre>${text
+        text
           .replace(/&/g, '&amp;')
           .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')}</pre>`
+          .replace(/>/g, '&gt;')
+          .split(/\n+/g)
+          .map(l => `<p>${l.trim()}</p>`)
+          .join('\n')
       );
       text = undefined;
     }
