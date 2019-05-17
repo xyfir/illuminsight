@@ -1,5 +1,4 @@
 import { Insightful } from 'types/insightful';
-import { countWords } from 'lib/ast/count-words';
 import { nodeToAST } from 'lib/ast/node-to-ast';
 import { convert } from 'lib/convert';
 import { Extract } from 'unzipper';
@@ -25,7 +24,6 @@ const convertDirectory = resolve(TEMP_DIR, 'convert-test');
 const astpubDirectory = resolve(convertDirectory, 'astpub');
 const astpubMetaFile = resolve(astpubDirectory, 'meta.json');
 const loremHtmlFile = resolve(SERVER_DIRECTORY, 'res/lorem.html');
-const loremAstFile = resolve(SERVER_DIRECTORY, 'res/lorem.ast.json');
 const loremMdFile = resolve(convertDirectory, 'lorem.md');
 
 // Ensure test directory exists and is empty
@@ -37,18 +35,6 @@ beforeEach(async () => {
 test('nodeToAST()', async () => {
   const dom = new JSDOM(await readFile(loremHtmlFile));
   expect(nodeToAST(dom.window.document.body)).toMatchSnapshot();
-});
-
-test('countWords()', async () => {
-  // Load AST
-  const ast: Insightful.AST[] = await readJSON(loremAstFile);
-
-  // Count words in AST nodes
-  let words = 0;
-  for (let node of ast) words += countWords(node);
-
-  // Validate that words counted has not changed
-  expect(words).toBe(449);
 });
 
 test('pandoc()', async () => {
