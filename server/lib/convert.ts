@@ -1,10 +1,10 @@
 import { basename, extname, resolve } from 'path';
+import { getByAttributeName } from 'lib/ast/get-by-attribute-name';
 import { Insightful } from 'types/insightful';
 import { countWords } from 'lib/ast/count-words';
 import { nodeToAST } from 'lib/ast/node-to-ast';
 import { unwrapAST } from 'lib/ast/unwrap-ast';
 import * as archiver from 'archiver';
-import { queryAST } from 'lib/ast/query-ast';
 import { Calibre } from 'node-calibre';
 import { Extract } from 'unzipper';
 import { pandoc } from 'lib/pandoc';
@@ -217,11 +217,7 @@ export async function convert({
       // Loop through all attributes we need to convert
       for (let attr of LINK_ATTRIBUTES) {
         // Find nodes with attribute
-        const nodes = queryAST(
-          node =>
-            typeof node == 'string' ? false : !!node.a && !!node.a[attr],
-          ast
-        );
+        const nodes = getByAttributeName(attr, ast);
 
         // Loop through nodes with attribute that needs conversion
         for (let node of nodes) {
