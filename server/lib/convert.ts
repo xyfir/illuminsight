@@ -256,7 +256,7 @@ export async function convert({
         Array.from(opfDoc.getElementsByTagName('dc:creator'))
           .map(creator => creator.textContent)
           .join(', ') || undefined,
-      bookmark: { section: 0, block: 0 },
+      bookmark: { section: 0, element: 0 },
       cover,
       id: Date.now(),
       link,

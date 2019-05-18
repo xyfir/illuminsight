@@ -2,7 +2,7 @@ import { Insightful } from 'types/insightful';
 
 export const testEntity: Insightful.Entity = {
   authors: 'Jane Austen',
-  bookmark: { section: 0, block: 0 },
+  bookmark: { section: 0, element: 0 },
   id: 1556915133437,
   name: 'Pride and Prejudice',
   cover: 'images/cover.jpg',

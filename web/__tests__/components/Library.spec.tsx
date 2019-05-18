@@ -24,7 +24,7 @@ test('<Library>', async () => {
   const entities: Insightful.Entity[] = [
     {
       authors: 'Jane Austen',
-      bookmark: { section: 0, block: 0 },
+      bookmark: { section: 0, element: 0 },
       id: id++,
       name: 'Pride and Prejudice',
       published: -4952074022000,
@@ -36,7 +36,7 @@ test('<Library>', async () => {
     },
     {
       authors: 'Charles Dickens',
-      bookmark: { section: 0, block: 0 },
+      bookmark: { section: 0, element: 0 },
       id: id++,
       name: 'A Tale of Two Cities',
       published: -3502828800000,
@@ -48,7 +48,7 @@ test('<Library>', async () => {
     },
     {
       authors: 'Herman Melville',
-      bookmark: { section: 0, block: 0 },
+      bookmark: { section: 0, element: 0 },
       id: id++,
       name: 'Moby Dick; Or, The Whale',
       published: -3730233600000,

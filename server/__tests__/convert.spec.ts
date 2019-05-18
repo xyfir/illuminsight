@@ -66,7 +66,7 @@ test('convert({text})', async () => {
   const entity: Insightful.Entity = await readJSON(astpubMetaFile);
   const _entity: Insightful.Entity = {
     authors: 'Unknown',
-    bookmark: { section: 0, block: 0 },
+    bookmark: { section: 0, element: 0 },
     cover: 'res/0.jpg',
     id: entity.id,
     name: entity.name,
@@ -109,7 +109,7 @@ test(
     const _entity: Insightful.Entity = {
       ...entity,
       authors: 'Unknown',
-      bookmark: { section: 0, block: 0 },
+      bookmark: { section: 0, element: 0 },
       cover: 'res/0.jpg',
       link:
         'https://www.nytimes.com/2019/05/01/magazine/ehren-tool-war-cups-smithsonian.html',
@@ -152,7 +152,7 @@ test(
     const _entity: Insightful.Entity = {
       ...entity,
       authors: 'Charles Dickens',
-      bookmark: { section: 0, block: 0 },
+      bookmark: { section: 0, element: 0 },
       cover: 'res/0.jpg',
       name: 'A Tale of Two Cities',
       published: 757411200000,
