@@ -1,4 +1,4 @@
-import { testAST } from 'server/lib/test/objects';
+import { testAST } from 'lib/test/objects';
 import { render } from 'react-testing-library';
 import * as React from 'react';
 import { AST } from 'components/AST';

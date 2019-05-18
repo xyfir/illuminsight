@@ -1,4 +1,4 @@
-import { alternateTestAST, testEntity, testAST } from 'server/lib/test/objects';
+import { alternateTestAST, testEntity, testAST } from 'lib/test/objects';
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';

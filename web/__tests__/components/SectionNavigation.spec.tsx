@@ -1,6 +1,6 @@
 import { SectionNavigation } from 'components/SectionNavigation';
 import { fireEvent, render } from 'react-testing-library';
-import { testEntity } from 'server/lib/test/objects';
+import { testEntity } from 'lib/test/objects';
 import * as React from 'react';
 
 test('<SectionNavigation>', async () => {
