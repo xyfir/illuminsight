@@ -2,9 +2,9 @@ import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
 import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
 import { SectionNavigation } from 'components/SectionNavigation';
+import { getByTagName } from 'lib/get-by-tag-name';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
-import { queryAST } from 'server/lib/query-ast';
 import * as React from 'react';
 import * as JSZip from 'jszip';
 import { AST } from 'components/AST';
@@ -144,10 +144,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       );
 
       // Find images in AST
-      const imgNodes = queryAST(
-        ast => (typeof ast == 'string' ? false : ast.n == 'img'),
-        ast
-      );
+      const imgNodes = getByTagName('img', ast);
 
       for (let node of imgNodes) {
         if (typeof node == 'string' || !node.a) continue;
