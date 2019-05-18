@@ -95,6 +95,11 @@ export namespace Insightful {
        */
       WEB_DIRECTORY: string;
       /**
+       * Absolute path for insightful files.
+       * @example "/path/to/insightful/files"
+       */
+      FILES_DIRECTORY: string;
+      /**
        * Absolute path for insightful-server.
        * @example "/path/to/insightful/server"
        */

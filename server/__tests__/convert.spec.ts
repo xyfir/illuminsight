@@ -17,13 +17,13 @@ import {
 import 'jest-extended';
 
 // Extract environment variables
-const { SERVER_DIRECTORY, TEMP_DIR } = process.enve;
+const { FILES_DIRECTORY, TEMP_DIR } = process.enve;
 
 // Set paths used in tests
 const convertDirectory = resolve(TEMP_DIR, 'convert-test');
 const astpubDirectory = resolve(convertDirectory, 'astpub');
 const astpubMetaFile = resolve(astpubDirectory, 'meta.json');
-const loremHtmlFile = resolve(SERVER_DIRECTORY, 'res/lorem.html');
+const loremHtmlFile = resolve(FILES_DIRECTORY, 'lorem.html');
 const loremMdFile = resolve(convertDirectory, 'lorem.md');
 
 // Ensure test directory exists and is empty
@@ -139,7 +139,7 @@ test(
   async () => {
     // Move test ebook to temp_dir
     const file = resolve(TEMP_DIR, `${Date.now()}.epub`);
-    await copy(resolve(SERVER_DIRECTORY, 'res/ebook.epub'), file);
+    await copy(resolve(FILES_DIRECTORY, 'ebook.epub'), file);
 
     // Convert content to astpub format then extract
     const readStream = await convert({ file });
