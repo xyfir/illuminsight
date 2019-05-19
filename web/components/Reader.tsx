@@ -34,6 +34,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   constructor(props: ReaderProps) {
     super(props);
     this.loadSection = this.loadSection.bind(this);
+    this.attributor = this.attributor.bind(this);
   }
 
   componentDidMount() {
@@ -43,13 +44,13 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   componentDidUpdate(prevProps: any, prevState: ReaderState) {
     const { entity } = this.state;
 
-    // Scroll to bookmarked element on first load
-    if (!prevState.entity && entity) {
-      const elements = document.querySelectorAll('#ast *');
-      for (let i = 0; i < elements.length; i++) {
-        if (i == entity.bookmark.element) elements[i].scrollIntoView(true);
-      }
-    }
+    // Scroll to bookmarked element on first load and section change
+    if (
+      entity &&
+      (!prevState.entity ||
+        prevState.entity.bookmark.section != entity.bookmark.section)
+    )
+      this.scrollToBookmark(entity);
   }
 
   componentWillUnmount() {
@@ -60,6 +61,33 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     this.imgURLs.forEach(url => URL.revokeObjectURL(url));
   }
 
+  /**
+   * Triggered whenever an `<a>` element is clicked.
+   */
+  onLinkClick(e: MouseEvent, href: string) {
+    // Empty link, do nothing
+    if (!href) return;
+    // Hash link for current section, allow normal behavior
+    if (href.startsWith('#')) return;
+
+    e.preventDefault();
+
+    // Link for another section, change and optionally focus #hash
+    const match = href.match(/^ast\/(\d+)\.json(?:#(.*))?$/);
+    if (match) {
+      const entity = this.state.entity as Insightful.Entity;
+      entity.bookmark = { section: +match[1], element: match[2] || 0 };
+      this.loadSection(entity);
+    }
+    // External link, open in new tab
+    else {
+      window.open(href);
+    }
+  }
+
+  /**
+   * Triggered when user scrolls reader.
+   */
   onScroll(event: React.UIEvent<HTMLDivElement>) {
     const { entity } = this.state;
     if (!entity) return;
@@ -69,7 +97,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     this.lastBookmark = Date.now();
 
     // Calculate bookmark.element
-    const elements = document.querySelectorAll('#ast *');
+    const elements = document.querySelectorAll<HTMLElement>('#ast *');
     let element = 0;
     for (let i = 0; i < elements.length; i++) {
       if (elements[i].offsetTop >= (event.target as HTMLDivElement).scrollTop) {
@@ -177,6 +205,32 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     );
   }
 
+  /**
+   * Scroll to `entity.bookmark.element` if able.
+   */
+  scrollToBookmark(entity: Insightful.Entity) {
+    const { element } = entity.bookmark;
+
+    // Get by id
+    if (typeof element == 'string') {
+      const el = document.getElementById(element);
+      if (el) el.scrollIntoView(true);
+    }
+    // Get by index
+    else {
+      const elements = document.querySelectorAll('#ast *');
+      for (let i = 0; i < elements.length; i++) {
+        if (i == element) elements[i].scrollIntoView(true);
+      }
+    }
+  }
+
+  attributor(node: Insightful.AST): any | null {
+    if (typeof node == 'string' || node.n != 'a') return null;
+    const { a: { href = '' } = {} } = node; // yes, this is necessary for TS
+    return { onClick: (e: MouseEvent) => this.onLinkClick(e, href) };
+  }
+
   render() {
     const { entity, ast } = this.state;
     const { classes } = this.props;
@@ -190,7 +244,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         <SectionNavigation onChange={this.loadSection} entity={entity} />
         <div id="ast">
           {ast.map((node, i) => (
-            <AST key={i} ast={node} />
+            <AST key={i} ast={node} attributor={this.attributor} />
           ))}
         </div>
         <SectionNavigation onChange={this.loadSection} entity={entity} />

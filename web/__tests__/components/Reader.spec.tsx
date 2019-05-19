@@ -16,7 +16,7 @@ import {
 
 test('<Reader>', async () => {
   // Mock scrolling to bookmarked element
-  const mockScrollIntoView = (Element.prototype.scrollIntoView = jest.fn());
+  const mockHTMLDivElementScrollIntoView = (HTMLDivElement.prototype.scrollIntoView = jest.fn());
 
   // Mock localForage and URL
   const mockRevokeObjectURL = ((URL as any).revokeObjectURL = jest.fn());
@@ -68,8 +68,10 @@ test('<Reader>', async () => {
   // Validate image urls have not yet been revoked
   expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);
 
-  // Validate bookmarked element was scrolled to (default 0)
-  expect(mockScrollIntoView).toHaveBeenCalledTimes(1);
+  // Validate bookmarked element was scrolled to (default element 0)
+  await wait(() =>
+    expect(mockHTMLDivElementScrollIntoView).toHaveBeenCalledTimes(1)
+  );
 
   // Go to next section
   fireEvent.click(getAllByText('Next Section')[0]);
@@ -92,6 +94,7 @@ test('<Reader>', async () => {
   } as Insightful.Entity['bookmark']);
 
   // Mock document.querySelectorAll()
+  const querySelectorAll = document.querySelectorAll;
   const mockQuerySelectorAll = ((document as any).querySelectorAll = jest.fn(
     () => [
       { offsetTop: 0 },
@@ -117,4 +120,23 @@ test('<Reader>', async () => {
   // Validate onScroll() throttles itself
   fireEvent.scroll(getByTestId('reader'), { target: { scrollTop: 200 } });
   expect(mockQuerySelectorAll).toHaveBeenCalledTimes(1);
+  document.querySelectorAll = querySelectorAll;
+
+  // Skip two sections
+  fireEvent.click(getAllByText('Next Section')[0]);
+  await waitForDomChange();
+  fireEvent.click(getAllByText('Next Section')[0]);
+  await waitForDomChange();
+
+  // Click link to another section
+  fireEvent.click(getAllByText('I.')[0]);
+  await waitForDomChange();
+
+  // Validate clicking link changes section
+  zip = await JSZip.loadAsync(mockSetItem.mock.calls[4][1]);
+  entity = JSON.parse(await zip.file('meta.json').async('text'));
+  expect(entity.bookmark).toMatchObject({
+    section: 4,
+    element: 'link2H_4_0002'
+  } as Insightful.Entity['bookmark']);
 });
