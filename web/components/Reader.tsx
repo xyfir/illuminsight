@@ -41,16 +41,14 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   }
 
   componentDidUpdate(prevProps: any, prevState: ReaderState) {
-    const { classes } = this.props;
     const { entity } = this.state;
 
-    // Scroll to bookmarked block on first load
+    // Scroll to bookmarked element on first load
     if (!prevState.entity && entity) {
-      // +2 since nth-child() isn't 0-based and to skip section navigation
-      const el = document.querySelector(
-        `.${classes.root} > *:nth-child(${entity.bookmark.block + 2})`
-      );
-      if (el) el.scrollIntoView(true);
+      const elements = document.querySelectorAll('#ast *');
+      for (let i = 0; i < elements.length; i++) {
+        if (i == entity.bookmark.element) elements[i].scrollIntoView(true);
+      }
     }
   }
 
@@ -70,27 +68,19 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     if (Date.now() - 60 * 1000 < this.lastBookmark) return;
     this.lastBookmark = Date.now();
 
-    // Get top level block elements
-    const blocks: HTMLElement[] = Array.from(
-      document.querySelectorAll(`.${this.props.classes.root} > *`)
-    );
-
-    // Remove section navigation
-    blocks.shift();
-    blocks.pop();
-
-    // Calculate bookmark.block
-    let block = 0;
-    for (let i = 0; i < blocks.length; i++) {
-      if (blocks[i].offsetTop >= (event.target as HTMLDivElement).scrollTop) {
-        block = i;
+    // Calculate bookmark.element
+    const elements = document.querySelectorAll('#ast *');
+    let element = 0;
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i].offsetTop >= (event.target as HTMLDivElement).scrollTop) {
+        element = i;
         break;
       }
     }
 
     // Update bookmark if needed
-    if (entity.bookmark.block != block) {
-      entity.bookmark.block = block;
+    if (entity.bookmark.element != element) {
+      entity.bookmark.element = element;
       this.setState({ entity });
       this.saveFile(entity);
     }
@@ -144,17 +134,21 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       );
 
       // Find images in AST
-      const imgNodes = getByTagName('img', ast);
+      const imgNodes = getByTagName('img', ast).concat(
+        getByTagName('image', ast)
+      );
 
       for (let node of imgNodes) {
         if (typeof node == 'string' || !node.a) continue;
 
         // Load image from zip file
-        const imgBlob = await zip.file(node.a.src).async('blob');
+        const imgBlob = await zip
+          .file(node.n == 'img' ? node.a.src : node.a['xlink:href'])
+          .async('blob');
 
         // Convert node's src to use object url
         const url = URL.createObjectURL(imgBlob);
-        node.a.src = url;
+        node.a[node.n == 'img' ? 'src' : 'xlink:href'] = url;
         this.imgURLs.push(url);
       }
 
@@ -194,9 +188,11 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         onScroll={e => this.onScroll(e)}
       >
         <SectionNavigation onChange={this.loadSection} entity={entity} />
-        {ast.map((node, i) => (
-          <AST key={i} ast={node} />
-        ))}
+        <div id="ast">
+          {ast.map((node, i) => (
+            <AST key={i} ast={node} />
+          ))}
+        </div>
         <SectionNavigation onChange={this.loadSection} entity={entity} />
       </div>
     );
