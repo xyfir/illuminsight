@@ -6,15 +6,19 @@ import * as React from 'react';
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      width: '5em',
-      height: '5em',
-      display: 'flex',
-      alignItems: 'center',
       justifyContent: 'center',
+      marginRight: '1em',
+      alignItems: 'center',
+      display: 'flex',
+      width: '6em',
       color: theme.palette.grey[500]
     },
     icon: {
       fontSize: '5em'
+    },
+    img: {
+      maxHeight: '100%',
+      maxWidth: '100%'
     }
   });
 
@@ -41,7 +45,11 @@ function _Cover({ classes, id }: WithStyles<typeof styles> & { id: number }) {
 
   return (
     <div className={classes.root}>
-      {url ? <img src={url} /> : <SquareIcon className={classes.icon} />}
+      {url ? (
+        <img src={url} className={classes.img} />
+      ) : (
+        <SquareIcon className={classes.icon} />
+      )}
     </div>
   );
 }
