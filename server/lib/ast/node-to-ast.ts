@@ -1,5 +1,8 @@
 import { Insightful } from 'types/insightful';
 
+const REPLACEMENT_ATTRIBUTES: { [attr: string]: string } = {
+  'xlink:href': 'href'
+};
 const EXCLUDED_ATTRIBUTES = ['class', 'tag'];
 const EXCLUDED_ELEMENTS = ['iframe', 'script', 'style', 'link'];
 
@@ -23,8 +26,10 @@ export function nodeToAST(
     // Copy all but excluded attributes
     for (let attr of (node as Element).attributes) {
       if (EXCLUDED_ATTRIBUTES.includes(attr.name)) continue;
-      if (ast.a) ast.a[attr.name] = attr.value;
-      else ast.a = { [attr.name]: attr.value };
+
+      const name = REPLACEMENT_ATTRIBUTES[attr.name] || attr.name;
+      if (ast.a) ast.a[name] = attr.value;
+      else ast.a = { [name]: attr.value };
     }
 
     // Recursively build AST for child nodes

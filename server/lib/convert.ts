@@ -21,7 +21,7 @@ import {
   move
 } from 'fs-extra';
 
-const LINK_ATTRIBUTES = ['xlink:href', 'href', 'src'];
+const LINK_ATTRIBUTES = ['href', 'src'];
 const calibre = new Calibre({ log: process.enve.NODE_ENV == 'development' });
 
 export async function convert({

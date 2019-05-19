@@ -171,12 +171,12 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
         // Load image from zip file
         const imgBlob = await zip
-          .file(node.n == 'img' ? node.a.src : node.a['xlink:href'])
+          .file(node.n == 'img' ? node.a.src : node.a['href'])
           .async('blob');
 
         // Convert node's src to use object url
         const url = URL.createObjectURL(imgBlob);
-        node.a[node.n == 'img' ? 'src' : 'xlink:href'] = url;
+        node.a[node.n == 'img' ? 'src' : 'href'] = url;
         this.imgURLs.push(url);
       }
 

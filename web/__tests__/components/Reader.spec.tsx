@@ -63,7 +63,7 @@ test('<Reader>', async () => {
   // An in-depth test of AST rendering is done elsewhere in <AST>'s spec
   const imageElement = container.querySelector('image') as SVGImageElement;
   expect(imageElement).not.toBeNull();
-  expect(imageElement.getAttribute('xlink:href')).toBe(blobUrl);
+  expect(imageElement.getAttribute('href')).toBe(blobUrl);
 
   // Validate image urls have not yet been revoked
   expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);
