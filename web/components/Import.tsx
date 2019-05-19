@@ -160,11 +160,20 @@ function _Import({ classes }: WithStyles<typeof styles>) {
       inferredTags.push(a.hostname);
     }
 
-    // Force lowercase for all tags
-    inferredTags = inferredTags.map(t => t.toLocaleLowerCase());
+    // Force lowercase
+    // Replace spaces with hyphens
+    // Remove duplicates
+    inferredTags = Array.from(
+      new Set(
+        inferredTags
+          .map(t => t.toLocaleLowerCase())
+          .map(t => t.replace(/\s+/g, '-'))
+      )
+    );
 
     // Convert inferredTags to actual tags in tag-list
     // Link tags to entity and insert into meta.json
+    let id = Date.now();
     for (let inferredTag of inferredTags) {
       // Check if this tag already exists
       const tag = tags.find(t => t.name == inferredTag);
@@ -175,7 +184,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
       }
       // Create and link new tag
       else {
-        const tag: Insightful.Tag = { name: inferredTag, id: Date.now() };
+        const tag: Insightful.Tag = { name: inferredTag, id: id++ };
         entity.tags.push(tag.id);
         tags.push(tag);
       }

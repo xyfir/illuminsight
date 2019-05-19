@@ -48,7 +48,7 @@ test('<Import>', async () => {
 
     // Mock getting tag-list
     // Contains one so we can test linking existing tags
-    const tags: Insightful.Tag[] = [{ id: Date.now(), name: 'Jane Austen' }];
+    const tags: Insightful.Tag[] = [{ id: Date.now(), name: 'jane-austen' }];
     mockGetItem.mockResolvedValueOnce(tags);
 
     // Mock API to convert content
