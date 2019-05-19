@@ -1,8 +1,9 @@
-import { alternateTestAST, testEntity, testAST } from 'lib/test/objects';
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
+import { readFileSync } from 'fs';
 import { Insightful } from 'types/insightful';
+import { resolve } from 'path';
 import { Reader } from 'components/Reader';
 import * as React from 'react';
 import * as JSZip from 'jszip';
@@ -14,7 +15,7 @@ import {
 } from 'react-testing-library';
 
 test('<Reader>', async () => {
-  // Mock scrolling to bookmarked block element
+  // Mock scrolling to bookmarked element
   const mockScrollIntoView = (Element.prototype.scrollIntoView = jest.fn());
 
   // Mock localForage and URL
@@ -22,41 +23,27 @@ test('<Reader>', async () => {
   const mockCreateObjectURL = ((URL as any).createObjectURL = jest.fn());
   const mockSetItem = ((localForage as any).setItem = jest.fn());
   const mockGetItem = ((localForage as any).getItem = jest.fn());
-
-  // Used for mocks
-  const fileBlob = new Blob();
   const imgBlob = new Blob();
-  const zipBlob = new Blob();
+
+  // Load ASTPub
+  let zip = await JSZip.loadAsync(
+    readFileSync(resolve(process.enve.FILES_DIRECTORY, 'ebook.astpub'))
+  );
+  let entity: Insightful.Entity = JSON.parse(
+    await zip.file('meta.json').async('text')
+  );
 
   // Mock loading file from localForage
-  mockGetItem.mockResolvedValueOnce(fileBlob);
-
-  // Mock loading blob into JSZip
-  const mockGenerateAsync = jest.fn();
-  const mockAsync = jest.fn();
-  const mockFile = jest.fn((file, data) => ({ async: mockAsync }));
-  const mockLoadAsync = ((JSZip as any).loadAsync = jest.fn(blob => ({
-    generateAsync: mockGenerateAsync,
-    file: mockFile
-  })));
-
-  // Mock loading meta.json from zip
-  mockAsync.mockReturnValueOnce(JSON.stringify(testEntity));
-
-  // Mock loading AST from zip
-  mockAsync.mockReturnValueOnce(JSON.stringify(testAST));
-
-  // Mock loading image from zip
-  mockAsync.mockReturnValueOnce(imgBlob);
+  mockGetItem.mockResolvedValueOnce(await zip.generateAsync({ type: 'blob' }));
 
   // Mock creating image blob url
   const blobUrl = 'blob:/d81d5be1';
   mockCreateObjectURL.mockReturnValue(blobUrl);
 
   // Render <Reader>
-  const { getByAltText, getAllByText, getByTestId, getByText } = render(
+  const { getAllByText, getByTestId, getByText, container } = render(
     <SnackbarProvider>
-      <MemoryRouter initialEntries={[`/read/${testEntity.id}`]}>
+      <MemoryRouter initialEntries={[`/read/${entity.id}`]}>
         <Switch>
           <Route path="/read/:entityId" component={Reader} />
         </Switch>
@@ -66,49 +53,23 @@ test('<Reader>', async () => {
 
   // Validate mock loading file from localForage
   await wait(() => expect(mockGetItem).toHaveBeenCalledTimes(1));
-  expect(mockGetItem).toHaveBeenCalledWith(`entity-${testEntity.id}`);
-
-  // Validate mock loading blob into JSZip
-  await wait(() => expect(mockLoadAsync).toHaveBeenCalledTimes(1));
-  expect(mockLoadAsync).toHaveBeenCalledWith(fileBlob);
-
-  // Validate JSZip mocks
-  await wait(() => expect(mockFile).toHaveBeenCalledTimes(3));
-  await wait(() => expect(mockAsync).toHaveBeenCalledTimes(3));
-
-  // Validate mock loading meta.json from zip
-  expect(mockFile.mock.calls[0][0]).toBe('meta.json');
-  expect(mockAsync.mock.calls[0][0]).toBe('text');
-
-  // Validate mock loading AST from zip
-  expect(mockFile.mock.calls[1][0]).toBe('ast/0.json');
-  expect(mockAsync.mock.calls[1][0]).toBe('text');
-
-  // Validate mock loading image from zip
-  expect(mockFile.mock.calls[2][0]).toBe('images/0.png');
-  expect(mockAsync.mock.calls[2][0]).toBe('blob');
+  expect(mockGetItem).toHaveBeenCalledWith(`entity-${entity.id}`);
 
   // Validate mock creating image blob url
-  expect(mockCreateObjectURL).toHaveBeenCalledTimes(1);
+  await wait(() => expect(mockCreateObjectURL).toHaveBeenCalledTimes(1));
   expect(mockCreateObjectURL).toHaveBeenCalledWith(imgBlob);
 
   // Validate image rendered with blob url
   // An in-depth test of AST rendering is done elsewhere in <AST>'s spec
-  let el = getByAltText('A picture of ...');
-  expect(el.tagName).toBe('IMG');
-  expect((el as HTMLImageElement).src).toBe(blobUrl);
+  const imageElement = container.querySelector('image') as SVGImageElement;
+  expect(imageElement).not.toBeNull();
+  expect(imageElement.getAttribute('xlink:href')).toBe(blobUrl);
 
   // Validate image urls have not yet been revoked
   expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);
 
-  // Validate bookmarked block was scrolled to (default block 0)
+  // Validate bookmarked element was scrolled to (default 0)
   expect(mockScrollIntoView).toHaveBeenCalledTimes(1);
-
-  // Mock loading AST from zip
-  mockAsync.mockReturnValueOnce(JSON.stringify(alternateTestAST));
-
-  // Mock generating blob from zip
-  mockGenerateAsync.mockResolvedValueOnce(zipBlob);
 
   // Go to next section
   fireEvent.click(getAllByText('Next Section')[0]);
@@ -118,50 +79,42 @@ test('<Reader>', async () => {
   expect(mockRevokeObjectURL).toHaveBeenCalledWith(blobUrl);
 
   // Validate content has changed
-  el = getByText('Lorem Ipsum ...');
-  expect(el.tagName).toBe('H1');
+  expect(getByText('A TALE OF TWO CITIES').tagName).toBe('H1');
 
-  // Validate mock setting meta.json in zip file
-  const entity: Insightful.Entity = {
-    ...testEntity,
-    bookmark: { section: 1, block: 0 }
-  };
-  expect(mockFile).toHaveBeenCalledTimes(5);
-  expect(mockFile).toHaveBeenCalledWith('meta.json', JSON.stringify(entity));
-
-  // Validate mock zip.generateAsync() requests blob
-  expect(mockGenerateAsync).toHaveBeenCalledTimes(1);
-  expect(mockGenerateAsync.mock.calls[0][0]).toMatchObject({ type: 'blob' });
-
-  // Validate mock setItem() receives entity-id and zipBlob
+  // Validate mock setItem() receives zip with updated meta.json
   expect(mockSetItem).toHaveBeenCalledTimes(1);
-  expect(mockSetItem).toHaveBeenCalledWith(`entity-${testEntity.id}`, zipBlob);
+  expect(mockSetItem.mock.calls[0][0]).toBe(`entity-${entity.id}`);
+  zip = await JSZip.loadAsync(mockSetItem.mock.calls[0][1]);
+  entity = JSON.parse(await zip.file('meta.json').async('text'));
+  expect(entity.bookmark).toMatchObject({
+    section: 1,
+    element: 0
+  } as Insightful.Entity['bookmark']);
 
   // Mock document.querySelectorAll()
   const mockQuerySelectorAll = ((document as any).querySelectorAll = jest.fn(
     () => [
-      null,
       { offsetTop: 0 },
       { offsetTop: 50 },
       { offsetTop: 100 },
       { offsetTop: 150 },
-      { offsetTop: 200 },
-      null
+      { offsetTop: 200 }
     ]
   ));
 
   // Scroll through reader content
   fireEvent.scroll(getByTestId('reader'), { target: { scrollTop: 100 } });
 
-  // Wait for Reader#saveFile() to finish
-  await wait(() => expect(mockGenerateAsync).toHaveBeenCalledTimes(2));
+  // Validate mock setItem() receives zip with updated meta.json
+  await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(2));
+  zip = await JSZip.loadAsync(mockSetItem.mock.calls[1][1]);
+  entity = JSON.parse(await zip.file('meta.json').async('text'));
+  expect(entity.bookmark).toMatchObject({
+    section: 1,
+    element: 2
+  } as Insightful.Entity['bookmark']);
 
-  // Validate entity.bookmark has been set correctly
-  expect(mockFile.mock.calls[5][1]).toInclude('{"section":1,"block":2}');
-
-  // Trigger onScroll() again
+  // Validate onScroll() throttles itself
   fireEvent.scroll(getByTestId('reader'), { target: { scrollTop: 200 } });
-
-  // Validate onScroll() throttled itself and did not continue
   expect(mockQuerySelectorAll).toHaveBeenCalledTimes(1);
 });
