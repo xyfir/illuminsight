@@ -34,9 +34,9 @@ export namespace Insightful {
        */
       section: number;
       /**
-       * Index of block in section.
+       * Index of element in section.
        */
-      block: number;
+      element: number;
     };
     published?: number;
     publisher?: string;
@@ -71,6 +71,11 @@ export namespace Insightful {
        * Version of ASTPUB format this instance of Insightful supports.
        */
       ASTPUB_VERSION: 1;
+      /**
+       * Absolute path for insightful files.
+       * @example "/path/to/insightful/files"
+       */
+      FILES_DIRECTORY: string;
     }
 
     export interface Server extends Insightful.Env.Common {
@@ -94,16 +99,6 @@ export namespace Insightful {
        * @example "/path/to/insightful/web"
        */
       WEB_DIRECTORY: string;
-      /**
-       * Absolute path for insightful files.
-       * @example "/path/to/insightful/files"
-       */
-      FILES_DIRECTORY: string;
-      /**
-       * Absolute path for insightful-server.
-       * @example "/path/to/insightful/server"
-       */
-      SERVER_DIRECTORY: string;
     }
 
     export interface Web extends Insightful.Env.Common {
