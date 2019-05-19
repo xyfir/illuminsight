@@ -34,9 +34,10 @@ export namespace Insightful {
        */
       section: number;
       /**
-       * Index of element in section.
+       * Index (`number`) or id (`string`) of element in section.
+       * @example 4 | "some-id"
        */
-      element: number;
+      element: number | string;
     };
     published?: number;
     publisher?: string;
