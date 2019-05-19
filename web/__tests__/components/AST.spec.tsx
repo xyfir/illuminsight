@@ -1,14 +1,26 @@
+import { fireEvent, render } from 'react-testing-library';
 import { testAST } from 'lib/test/objects';
-import { render } from 'react-testing-library';
 import * as React from 'react';
 import { AST } from 'components/AST';
 
 test('<AST>', async () => {
+  const mockOnClick = jest.fn();
+
   // Render AST
   const { getByAltText, getByText, container } = render(
     <div>
       {testAST.map((node, i) => (
-        <AST key={i} ast={node} />
+        <AST
+          key={i}
+          ast={node}
+          attributor={n =>
+            typeof n == 'string'
+              ? null
+              : n.n == 'a'
+              ? { onClick: mockOnClick }
+              : null
+          }
+        />
       ))}
     </div>
   );
@@ -26,6 +38,9 @@ test('<AST>', async () => {
   el = getByText('with a link');
   expect(el.tagName).toBe('A');
   expect((el as HTMLAnchorElement).href).toBe('https://example.com/');
+  expect(mockOnClick).not.toHaveBeenCalled();
+  fireEvent.click(el);
+  expect(mockOnClick).toHaveBeenCalled();
 
   // p > em
   expect((el.parentElement as HTMLParagraphElement).tagName).toBe('P');
