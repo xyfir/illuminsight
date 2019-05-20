@@ -16,6 +16,8 @@ import {
 
 test('<Reader>', async () => {
   // Mock scrolling to bookmarked element
+  // jsdom does not implement scrollIntoView()
+  const mockHTMLHeadingElementScrollIntoView = (HTMLHeadingElement.prototype.scrollIntoView = jest.fn());
   const mockHTMLDivElementScrollIntoView = (HTMLDivElement.prototype.scrollIntoView = jest.fn());
 
   // Mock localForage and URL
