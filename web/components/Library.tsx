@@ -101,9 +101,12 @@ function _Library({ classes }: WithStyles<typeof styles>) {
 
   // Filter by tags
   let matches = selectedTags.length
-    ? entities.filter(
-        entity => entity.tags.findIndex(tag => selectedTags.includes(tag)) > -1
-      )
+    ? entities.filter(entity => {
+        for (let tag of selectedTags) {
+          if (!entity.tags.includes(tag)) return false;
+        }
+        return true;
+      })
     : entities;
 
   // Filter by search
