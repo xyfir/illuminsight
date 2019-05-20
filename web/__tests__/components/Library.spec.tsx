@@ -70,27 +70,44 @@ test('<Library>', async () => {
       <Library />
     </StaticRouter>
   );
-
-  // Validate all tags and entities rendered, with starred at top
   await waitForDomChange();
-  expect(asFragment()).toMatchSnapshot();
+
+  // All should be rendered
+  getByText('A Tale of Two Cities', { exact: false });
+  getByText('Pride and Prejudice', { exact: false });
+  getByText('Moby Dick; Or, The Whale', { exact: false });
+  getByText('tag-0');
+  getByText('tag-1');
+  getByText('tag-2');
 
   // Filter by tag
   fireEvent.click(getByText('tag-0'));
-  expect(asFragment()).toMatchSnapshot();
+  getByText('A Tale of Two Cities', { exact: false });
+  getByText('Pride and Prejudice', { exact: false });
+  expect(() =>
+    getByText('Moby Dick; Or, The Whale', { exact: false })
+  ).toThrow();
 
   // Filter by multiple tags
   fireEvent.click(getByText('tag-1'));
-  expect(asFragment()).toMatchSnapshot();
+  getByText('A Tale of Two Cities', { exact: false });
+  expect(() => getByText('Pride and Prejudice', { exact: false })).toThrow();
+  expect(() =>
+    getByText('Moby Dick; Or, The Whale', { exact: false })
+  ).toThrow();
 
   // Disable tags
   fireEvent.click(getByText('tag-0'));
   fireEvent.click(getByText('tag-1'));
-  expect(asFragment()).toMatchSnapshot();
+  getByText('A Tale of Two Cities', { exact: false });
+  getByText('Pride and Prejudice', { exact: false });
+  getByText('Moby Dick; Or, The Whale', { exact: false });
 
   // Filter by search
   fireEvent.change(getByPlaceholderText('A Tale of Two Cities'), {
     target: { value: 'moby dick' }
   });
-  expect(asFragment()).toMatchSnapshot();
+  getByText('Moby Dick; Or, The Whale', { exact: false });
+  expect(() => getByText('Pride and Prejudice', { exact: false })).toThrow();
+  expect(() => getByText('A Tale of Two Cities', { exact: false })).toThrow();
 });
