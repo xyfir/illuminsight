@@ -14,40 +14,40 @@ test('<SectionNavigation>', async () => {
   const { getByText } = render(<SectionNavigationConsumer />);
 
   // Validate controls
-  expect(() => getByText('Prev. Section')).toThrow();
+  expect(() => getByText('Prev')).toThrow();
 
   // Go to next section (middle)
-  fireEvent.click(getByText('Next Section'));
+  fireEvent.click(getByText('Next'));
 
   // Validate controls
-  getByText('Prev. Section');
+  getByText('Prev');
 
   // Go to next section (last)
-  fireEvent.click(getByText('Next Section'));
+  fireEvent.click(getByText('Next'));
 
   // Validate controls
-  expect(() => getByText('Next Section')).toThrow();
-  getByText('Prev. Section');
+  expect(() => getByText('Next')).toThrow();
+  getByText('Prev');
 
   // Validate TOC not open
   expect(() => getByText('Title')).toThrow();
 
   // Open TOC and change section (middle)
-  fireEvent.click(getByText('Table of Contents'));
+  fireEvent.click(getByText('TOC'));
   fireEvent.click(getByText('Pride and Prejudice'));
   await waitForDomChange();
 
   // Validate controls
-  getByText('Prev. Section');
-  getByText('Next Section');
+  getByText('Prev');
+  getByText('Next');
 
   // Validate TOC not open
   expect(() => getByText('Title')).toThrow();
 
   // Go to previous section (first)
-  fireEvent.click(getByText('Prev. Section'));
+  fireEvent.click(getByText('Prev'));
 
   // Validate controls
-  expect(() => getByText('Prev. Section')).toThrow();
-  getByText('Next Section');
+  expect(() => getByText('Prev')).toThrow();
+  getByText('Next');
 });

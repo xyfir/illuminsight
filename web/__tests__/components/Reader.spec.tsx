@@ -76,7 +76,7 @@ test('<Reader>', async () => {
   );
 
   // Go to next section
-  fireEvent.click(getAllByText('Next Section')[0]);
+  fireEvent.click(getAllByText('Next')[0]);
   await waitForDomChange();
 
   // Validate image urls have been revoked
@@ -125,9 +125,9 @@ test('<Reader>', async () => {
   document.querySelectorAll = querySelectorAll;
 
   // Skip two sections
-  fireEvent.click(getAllByText('Next Section')[0]);
+  fireEvent.click(getAllByText('Next')[0]);
   await waitForDomChange();
-  fireEvent.click(getAllByText('Next Section')[0]);
+  fireEvent.click(getAllByText('Next')[0]);
   await waitForDomChange();
 
   // Click link to another section

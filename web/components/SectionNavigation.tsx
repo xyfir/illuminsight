@@ -35,7 +35,7 @@ const styles = (theme: Theme) =>
       display: 'flex'
     },
     icon: {
-      fontSize: '4em',
+      fontSize: '3em',
       display: 'block'
     }
   });
@@ -76,7 +76,7 @@ function _SectionNavigation({
         >
           <div className={classes.buttonContent}>
             <PreviousIcon className={classes.icon} />
-            Prev. Section
+            Prev
           </div>
         </Button>
       ) : null}
@@ -87,7 +87,7 @@ function _SectionNavigation({
           <Button className={classes.button} onClick={() => setShowTOC(true)}>
             <div className={classes.buttonContent}>
               <TOCIcon className={classes.icon} />
-              Table of Contents
+              TOC
             </div>
           </Button>
 
@@ -121,7 +121,7 @@ function _SectionNavigation({
         >
           <div className={classes.buttonContent}>
             <NextIcon className={classes.icon} />
-            Next Section
+            Next
           </div>
         </Button>
       ) : null}
