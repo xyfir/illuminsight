@@ -22,6 +22,7 @@ const styles = (theme: Theme) =>
     ast: {
       fontFamily: 'Roboto',
       margin: '1em auto !important',
+      color: theme.palette.getContrastText(theme.palette.background.default),
       '& img': {
         maxWidth: '100%'
       },
