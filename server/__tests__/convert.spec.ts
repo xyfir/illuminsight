@@ -70,6 +70,7 @@ test('convert({text})', async () => {
     cover: 'res/0.jpg',
     id: entity.id,
     name: entity.name,
+    toc: [{ section: 0, element: 0, title: 'Start' }],
     sections: 2,
     starred: false,
     tags: [],
@@ -114,6 +115,15 @@ test(
       link:
         'https://www.nytimes.com/2019/05/01/magazine/ehren-tool-war-cups-smithsonian.html',
       name: '.',
+      toc: [
+        { section: 2, element: 0, title: '.' },
+        {
+          section: 3,
+          element: 0,
+          title:
+            'The Price of This Artist’s Work? A Conversation About the Horrors of War'
+        }
+      ],
       sections: 5,
       starred: false,
       tags: [],
@@ -163,6 +173,12 @@ test(
       words: '140k'
     };
     expect(entity).toMatchObject(_entity);
+
+    expect(entity.toc).toBeArrayOfSize(50);
+    expect(entity.toc.slice(0, 2)).toMatchObject([
+      { element: 'pgepubid00000', section: 1, title: 'A TALE OF TWO CITIES' },
+      { element: 0, section: 2, title: 'A STORY OF THE FRENCH REVOLUTION' }
+    ] as Insightful.Entity['toc']);
 
     // Validate cover
     await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);

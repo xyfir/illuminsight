@@ -250,6 +250,44 @@ export async function convert({
     // Use fallbacks for cover image if available
     if (!cover) cover = covers.id1 || covers.id2 || covers.href;
 
+    // Load toc.ncx
+    const tocDom = new JSDOM(
+      await readFile(resolve(epubDirectory, 'toc.ncx')),
+      { contentType: 'text/xml' }
+    );
+    const tocDoc = tocDom.window.document;
+
+    // Load elements from Table of Contents
+    let navPoints = Array.from(tocDoc.querySelectorAll('navMap > navPoint'));
+
+    // Sort nav elements
+    if (navPoints.length && navPoints[0].getAttribute('playOrder')) {
+      navPoints = navPoints.sort(
+        (a, b) =>
+          Number(a.getAttribute('playOrder')) -
+          Number(b.getAttribute('playorder'))
+      );
+    }
+
+    // Build Table of Contents
+    const toc: Insightful.Entity['toc'] = [];
+    for (let navPoint of navPoints) {
+      const title = navPoint.querySelector('navLabel > text') as Element;
+      const src = navPoint.querySelector('content') as Element;
+
+      const match = (src.getAttribute('src') as string).match(
+        /^([^#]+)(#(.*))?$/
+      ) as RegExpMatchArray;
+      toc.push({
+        // old link -> new link -> index
+        section: +linkMap[decodeURIComponent(match[1])]
+          .split('/')[1]
+          .split('.')[0],
+        element: match[3] || 0,
+        title: (title.textContent as string).trim()
+      });
+    }
+
     // Populate entity object which will be used for meta.json
     const entity: Insightful.Entity = {
       authors:
@@ -269,6 +307,7 @@ export async function convert({
         const pub = opfDoc.getElementsByTagName('dc:publisher')[0];
         if (pub) return pub.textContent as string;
       })(),
+      toc,
       sections,
       starred: false,
       tags: [],
