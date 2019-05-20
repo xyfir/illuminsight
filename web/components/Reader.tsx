@@ -13,7 +13,25 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       overflowY: 'auto',
-      padding: '1em'
+      padding: '1em',
+      ' & > div': {
+        maxWidth: '40em',
+        margin: 'auto'
+      }
+    },
+    ast: {
+      fontFamily: 'Roboto',
+      margin: '1em auto !important',
+      '& img': {
+        maxWidth: '100%'
+      },
+      '& a': {
+        textDecoration: 'none',
+        color: theme.palette.primary.main
+      },
+      '& p': {
+        textAlign: 'justify'
+      }
     }
   });
 
@@ -242,7 +260,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         onScroll={e => this.onScroll(e)}
       >
         <SectionNavigation onChange={this.loadSection} entity={entity} />
-        <div id="ast">
+        <div id="ast" className={classes.ast}>
           {ast.map((node, i) => (
             <AST key={i} ast={node} attributor={this.attributor} />
           ))}
