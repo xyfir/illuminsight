@@ -7,7 +7,11 @@ export const testEntity: Insightful.Entity = {
   name: 'Pride and Prejudice',
   cover: 'images/cover.jpg',
   published: -4952074022000,
-  toc: [{ section: 1, element: 0, title: 'Pride and Prejudice' }],
+  toc: [
+    { section: 0, element: 0, title: 'Title' },
+    { section: 1, element: 0, title: 'Pride and Prejudice' },
+    { section: 2, element: 0, title: 'Index' }
+  ],
   sections: 3,
   starred: false,
   tags: [],
