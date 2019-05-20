@@ -45,7 +45,8 @@ type ReaderProps = WithStyles<typeof styles> &
   WithSnackbarProps;
 
 class _Reader extends React.Component<ReaderProps, ReaderState> {
-  lastBookmark: number = 0;
+  lastScrollSave: number = 0;
+  lastScroll: number = 0;
   imgURLs: string[] = [];
   state: ReaderState = { ast: [] };
   zip?: JSZip;
@@ -95,6 +96,8 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     const match = href.match(/^ast\/(\d+)\.json(?:#(.*))?$/);
     if (match) {
       const entity = this.state.entity as Insightful.Entity;
+
+      // Set location as bookmark and navigate to it
       entity.bookmark = { section: +match[1], element: match[2] || 0 };
       this.loadSection(entity);
     }
@@ -111,9 +114,10 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     const { entity } = this.state;
     if (!entity) return;
 
-    // Ignore scroll if we updated bookmark within past minute
-    if (Date.now() - 60 * 1000 < this.lastBookmark) return;
-    this.lastBookmark = Date.now();
+    // Throttle onScroll() to max one per second
+    const now = Date.now();
+    if (this.lastScroll + 1000 >= now) return;
+    this.lastScroll = now;
 
     // Calculate bookmark.element
     const elements = document.querySelectorAll<HTMLElement>('#ast *');
@@ -129,7 +133,12 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     if (entity.bookmark.element != element) {
       entity.bookmark.element = element;
       this.setState({ entity });
-      this.saveFile(entity);
+
+      // Only save to file once a minute from scrolling
+      if (now - 60 * 1000 > this.lastScrollSave) {
+        this.lastScrollSave = Date.now();
+        this.saveFile(entity);
+      }
     }
   }
 
