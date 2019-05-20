@@ -63,7 +63,6 @@ function _SectionNavigation({
   /** Navigate to Table of Contents selection */
   function onSelect(section: Insightful.Entity['toc'][0]) {
     onNavigate(section.section, section.element);
-    console.log('false');
     setShowTOC(false);
   }
 
@@ -78,19 +77,6 @@ function _SectionNavigation({
           <div className={classes.buttonContent}>
             <PreviousIcon className={classes.icon} />
             Prev. Section
-          </div>
-        </Button>
-      ) : null}
-
-      {/* Next Section */}
-      {entity.sections - 1 > entity.bookmark.section ? (
-        <Button
-          className={classes.button}
-          onClick={() => onNavigate(entity.bookmark.section + 1, 0)}
-        >
-          <div className={classes.buttonContent}>
-            <NextIcon className={classes.icon} />
-            Next Section
           </div>
         </Button>
       ) : null}
@@ -112,8 +98,10 @@ function _SectionNavigation({
             open={showTOC}
           >
             <DialogContent>
-              <List dense>
-                <ListSubheader>Table of Contents</ListSubheader>
+              <List>
+                <ListSubheader disableSticky={true}>
+                  Table of Contents
+                </ListSubheader>
                 {entity.toc.map((section, i) => (
                   <ListItem key={i} button onClick={() => onSelect(section)}>
                     <ListItemText primary={section.title} />
@@ -123,6 +111,19 @@ function _SectionNavigation({
             </DialogContent>
           </Dialog>
         </React.Fragment>
+      ) : null}
+
+      {/* Next Section */}
+      {entity.sections - 1 > entity.bookmark.section ? (
+        <Button
+          className={classes.button}
+          onClick={() => onNavigate(entity.bookmark.section + 1, 0)}
+        >
+          <div className={classes.buttonContent}>
+            <NextIcon className={classes.icon} />
+            Next Section
+          </div>
+        </Button>
       ) : null}
     </div>
   );
