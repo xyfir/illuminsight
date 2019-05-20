@@ -18,6 +18,11 @@ export namespace Insightful {
      * @example "920" | "20k" | "1.25m"
      */
     words: string;
+    toc: {
+      element: Entity['bookmark']['element'];
+      section: Entity['bookmark']['section'];
+      title: string;
+    }[];
     /**
      * Number of sections.
      */
