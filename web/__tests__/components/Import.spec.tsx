@@ -77,7 +77,7 @@ test('<Import>', async () => {
 
     // Validate tags have been added (two additional)
     expect(mockSetItem.mock.calls[2][0]).toBe('tag-list');
-    expect(mockSetItem.mock.calls[2][1]).toBeArrayOfSize(3);
+    expect(mockSetItem.mock.calls[2][1]).toBeArrayOfSize(2);
 
     // Validate entity has been added
     expect(mockSetItem.mock.calls[3][0]).toBe('entity-list');
