@@ -1,13 +1,21 @@
 import { waitForDomChange, fireEvent, render } from 'react-testing-library';
 import { SectionNavigation } from 'components/SectionNavigation';
+import { Insightful } from 'types/insightful';
 import { testEntity } from 'lib/test/objects';
 import * as React from 'react';
 
 test('<SectionNavigation>', async () => {
   // Wrap <SectionNavigation>
+  const history: Insightful.Marker[] = [];
   function SectionNavigationConsumer() {
     const [entity, setEntity] = React.useState(testEntity);
-    return <SectionNavigation onChange={setEntity} entity={entity} />;
+    return (
+      <SectionNavigation
+        onChange={setEntity}
+        history={history}
+        entity={entity}
+      />
+    );
   }
 
   // Render <SectionNavigation> inside <SectionNavigationConsumer>
@@ -15,19 +23,22 @@ test('<SectionNavigation>', async () => {
 
   // Validate controls
   expect(() => getByText('Prev')).toThrow();
+  expect(() => getByText('Back')).toThrow();
 
   // Go to next section (middle)
   fireEvent.click(getByText('Next'));
 
   // Validate controls
   getByText('Prev');
+  expect(() => getByText('Back')).toThrow();
 
   // Go to next section (last)
   fireEvent.click(getByText('Next'));
 
   // Validate controls
-  expect(() => getByText('Next')).toThrow();
   getByText('Prev');
+  expect(() => getByText('Back')).toThrow();
+  expect(() => getByText('Next')).toThrow();
 
   // Validate TOC not open
   expect(() => getByText('Title')).toThrow();
@@ -39,6 +50,7 @@ test('<SectionNavigation>', async () => {
 
   // Validate controls
   getByText('Prev');
+  getByText('Back');
   getByText('Next');
 
   // Validate TOC not open
@@ -49,5 +61,12 @@ test('<SectionNavigation>', async () => {
 
   // Validate controls
   expect(() => getByText('Prev')).toThrow();
-  getByText('Next');
+
+  // Go back (to last)
+  fireEvent.click(getByText('Back'));
+
+  // Validate controls
+  getByText('Prev');
+  expect(() => getByText('Back')).toThrow();
+  expect(() => getByText('Next')).toThrow();
 });

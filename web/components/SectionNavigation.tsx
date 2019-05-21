@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   NavigateBefore as PreviousIcon,
   NavigateNext as NextIcon,
+  Replay as BackIcon,
   Toc as TOCIcon
 } from '@material-ui/icons';
 import {
@@ -43,40 +44,58 @@ const styles = (theme: Theme) =>
 function _SectionNavigation({
   onChange,
   classes,
+  history,
   entity
 }: {
   onChange: (entity: Insightful.Entity) => void;
+  history: Insightful.Marker[];
   entity?: Insightful.Entity;
 } & WithStyles<typeof styles>) {
   const [showTOC, setShowTOC] = React.useState(false);
 
+  if (!entity) return null;
+
   /** Navigate by updating entity bookmark */
-  function onNavigate(
-    section: Insightful.Entity['bookmark']['section'],
-    element: Insightful.Entity['bookmark']['element']
-  ) {
+  function onNavigate(marker: Insightful.Marker) {
     const _entity: Insightful.Entity = Object.assign({}, entity);
-    _entity.bookmark = { section, element };
+    _entity.bookmark = marker;
     onChange(_entity);
   }
 
   /** Navigate to Table of Contents selection */
-  function onSelect(section: Insightful.Entity['toc'][0]) {
-    onNavigate(section.section, section.element);
+  function onSelect(tocMarker: Insightful.Entity['toc'][0]) {
+    if (!entity) return;
+    history.push(entity.bookmark);
+    onNavigate(tocMarker);
     setShowTOC(false);
   }
 
-  return !entity ? null : (
+  return (
     <div className={classes.root}>
-      {/* Prev. Section */}
+      {/* Previous Section */}
       {entity.bookmark.section > 0 ? (
         <Button
           className={classes.button}
-          onClick={() => onNavigate(entity.bookmark.section - 1, 0)}
+          onClick={() =>
+            onNavigate({ section: entity.bookmark.section - 1, element: 0 })
+          }
         >
           <div className={classes.buttonContent}>
             <PreviousIcon className={classes.icon} />
             Prev
+          </div>
+        </Button>
+      ) : null}
+
+      {/* Back (history) */}
+      {history.length ? (
+        <Button
+          className={classes.button}
+          onClick={() => onNavigate(history.pop() as Insightful.Marker)}
+        >
+          <div className={classes.buttonContent}>
+            <BackIcon className={classes.icon} />
+            Back
           </div>
         </Button>
       ) : null}
@@ -117,7 +136,9 @@ function _SectionNavigation({
       {entity.sections - 1 > entity.bookmark.section ? (
         <Button
           className={classes.button}
-          onClick={() => onNavigate(entity.bookmark.section + 1, 0)}
+          onClick={() =>
+            onNavigate({ section: entity.bookmark.section + 1, element: 0 })
+          }
         >
           <div className={classes.buttonContent}>
             <NextIcon className={classes.icon} />
