@@ -21,6 +21,7 @@ const styles = (theme: Theme) =>
     },
     ast: {
       fontFamily: 'Roboto',
+      overflow: 'hidden',
       margin: '1em auto !important',
       color: theme.palette.getContrastText(theme.palette.background.default),
       '& img': {
