@@ -66,43 +66,9 @@ export async function convert({
 
     // Create EPUB from webpage
     else if (link) {
-      // Set file and directory paths we'll use later
-      const webpageDirectory = resolve(workDirectory, `webpage-${Date.now()}`);
-      const webpageImgDirectory = resolve(webpageDirectory, 'images');
-      const markdownFile = resolve(webpageDirectory, 'index.md');
-      const htmlFile = resolve(webpageDirectory, 'index.html');
-
-      // Create webpage directory
-      await mkdir(webpageDirectory);
-
-      // Pandoc converts page to CommonMark-raw_html to discard unwanted elements
-      await pandoc({
-        'extract-media': webpageImgDirectory,
-        output: markdownFile,
-        input: link,
-        from: 'html',
-        to: 'commonmark-raw_html'
-      });
-
-      // Convert Markdown back to HTML
-      await pandoc({
-        output: htmlFile,
-        input: markdownFile,
-        from: 'commonmark',
-        to: 'html'
-      });
-
-      // Convert to a proper HTML document so next pandoc call doesn't complain
-      await writeFile(
-        htmlFile,
-        `<!DOCTYPE html><html><head><title>.</title></head>${await readFile(
-          htmlFile
-        )}</html>`
-      );
-
       // Convert HTML to EPUB
       file = resolve(workDirectory, `${Date.now()}.epub`);
-      await pandoc({ output: file, input: htmlFile, from: 'html', to: 'epub' });
+      await pandoc({ output: file, input: link, from: 'html', to: 'epub' });
     }
 
     if (!file) throw new Error('Bad or missing input');

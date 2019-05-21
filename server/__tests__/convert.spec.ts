@@ -114,17 +114,17 @@ test(
       cover: 'res/0.jpg',
       link:
         'https://www.nytimes.com/2019/05/01/magazine/ehren-tool-war-cups-smithsonian.html',
-      name: '.',
+      name:
+        'The Price of This Artist’s Work? A Conversation About the Horrors of War - The New York Times',
       toc: [
-        { section: 2, element: 0, title: '.' },
         {
-          section: 3,
+          section: 2,
           element: 0,
           title:
-            'The Price of This Artist’s Work? A Conversation About the Horrors of War'
+            'The Price of This Artist’s Work? A Conversation About the Horrors of War - The New York Times'
         }
       ],
-      sections: 5,
+      sections: 4,
       starred: false,
       tags: [],
       version: 1,
