@@ -47,6 +47,7 @@ type ReaderProps = WithStyles<typeof styles> &
 class _Reader extends React.Component<ReaderProps, ReaderState> {
   lastScrollSave: number = 0;
   lastScroll: number = 0;
+  history: Insightful.Marker[] = [];
   imgURLs: string[] = [];
   state: ReaderState = { ast: [] };
   zip?: JSZip;
@@ -96,6 +97,9 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     const match = href.match(/^ast\/(\d+)\.json(?:#(.*))?$/);
     if (match) {
       const entity = this.state.entity as Insightful.Entity;
+
+      // Save current location to history
+      this.history.push(entity.bookmark);
 
       // Set location as bookmark and navigate to it
       entity.bookmark = { section: +match[1], element: match[2] || 0 };
@@ -269,13 +273,21 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         className={classes.root}
         onScroll={e => this.onScroll(e)}
       >
-        <SectionNavigation onChange={this.loadSection} entity={entity} />
+        <SectionNavigation
+          onChange={this.loadSection}
+          history={this.history}
+          entity={entity}
+        />
         <div id="ast" className={classes.ast}>
           {ast.map((node, i) => (
             <AST key={i} ast={node} attributor={this.attributor} />
           ))}
         </div>
-        <SectionNavigation onChange={this.loadSection} entity={entity} />
+        <SectionNavigation
+          onChange={this.loadSection}
+          history={this.history}
+          entity={entity}
+        />
       </div>
     );
   }
