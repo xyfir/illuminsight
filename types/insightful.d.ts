@@ -4,6 +4,18 @@ export namespace Insightful {
     name: string;
   }
 
+  export interface Marker {
+    /**
+     * Index of section.
+     */
+    section: number;
+    /**
+     * Index (`number`) or id (`string`) of element in section.
+     * @example 4 | "some-id"
+     */
+    element: number | string;
+  }
+
   export interface Entity {
     id: number;
     name: string;
@@ -18,11 +30,7 @@ export namespace Insightful {
      * @example "920" | "20k" | "1.25m"
      */
     words: string;
-    toc: {
-      element: Entity['bookmark']['element'];
-      section: Entity['bookmark']['section'];
-      title: string;
-    }[];
+    toc: Array<Marker & { title: string }>;
     /**
      * Number of sections.
      */
@@ -33,17 +41,7 @@ export namespace Insightful {
     version: number;
     starred: boolean;
     authors?: string;
-    bookmark: {
-      /**
-       * Index of section.
-       */
-      section: number;
-      /**
-       * Index (`number`) or id (`string`) of element in section.
-       * @example 4 | "some-id"
-       */
-      element: number | string;
-    };
+    bookmark: Marker;
     published?: number;
     publisher?: string;
   }
