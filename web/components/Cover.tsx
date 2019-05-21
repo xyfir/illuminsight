@@ -9,6 +9,7 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
       marginRight: '1em',
       alignItems: 'center',
+      minWidth: '6em',
       display: 'flex',
       width: '6em',
       color: theme.palette.grey[500]
