@@ -54,8 +54,10 @@ export function nodeToAST(
     // Preserve text content as is without manipulating whitespace
     if (pre) return node.textContent;
 
-    // Only return if it still has content after trimming
-    const text = node.textContent.trim();
-    if (text) return text.replace(/\n/g, ' ').replace(/\s{2,}/g, ' ');
+    // Convert newlines and multiple spaces to a single space
+    const text = node.textContent.replace(/\n/g, ' ').replace(/\s{2,}/g, ' ');
+
+    // Only return if it's more than just a single space
+    if (text != ' ') return text;
   }
 }
