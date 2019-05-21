@@ -130,9 +130,11 @@ test('<Reader>', async () => {
   fireEvent.click(getAllByText('Next')[0]);
   await waitForDomChange();
 
-  // Click link to another section
+  // Click link to another section and validate history works
+  expect(() => getAllByText('Back')).toThrow();
   fireEvent.click(getAllByText('I.')[0]);
   await waitForDomChange();
+  expect(getAllByText('Back')).toBeArrayOfSize(2);
 
   // Validate clicking link changes section
   zip = await JSZip.loadAsync(mockSetItem.mock.calls[4][1]);
