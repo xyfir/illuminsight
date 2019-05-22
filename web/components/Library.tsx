@@ -6,6 +6,7 @@ import * as React from 'react';
 import { Cover } from 'components/Cover';
 import * as Fuse from 'fuse.js';
 import { Link } from 'react-router-dom';
+import { Tags } from 'components/Tags';
 import {
   FilterList as FilterIcon,
   Search as SearchIcon,
@@ -129,65 +130,6 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   // Only load enough for "pages"
   const paginatedMatches = matches.slice(0, (page + 1) * 5);
 
-  // Unselected tags linked to matching entities
-  const availableTags = Array.from(
-    new Set(
-      matches
-        .map(m => m.tags)
-        .flat()
-        .filter(t => !selectedTags.includes(t))
-    )
-  );
-
-  const DrawerContent = () => (
-    <React.Fragment>
-      {/* Display selected tags */}
-      {selectedTags.length ? (
-        <List dense>
-          <ListSubheader>Active Filters</ListSubheader>
-          {selectedTags.map(tag => (
-            <ListItem
-              key={tag}
-              button
-              onClick={() =>
-                setSelectedTags(selectedTags.filter(t => t != tag))
-              }
-              selected
-            >
-              <ListItemAvatar>
-                <Avatar className={classes.selectedTagAvatar}>#</Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
-              />
-            </ListItem>
-          ))}
-        </List>
-      ) : null}
-
-      {/* Display tags available to filter by */}
-      {availableTags.length ? (
-        <List dense>
-          <ListSubheader>Tags</ListSubheader>
-          {availableTags.map(tag => (
-            <ListItem
-              key={tag}
-              button
-              onClick={() => setSelectedTags(selectedTags.concat(tag))}
-            >
-              <ListItemAvatar>
-                <Avatar>#</Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
-              />
-            </ListItem>
-          ))}
-        </List>
-      ) : null}
-    </React.Fragment>
-  );
-
   return (
     <div className={classes.root}>
       {/* Fixed / temporary drawer for tags */}
@@ -201,7 +143,12 @@ function _Library({ classes }: WithStyles<typeof styles>) {
             onClose={() => setShowDrawer(false)}
             classes={{ paper: classes.drawerPaper }}
           >
-            <DrawerContent />
+            <Tags
+              setSelectedTags={setSelectedTags}
+              selectedTags={selectedTags}
+              matches={matches}
+              tags={tags}
+            />
           </Drawer>
         </Hidden>
 
@@ -213,7 +160,12 @@ function _Library({ classes }: WithStyles<typeof styles>) {
             open
           >
             <div className={classes.toolbar} />
-            <DrawerContent />
+            <Tags
+              setSelectedTags={setSelectedTags}
+              selectedTags={selectedTags}
+              matches={matches}
+              tags={tags}
+            />
           </Drawer>
         </Hidden>
       </div>
