@@ -32,7 +32,7 @@ const _App = ({ classes }: WithStyles<typeof styles>) => (
     <CssBaseline />
     <SnackbarProvider
       action={[
-        <Button color="primary" size="small">
+        <Button color="primary" size="small" key="dismiss">
           Dismiss
         </Button>
       ]}
