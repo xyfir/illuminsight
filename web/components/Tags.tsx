@@ -1,22 +1,12 @@
-import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
 import {
-  FilterList as FilterIcon,
-  Search as SearchIcon,
-  Star as StarIcon
-} from '@material-ui/icons';
-import {
   ListItemAvatar,
-  InputAdornment,
   ListSubheader,
   createStyles,
   ListItemText,
-  IconButton,
   WithStyles,
-  Typography,
   withStyles,
-  TextField,
   ListItem,
   Avatar,
   Theme,
