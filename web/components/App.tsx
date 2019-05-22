@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { Navigation } from 'components/Navigation';
 import { Library } from 'components/Library';
@@ -48,6 +48,7 @@ const _App = ({ classes }: WithStyles<typeof styles>) => (
               <Route path="/read/:entityId" component={Reader} />
               <Route path="/library" component={Library} />
               <Route path="/import" component={Import} />
+              <Redirect exact from="/" to="/library" />
             </Switch>
           </main>
         </div>
