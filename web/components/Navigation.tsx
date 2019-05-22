@@ -1,5 +1,5 @@
+import { Route, Link } from 'react-router-dom';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import {
   createStyles,
   WithStyles,
@@ -14,7 +14,8 @@ import {
   LibraryBooks as LibraryIcon,
   LibraryAdd as ImportIcon,
   Brightness2 as MoonIcon,
-  WbSunny as SunIcon
+  WbSunny as SunIcon,
+  Edit as EditIcon
 } from '@material-ui/icons';
 
 const styles = createStyles({ title: { flexGrow: 1 } });
@@ -38,6 +39,7 @@ class _Navigation extends React.Component<WithStyles<typeof styles>> {
           >
             Insightful
           </Typography>
+
           <Tooltip title="Toggle light/dark theme">
             <IconButton
               onClick={() => this.onTheme(localStorage.theme != 'dark')}
@@ -59,6 +61,18 @@ class _Navigation extends React.Component<WithStyles<typeof styles>> {
               </IconButton>
             </Link>
           </Tooltip>
+          <Route
+            path="/read/:entity"
+            render={props => (
+              <Tooltip title="Edit metadata">
+                <Link to={`/edit/${props.match.params.entity}`}>
+                  <IconButton>
+                    <EditIcon />
+                  </IconButton>
+                </Link>
+              </Tooltip>
+            )}
+          />
         </Toolbar>
       </AppBar>
     );
