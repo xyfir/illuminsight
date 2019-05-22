@@ -69,7 +69,7 @@ test('convert({text})', async () => {
     bookmark: { section: 0, element: 0 },
     cover: 'res/0.jpg',
     id: entity.id,
-    name: entity.name,
+    name: 'Hello...',
     toc: [{ section: 0, element: 0, title: 'Start' }],
     sections: 2,
     starred: false,

@@ -40,6 +40,9 @@ export async function convert({
     // Create work directory
     await mkdir(workDirectory);
 
+    // Options to be passed to Calibre's ebook-convert
+    const ebookConvertOpts: any = {};
+
     // Move uploaded file to work directory
     if (file) {
       const originalFile = file;
@@ -61,6 +64,11 @@ export async function convert({
           .map(l => `<p>${l.trim()}</p>`)
           .join('\n')
       );
+      ebookConvertOpts.title = `${text
+        .trim()
+        .split('\n')[0]
+        .substr(0, 25)
+        .trim()}...`;
       text = undefined;
     }
 
@@ -75,7 +83,10 @@ export async function convert({
 
     // Convert to EPUB
     // Even if it's already EPUB, it will validate and rebuild as expected
-    file = await calibre.ebookConvert(file, 'epub', { epubFlatten: null });
+    file = await calibre.ebookConvert(file, 'epub', {
+      ...ebookConvertOpts,
+      epubFlatten: null
+    });
 
     // Extract files from EPUB
     const epubDirectory = resolve(workDirectory, `unzip-${Date.now()}`);
