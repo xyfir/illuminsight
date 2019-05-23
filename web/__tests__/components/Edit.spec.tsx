@@ -59,9 +59,6 @@ test('<Edit>', async () => {
   await wait(() => expect(mockCreateObjectURL).toHaveBeenCalledTimes(1));
   expect(mockCreateObjectURL).toHaveBeenCalledWith(imgBlob);
 
-  // Validate image urls have not yet been revoked
-  expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);
-
   // Set new data
   fireEvent.change(getByLabelText('Name'), { target: { value: 'Name' } });
   fireEvent.change(getByLabelText('Link'), {
@@ -148,4 +145,7 @@ test('<Edit>', async () => {
     testTags[1],
     testTags[3]
   ]);
+
+  // Validate cover was revoked on unmount
+  expect(mockRevokeObjectURL).toHaveBeenCalledTimes(2);
 });

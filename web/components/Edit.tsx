@@ -144,6 +144,9 @@ class _Edit extends React.Component<EditProps, EditState> {
         tags = tags.filter(t => t.id != tag);
     }
     await localForage.setItem('tag-list', tags);
+
+    // Take us home
+    this.props.history.replace('/');
   }
 
   onChange(prop: keyof Insightful.Entity, value: any) {
