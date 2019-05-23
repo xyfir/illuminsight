@@ -111,7 +111,7 @@ class _Edit extends React.Component<EditProps, EditState> {
       this.zip.remove(entity.cover);
 
     // Update zip file
-    entity.cover = `res/cover${file.name.split('.').pop()}`;
+    entity.cover = `res/cover.${file.name.split('.').pop()}`;
     this.zip.file(entity.cover, file);
     this.zip.file('meta.json', JSON.stringify(entity));
 
@@ -183,7 +183,7 @@ class _Edit extends React.Component<EditProps, EditState> {
         />
 
         <TextField
-          id="name"
+          id="authors"
           label="Author(s)"
           value={entity.authors}
           margin="normal"

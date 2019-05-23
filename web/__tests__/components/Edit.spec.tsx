@@ -81,11 +81,16 @@ test('<Edit>', async () => {
     target: { files: [new File([], 'cover.png')] }
   });
 
+  // Mock loading entity-list from localForage
+  mockGetItem.mockResolvedValueOnce([]);
+
   // Click save
   fireEvent.click(getByText('Save'));
 
   // Wait for setItem()
-  await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(1));
+  await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(3));
+
+  // Validate the file was saved
   expect(mockSetItem.mock.calls[0][0]).toBe(`entity-${entity.id}`);
   zip = await JSZip.loadAsync(mockSetItem.mock.calls[0][1]);
   entity = JSON.parse(await zip.file('meta.json').async('text'));
@@ -102,4 +107,7 @@ test('<Edit>', async () => {
     bookmark: { element: 0, section: 0 }
   };
   expect(entity).toMatchObject(_entity);
+
+  // Validate cover was extracted
+  // Validate entity-list was updates
 });
