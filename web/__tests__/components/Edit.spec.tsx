@@ -4,6 +4,7 @@ import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
 import { readFileSync } from 'fs';
 import { Insightful } from 'types/insightful';
+import { testTags } from 'lib/test/objects';
 import { resolve } from 'path';
 import * as React from 'react';
 import * as JSZip from 'jszip';
@@ -13,6 +14,7 @@ test('<Edit>', async () => {
   // Mock localForage and URL
   const mockRevokeObjectURL = ((URL as any).revokeObjectURL = jest.fn());
   const mockCreateObjectURL = ((URL as any).createObjectURL = jest.fn());
+  const mockRemoveItem = ((localForage as any).removeItem = jest.fn());
   const mockSetItem = ((localForage as any).setItem = jest.fn());
   const mockGetItem = ((localForage as any).getItem = jest.fn());
   const imgBlob = new Blob();
@@ -27,6 +29,8 @@ test('<Edit>', async () => {
 
   // Fake bookmark so we can test reset function
   entity.bookmark.element = 990;
+  // Fake tags
+  entity.tags = [testTags[0].id, testTags[2].id];
   zip.file('meta.json', JSON.stringify(entity));
 
   // Mock loading file from localForage
@@ -121,8 +125,27 @@ test('<Edit>', async () => {
   expect(mockSetItem.mock.calls[2][0]).toBe('entity-list');
   expect(mockSetItem.mock.calls[2][1]).toMatchObject([_entity]);
 
-  // Validate cover url is revoked on unmount
-  expect(mockRevokeObjectURL).toHaveBeenCalledTimes(1);
-  unmount();
-  expect(mockRevokeObjectURL).toHaveBeenCalledTimes(2);
+  // Mock loading entity-list and tag-list from localForage
+  mockGetItem.mockResolvedValueOnce([entity]);
+  mockGetItem.mockResolvedValueOnce(testTags);
+
+  // Click delete button
+  fireEvent.click(getByText('Delete'));
+
+  // Validate file and cover was removed
+  await wait(() => expect(mockRemoveItem).toHaveBeenCalledTimes(2));
+  expect(mockRemoveItem).toHaveBeenCalledWith(`entity-${entity.id}`);
+  expect(mockRemoveItem).toHaveBeenCalledWith(`entity-cover-${entity.id}`);
+
+  // Validate entity-list was updated
+  expect(mockSetItem).toHaveBeenCalledTimes(5);
+  expect(mockSetItem.mock.calls[3][0]).toBe('entity-list');
+  expect(mockSetItem.mock.calls[3][1]).toMatchObject([]);
+
+  // Validate tag-list was updated (orphans removed)
+  expect(mockSetItem.mock.calls[4][0]).toBe('tag-list');
+  expect(mockSetItem.mock.calls[4][1]).toMatchObject([
+    testTags[1],
+    testTags[3]
+  ]);
 });

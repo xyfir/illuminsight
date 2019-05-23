@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import {
   BookmarkBorder as BookmarkIcon,
+  DeleteForever as DeleteIcon,
   // DateRange as PublishedIcon,
   People as AuthorsIcon,
   Image as ImageIcon,
@@ -122,9 +123,32 @@ class _Edit extends React.Component<EditProps, EditState> {
     this.setState({ entity, cover: URL.createObjectURL(file) });
   }
 
+  async onDelete() {
+    const entity = this.state.entity!;
+
+    // Remove entity from list
+    let entities: Insightful.Entity[] = await localForage.getItem(
+      'entity-list'
+    );
+    entities = entities.filter(e => e.id != entity.id);
+    await localForage.setItem('entity-list', entities);
+
+    // Delete entity files
+    await localForage.removeItem(`entity-${entity.id}`);
+    await localForage.removeItem(`entity-cover-${entity.id}`);
+
+    // Delete orphaned tags
+    let tags: Insightful.Tag[] = await localForage.getItem('tag-list');
+    for (let tag of entity.tags) {
+      if (entities.findIndex(e => e.tags.includes(tag)) == -1)
+        tags = tags.filter(t => t.id != tag);
+    }
+    await localForage.setItem('tag-list', tags);
+  }
+
   onChange(prop: keyof Insightful.Entity, value: any) {
-    if (!this.state.entity) return;
-    this.setState({ entity: { ...this.state.entity, [prop]: value } });
+    const entity = this.state.entity!;
+    this.setState({ entity: { ...entity, [prop]: value } });
   }
 
   async onSave() {
@@ -245,19 +269,24 @@ class _Edit extends React.Component<EditProps, EditState> {
           className={classes.coverInput}
         />
         <label htmlFor="cover-input">
-          <Button variant="text" component="span" color="secondary">
+          <Button variant="text" component="span">
             <ImageIcon />
             Set Cover
           </Button>
         </label>
 
-        <Button
-          onClick={() => this.onResetBookmark()}
-          variant="contained"
-          color="primary"
-        >
+        <Button onClick={() => this.onResetBookmark()} variant="contained">
           <BookmarkIcon />
           Reset Bookmark
+        </Button>
+
+        <Button
+          onClick={() => this.onDelete()}
+          variant="contained"
+          color="secondary"
+        >
+          <DeleteIcon />
+          Delete
         </Button>
 
         <Button
