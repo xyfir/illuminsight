@@ -37,7 +37,7 @@ test('<Edit>', async () => {
   mockCreateObjectURL.mockReturnValue(blobUrl);
 
   // Render <Edit>
-  const { getByLabelText, getByText } = render(
+  const { getByLabelText, getByText, unmount } = render(
     <SnackbarProvider>
       <MemoryRouter initialEntries={[`/edit/${entity.id}`]}>
         <Switch>
@@ -77,12 +77,17 @@ test('<Edit>', async () => {
   fireEvent.click(getByText('Reset Bookmark'));
 
   // Set cover
+  expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);
   fireEvent.change(getByLabelText('Set Cover'), {
     target: { files: [new File([], 'cover.png')] }
   });
 
+  // Validate old cover url was revoked and new generated
+  expect(mockRevokeObjectURL).toHaveBeenCalledWith(blobUrl);
+  expect(mockCreateObjectURL).toHaveBeenCalledTimes(2);
+
   // Mock loading entity-list from localForage
-  mockGetItem.mockResolvedValueOnce([]);
+  mockGetItem.mockResolvedValueOnce([entity]);
 
   // Click save
   fireEvent.click(getByText('Save'));
@@ -109,5 +114,15 @@ test('<Edit>', async () => {
   expect(entity).toMatchObject(_entity);
 
   // Validate cover was extracted
-  // Validate entity-list was updates
+  expect(mockSetItem.mock.calls[1][0]).toBe(`entity-cover-${entity.id}`);
+  expect(mockSetItem.mock.calls[1][1]).toStrictEqual(imgBlob);
+
+  // Validate entity-list was updated
+  expect(mockSetItem.mock.calls[2][0]).toBe('entity-list');
+  expect(mockSetItem.mock.calls[2][1]).toMatchObject([_entity]);
+
+  // Validate cover url is revoked on unmount
+  expect(mockRevokeObjectURL).toHaveBeenCalledTimes(1);
+  unmount();
+  expect(mockRevokeObjectURL).toHaveBeenCalledTimes(2);
 });
