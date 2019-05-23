@@ -1,5 +1,12 @@
 import { Insightful } from 'types/insightful';
 
+export const testTags: Insightful.Tag[] = [
+  { id: 1556915133433, name: 'alpha' },
+  { id: 1556915133434, name: 'bravo' },
+  { id: 1556915133435, name: 'charlie' },
+  { id: 1556915133436, name: 'delta' }
+];
+
 export const testEntity: Insightful.Entity = {
   authors: 'Jane Austen',
   bookmark: { section: 0, element: 0 },
