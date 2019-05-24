@@ -31,15 +31,7 @@ const styles = (theme: Theme) =>
 const _App = ({ classes }: WithStyles<typeof styles>) => (
   <MuiThemeProvider theme={theme}>
     <CssBaseline />
-    <SnackbarProvider
-      action={[
-        <Button color="primary" size="small" key="dismiss">
-          Dismiss
-        </Button>
-      ]}
-      maxSnack={2}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-    >
+    <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
       <BrowserRouter>
         <div>
           <Navigation />
