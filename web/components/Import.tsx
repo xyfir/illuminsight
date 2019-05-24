@@ -31,7 +31,7 @@ import {
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      padding: theme.spacing.unit * 3
+      padding: theme.spacing(3)
     },
     fileInput: {
       display: 'none'

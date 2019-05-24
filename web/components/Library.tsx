@@ -13,11 +13,8 @@ import {
   Star as StarIcon
 } from '@material-ui/icons';
 import {
-  ListItemAvatar,
   InputAdornment,
-  ListSubheader,
   createStyles,
-  ListItemText,
   IconButton,
   WithStyles,
   Typography,
@@ -26,7 +23,6 @@ import {
   ListItem,
   Hidden,
   Drawer,
-  Avatar,
   Theme,
   List
 } from '@material-ui/core';
@@ -47,10 +43,13 @@ const styles = (theme: Theme) =>
       width: 240
     },
     entityName: {
+      marginBottom: '0.3em',
       fontSize: '150%',
-      display: 'flex'
+      display: 'flex',
+      color: theme.palette.getContrastText(theme.palette.background.default)
     },
     entityInfo: {
+      fontSize: '100%',
       color: theme.palette.grey[500]
     },
     toolbar: theme.mixins.toolbar,
@@ -72,7 +71,7 @@ const styles = (theme: Theme) =>
     },
     root: {
       flexDirection: 'column',
-      padding: theme.spacing.unit * 3,
+      padding: theme.spacing(3),
       display: 'flex'
     }
   });

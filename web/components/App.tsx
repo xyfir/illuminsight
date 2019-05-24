@@ -1,5 +1,6 @@
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
+import { ThemeProvider } from '@material-ui/styles';
 import { Navigation } from 'components/Navigation';
 import { Library } from 'components/Library';
 import { Import } from 'components/Import';
@@ -8,7 +9,6 @@ import * as React from 'react';
 import { theme } from 'lib/theme';
 import { Edit } from 'components/Edit';
 import {
-  MuiThemeProvider,
   createStyles,
   CssBaseline,
   WithStyles,
@@ -29,7 +29,7 @@ const styles = (theme: Theme) =>
   });
 
 const _App = ({ classes }: WithStyles<typeof styles>) => (
-  <MuiThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <CssBaseline />
     <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
       <BrowserRouter>
@@ -48,7 +48,7 @@ const _App = ({ classes }: WithStyles<typeof styles>) => (
         </div>
       </BrowserRouter>
     </SnackbarProvider>
-  </MuiThemeProvider>
+  </ThemeProvider>
 );
 
 export const App = withStyles(styles)(_App);
