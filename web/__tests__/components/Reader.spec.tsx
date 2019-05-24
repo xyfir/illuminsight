@@ -18,7 +18,7 @@ test('<Reader>', async () => {
   // Mock scrolling to bookmarked element
   // jsdom does not implement scrollIntoView()
   const mockHTMLHeadingElementScrollIntoView = (HTMLHeadingElement.prototype.scrollIntoView = jest.fn());
-  const mockHTMLDivElementScrollIntoView = (HTMLDivElement.prototype.scrollIntoView = jest.fn());
+  const mockSVGElementScrollIntoView = (SVGElement.prototype.scrollIntoView = jest.fn());
 
   // Mock localForage and URL
   const mockRevokeObjectURL = ((URL as any).revokeObjectURL = jest.fn());
@@ -34,6 +34,10 @@ test('<Reader>', async () => {
   let entity: Insightful.Entity = JSON.parse(
     await zip.file('meta.json').async('text')
   );
+
+  // Set bookmark so we can test that it navigates to it
+  entity.bookmark.element = 1;
+  zip.file('meta.json', JSON.stringify(entity));
 
   // Mock loading file from localForage
   mockGetItem.mockResolvedValueOnce(await zip.generateAsync({ type: 'blob' }));
@@ -72,7 +76,7 @@ test('<Reader>', async () => {
 
   // Validate bookmarked element was scrolled to (default element 0)
   await wait(() =>
-    expect(mockHTMLDivElementScrollIntoView).toHaveBeenCalledTimes(1)
+    expect(mockSVGElementScrollIntoView).toHaveBeenCalledTimes(1)
   );
 
   // Go to next section

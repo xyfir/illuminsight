@@ -250,7 +250,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       if (el) el.scrollIntoView(true);
     }
     // Get by index
-    else {
+    else if (element > 0) {
       const elements = document.querySelectorAll('#ast *');
       for (let i = 0; i < elements.length; i++) {
         if (i == element) elements[i].scrollIntoView(true);
