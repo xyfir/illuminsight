@@ -20,8 +20,9 @@ const styles = (theme: Theme) =>
       }
     },
     ast: {
-      fontFamily: 'Roboto',
+      fontFamily: 'serif',
       overflow: 'hidden',
+      fontSize: '125%',
       margin: '1em auto !important',
       color: theme.palette.getContrastText(theme.palette.background.default),
       '& img': {
