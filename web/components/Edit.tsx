@@ -169,6 +169,7 @@ class _Edit extends React.Component<EditProps, EditState> {
   }
 
   async onDelete() {
+    const { enqueueSnackbar, history } = this.props;
     const entity = this.state.entity!;
 
     // Remove entity from list
@@ -185,8 +186,9 @@ class _Edit extends React.Component<EditProps, EditState> {
     // Update tags
     await this.saveTags(entities);
 
-    // Take us home
-    this.props.history.replace('/');
+    // Take us home and notify user
+    history.replace('/');
+    enqueueSnackbar(`${entity.name} was deleted`);
   }
 
   onChange(prop: keyof Insightful.Entity, value: any) {
@@ -195,8 +197,9 @@ class _Edit extends React.Component<EditProps, EditState> {
   }
 
   async onSave() {
-    const { entity, tags } = this.state;
+    const { entity } = this.state;
     if (!entity || !this.zip) return;
+    const { enqueueSnackbar } = this.props;
 
     // Update meta.json
     this.zip.file('meta.json', JSON.stringify(entity));
@@ -223,8 +226,9 @@ class _Edit extends React.Component<EditProps, EditState> {
     entities[index] = entity;
     await localForage.setItem('entity-list', entities);
 
-    // Update tags
+    // Update tags and notify user
     await this.saveTags(entities);
+    enqueueSnackbar(`${entity.name} was updated`);
   }
 
   async saveTags(entities: Insightful.Entity[]) {
