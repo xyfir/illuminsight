@@ -7,15 +7,20 @@ import * as JSZip from 'jszip';
 import {
   InputAdornment,
   createStyles,
+  ListItemText,
+  IconButton,
   WithStyles,
   withStyles,
   TextField,
+  ListItem,
   Button,
-  Theme
+  Theme,
+  List
 } from '@material-ui/core';
 import {
   BookmarkBorder as BookmarkIcon,
   DeleteForever as DeleteIcon,
+  RemoveCircle as RemoveIcon,
   // DateRange as PublishedIcon,
   People as AuthorsIcon,
   Image as ImageIcon,
@@ -38,42 +43,33 @@ const styles = (theme: Theme) =>
 interface EditState {
   entity?: Insightful.Entity;
   cover?: string;
+  tags: Insightful.Tag[];
+  tag: string;
 }
 type EditProps = WithStyles<typeof styles> &
   RouteComponentProps &
   WithSnackbarProps;
 
 class _Edit extends React.Component<EditProps, EditState> {
-  state: EditState = {};
+  state: EditState = { tags: [], tag: '' };
   zip?: JSZip;
 
   constructor(props: EditProps) {
     super(props);
   }
 
-  componentDidMount() {
-    this.loadZip();
-  }
-
-  componentWillUnmount() {
-    const { cover } = this.state;
-    if (cover) URL.revokeObjectURL(cover);
-  }
-
-  /**
-   * Load zip file for corresponding entity.
-   */
-  async loadZip() {
+  async componentDidMount() {
     const { enqueueSnackbar, history, match } = this.props;
     const { entityId } = match.params as { entityId: number };
 
     try {
-      // Load file from localForage
-      const file = await localForage.getItem(`entity-${entityId}`);
+      // Load from localForage
+      const file: Blob = await localForage.getItem(`entity-${entityId}`);
       if (file === null) throw 'Could not load data from storage';
+      const tags: Insightful.Tag[] = await localForage.getItem('tag-list');
 
       // Parse zip file and meta
-      this.zip = await JSZip.loadAsync(file as Blob);
+      this.zip = await JSZip.loadAsync(file);
       const entity: Insightful.Entity = JSON.parse(
         await this.zip.file('meta.json').async('text')
       );
@@ -86,14 +82,19 @@ class _Edit extends React.Component<EditProps, EditState> {
         );
       }
 
-      // Load meta.json
-      this.setState({ entity, cover });
+      // Set state
+      this.setState({ entity, cover, tags });
     } catch (err) {
       // Notify user of error and send them back
       console.error(err);
       enqueueSnackbar(typeof err == 'string' ? err : 'Cannot read content');
       history.replace('/');
     }
+  }
+
+  componentWillUnmount() {
+    const { cover } = this.state;
+    if (cover) URL.revokeObjectURL(cover);
   }
 
   onResetBookmark() {
@@ -123,6 +124,24 @@ class _Edit extends React.Component<EditProps, EditState> {
     this.setState({ entity, cover: URL.createObjectURL(file) });
   }
 
+  onAddTag() {
+    const { entity, tags, tag } = this.state;
+
+    // Check if tag already exists
+    let _tag = tags.find(t => t.name == tag);
+
+    // Create new tag
+    if (!_tag) {
+      _tag = { id: Date.now(), name: tag };
+      tags.push(_tag);
+    }
+
+    // Add tag to entity
+    if (!entity!.tags.includes(_tag.id)) entity!.tags.push(_tag.id);
+
+    this.setState({ tags });
+  }
+
   async onDelete() {
     const entity = this.state.entity!;
 
@@ -137,13 +156,8 @@ class _Edit extends React.Component<EditProps, EditState> {
     await localForage.removeItem(`entity-${entity.id}`);
     await localForage.removeItem(`entity-cover-${entity.id}`);
 
-    // Delete orphaned tags
-    let tags: Insightful.Tag[] = await localForage.getItem('tag-list');
-    for (let tag of entity.tags) {
-      if (entities.findIndex(e => e.tags.includes(tag)) == -1)
-        tags = tags.filter(t => t.id != tag);
-    }
-    await localForage.setItem('tag-list', tags);
+    // Update tags
+    await this.saveTags(entities);
 
     // Take us home
     this.props.history.replace('/');
@@ -155,7 +169,7 @@ class _Edit extends React.Component<EditProps, EditState> {
   }
 
   async onSave() {
-    const { entity } = this.state;
+    const { entity, tags } = this.state;
     if (!entity || !this.zip) return;
 
     // Update meta.json
@@ -179,13 +193,26 @@ class _Edit extends React.Component<EditProps, EditState> {
     const entities: Insightful.Entity[] = await localForage.getItem(
       'entity-list'
     );
-    const index = entities.findIndex(e => e.id == entity.id) as number;
+    const index = entities.findIndex(e => e.id == entity.id);
     entities[index] = entity;
     await localForage.setItem('entity-list', entities);
+
+    // Update tags
+    await this.saveTags(entities);
+  }
+
+  async saveTags(entities: Insightful.Entity[]) {
+    // Delete orphaned tags
+    let tags = this.state.tags!;
+    for (let tag of tags) {
+      if (entities.findIndex(e => e.tags.includes(tag.id)) == -1)
+        tags = tags.filter(t => t.id != tag.id);
+    }
+    await localForage.setItem('tag-list', tags);
   }
 
   render() {
-    const { entity, cover } = this.state;
+    const { entity, cover, tags, tag } = this.state;
     const { classes } = this.props;
     if (!entity) return null;
 
@@ -282,6 +309,34 @@ class _Edit extends React.Component<EditProps, EditState> {
           <BookmarkIcon />
           Reset Bookmark
         </Button>
+
+        <TextField
+          id="tag"
+          label="Tag"
+          value={tag}
+          margin="normal"
+          variant="outlined"
+          onChange={e => this.setState({ tag: e.target.value.toLowerCase() })}
+          fullWidth
+        />
+        <Button onClick={() => this.onAddTag()} variant="text">
+          Add Tag
+        </Button>
+        <List dense>
+          {entity.tags.map(tag => (
+            <ListItem key={tag}>
+              <IconButton
+                aria-label="Remove"
+                onClick={() =>
+                  this.onChange('tags', entity.tags.filter(t => t != tag))
+                }
+              >
+                <RemoveIcon />
+              </IconButton>
+              <ListItemText primary={`#${tags.find(t => t.id == tag)!.name}`} />
+            </ListItem>
+          ))}
+        </List>
 
         <Button
           onClick={() => this.onDelete()}

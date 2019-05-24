@@ -40,8 +40,11 @@ test('<Edit>', async () => {
   const blobUrl = 'blob:/d81d5be1';
   mockCreateObjectURL.mockReturnValue(blobUrl);
 
+  // Mock loading tag-list from localForage
+  mockGetItem.mockResolvedValueOnce(testTags);
+
   // Render <Edit>
-  const { getByLabelText, getByText, unmount } = render(
+  const { getAllByLabelText, getByLabelText, getByText } = render(
     <SnackbarProvider>
       <MemoryRouter initialEntries={[`/edit/${entity.id}`]}>
         <Switch>
@@ -52,7 +55,7 @@ test('<Edit>', async () => {
   );
 
   // Validate mock loading file from localForage
-  await wait(() => expect(mockGetItem).toHaveBeenCalledTimes(1));
+  await wait(() => expect(mockGetItem).toHaveBeenCalledTimes(2));
   expect(mockGetItem).toHaveBeenCalledWith(`entity-${entity.id}`);
 
   // Validate mock creating image blob url
@@ -90,11 +93,22 @@ test('<Edit>', async () => {
   // Mock loading entity-list from localForage
   mockGetItem.mockResolvedValueOnce([entity]);
 
+  // Add new tag
+  fireEvent.change(getByLabelText('Tag'), { target: { value: 'echo' } });
+  fireEvent.click(getByText('Add Tag'));
+
+  // Link existing tag
+  fireEvent.change(getByLabelText('Tag'), { target: { value: 'bravo' } });
+  fireEvent.click(getByText('Add Tag'));
+
+  // Delete tag charlie: [alpha, charlie, echo, bravo]
+  fireEvent.click(getAllByLabelText('Remove')[1]);
+
   // Click save
   fireEvent.click(getByText('Save'));
 
   // Wait for setItem()
-  await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(3));
+  await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(4));
 
   // Validate the file was saved
   expect(mockSetItem.mock.calls[0][0]).toBe(`entity-${entity.id}`);
@@ -114,6 +128,12 @@ test('<Edit>', async () => {
   };
   expect(entity).toMatchObject(_entity);
 
+  // Validate tags
+  expect(entity.tags).toBeArrayOfSize(3); // alpha, echo, bravo
+  expect(entity.tags[0]).toBe(testTags[0].id); // alpha remains
+  expect(entity.tags[2]).toBe(testTags[1].id); // bravo linked
+  expect(entity.tags).not.toContain(testTags[2].id); // charlie deleted
+
   // Validate cover was extracted
   expect(mockSetItem.mock.calls[1][0]).toBe(`entity-cover-${entity.id}`);
   expect(mockSetItem.mock.calls[1][1]).toStrictEqual(imgBlob);
@@ -122,9 +142,17 @@ test('<Edit>', async () => {
   expect(mockSetItem.mock.calls[2][0]).toBe('entity-list');
   expect(mockSetItem.mock.calls[2][1]).toMatchObject([_entity]);
 
-  // Mock loading entity-list and tag-list from localForage
+  // Validate tag-list was updated
+  // charlie deleted (orphaned), echo added
+  expect(mockSetItem.mock.calls[3][0]).toBe('tag-list');
+  const newTags: Insightful.Tag[] = mockSetItem.mock.calls[3][1];
+  expect(newTags).toBeArrayOfSize(3);
+  expect(newTags[0]).toMatchObject(testTags[0]); // alpha
+  expect(newTags[1]).toMatchObject(testTags[1]); // bravo
+  expect(newTags[2].name).toBe('echo');
+
+  // Mock loading entity-list from localForage
   mockGetItem.mockResolvedValueOnce([entity]);
-  mockGetItem.mockResolvedValueOnce(testTags);
 
   // Click delete button
   fireEvent.click(getByText('Delete'));
@@ -135,16 +163,13 @@ test('<Edit>', async () => {
   expect(mockRemoveItem).toHaveBeenCalledWith(`entity-cover-${entity.id}`);
 
   // Validate entity-list was updated
-  expect(mockSetItem).toHaveBeenCalledTimes(5);
-  expect(mockSetItem.mock.calls[3][0]).toBe('entity-list');
-  expect(mockSetItem.mock.calls[3][1]).toMatchObject([]);
+  expect(mockSetItem).toHaveBeenCalledTimes(6);
+  expect(mockSetItem.mock.calls[4][0]).toBe('entity-list');
+  expect(mockSetItem.mock.calls[4][1]).toMatchObject([]);
 
-  // Validate tag-list was updated (orphans removed)
-  expect(mockSetItem.mock.calls[4][0]).toBe('tag-list');
-  expect(mockSetItem.mock.calls[4][1]).toMatchObject([
-    testTags[1],
-    testTags[3]
-  ]);
+  // Validate tag-list was updated (orphans [all] removed)
+  expect(mockSetItem.mock.calls[5][0]).toBe('tag-list');
+  expect(mockSetItem.mock.calls[5][1]).toMatchObject([]);
 
   // Validate cover was revoked on unmount
   expect(mockRevokeObjectURL).toHaveBeenCalledTimes(2);
