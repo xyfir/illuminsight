@@ -7,33 +7,58 @@ import * as JSZip from 'jszip';
 import {
   InputAdornment,
   createStyles,
-  ListItemText,
   IconButton,
   WithStyles,
   withStyles,
   TextField,
-  ListItem,
   Button,
   Theme,
-  List
+  Chip
 } from '@material-ui/core';
 import {
   BookmarkBorder as BookmarkIcon,
   DeleteForever as DeleteIcon,
-  RemoveCircle as RemoveIcon,
   // DateRange as PublishedIcon,
   People as AuthorsIcon,
   Image as ImageIcon,
   Label as NameIcon,
   Home as PublisherIcon,
   Link as LinkIcon,
-  Save as SaveIcon
+  Save as SaveIcon,
+  Add as AddIcon
 } from '@material-ui/icons';
 
 const styles = (theme: Theme) =>
   createStyles({
+    coverContainer: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      display: 'flex'
+    },
     coverInput: {
       display: 'none'
+    },
+    buttons: {
+      justifyContent: 'center',
+      display: 'flex',
+      '& > button': {
+        margin: '0.5em'
+      }
+    },
+    addTag: {
+      alignItems: 'center',
+      display: 'flex',
+      '& > button': {
+        marginLeft: '0.3em'
+      }
+    },
+    cover: {
+      maxWidth: '10em',
+      margin: '0.5em 0'
+    },
+    chip: {
+      marginBottom: '0.5em',
+      marginRight: '0.5em'
     },
     root: {
       padding: '1em'
@@ -126,20 +151,21 @@ class _Edit extends React.Component<EditProps, EditState> {
 
   onAddTag() {
     const { entity, tags, tag } = this.state;
+    const name = tag.toLowerCase().replace(/\s+/g, '-');
 
     // Check if tag already exists
-    let _tag = tags.find(t => t.name == tag);
+    let _tag = tags.find(t => t.name == name);
 
     // Create new tag
     if (!_tag) {
-      _tag = { id: Date.now(), name: tag };
+      _tag = { id: Date.now(), name };
       tags.push(_tag);
     }
 
     // Add tag to entity
     if (!entity!.tags.includes(_tag.id)) entity!.tags.push(_tag.id);
 
-    this.setState({ tags });
+    this.setState({ tags, tag: '' });
   }
 
   async onDelete() {
@@ -290,71 +316,79 @@ class _Edit extends React.Component<EditProps, EditState> {
           placeholder="https://example.com/article-123"
         />
 
-        {cover ? <img src={cover} /> : null}
-        <input
-          id="cover-input"
-          type="file"
-          multiple
-          onChange={e => this.onUploadCover((e.target.files as FileList)[0])}
-          className={classes.coverInput}
-        />
-        <label htmlFor="cover-input">
-          <Button variant="text" component="span">
-            <ImageIcon />
-            Set Cover
-          </Button>
-        </label>
+        <div className={classes.coverContainer}>
+          {cover ? <img src={cover} className={classes.cover} /> : null}
+          <input
+            id="cover-input"
+            type="file"
+            multiple
+            onChange={e => this.onUploadCover((e.target.files as FileList)[0])}
+            className={classes.coverInput}
+          />
+          <label htmlFor="cover-input">
+            <Button variant="text" component="span">
+              <ImageIcon />
+              Set Cover
+            </Button>
+          </label>
+        </div>
 
-        <Button onClick={() => this.onResetBookmark()} variant="contained">
-          <BookmarkIcon />
-          Reset Bookmark
-        </Button>
+        <div className={classes.addTag}>
+          <TextField
+            id="tag"
+            label="Tag"
+            value={tag}
+            margin="normal"
+            variant="outlined"
+            onChange={e => this.setState({ tag: e.target.value })}
+            fullWidth
+            placeholder="#tag"
+          />
+          <IconButton
+            aria-label="Add tag"
+            onClick={() => this.onAddTag()}
+            color="primary"
+          >
+            <AddIcon />
+          </IconButton>
+        </div>
 
-        <TextField
-          id="tag"
-          label="Tag"
-          value={tag}
-          margin="normal"
-          variant="outlined"
-          onChange={e => this.setState({ tag: e.target.value.toLowerCase() })}
-          fullWidth
-        />
-        <Button onClick={() => this.onAddTag()} variant="text">
-          Add Tag
-        </Button>
-        <List dense>
+        <div>
           {entity.tags.map(tag => (
-            <ListItem key={tag}>
-              <IconButton
-                aria-label="Remove"
-                onClick={() =>
-                  this.onChange('tags', entity.tags.filter(t => t != tag))
-                }
-              >
-                <RemoveIcon />
-              </IconButton>
-              <ListItemText primary={`#${tags.find(t => t.id == tag)!.name}`} />
-            </ListItem>
+            <Chip
+              className={classes.chip}
+              onDelete={() =>
+                this.onChange('tags', entity.tags.filter(t => t != tag))
+              }
+              label={`#${tags.find(t => t.id == tag)!.name}`}
+            />
           ))}
-        </List>
+        </div>
 
-        <Button
-          onClick={() => this.onDelete()}
-          variant="contained"
-          color="secondary"
-        >
-          <DeleteIcon />
-          Delete
-        </Button>
+        <div className={classes.buttons}>
+          <Button
+            onClick={() => this.onSave()}
+            variant="contained"
+            color="primary"
+          >
+            <SaveIcon />
+            Update
+          </Button>
 
-        <Button
-          onClick={() => this.onSave()}
-          variant="contained"
-          color="primary"
-        >
-          <SaveIcon />
-          Save
-        </Button>
+          <Button onClick={() => this.onResetBookmark()} variant="contained">
+            <BookmarkIcon />
+            Reset Bookmark
+          </Button>
+
+          <Button
+            onClick={() => this.onDelete()}
+            variant="contained"
+            color="secondary"
+          >
+            <DeleteIcon />
+            Delete
+          </Button>
+        </div>
       </form>
     );
   }
