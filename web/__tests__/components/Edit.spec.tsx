@@ -44,7 +44,7 @@ test('<Edit>', async () => {
   mockGetItem.mockResolvedValueOnce(testTags);
 
   // Render <Edit>
-  const { getAllByLabelText, getByLabelText, getByText } = render(
+  const { getByLabelText, getByText, container } = render(
     <SnackbarProvider>
       <MemoryRouter initialEntries={[`/edit/${entity.id}`]}>
         <Switch>
@@ -95,17 +95,21 @@ test('<Edit>', async () => {
 
   // Add new tag
   fireEvent.change(getByLabelText('Tag'), { target: { value: 'echo' } });
-  fireEvent.click(getByText('Add Tag'));
+  fireEvent.click(getByLabelText('Add tag'));
 
   // Link existing tag
   fireEvent.change(getByLabelText('Tag'), { target: { value: 'bravo' } });
-  fireEvent.click(getByText('Add Tag'));
+  fireEvent.click(getByLabelText('Add tag'));
 
   // Delete tag charlie: [alpha, charlie, echo, bravo]
-  fireEvent.click(getAllByLabelText('Remove')[1]);
+  fireEvent.click(
+    container.querySelectorAll(
+      'div[role="button"] > svg[role="presentation"]'
+    )[1]
+  );
 
   // Click save
-  fireEvent.click(getByText('Save'));
+  fireEvent.click(getByText('Update'));
 
   // Wait for setItem()
   await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(4));
