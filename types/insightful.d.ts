@@ -16,7 +16,10 @@ export namespace Insightful {
     element: number | string;
   }
 
-  export interface Entity {
+  /**
+   * A publication of any type: book, news article, etc.
+   */
+  export interface Pub {
     id: number;
     name: string;
     tags: Tag['id'][];
@@ -26,7 +29,7 @@ export namespace Insightful {
      */
     cover?: string;
     /**
-     * How many words the entity contains.
+     * How many words the pub contains.
      * @example "920" | "20k" | "1.25m"
      */
     words: string;

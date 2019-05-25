@@ -66,7 +66,7 @@ const styles = (theme: Theme) =>
   });
 
 interface EditState {
-  entity?: Insightful.Entity;
+  pub?: Insightful.Pub;
   cover?: string;
   tags: Insightful.Tag[];
   tag: string;
@@ -85,30 +85,30 @@ class _Edit extends React.Component<EditProps, EditState> {
 
   async componentDidMount() {
     const { enqueueSnackbar, history, match } = this.props;
-    const { entityId } = match.params as { entityId: number };
+    const { pubId } = match.params as { pubId: number };
 
     try {
       // Load from localForage
-      const file: Blob = await localForage.getItem(`entity-${entityId}`);
+      const file: Blob = await localForage.getItem(`pub-${pubId}`);
       if (file === null) throw 'Could not load data from storage';
       const tags: Insightful.Tag[] = await localForage.getItem('tag-list');
 
       // Parse zip file and meta
       this.zip = await JSZip.loadAsync(file);
-      const entity: Insightful.Entity = JSON.parse(
+      const pub: Insightful.Pub = JSON.parse(
         await this.zip.file('meta.json').async('text')
       );
 
       // Load cover and generate blob url
       let cover;
-      if (entity.cover) {
+      if (pub.cover) {
         cover = URL.createObjectURL(
-          await this.zip.file(entity.cover).async('blob')
+          await this.zip.file(pub.cover).async('blob')
         );
       }
 
       // Set state
-      this.setState({ entity, cover, tags });
+      this.setState({ pub, cover, tags });
     } catch (err) {
       // Notify user of error and send them back
       console.error(err);
@@ -126,31 +126,30 @@ class _Edit extends React.Component<EditProps, EditState> {
     this.onChange('bookmark', {
       element: 0,
       section: 0
-    } as Insightful.Entity['bookmark']);
+    } as Insightful.Pub['bookmark']);
   }
 
   onUploadCover(file: File) {
-    const { entity, cover } = this.state;
-    if (!entity || !this.zip) return;
+    const { pub, cover } = this.state;
+    if (!pub || !this.zip) return;
 
     // Delete cover if not original
-    if (entity.cover && !/^res\/\d+\./.test(entity.cover))
-      this.zip.remove(entity.cover);
+    if (pub.cover && !/^res\/\d+\./.test(pub.cover)) this.zip.remove(pub.cover);
 
     // Update zip file
-    entity.cover = `res/cover.${file.name.split('.').pop()}`;
-    this.zip.file(entity.cover, file);
-    this.zip.file('meta.json', JSON.stringify(entity));
+    pub.cover = `res/cover.${file.name.split('.').pop()}`;
+    this.zip.file(pub.cover, file);
+    this.zip.file('meta.json', JSON.stringify(pub));
 
     // Revoke old cover
     if (cover) URL.revokeObjectURL(cover);
 
     // Generate cover url
-    this.setState({ entity, cover: URL.createObjectURL(file) });
+    this.setState({ pub, cover: URL.createObjectURL(file) });
   }
 
   onAddTag() {
-    const { entity, tags, tag } = this.state;
+    const { pub, tags, tag } = this.state;
     const name = tag.toLowerCase().replace(/\s+/g, '-');
 
     // Check if tag already exists
@@ -162,96 +161,92 @@ class _Edit extends React.Component<EditProps, EditState> {
       tags.push(_tag);
     }
 
-    // Add tag to entity
-    if (!entity!.tags.includes(_tag.id)) entity!.tags.push(_tag.id);
+    // Add tag to pub
+    if (!pub!.tags.includes(_tag.id)) pub!.tags.push(_tag.id);
 
     this.setState({ tags, tag: '' });
   }
 
   async onDelete() {
     const { enqueueSnackbar, history } = this.props;
-    const entity = this.state.entity!;
+    const pub = this.state.pub!;
 
-    // Remove entity from list
-    let entities: Insightful.Entity[] = await localForage.getItem(
-      'entity-list'
-    );
-    entities = entities.filter(e => e.id != entity.id);
-    await localForage.setItem('entity-list', entities);
+    // Remove pub from list
+    let pubs: Insightful.Pub[] = await localForage.getItem('pub-list');
+    pubs = pubs.filter(p => p.id != pub.id);
+    await localForage.setItem('pub-list', pubs);
 
-    // Delete entity files
-    await localForage.removeItem(`entity-${entity.id}`);
-    await localForage.removeItem(`entity-cover-${entity.id}`);
+    // Delete pub files
+    await localForage.removeItem(`pub-${pub.id}`);
+    await localForage.removeItem(`pub-cover-${pub.id}`);
 
     // Update tags
-    await this.saveTags(entities);
+    await this.saveTags(pubs);
 
     // Take us home and notify user
     history.replace('/');
-    enqueueSnackbar(`${entity.name} was deleted`);
+    enqueueSnackbar(`${pub.name} was deleted`);
   }
 
-  onChange(prop: keyof Insightful.Entity, value: any) {
-    const entity = this.state.entity!;
-    this.setState({ entity: { ...entity, [prop]: value } });
+  onChange(prop: keyof Insightful.Pub, value: any) {
+    const pub = this.state.pub!;
+    this.setState({ pub: { ...pub, [prop]: value } });
   }
 
   async onSave() {
-    const { entity } = this.state;
-    if (!entity || !this.zip) return;
+    const { pub } = this.state;
+    if (!pub || !this.zip) return;
     const { enqueueSnackbar } = this.props;
 
     // Update meta.json
-    this.zip.file('meta.json', JSON.stringify(entity));
+    this.zip.file('meta.json', JSON.stringify(pub));
 
     // Save file
     await localForage.setItem(
-      `entity-${entity.id}`,
+      `pub-${pub.id}`,
       await this.zip.generateAsync({ type: 'blob' })
     );
 
     // Extract cover if available and save copy outside of zip
-    if (entity.cover) {
+    if (pub.cover) {
       await localForage.setItem(
-        `entity-cover-${entity.id}`,
-        await this.zip.file(entity.cover).async('blob')
+        `pub-cover-${pub.id}`,
+        await this.zip.file(pub.cover).async('blob')
       );
     }
 
-    // Save entity-list
-    const entities: Insightful.Entity[] = await localForage.getItem(
-      'entity-list'
-    );
-    const index = entities.findIndex(e => e.id == entity.id);
-    entities[index] = entity;
-    await localForage.setItem('entity-list', entities);
+    // Save pub-list
+    const pubs: Insightful.Pub[] = await localForage.getItem('pub-list');
+    const index = pubs.findIndex(p => p.id == pub.id);
+    pubs[index] = pub;
+    await localForage.setItem('pub-list', pubs);
 
     // Update tags and notify user
-    await this.saveTags(entities);
-    enqueueSnackbar(`${entity.name} was updated`);
+    await this.saveTags(pubs);
+    enqueueSnackbar(`${pub.name} was updated`);
   }
 
-  async saveTags(entities: Insightful.Entity[]) {
+  async saveTags(pubs: Insightful.Pub[]) {
     // Delete orphaned tags
     let tags = this.state.tags!;
     for (let tag of tags) {
-      if (entities.findIndex(e => e.tags.includes(tag.id)) == -1)
+      if (pubs.findIndex(p => p.tags.includes(tag.id)) == -1)
         tags = tags.filter(t => t.id != tag.id);
     }
     await localForage.setItem('tag-list', tags);
   }
 
   render() {
-    const { entity, cover, tags, tag } = this.state;
+    const { pub, cover, tags, tag } = this.state;
     const { classes } = this.props;
-    if (!entity) return null;
+    if (!pub) return null;
 
     return (
       <form className={classes.root}>
         <TextField
           id="name"
           label="Name"
-          value={entity.name}
+          value={pub.name}
           margin="normal"
           variant="outlined"
           onChange={e => this.onChange('name', e.target.value)}
@@ -269,7 +264,7 @@ class _Edit extends React.Component<EditProps, EditState> {
         <TextField
           id="authors"
           label="Author(s)"
-          value={entity.authors}
+          value={pub.authors}
           margin="normal"
           variant="outlined"
           onChange={e => this.onChange('authors', e.target.value)}
@@ -287,7 +282,7 @@ class _Edit extends React.Component<EditProps, EditState> {
         <TextField
           id="publisher"
           label="Publisher"
-          value={entity.publisher}
+          value={pub.publisher}
           margin="normal"
           variant="outlined"
           onChange={e => this.onChange('publisher', e.target.value)}
@@ -305,7 +300,7 @@ class _Edit extends React.Component<EditProps, EditState> {
         <TextField
           id="link"
           label="Link"
-          value={entity.link}
+          value={pub.link}
           margin="normal"
           variant="outlined"
           onChange={e => this.onChange('link', e.target.value)}
@@ -358,11 +353,11 @@ class _Edit extends React.Component<EditProps, EditState> {
         </div>
 
         <div>
-          {entity.tags.map(tag => (
+          {pub.tags.map(tag => (
             <Chip
               className={classes.chip}
               onDelete={() =>
-                this.onChange('tags', entity.tags.filter(t => t != tag))
+                this.onChange('tags', pub.tags.filter(t => t != tag))
               }
               label={`#${tags.find(t => t.id == tag)!.name}`}
             />

@@ -42,13 +42,13 @@ const styles = (theme: Theme) =>
       zIndex: theme.zIndex.appBar - 1,
       width: 240
     },
-    entityName: {
+    pubName: {
       marginBottom: '0.3em',
       fontSize: '150%',
       display: 'flex',
       color: theme.palette.getContrastText(theme.palette.background.default)
     },
-    entityInfo: {
+    pubInfo: {
       fontSize: '100%',
       color: theme.palette.grey[500]
     },
@@ -60,7 +60,7 @@ const styles = (theme: Theme) =>
       flexDirection: 'column',
       display: 'flex'
     },
-    entity: {
+    pub: {
       textDecoration: 'none'
     },
     drawer: {
@@ -81,33 +81,33 @@ function _Library({ classes }: WithStyles<typeof styles>) {
     Insightful.Tag['id'][]
   >([]);
   const [showDrawer, setShowDrawer] = React.useState(false);
-  const [entities, setEntities] = React.useState<Insightful.Entity[]>([]);
+  const [pubs, setPubs] = React.useState<Insightful.Pub[]>([]);
   const [search, setSearch] = React.useState('');
   const [page, setPage] = React.useState(0);
   const [tags, setTags] = React.useState<Insightful.Tag[]>([]);
   const now = new Date();
 
-  // Load entities and tags from local storage on mount
+  // Load pubs and tags from local storage on mount
   React.useEffect(() => {
     localForage
       .getItem('tag-list')
       .then(tags => {
         if (tags !== null) setTags(tags as Insightful.Tag[]);
-        return localForage.getItem('entity-list');
+        return localForage.getItem('pub-list');
       })
-      .then(entities => setEntities((entities as Insightful.Entity[]) || []))
+      .then(pubs => setPubs((pubs as Insightful.Pub[]) || []))
       .catch(() => undefined);
   }, []);
 
   // Filter by tags
   let matches = selectedTags.length
-    ? entities.filter(entity => {
+    ? pubs.filter(pub => {
         for (let tag of selectedTags) {
-          if (!entity.tags.includes(tag)) return false;
+          if (!pub.tags.includes(tag)) return false;
         }
         return true;
       })
-    : entities;
+    : pubs;
 
   // Filter by search
   if (search) {
@@ -201,7 +201,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
           placeholder="A Tale of Two Cities"
         />
 
-        {/* Display matching entities */}
+        {/* Display matching pubs */}
         <div className={classes.infiniteScroll}>
           <InfiniteScroll
             useWindow={false}
@@ -215,23 +215,23 @@ function _Library({ classes }: WithStyles<typeof styles>) {
                 <Link
                   to={`/read/${match.id}`}
                   key={match.id}
-                  className={classes.entity}
+                  className={classes.pub}
                 >
                   <ListItem button>
                     <Cover id={match.id} />
                     <div>
-                      <Typography className={classes.entityName} variant="h2">
+                      <Typography className={classes.pubName} variant="h2">
                         {match.starred ? <StarIcon color="primary" /> : null}
                         {match.name}
                         {match.authors ? ` — ${match.authors}` : null}
                       </Typography>
-                      <Typography className={classes.entityInfo}>
+                      <Typography className={classes.pubInfo}>
                         Added {formatRelative(match.id, now)}
                       </Typography>
-                      <Typography className={classes.entityInfo}>
+                      <Typography className={classes.pubInfo}>
                         {match.words} words
                       </Typography>
-                      <Typography className={classes.entityInfo}>
+                      <Typography className={classes.pubInfo}>
                         {match.tags
                           .map(
                             tag =>

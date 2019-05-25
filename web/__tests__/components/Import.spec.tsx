@@ -1,6 +1,6 @@
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
-import { testEntity } from 'lib/test/objects';
+import { testPub } from 'lib/test/objects';
 import { Insightful } from 'types/insightful';
 import { Import } from 'components/Import';
 import * as JSZip from 'jszip';
@@ -32,7 +32,7 @@ test('<Import>', async () => {
   // Create zip file
   const zip = new JSZip();
   zip.file('images/cover.jpg', 'shhh not actually a cover');
-  zip.file('meta.json', JSON.stringify(testEntity));
+  zip.file('meta.json', JSON.stringify(testPub));
 
   async function testImport(start: (mockPost: jest.Mock) => Promise<void>) {
     // Mock localForage and axios
@@ -43,7 +43,7 @@ test('<Import>', async () => {
     // Mock localForage.setItem()
     mockSetItem.mockResolvedValue(undefined);
 
-    // Mock getting entity-list
+    // Mock getting pub-list
     mockGetItem.mockResolvedValueOnce([]);
 
     // Mock getting tag-list
@@ -62,26 +62,26 @@ test('<Import>', async () => {
     await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(4));
 
     // Validate cover
-    expect(mockSetItem.mock.calls[0][0]).toBe(`entity-cover-${testEntity.id}`);
+    expect(mockSetItem.mock.calls[0][0]).toBe(`pub-cover-${testPub.id}`);
     expect((mockSetItem.mock.calls[0][1] as Blob).size).toBe(25);
 
     // Validate file
     // Must have been edited (new tags added) before save
-    expect(mockSetItem.mock.calls[1][0]).toBe(`entity-${testEntity.id}`);
+    expect(mockSetItem.mock.calls[1][0]).toBe(`pub-${testPub.id}`);
     const _zip = await JSZip.loadAsync(mockSetItem.mock.calls[1][1]);
-    const _entity: Insightful.Entity = JSON.parse(
+    const _pub: Insightful.Pub = JSON.parse(
       await _zip.file('meta.json').async('text')
     );
-    expect(testEntity.tags).not.toMatchObject(_entity.tags);
-    expect({ ...testEntity, tags: _entity.tags }).toMatchObject(_entity);
+    expect(testPub.tags).not.toMatchObject(_pub.tags);
+    expect({ ...testPub, tags: _pub.tags }).toMatchObject(_pub);
 
     // Validate tags have been added (two additional)
     expect(mockSetItem.mock.calls[2][0]).toBe('tag-list');
     expect(mockSetItem.mock.calls[2][1]).toBeArrayOfSize(2);
 
-    // Validate entity has been added
-    expect(mockSetItem.mock.calls[3][0]).toBe('entity-list');
-    expect(mockSetItem.mock.calls[3][1]).toMatchObject([_entity]);
+    // Validate pub has been added
+    expect(mockSetItem.mock.calls[3][0]).toBe('pub-list');
+    expect(mockSetItem.mock.calls[3][1]).toMatchObject([_pub]);
   }
 
   await testImport(async mockPost => {

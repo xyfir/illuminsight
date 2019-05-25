@@ -111,25 +111,25 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     const zip = await JSZip.loadAsync(file);
 
     // Extract meta.json
-    const entity: Insightful.Entity = JSON.parse(
+    const pub: Insightful.Pub = JSON.parse(
       await zip.file('meta.json').async('text')
     );
 
     // Ensure we can handle the returned file
-    if (entity.version != process.enve.ASTPUB_VERSION)
+    if (pub.version != process.enve.ASTPUB_VERSION)
       return enqueueSnackbar('Client/server ASTPub version mismatch');
 
     // Extract cover if available and save copy outside of zip
-    if (entity.cover) {
+    if (pub.cover) {
       await localForage.setItem(
-        `entity-cover-${entity.id}`,
-        await zip.file(entity.cover).async('blob')
+        `pub-cover-${pub.id}`,
+        await zip.file(pub.cover).async('blob')
       );
     }
 
     // Get indexes from local storage which we'll use and update
-    const entities: Insightful.Entity[] =
-      (await localForage.getItem('entity-list')) || [];
+    const pubs: Insightful.Pub[] =
+      (await localForage.getItem('pub-list')) || [];
     const tags: Insightful.Tag[] =
       (await localForage.getItem('tag-list')) || [];
 
@@ -137,26 +137,25 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     let inferredTags: string[] = [];
 
     // Create tags from authors
-    if (entity.authors) {
+    if (pub.authors) {
       // Use entire author string as a tag
-      inferredTags.push(entity.authors);
+      inferredTags.push(pub.authors);
 
       // Use individual authors as tags
-      const authors = entity.authors.split(' & ');
+      const authors = pub.authors.split(' & ');
       if (authors.length > 1) inferredTags = inferredTags.concat(authors);
     }
 
     // Create tag from publisher
-    if (entity.publisher) inferredTags.push(entity.publisher);
+    if (pub.publisher) inferredTags.push(pub.publisher);
 
     // Create tag from published date (year)
-    if (entity.published)
-      inferredTags.push(getYear(entity.published).toString());
+    if (pub.published) inferredTags.push(getYear(pub.published).toString());
 
     // Create tag from link (domain)
-    if (entity.link) {
+    if (pub.link) {
       const a = document.createElement('a');
-      a.href = entity.link;
+      a.href = pub.link;
       inferredTags.push(a.hostname);
     }
 
@@ -172,7 +171,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     );
 
     // Convert inferredTags to actual tags in tag-list
-    // Link tags to entity and insert into meta.json
+    // Link tags to pub and insert into meta.json
     let id = Date.now();
     for (let inferredTag of inferredTags) {
       // Check if this tag already exists
@@ -180,27 +179,27 @@ function _Import({ classes }: WithStyles<typeof styles>) {
 
       // Link to existing tag
       if (tag) {
-        entity.tags.push(tag.id);
+        pub.tags.push(tag.id);
       }
       // Create and link new tag
       else {
         const tag: Insightful.Tag = { name: inferredTag, id: id++ };
-        entity.tags.push(tag.id);
+        pub.tags.push(tag.id);
         tags.push(tag);
       }
     }
 
     // Add to and update local storage
-    zip.file('meta.json', JSON.stringify(entity));
-    entities.push(entity);
+    zip.file('meta.json', JSON.stringify(pub));
+    pubs.push(pub);
     await localForage.setItem(
-      `entity-${entity.id}`,
+      `pub-${pub.id}`,
       await zip.generateAsync({ type: 'blob' })
     );
     await localForage.setItem('tag-list', tags);
-    await localForage.setItem('entity-list', entities);
+    await localForage.setItem('pub-list', pubs);
 
-    enqueueSnackbar(`${entity.name} added to library`);
+    enqueueSnackbar(`${pub.name} added to library`);
   }
 
   return (

@@ -114,7 +114,7 @@ export async function convert({
 
     // Relative file path/name for cover image
     const covers: { id1?: string; id2?: string; href?: string } = {};
-    let cover: Insightful.Entity['cover'];
+    let cover: Insightful.Pub['cover'];
 
     // How many resources (images usually) the content has
     let resources = 0;
@@ -247,7 +247,7 @@ export async function convert({
     }
 
     // Build Table of Contents
-    const toc: Insightful.Entity['toc'] = [];
+    const toc: Insightful.Pub['toc'] = [];
     for (let navPoint of navPoints) {
       const title = navPoint.querySelector('navLabel > text') as Element;
       const src = navPoint.querySelector('content') as Element;
@@ -265,8 +265,8 @@ export async function convert({
       });
     }
 
-    // Populate entity object which will be used for meta.json
-    const entity: Insightful.Entity = {
+    // Populate pub object which will be used for meta.json
+    const pub: Insightful.Pub = {
       authors:
         Array.from(opfDoc.getElementsByTagName('dc:creator'))
           .map(creator => creator.textContent)
@@ -298,7 +298,7 @@ export async function convert({
     };
 
     // Write meta.json
-    await writeJSON(resolve(astpubDirectory, 'meta.json'), entity);
+    await writeJSON(resolve(astpubDirectory, 'meta.json'), pub);
 
     // Zip directory
     const astpubFile = resolve(workDirectory, `astpub-${Date.now()}.zip`);

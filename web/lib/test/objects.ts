@@ -7,7 +7,7 @@ export const testTags: Insightful.Tag[] = [
   { id: 1556915133436, name: 'delta' }
 ];
 
-export const testEntity: Insightful.Entity = {
+export const testPub: Insightful.Pub = {
   authors: 'Jane Austen',
   bookmark: { section: 0, element: 0 },
   id: 1556915133437,

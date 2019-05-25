@@ -63,12 +63,12 @@ test('convert({text})', async () => {
   );
 
   // Validate meta.json
-  const entity: Insightful.Entity = await readJSON(astpubMetaFile);
-  const _entity: Insightful.Entity = {
+  const pub: Insightful.Pub = await readJSON(astpubMetaFile);
+  const _pub: Insightful.Pub = {
     authors: 'Unknown',
     bookmark: { section: 0, element: 0 },
     cover: 'res/0.jpg',
-    id: entity.id,
+    id: pub.id,
     name: 'Hello...',
     toc: [{ section: 0, element: 0, title: 'Start' }],
     sections: 2,
@@ -77,7 +77,7 @@ test('convert({text})', async () => {
     version: 1,
     words: '5'
   };
-  expect(entity).toMatchObject(_entity);
+  expect(pub).toMatchObject(_pub);
 
   // Validate cover
   await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);
@@ -106,9 +106,9 @@ test(
     );
 
     // Validate meta.json
-    const entity: Insightful.Entity = await readJSON(astpubMetaFile);
-    const _entity: Insightful.Entity = {
-      ...entity,
+    const pub: Insightful.Pub = await readJSON(astpubMetaFile);
+    const _pub: Insightful.Pub = {
+      ...pub,
       authors: 'Unknown',
       bookmark: { section: 0, element: 0 },
       cover: 'res/0.jpg',
@@ -130,7 +130,7 @@ test(
       version: 1,
       words: '3k'
     };
-    expect(entity).toMatchObject(_entity);
+    expect(pub).toMatchObject(_pub);
 
     // Validate cover
     await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);
@@ -158,9 +158,9 @@ test(
     );
 
     // Validate meta.json
-    const entity: Insightful.Entity = await readJSON(astpubMetaFile);
-    const _entity: Insightful.Entity = {
-      ...entity,
+    const pub: Insightful.Pub = await readJSON(astpubMetaFile);
+    const _pub: Insightful.Pub = {
+      ...pub,
       authors: 'Charles Dickens',
       bookmark: { section: 0, element: 0 },
       cover: 'res/0.jpg',
@@ -172,13 +172,13 @@ test(
       version: 1,
       words: '140k'
     };
-    expect(entity).toMatchObject(_entity);
+    expect(pub).toMatchObject(_pub);
 
-    expect(entity.toc).toBeArrayOfSize(50);
-    expect(entity.toc.slice(0, 2)).toMatchObject([
+    expect(pub.toc).toBeArrayOfSize(50);
+    expect(pub.toc.slice(0, 2)).toMatchObject([
       { element: 'pgepubid00000', section: 1, title: 'A TALE OF TWO CITIES' },
       { element: 0, section: 2, title: 'A STORY OF THE FRENCH REVOLUTION' }
-    ] as Insightful.Entity['toc']);
+    ] as Insightful.Pub['toc']);
 
     // Validate cover
     await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);

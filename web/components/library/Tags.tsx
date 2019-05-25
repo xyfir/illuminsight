@@ -30,10 +30,10 @@ function _Tags({
 }: {
   setSelectedTags: React.Dispatch<React.SetStateAction<Insightful.Tag['id'][]>>;
   selectedTags: Insightful.Tag['id'][];
-  matches: Insightful.Entity[];
+  matches: Insightful.Pub[];
   tags: Insightful.Tag[];
 } & WithStyles<typeof styles>) {
-  // Unselected tags linked to matching entities
+  // Unselected tags linked to matching pubs
   const availableTags = Array.from(
     new Set(
       matches

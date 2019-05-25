@@ -23,15 +23,15 @@ test('<Edit>', async () => {
   let zip = await JSZip.loadAsync(
     readFileSync(resolve(process.enve.FILES_DIRECTORY, 'ebook.astpub'))
   );
-  let entity: Insightful.Entity = JSON.parse(
+  let pub: Insightful.Pub = JSON.parse(
     await zip.file('meta.json').async('text')
   );
 
   // Fake bookmark so we can test reset function
-  entity.bookmark.element = 990;
+  pub.bookmark.element = 990;
   // Fake tags
-  entity.tags = [testTags[0].id, testTags[2].id];
-  zip.file('meta.json', JSON.stringify(entity));
+  pub.tags = [testTags[0].id, testTags[2].id];
+  zip.file('meta.json', JSON.stringify(pub));
 
   // Mock loading file from localForage
   mockGetItem.mockResolvedValueOnce(await zip.generateAsync({ type: 'blob' }));
@@ -46,9 +46,9 @@ test('<Edit>', async () => {
   // Render <Edit>
   const { getByLabelText, getByText, container } = render(
     <SnackbarProvider>
-      <MemoryRouter initialEntries={[`/edit/${entity.id}`]}>
+      <MemoryRouter initialEntries={[`/edit/${pub.id}`]}>
         <Switch>
-          <Route path="/edit/:entityId" component={Edit} />
+          <Route path="/edit/:pubId" component={Edit} />
         </Switch>
       </MemoryRouter>
     </SnackbarProvider>
@@ -56,7 +56,7 @@ test('<Edit>', async () => {
 
   // Validate mock loading file from localForage
   await wait(() => expect(mockGetItem).toHaveBeenCalledTimes(2));
-  expect(mockGetItem).toHaveBeenCalledWith(`entity-${entity.id}`);
+  expect(mockGetItem).toHaveBeenCalledWith(`pub-${pub.id}`);
 
   // Validate mock creating image blob url
   await wait(() => expect(mockCreateObjectURL).toHaveBeenCalledTimes(1));
@@ -90,8 +90,8 @@ test('<Edit>', async () => {
   expect(mockRevokeObjectURL).toHaveBeenCalledWith(blobUrl);
   expect(mockCreateObjectURL).toHaveBeenCalledTimes(2);
 
-  // Mock loading entity-list from localForage
-  mockGetItem.mockResolvedValueOnce([entity]);
+  // Mock loading pub-list from localForage
+  mockGetItem.mockResolvedValueOnce([pub]);
 
   // Add new tag
   fireEvent.change(getByLabelText('Tag'), { target: { value: 'echo' } });
@@ -115,13 +115,13 @@ test('<Edit>', async () => {
   await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(4));
 
   // Validate the file was saved
-  expect(mockSetItem.mock.calls[0][0]).toBe(`entity-${entity.id}`);
+  expect(mockSetItem.mock.calls[0][0]).toBe(`pub-${pub.id}`);
   zip = await JSZip.loadAsync(mockSetItem.mock.calls[0][1]);
-  entity = JSON.parse(await zip.file('meta.json').async('text'));
+  pub = JSON.parse(await zip.file('meta.json').async('text'));
 
   // Validate meta.json
-  const _entity: Insightful.Entity = {
-    ...entity,
+  const _pub: Insightful.Pub = {
+    ...pub,
     name: 'Name',
     link: 'https://example.com',
     authors: 'Some Author',
@@ -130,21 +130,21 @@ test('<Edit>', async () => {
     cover: 'res/cover.png',
     bookmark: { element: 0, section: 0 }
   };
-  expect(entity).toMatchObject(_entity);
+  expect(pub).toMatchObject(_pub);
 
   // Validate tags
-  expect(entity.tags).toBeArrayOfSize(3); // alpha, echo, bravo
-  expect(entity.tags[0]).toBe(testTags[0].id); // alpha remains
-  expect(entity.tags[2]).toBe(testTags[1].id); // bravo linked
-  expect(entity.tags).not.toContain(testTags[2].id); // charlie deleted
+  expect(pub.tags).toBeArrayOfSize(3); // alpha, echo, bravo
+  expect(pub.tags[0]).toBe(testTags[0].id); // alpha remains
+  expect(pub.tags[2]).toBe(testTags[1].id); // bravo linked
+  expect(pub.tags).not.toContain(testTags[2].id); // charlie deleted
 
   // Validate cover was extracted
-  expect(mockSetItem.mock.calls[1][0]).toBe(`entity-cover-${entity.id}`);
+  expect(mockSetItem.mock.calls[1][0]).toBe(`pub-cover-${pub.id}`);
   expect(mockSetItem.mock.calls[1][1]).toStrictEqual(imgBlob);
 
-  // Validate entity-list was updated
-  expect(mockSetItem.mock.calls[2][0]).toBe('entity-list');
-  expect(mockSetItem.mock.calls[2][1]).toMatchObject([_entity]);
+  // Validate pub-list was updated
+  expect(mockSetItem.mock.calls[2][0]).toBe('pub-list');
+  expect(mockSetItem.mock.calls[2][1]).toMatchObject([_pub]);
 
   // Validate tag-list was updated
   // charlie deleted (orphaned), echo added
@@ -155,20 +155,20 @@ test('<Edit>', async () => {
   expect(newTags[1]).toMatchObject(testTags[1]); // bravo
   expect(newTags[2].name).toBe('echo');
 
-  // Mock loading entity-list from localForage
-  mockGetItem.mockResolvedValueOnce([entity]);
+  // Mock loading pub-list from localForage
+  mockGetItem.mockResolvedValueOnce([pub]);
 
   // Click delete button
   fireEvent.click(getByText('Delete'));
 
   // Validate file and cover was removed
   await wait(() => expect(mockRemoveItem).toHaveBeenCalledTimes(2));
-  expect(mockRemoveItem).toHaveBeenCalledWith(`entity-${entity.id}`);
-  expect(mockRemoveItem).toHaveBeenCalledWith(`entity-cover-${entity.id}`);
+  expect(mockRemoveItem).toHaveBeenCalledWith(`pub-${pub.id}`);
+  expect(mockRemoveItem).toHaveBeenCalledWith(`pub-cover-${pub.id}`);
 
-  // Validate entity-list was updated
+  // Validate pub-list was updated
   expect(mockSetItem).toHaveBeenCalledTimes(6);
-  expect(mockSetItem.mock.calls[4][0]).toBe('entity-list');
+  expect(mockSetItem.mock.calls[4][0]).toBe('pub-list');
   expect(mockSetItem.mock.calls[4][1]).toMatchObject([]);
 
   // Validate tag-list was updated (orphans [all] removed)

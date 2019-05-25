@@ -1,21 +1,15 @@
 import { waitForDomChange, fireEvent, render } from 'react-testing-library';
 import { SectionNavigation } from 'components/reader/SectionNavigation';
 import { Insightful } from 'types/insightful';
-import { testEntity } from 'lib/test/objects';
+import { testPub } from 'lib/test/objects';
 import * as React from 'react';
 
 test('<SectionNavigation>', async () => {
   // Wrap <SectionNavigation>
   const history: Insightful.Marker[] = [];
   function SectionNavigationConsumer() {
-    const [entity, setEntity] = React.useState(testEntity);
-    return (
-      <SectionNavigation
-        onChange={setEntity}
-        history={history}
-        entity={entity}
-      />
-    );
+    const [pub, setPub] = React.useState(testPub);
+    return <SectionNavigation onChange={setPub} history={history} pub={pub} />;
   }
 
   // Render <SectionNavigation> inside <SectionNavigationConsumer>

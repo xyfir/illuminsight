@@ -31,13 +31,13 @@ test('<Reader>', async () => {
   let zip = await JSZip.loadAsync(
     readFileSync(resolve(process.enve.FILES_DIRECTORY, 'ebook.astpub'))
   );
-  let entity: Insightful.Entity = JSON.parse(
+  let pub: Insightful.Pub = JSON.parse(
     await zip.file('meta.json').async('text')
   );
 
   // Set bookmark so we can test that it navigates to it
-  entity.bookmark.element = 1;
-  zip.file('meta.json', JSON.stringify(entity));
+  pub.bookmark.element = 1;
+  zip.file('meta.json', JSON.stringify(pub));
 
   // Mock loading file from localForage
   mockGetItem.mockResolvedValueOnce(await zip.generateAsync({ type: 'blob' }));
@@ -49,9 +49,9 @@ test('<Reader>', async () => {
   // Render <Reader>
   const { getAllByText, getByTestId, getByText, container } = render(
     <SnackbarProvider>
-      <MemoryRouter initialEntries={[`/read/${entity.id}`]}>
+      <MemoryRouter initialEntries={[`/read/${pub.id}`]}>
         <Switch>
-          <Route path="/read/:entityId" component={Reader} />
+          <Route path="/read/:pubId" component={Reader} />
         </Switch>
       </MemoryRouter>
     </SnackbarProvider>
@@ -59,7 +59,7 @@ test('<Reader>', async () => {
 
   // Validate mock loading file from localForage
   await wait(() => expect(mockGetItem).toHaveBeenCalledTimes(1));
-  expect(mockGetItem).toHaveBeenCalledWith(`entity-${entity.id}`);
+  expect(mockGetItem).toHaveBeenCalledWith(`pub-${pub.id}`);
 
   // Validate mock creating image blob url
   await wait(() => expect(mockCreateObjectURL).toHaveBeenCalledTimes(1));
@@ -91,13 +91,13 @@ test('<Reader>', async () => {
 
   // Validate mock setItem() receives zip with updated meta.json
   expect(mockSetItem).toHaveBeenCalledTimes(1);
-  expect(mockSetItem.mock.calls[0][0]).toBe(`entity-${entity.id}`);
+  expect(mockSetItem.mock.calls[0][0]).toBe(`pub-${pub.id}`);
   zip = await JSZip.loadAsync(mockSetItem.mock.calls[0][1]);
-  entity = JSON.parse(await zip.file('meta.json').async('text'));
-  expect(entity.bookmark).toMatchObject({
+  pub = JSON.parse(await zip.file('meta.json').async('text'));
+  expect(pub.bookmark).toMatchObject({
     section: 1,
     element: 0
-  } as Insightful.Entity['bookmark']);
+  } as Insightful.Pub['bookmark']);
 
   // Mock document.querySelectorAll()
   const querySelectorAll = document.querySelectorAll;
@@ -117,11 +117,11 @@ test('<Reader>', async () => {
   // Validate mock setItem() receives zip with updated meta.json
   await wait(() => expect(mockSetItem).toHaveBeenCalledTimes(2));
   zip = await JSZip.loadAsync(mockSetItem.mock.calls[1][1]);
-  entity = JSON.parse(await zip.file('meta.json').async('text'));
-  expect(entity.bookmark).toMatchObject({
+  pub = JSON.parse(await zip.file('meta.json').async('text'));
+  expect(pub.bookmark).toMatchObject({
     section: 1,
     element: 2
-  } as Insightful.Entity['bookmark']);
+  } as Insightful.Pub['bookmark']);
 
   // Validate onScroll() throttles itself
   fireEvent.scroll(getByTestId('reader'), { target: { scrollTop: 200 } });
@@ -142,9 +142,9 @@ test('<Reader>', async () => {
 
   // Validate clicking link changes section
   zip = await JSZip.loadAsync(mockSetItem.mock.calls[4][1]);
-  entity = JSON.parse(await zip.file('meta.json').async('text'));
-  expect(entity.bookmark).toMatchObject({
+  pub = JSON.parse(await zip.file('meta.json').async('text'));
+  expect(pub.bookmark).toMatchObject({
     section: 4,
     element: 'link2H_4_0002'
-  } as Insightful.Entity['bookmark']);
+  } as Insightful.Pub['bookmark']);
 });

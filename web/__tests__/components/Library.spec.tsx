@@ -20,8 +20,8 @@ test('<Library>', async () => {
   ];
   mockGetItem.mockResolvedValueOnce(tags);
 
-  // Get entity-list
-  const entities: Insightful.Entity[] = [
+  // Get pub-list
+  const pubs: Insightful.Pub[] = [
     {
       authors: 'Jane Austen',
       bookmark: { section: 0, element: 0 },
@@ -62,7 +62,7 @@ test('<Library>', async () => {
       words: '1.23m'
     }
   ];
-  mockGetItem.mockResolvedValueOnce(entities);
+  mockGetItem.mockResolvedValueOnce(pubs);
 
   // Mock <Cover>'s localForage.getItem() calls
   mockGetItem.mockResolvedValue(null);

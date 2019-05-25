@@ -31,7 +31,7 @@ function _Cover({ classes, id }: WithStyles<typeof styles> & { id: number }) {
   React.useEffect(() => {
     let _url: string;
     localForage
-      .getItem(`entity-cover-${id}`)
+      .getItem(`pub-cover-${id}`)
       .then(cover => {
         if (cover === null) return;
         _url = URL.createObjectURL(cover as Blob);

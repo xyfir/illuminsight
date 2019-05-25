@@ -45,27 +45,27 @@ function _SectionNavigation({
   onChange,
   classes,
   history,
-  entity
+  pub
 }: {
-  onChange: (entity: Insightful.Entity) => void;
+  onChange: (pub: Insightful.Pub) => void;
   history: Insightful.Marker[];
-  entity?: Insightful.Entity;
+  pub?: Insightful.Pub;
 } & WithStyles<typeof styles>) {
   const [showTOC, setShowTOC] = React.useState(false);
 
-  if (!entity) return null;
+  if (!pub) return null;
 
-  /** Navigate by updating entity bookmark */
+  /** Navigate by updating pub bookmark */
   function onNavigate(marker: Insightful.Marker) {
-    const _entity: Insightful.Entity = Object.assign({}, entity);
-    _entity.bookmark = marker;
-    onChange(_entity);
+    const _pub: Insightful.Pub = Object.assign({}, pub);
+    _pub.bookmark = marker;
+    onChange(_pub);
   }
 
   /** Navigate to Table of Contents selection */
-  function onSelect(tocMarker: Insightful.Entity['toc'][0]) {
-    if (!entity) return;
-    history.push(entity.bookmark);
+  function onSelect(tocMarker: Insightful.Pub['toc'][0]) {
+    if (!pub) return;
+    history.push(pub.bookmark);
     onNavigate(tocMarker);
     setShowTOC(false);
   }
@@ -73,11 +73,11 @@ function _SectionNavigation({
   return (
     <div className={classes.root}>
       {/* Previous Section */}
-      {entity.bookmark.section > 0 ? (
+      {pub.bookmark.section > 0 ? (
         <Button
           className={classes.button}
           onClick={() =>
-            onNavigate({ section: entity.bookmark.section - 1, element: 0 })
+            onNavigate({ section: pub.bookmark.section - 1, element: 0 })
           }
         >
           <div className={classes.buttonContent}>
@@ -101,7 +101,7 @@ function _SectionNavigation({
       ) : null}
 
       {/* Table of Contents */}
-      {entity.toc.length > 1 ? (
+      {pub.toc.length > 1 ? (
         <React.Fragment>
           <Button className={classes.button} onClick={() => setShowTOC(true)}>
             <div className={classes.buttonContent}>
@@ -121,7 +121,7 @@ function _SectionNavigation({
                 <ListSubheader disableSticky={true}>
                   Table of Contents
                 </ListSubheader>
-                {entity.toc.map((section, i) => (
+                {pub.toc.map((section, i) => (
                   <ListItem key={i} button onClick={() => onSelect(section)}>
                     <ListItemText primary={section.title} />
                   </ListItem>
@@ -133,11 +133,11 @@ function _SectionNavigation({
       ) : null}
 
       {/* Next Section */}
-      {entity.sections - 1 > entity.bookmark.section ? (
+      {pub.sections - 1 > pub.bookmark.section ? (
         <Button
           className={classes.button}
           onClick={() =>
-            onNavigate({ section: entity.bookmark.section + 1, element: 0 })
+            onNavigate({ section: pub.bookmark.section + 1, element: 0 })
           }
         >
           <div className={classes.buttonContent}>

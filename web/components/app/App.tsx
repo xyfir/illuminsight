@@ -38,8 +38,8 @@ const _App = ({ classes }: WithStyles<typeof styles>) => (
           <main className={classes.main}>
             <div className={classes.toolbar} />
             <Switch>
-              <Route path="/read/:entityId" component={Reader} />
-              <Route path="/edit/:entityId" component={Edit} />
+              <Route path="/read/:pubId" component={Reader} />
+              <Route path="/edit/:pubId" component={Edit} />
               <Route path="/library" component={Library} />
               <Route path="/import" component={Import} />
               <Redirect exact from="/" to="/library" />

@@ -62,10 +62,10 @@ class _Navigation extends React.Component<WithStyles<typeof styles>> {
             </Link>
           </Tooltip>
           <Route
-            path="/read/:entity"
+            path="/read/:pub"
             render={props => (
               <Tooltip title="Edit metadata">
-                <Link to={`/edit/${props.match.params.entity}`}>
+                <Link to={`/edit/${props.match.params.pub}`}>
                   <IconButton>
                     <EditIcon />
                   </IconButton>

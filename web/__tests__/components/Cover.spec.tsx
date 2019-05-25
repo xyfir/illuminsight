@@ -25,7 +25,7 @@ test('<Cover>', async () => {
 
   // Wait for image to load
   await waitForDomChange();
-  expect(mockGetItem).toHaveBeenCalledWith('entity-cover-1');
+  expect(mockGetItem).toHaveBeenCalledWith('pub-cover-1');
   expect(mockCreateObjectURL).toHaveBeenLastCalledWith(blob);
   const [img]: HTMLCollection = div.children;
   expect(img.tagName).toBe('IMG');

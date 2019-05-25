@@ -39,7 +39,7 @@ const styles = (theme: Theme) =>
   });
 
 interface ReaderState {
-  entity?: Insightful.Entity;
+  pub?: Insightful.Pub;
   ast: Insightful.AST[];
 }
 type ReaderProps = WithStyles<typeof styles> &
@@ -56,8 +56,8 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
   constructor(props: ReaderProps) {
     super(props);
-    this.loadSection = this.loadSection.bind(this);
     this.attributor = this.attributor.bind(this);
+    this.loadSection = this.loadSection.bind(this);
   }
 
   componentDidMount() {
@@ -65,20 +65,19 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   }
 
   componentDidUpdate(prevProps: any, prevState: ReaderState) {
-    const { entity } = this.state;
+    const { pub } = this.state;
 
     // Scroll to bookmarked element on first load and section change
     if (
-      entity &&
-      (!prevState.entity ||
-        prevState.entity.bookmark.section != entity.bookmark.section)
+      pub &&
+      (!prevState.pub || prevState.pub.bookmark.section != pub.bookmark.section)
     )
-      this.scrollToBookmark(entity);
+      this.scrollToBookmark(pub);
   }
 
   componentWillUnmount() {
     // Save file immediately
-    if (this.state.entity) this.saveFile(this.state.entity);
+    if (this.state.pub) this.saveFile(this.state.pub);
 
     // Revoke image blob urls
     this.imgURLs.forEach(url => URL.revokeObjectURL(url));
@@ -98,14 +97,14 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     // Link for another section, change and optionally focus #hash
     const match = href.match(/^ast\/(\d+)\.json(?:#(.*))?$/);
     if (match) {
-      const entity = this.state.entity as Insightful.Entity;
+      const pub = this.state.pub!;
 
       // Save current location to history
-      this.history.push(entity.bookmark);
+      this.history.push(pub.bookmark);
 
       // Set location as bookmark and navigate to it
-      entity.bookmark = { section: +match[1], element: match[2] || 0 };
-      this.loadSection(entity);
+      pub.bookmark = { section: +match[1], element: match[2] || 0 };
+      this.loadSection(pub);
     }
     // External link, open in new tab
     else {
@@ -117,8 +116,8 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
    * Triggered when user scrolls reader.
    */
   onScroll(event: React.UIEvent<HTMLDivElement>) {
-    const { entity } = this.state;
-    if (!entity) return;
+    const { pub } = this.state;
+    if (!pub) return;
 
     // Throttle onScroll() to max one per second
     const now = Date.now();
@@ -136,40 +135,40 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     }
 
     // Update bookmark if needed
-    if (entity.bookmark.element != element) {
-      entity.bookmark.element = element;
-      this.setState({ entity });
+    if (pub.bookmark.element != element) {
+      pub.bookmark.element = element;
+      this.setState({ pub });
 
       // Only save to file once a minute from scrolling
       if (now - 60 * 1000 > this.lastScrollSave) {
         this.lastScrollSave = Date.now();
-        this.saveFile(entity);
+        this.saveFile(pub);
       }
     }
   }
 
   /**
-   * Load zip file for corresponding entity.
+   * Load zip file for corresponding pub.
    */
   async loadZip() {
     const { enqueueSnackbar, history, match } = this.props;
-    const { entityId } = match.params as { entityId: number };
+    const { pubId } = match.params as { pubId: number };
 
     try {
       // Load file from localForage
-      const file = await localForage.getItem(`entity-${entityId}`);
+      const file = await localForage.getItem(`pub-${pubId}`);
       if (file === null) throw 'Could not load data from storage';
 
       // Parse zip file
       this.zip = await JSZip.loadAsync(file as Blob);
 
       // Load meta.json
-      const entity: Insightful.Entity = JSON.parse(
+      const pub: Insightful.Pub = JSON.parse(
         await this.zip.file('meta.json').async('text')
       );
 
       // Load section
-      await this.loadSection(entity);
+      await this.loadSection(pub);
     } catch (err) {
       // Notify user of error and send them back
       console.error(err);
@@ -181,7 +180,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   /**
    * Load section from zip file by bookmark.
    */
-  async loadSection(entity: Insightful.Entity) {
+  async loadSection(pub: Insightful.Pub) {
     const { enqueueSnackbar, history } = this.props;
     const zip = this.zip as JSZip;
 
@@ -192,7 +191,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
       // Load AST for section
       const ast: Insightful.AST[] = JSON.parse(
-        await zip.file(`ast/${entity.bookmark.section}.json`).async('text')
+        await zip.file(`ast/${pub.bookmark.section}.json`).async('text')
       );
 
       // Find images in AST
@@ -215,10 +214,10 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       }
 
       // Update file if we've changed sections (not first load)
-      if (this.state.entity) await this.saveFile(entity);
+      if (this.state.pub) await this.saveFile(pub);
 
       // Update state
-      this.setState({ entity, ast });
+      this.setState({ pub, ast });
     } catch (err) {
       // Notify user of error and send them back
       console.error(err);
@@ -230,20 +229,20 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   /**
    * Save meta.json in zip file and update storage.
    */
-  async saveFile(entity: Insightful.Entity) {
+  async saveFile(pub: Insightful.Pub) {
     const zip = this.zip as JSZip;
-    zip.file('meta.json', JSON.stringify(entity));
+    zip.file('meta.json', JSON.stringify(pub));
     await localForage.setItem(
-      `entity-${entity.id}`,
+      `pub-${pub.id}`,
       await zip.generateAsync({ type: 'blob' })
     );
   }
 
   /**
-   * Scroll to `entity.bookmark.element` if able.
+   * Scroll to `pub.bookmark.element` if able.
    */
-  scrollToBookmark(entity: Insightful.Entity) {
-    const { element } = entity.bookmark;
+  scrollToBookmark(pub: Insightful.Pub) {
+    const { element } = pub.bookmark;
 
     // Get by id
     if (typeof element == 'string') {
@@ -266,7 +265,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   }
 
   render() {
-    const { entity, ast } = this.state;
+    const { pub, ast } = this.state;
     const { classes } = this.props;
 
     return (
@@ -278,7 +277,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         <SectionNavigation
           onChange={this.loadSection}
           history={this.history}
-          entity={entity}
+          pub={pub}
         />
         <div id="ast" className={classes.ast}>
           {ast.map((node, i) => (
@@ -288,7 +287,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         <SectionNavigation
           onChange={this.loadSection}
           history={this.history}
-          entity={entity}
+          pub={pub}
         />
       </div>
     );
