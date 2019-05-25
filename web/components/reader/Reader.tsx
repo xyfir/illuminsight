@@ -1,13 +1,13 @@
 import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
 import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
-import { SectionNavigation } from 'components/SectionNavigation';
+import { SectionNavigation } from 'components/reader/SectionNavigation';
 import { getByTagName } from 'lib/get-by-tag-name';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
 import * as JSZip from 'jszip';
-import { AST } from 'components/AST';
+import { AST } from 'components/reader/AST';
 
 const styles = (theme: Theme) =>
   createStyles({

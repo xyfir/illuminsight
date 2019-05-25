@@ -1,7 +1,7 @@
 import { waitForDomChange, render } from 'react-testing-library';
 import * as localForage from 'localforage';
 import * as React from 'react';
-import { Cover } from 'components/Cover';
+import { Cover } from 'components/library/Cover';
 
 test('<Cover>', async () => {
   const blobUrl = 'blob:/d81d5be1';

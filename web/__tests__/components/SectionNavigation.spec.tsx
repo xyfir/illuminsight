@@ -1,5 +1,5 @@
 import { waitForDomChange, fireEvent, render } from 'react-testing-library';
-import { SectionNavigation } from 'components/SectionNavigation';
+import { SectionNavigation } from 'components/reader/SectionNavigation';
 import { Insightful } from 'types/insightful';
 import { testEntity } from 'lib/test/objects';
 import * as React from 'react';

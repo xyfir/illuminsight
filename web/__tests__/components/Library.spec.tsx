@@ -2,7 +2,7 @@ import { waitForDomChange, fireEvent, render } from 'react-testing-library';
 import { StaticRouter } from 'react-router-dom';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
-import { Library } from 'components/Library';
+import { Library } from 'components/library/Library';
 import * as React from 'react';
 
 test('<Library>', async () => {

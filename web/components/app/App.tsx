@@ -1,10 +1,10 @@
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { ThemeProvider } from '@material-ui/styles';
-import { Navigation } from 'components/Navigation';
-import { Library } from 'components/Library';
+import { Navigation } from 'components/app/Navigation';
+import { Library } from 'components/library/Library';
 import { Import } from 'components/Import';
-import { Reader } from 'components/Reader';
+import { Reader } from 'components/reader/Reader';
 import * as React from 'react';
 import { theme } from 'lib/theme';
 import { Edit } from 'components/Edit';

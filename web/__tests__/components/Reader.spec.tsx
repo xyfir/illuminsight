@@ -4,7 +4,7 @@ import * as localForage from 'localforage';
 import { readFileSync } from 'fs';
 import { Insightful } from 'types/insightful';
 import { resolve } from 'path';
-import { Reader } from 'components/Reader';
+import { Reader } from 'components/reader/Reader';
 import * as React from 'react';
 import * as JSZip from 'jszip';
 import {

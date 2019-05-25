@@ -1,7 +1,7 @@
 import { fireEvent, render } from 'react-testing-library';
 import { testAST } from 'lib/test/objects';
 import * as React from 'react';
-import { AST } from 'components/AST';
+import { AST } from 'components/reader/AST';
 
 test('<AST>', async () => {
   const mockOnClick = jest.fn();

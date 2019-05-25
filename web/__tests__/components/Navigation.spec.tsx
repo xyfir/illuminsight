@@ -1,5 +1,5 @@
 import { MemoryRouter } from 'react-router-dom';
-import { Navigation } from 'components/Navigation';
+import { Navigation } from 'components/app/Navigation';
 import { render } from 'react-testing-library';
 import * as React from 'react';
 

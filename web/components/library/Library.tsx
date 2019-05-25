@@ -3,10 +3,10 @@ import { formatRelative } from 'date-fns';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
-import { Cover } from 'components/Cover';
+import { Cover } from 'components/library/Cover';
 import * as Fuse from 'fuse.js';
 import { Link } from 'react-router-dom';
-import { Tags } from 'components/Tags';
+import { Tags } from 'components/library/Tags';
 import {
   FilterList as FilterIcon,
   Search as SearchIcon,
