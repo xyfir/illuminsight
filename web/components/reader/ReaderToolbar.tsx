@@ -1,32 +1,53 @@
 import { Insightful } from 'types/insightful';
 import { Toolbar } from 'components/app/Toolbar';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import {
   NavigateBefore as PreviousIcon,
   NavigateNext as NextIcon,
+  MoreVert as MoreIcon,
   Replay as BackIcon,
+  Home as HomeIcon,
+  Edit as EditIcon,
   Toc as TOCIcon
 } from '@material-ui/icons';
 import {
   ListSubheader,
   DialogContent,
   ListItemText,
+  ListItemIcon,
+  createStyles,
   IconButton,
+  WithStyles,
+  withStyles,
   ListItem,
+  MenuItem,
   Tooltip,
   Dialog,
+  Theme,
+  Menu,
   List
 } from '@material-ui/core';
 
-export function ReaderToolbar({
+const styles = (theme: Theme) =>
+  createStyles({
+    linkMenuItem: {
+      textDecoration: 'none',
+      color: theme.palette.getContrastText(theme.palette.background.paper)
+    }
+  });
+
+function _ReaderToolbar({
   onChange,
   history,
+  classes,
   pub
 }: {
   onChange: (pub: Insightful.Pub) => void;
   history: Insightful.Marker[];
   pub?: Insightful.Pub;
-}) {
+} & WithStyles<typeof styles>) {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [showTOC, setShowTOC] = React.useState(false);
 
   if (!pub) return null;
@@ -48,6 +69,15 @@ export function ReaderToolbar({
 
   return (
     <Toolbar>
+      {/* Home button */}
+      <Tooltip title="Return home">
+        <Link to="/">
+          <IconButton>
+            <HomeIcon />
+          </IconButton>
+        </Link>
+      </Tooltip>
+
       {/* Previous Section */}
       {pub.bookmark.section > 0 ? (
         <Tooltip title="Go to previous section">
@@ -79,39 +109,28 @@ export function ReaderToolbar({
         </IconButton>
       )}
 
-      {/* Table of Contents */}
+      {/* Table of Contents dialog */}
       {pub.toc.length > 1 ? (
-        <React.Fragment>
-          <Tooltip title="Table of Contents">
-            <IconButton onClick={() => setShowTOC(true)}>
-              <TOCIcon />
-            </IconButton>
-          </Tooltip>
-          <Dialog
-            aria-labelledby="toc-dialog"
-            maxWidth={false}
-            onClose={() => setShowTOC(false)}
-            open={showTOC}
-          >
-            <DialogContent>
-              <List>
-                <ListSubheader disableSticky={true}>
-                  Table of Contents
-                </ListSubheader>
-                {pub.toc.map((section, i) => (
-                  <ListItem key={i} button onClick={() => onSelect(section)}>
-                    <ListItemText primary={section.title} />
-                  </ListItem>
-                ))}
-              </List>
-            </DialogContent>
-          </Dialog>
-        </React.Fragment>
-      ) : (
-        <IconButton disabled>
-          <TOCIcon />
-        </IconButton>
-      )}
+        <Dialog
+          aria-labelledby="toc-dialog"
+          maxWidth={false}
+          onClose={() => setShowTOC(false)}
+          open={showTOC}
+        >
+          <DialogContent>
+            <List>
+              <ListSubheader disableSticky={true}>
+                Table of Contents
+              </ListSubheader>
+              {pub.toc.map((section, i) => (
+                <ListItem key={i} button onClick={() => onSelect(section)}>
+                  <ListItemText primary={section.title} />
+                </ListItem>
+              ))}
+            </List>
+          </DialogContent>
+        </Dialog>
+      ) : null}
 
       {/* Next Section */}
       {pub.sections - 1 > pub.bookmark.section ? (
@@ -129,6 +148,37 @@ export function ReaderToolbar({
           <NextIcon />
         </IconButton>
       )}
+
+      {/* More menu items */}
+      <Tooltip title="View more menu items">
+        <IconButton onClick={e => setAnchorEl(e.currentTarget)}>
+          <MoreIcon />
+        </IconButton>
+      </Tooltip>
+
+      <Menu
+        id="more"
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+        anchorEl={anchorEl}
+      >
+        <MenuItem onClick={() => setShowTOC(true)}>
+          <ListItemIcon>
+            <TOCIcon />
+          </ListItemIcon>
+          Table of Contents
+        </MenuItem>
+        <Link to={`/edit/${pub.id}`} className={classes.linkMenuItem}>
+          <MenuItem>
+            <ListItemIcon>
+              <EditIcon />
+            </ListItemIcon>
+            Edit Metadata
+          </MenuItem>
+        </Link>
+      </Menu>
     </Toolbar>
   );
 }
+
+export const ReaderToolbar = withStyles(styles)(_ReaderToolbar);
