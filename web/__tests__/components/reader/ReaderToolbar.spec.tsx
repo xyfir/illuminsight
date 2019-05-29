@@ -1,5 +1,6 @@
 import { waitForDomChange, fireEvent, render } from 'react-testing-library';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
+import { MemoryRouter } from 'react-router-dom';
 import { Insightful } from 'types/insightful';
 import { testPub } from 'lib/test/objects';
 import * as React from 'react';
@@ -9,7 +10,11 @@ test('<ReaderToolbar>', async () => {
   const history: Insightful.Marker[] = [];
   function ReaderToolbarConsumer() {
     const [pub, setPub] = React.useState(testPub);
-    return <ReaderToolbar onChange={setPub} history={history} pub={pub} />;
+    return (
+      <MemoryRouter>
+        <ReaderToolbar onChange={setPub} history={history} pub={pub} />
+      </MemoryRouter>
+    );
   }
 
   // Render <ReaderToolbar> inside <ReaderToolbarConsumer>
@@ -34,12 +39,15 @@ test('<ReaderToolbar>', async () => {
   expect(() => getByTitle('Go back')).toThrow();
   expect(() => getByTitle('Go to next section')).toThrow();
 
-  // Validate TOC not open
+  // Validate More and TOC not open
+  expect(() => getByText('Table of Contents')).toThrow();
   expect(() => getByText('Title')).toThrow();
 
-  // Open TOC and change section (middle)
-  fireEvent.click(getByTitle('Table of Contents'));
+  // Open More, TOC, and change section (middle)
+  fireEvent.click(getByTitle('View more menu items'));
+  fireEvent.click(getByText('Table of Contents'));
   fireEvent.click(getByText('Pride and Prejudice'));
+  await waitForDomChange();
   await waitForDomChange();
 
   // Validate controls
@@ -47,7 +55,8 @@ test('<ReaderToolbar>', async () => {
   getByTitle('Go back');
   getByTitle('Go to next section');
 
-  // Validate TOC not open
+  // Validate More and TOC not open
+  expect(() => getByText('Table of Contents')).toThrow();
   expect(() => getByText('Title')).toThrow();
 
   // Go to previous section (first)

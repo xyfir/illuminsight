@@ -162,7 +162,7 @@ function _ReaderToolbar({
         onClose={() => setAnchorEl(null)}
         anchorEl={anchorEl}
       >
-        <MenuItem onClick={() => setShowTOC(true)}>
+        <MenuItem onClick={() => (setShowTOC(true), setAnchorEl(null))}>
           <ListItemIcon>
             <TOCIcon />
           </ListItemIcon>
