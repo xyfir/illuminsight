@@ -1,4 +1,5 @@
 import { Insightful } from 'types/insightful';
+import { Toolbar } from 'components/app/Toolbar';
 import * as React from 'react';
 import {
   NavigateBefore as PreviousIcon,
@@ -9,48 +10,23 @@ import {
 import {
   ListSubheader,
   DialogContent,
-  createStyles,
   ListItemText,
-  WithStyles,
-  withStyles,
+  IconButton,
   ListItem,
+  Tooltip,
   Dialog,
-  Button,
-  Theme,
   List
 } from '@material-ui/core';
 
-const styles = (theme: Theme) =>
-  createStyles({
-    buttonContent: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    button: {
-      opacity: 0.4,
-      flex: 1
-    },
-    root: {
-      justifyContent: 'center',
-      display: 'flex'
-    },
-    icon: {
-      fontSize: '3em',
-      display: 'block'
-    }
-  });
-
-function _SectionNavigation({
+export function ReaderToolbar({
   onChange,
-  classes,
   history,
   pub
 }: {
   onChange: (pub: Insightful.Pub) => void;
   history: Insightful.Marker[];
   pub?: Insightful.Pub;
-} & WithStyles<typeof styles>) {
+}) {
   const [showTOC, setShowTOC] = React.useState(false);
 
   if (!pub) return null;
@@ -71,45 +47,46 @@ function _SectionNavigation({
   }
 
   return (
-    <div className={classes.root}>
+    <Toolbar>
       {/* Previous Section */}
       {pub.bookmark.section > 0 ? (
-        <Button
-          className={classes.button}
-          onClick={() =>
-            onNavigate({ section: pub.bookmark.section - 1, element: 0 })
-          }
-        >
-          <div className={classes.buttonContent}>
-            <PreviousIcon className={classes.icon} />
-            Prev
-          </div>
-        </Button>
-      ) : null}
+        <Tooltip title="Go to previous section">
+          <IconButton
+            disabled={pub.bookmark.section == 0}
+            onClick={() =>
+              onNavigate({ section: pub.bookmark.section - 1, element: 0 })
+            }
+          >
+            <PreviousIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <IconButton disabled>
+          <PreviousIcon />
+        </IconButton>
+      )}
 
       {/* Back (history) */}
       {history.length ? (
-        <Button
-          className={classes.button}
-          onClick={() => onNavigate(history.pop() as Insightful.Marker)}
-        >
-          <div className={classes.buttonContent}>
-            <BackIcon className={classes.icon} />
-            Back
-          </div>
-        </Button>
-      ) : null}
+        <Tooltip title="Go back">
+          <IconButton onClick={() => onNavigate(history.pop()!)}>
+            <BackIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <IconButton disabled>
+          <BackIcon />
+        </IconButton>
+      )}
 
       {/* Table of Contents */}
       {pub.toc.length > 1 ? (
         <React.Fragment>
-          <Button className={classes.button} onClick={() => setShowTOC(true)}>
-            <div className={classes.buttonContent}>
-              <TOCIcon className={classes.icon} />
-              TOC
-            </div>
-          </Button>
-
+          <Tooltip title="Table of Contents">
+            <IconButton onClick={() => setShowTOC(true)}>
+              <TOCIcon />
+            </IconButton>
+          </Tooltip>
           <Dialog
             aria-labelledby="toc-dialog"
             maxWidth={false}
@@ -130,24 +107,28 @@ function _SectionNavigation({
             </DialogContent>
           </Dialog>
         </React.Fragment>
-      ) : null}
+      ) : (
+        <IconButton disabled>
+          <TOCIcon />
+        </IconButton>
+      )}
 
       {/* Next Section */}
       {pub.sections - 1 > pub.bookmark.section ? (
-        <Button
-          className={classes.button}
-          onClick={() =>
-            onNavigate({ section: pub.bookmark.section + 1, element: 0 })
-          }
-        >
-          <div className={classes.buttonContent}>
-            <NextIcon className={classes.icon} />
-            Next
-          </div>
-        </Button>
-      ) : null}
-    </div>
+        <Tooltip title="Go to next section">
+          <IconButton
+            onClick={() =>
+              onNavigate({ section: pub.bookmark.section + 1, element: 0 })
+            }
+          >
+            <NextIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <IconButton disabled>
+          <NextIcon />
+        </IconButton>
+      )}
+    </Toolbar>
   );
 }
-
-export const SectionNavigation = withStyles(styles)(_SectionNavigation);

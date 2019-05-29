@@ -47,7 +47,13 @@ test('<Reader>', async () => {
   mockCreateObjectURL.mockReturnValue(blobUrl);
 
   // Render <Reader>
-  const { getAllByText, getByTestId, getByText, container } = render(
+  const {
+    getAllByText,
+    getByTestId,
+    getByTitle,
+    getByText,
+    container
+  } = render(
     <SnackbarProvider>
       <MemoryRouter initialEntries={[`/read/${pub.id}`]}>
         <Switch>
@@ -81,7 +87,7 @@ test('<Reader>', async () => {
   );
 
   // Go to next section
-  fireEvent.click(getAllByText('Next')[0]);
+  fireEvent.click(getByTitle('Go to next section'));
   await waitForDomChange();
 
   // Validate image urls have been revoked
@@ -130,16 +136,16 @@ test('<Reader>', async () => {
   document.querySelectorAll = querySelectorAll;
 
   // Skip two sections
-  fireEvent.click(getAllByText('Next')[0]);
+  fireEvent.click(getByTitle('Go to next section'));
   await waitForDomChange();
-  fireEvent.click(getAllByText('Next')[0]);
+  fireEvent.click(getByTitle('Go to next section'));
   await waitForDomChange();
 
   // Click link to another section and validate history works
-  expect(() => getAllByText('Back')).toThrow();
+  expect(() => getByTitle('Go back')).toThrow();
   fireEvent.click(getAllByText('I.')[0]);
   await waitForDomChange();
-  expect(getAllByText('Back')).toBeArrayOfSize(2);
+  getByTitle('Go back');
 
   // Validate clicking link changes section
   zip = await JSZip.loadAsync(mockSetItem.mock.calls[4][1]);

@@ -1,8 +1,7 @@
 import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
 import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
-import { SectionNavigation } from 'components/reader/SectionNavigation';
-import { GeneralToolbar } from 'components/app/GeneralToolbar';
+import { ReaderToolbar } from 'components/reader/ReaderToolbar';
 import { getByTagName } from 'lib/get-by-tag-name';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
@@ -275,23 +274,17 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         className={classes.root}
         onScroll={e => this.onScroll(e)}
       >
-        <GeneralToolbar />
-
-        <SectionNavigation
+        <ReaderToolbar
           onChange={this.loadSection}
           history={this.history}
           pub={pub}
         />
+
         <div id="ast" className={classes.ast}>
           {ast.map((node, i) => (
             <AST key={i} ast={node} attributor={this.attributor} />
           ))}
         </div>
-        <SectionNavigation
-          onChange={this.loadSection}
-          history={this.history}
-          pub={pub}
-        />
       </div>
     );
   }
