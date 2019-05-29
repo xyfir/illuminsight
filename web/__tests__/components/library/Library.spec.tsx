@@ -68,10 +68,11 @@ test('<Library>', async () => {
   mockGetItem.mockResolvedValue(null);
 
   // Render <Library>
-  const { getByPlaceholderText, asFragment, getByText } = render(
+  const { getByPlaceholderText, getByText } = render(
     <StaticRouter>
       <Library />
-    </StaticRouter>
+    </StaticRouter>,
+    { container: document.getElementById('content')! }
   );
   await waitForDomChange();
 

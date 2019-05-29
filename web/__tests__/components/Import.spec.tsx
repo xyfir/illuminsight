@@ -1,7 +1,8 @@
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
-import { testPub } from 'lib/test/objects';
+import { MemoryRouter } from 'react-router';
 import { Insightful } from 'types/insightful';
+import { testPub } from 'lib/test/objects';
 import { Import } from 'components/Import';
 import * as JSZip from 'jszip';
 import * as React from 'react';
@@ -20,14 +21,15 @@ test('<Import>', async () => {
     getByPlaceholderText,
     getAllByLabelText,
     getByLabelText,
-    asFragment,
     getByText
   } = render(
     <SnackbarProvider>
-      <Import />
-    </SnackbarProvider>
+      <MemoryRouter>
+        <Import />
+      </MemoryRouter>
+    </SnackbarProvider>,
+    { container: document.getElementById('content')! }
   );
-  expect(asFragment()).toMatchSnapshot();
 
   // Create zip file
   const zip = new JSZip();

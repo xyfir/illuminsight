@@ -1,4 +1,5 @@
 import * as InfiniteScroll from 'react-infinite-scroller';
+import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { formatRelative } from 'date-fns';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
@@ -131,6 +132,8 @@ function _Library({ classes }: WithStyles<typeof styles>) {
 
   return (
     <div className={classes.root}>
+      <GeneralToolbar />
+
       {/* Fixed / temporary drawer for tags */}
       <div className={classes.drawer}>
         <Hidden smUp>

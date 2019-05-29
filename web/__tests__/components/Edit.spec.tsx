@@ -51,7 +51,8 @@ test('<Edit>', async () => {
           <Route path="/edit/:pubId" component={Edit} />
         </Switch>
       </MemoryRouter>
-    </SnackbarProvider>
+    </SnackbarProvider>,
+    { container: document.getElementById('content')! }
   );
 
   // Validate mock loading file from localForage

@@ -54,7 +54,8 @@ test('<Reader>', async () => {
           <Route path="/read/:pubId" component={Reader} />
         </Switch>
       </MemoryRouter>
-    </SnackbarProvider>
+    </SnackbarProvider>,
+    { container: document.getElementById('content')! }
   );
 
   // Validate mock loading file from localForage

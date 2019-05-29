@@ -1,3 +1,4 @@
+import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import * as localForage from 'localforage';
 import { useSnackbar } from 'notistack';
 import { Insightful } from 'types/insightful';
@@ -204,6 +205,8 @@ function _Import({ classes }: WithStyles<typeof styles>) {
 
   return (
     <form onSubmit={e => e.preventDefault()} className={classes.root}>
+      <GeneralToolbar />
+
       {busy ? (
         <div className={classes.importingContainer}>
           <Typography className={classes.importingText}>

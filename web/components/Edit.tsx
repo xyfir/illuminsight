@@ -1,5 +1,6 @@
 import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
+import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
@@ -243,6 +244,8 @@ class _Edit extends React.Component<EditProps, EditState> {
 
     return (
       <form className={classes.root}>
+        <GeneralToolbar />
+
         <TextField
           id="name"
           label="Name"
