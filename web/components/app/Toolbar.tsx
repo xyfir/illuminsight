@@ -8,7 +8,11 @@ import {
   AppBar
 } from '@material-ui/core';
 
-const styles = createStyles({ appbar: {}, toolbar: {} });
+const styles = createStyles({
+  toolbar: {
+    justifyContent: 'space-between'
+  }
+});
 
 let toolbar: HTMLDivElement;
 
@@ -23,7 +27,7 @@ function _Toolbar({
   }
 
   return createPortal(
-    <AppBar className={classes.appbar} position="fixed" color="default">
+    <AppBar position="fixed" color="default">
       <MUIToolbar className={classes.toolbar}>{children}</MUIToolbar>
     </AppBar>,
     toolbar

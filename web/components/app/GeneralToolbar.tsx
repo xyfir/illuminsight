@@ -23,18 +23,18 @@ export function GeneralToolbar() {
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="Import content into library">
-        <Link to="/import">
-          <IconButton>
-            <ImportIcon />
-          </IconButton>
-        </Link>
-      </Tooltip>
-
       <Tooltip title="Search items in library">
         <Link to="/library">
           <IconButton>
             <LibraryIcon />
+          </IconButton>
+        </Link>
+      </Tooltip>
+
+      <Tooltip title="Import content into library">
+        <Link to="/import">
+          <IconButton>
+            <ImportIcon />
           </IconButton>
         </Link>
       </Tooltip>
