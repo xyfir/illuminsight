@@ -5,7 +5,7 @@ import { Insightful } from 'types/insightful';
 import { getYear } from 'date-fns';
 import * as JSZip from 'jszip';
 import * as React from 'react';
-import { api } from 'lib/api';
+import { api } from 'lib/app/api';
 import {
   LinearProgress,
   InputAdornment,

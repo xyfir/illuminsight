@@ -5,7 +5,7 @@ import { Library } from 'components/library/Library';
 import { Import } from 'components/Import';
 import { Reader } from 'components/reader/Reader';
 import * as React from 'react';
-import { theme } from 'lib/theme';
+import { theme } from 'lib/app/theme';
 import { Edit } from 'components/Edit';
 import {
   createStyles,

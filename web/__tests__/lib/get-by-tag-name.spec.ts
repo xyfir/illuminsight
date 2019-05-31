@@ -1,4 +1,4 @@
-import { getByTagName } from 'lib/get-by-tag-name';
+import { getByTagName } from 'lib/reader/get-by-tag-name';
 import { Insightful } from 'types/insightful';
 
 test('getByTagName()', () => {

@@ -6,7 +6,7 @@ import { testPub } from 'lib/test/objects';
 import { Import } from 'components/Import';
 import * as JSZip from 'jszip';
 import * as React from 'react';
-import { api } from 'lib/api';
+import { api } from 'lib/app/api';
 import {
   waitForElementToBeRemoved,
   waitForElement,

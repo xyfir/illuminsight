@@ -2,7 +2,7 @@ import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
 import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
-import { getByTagName } from 'lib/get-by-tag-name';
+import { getByTagName } from 'lib/reader/get-by-tag-name';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';

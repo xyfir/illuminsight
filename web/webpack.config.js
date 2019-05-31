@@ -10,7 +10,7 @@ const PROD = process.enve.NODE_ENV == 'production';
 module.exports = {
   mode: process.enve.NODE_ENV,
 
-  entry: './lib/index.ts',
+  entry: './lib/app/index.ts',
 
   output: {
     publicPath: '/static/',
