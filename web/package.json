@@ -34,7 +34,6 @@
     "react-hot-loader": "^4.8.8",
     "react-infinite-scroller": "^1.2.4",
     "react-router-dom": "^5.0.0",
-    "stopword": "^0.2.4",
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {

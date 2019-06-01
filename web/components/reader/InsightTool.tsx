@@ -84,7 +84,7 @@ function _InsightTool({
     // Remove insights
     if (insights[index]) delete insights[index];
     // Parse insights from element's text
-    else insights[index] = getInsightables(element.innerText, 'en');
+    else insights[index] = getInsightables(element.innerText);
 
     // Send modified insights back to Reader
     onChange(insights);
