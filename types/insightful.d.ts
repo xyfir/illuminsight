@@ -68,6 +68,10 @@ export namespace Insightful {
       }
     | string;
 
+  export interface Insights {
+    [element: number]: string[];
+  }
+
   export namespace Env {
     export interface Common {
       /**
