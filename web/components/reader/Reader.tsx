@@ -4,7 +4,9 @@ import { RouteComponentProps } from 'react-router';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
 import * as localForage from 'localforage';
+import { InsightTool } from 'components/reader/InsightTool';
 import { Insightful } from 'types/insightful';
+import { Indexer } from 'lib/reader/Indexer';
 import * as React from 'react';
 import * as JSZip from 'jszip';
 import { AST } from 'components/reader/AST';
@@ -39,6 +41,7 @@ const styles = (theme: Theme) =>
   });
 
 interface ReaderState {
+  insights: Insightful.Insights;
   pub?: Insightful.Pub;
   ast: Insightful.AST[];
 }
@@ -51,7 +54,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   lastScroll: number = 0;
   history: Insightful.Marker[] = [];
   imgURLs: string[] = [];
-  state: ReaderState = { ast: [] };
+  state: ReaderState = { insights: {}, ast: [] };
   zip?: JSZip;
 
   constructor(props: ReaderProps) {
@@ -125,11 +128,11 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     this.lastScroll = now;
 
     // Calculate bookmark.element
-    const elements = document.querySelectorAll<HTMLElement>('#ast *');
-    let element = 0;
-    for (let i = 0; i < elements.length; i++) {
-      if (elements[i].offsetTop >= (event.target as HTMLDivElement).scrollTop) {
-        element = i;
+    const elements = document.querySelectorAll<HTMLElement>('#ast *[ast]');
+    let element = -1;
+    for (let el of elements) {
+      if (el.offsetTop >= (event.target as HTMLDivElement).scrollTop) {
+        element = +el.getAttribute('ast')!;
         break;
       }
     }
@@ -251,22 +254,22 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     }
     // Get by index
     else if (element > 0) {
-      const elements = document.querySelectorAll('#ast *');
-      for (let i = 0; i < elements.length; i++) {
-        if (i == element) elements[i].scrollIntoView(true);
-      }
+      const el = document.querySelector(`#ast *[ast="${element}"]`);
+      if (el) el.scrollIntoView(true);
     }
   }
 
-  attributor(node: Insightful.AST): any | null {
-    if (typeof node == 'string' || node.n != 'a') return null;
+  attributor(node: Insightful.AST): any {
+    if (typeof node == 'string' || node.n != 'a') return {};
     const { a: { href = '' } = {} } = node; // yes, this is necessary for TS
     return { onClick: (e: MouseEvent) => this.onLinkClick(e, href) };
   }
 
   render() {
-    const { pub, ast } = this.state;
+    const { insights, pub, ast } = this.state;
     const { classes } = this.props;
+
+    Indexer.reset();
 
     return (
       <div
@@ -278,6 +281,11 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
           onChange={this.loadSection}
           history={this.history}
           pub={pub}
+        />
+
+        <InsightTool
+          onChange={i => this.setState({ insights: i })}
+          insights={insights}
         />
 
         <div id="ast" className={classes.ast}>

@@ -112,7 +112,7 @@ test('<Reader>', async () => {
     () => [
       { offsetTop: 0 },
       { offsetTop: 50 },
-      { offsetTop: 100 },
+      { offsetTop: 100, getAttribute: jest.fn(() => 2) },
       { offsetTop: 150 },
       { offsetTop: 200 }
     ]
