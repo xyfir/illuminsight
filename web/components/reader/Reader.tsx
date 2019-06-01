@@ -59,7 +59,6 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
   constructor(props: ReaderProps) {
     super(props);
-    this.attributor = this.attributor.bind(this);
     this.loadSection = this.loadSection.bind(this);
   }
 
@@ -87,18 +86,34 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   }
 
   /**
-   * Triggered whenever an `<a>` element is clicked.
+   * Triggered whenever an element in `#ast` is clicked. Handles links, ignores
+   *  everything else.
    */
-  onLinkClick(e: MouseEvent, href: string) {
-    // Empty link, do nothing
-    if (!href) return;
-    // Hash link for current section, allow normal behavior
-    if (href.startsWith('#')) return;
+  onLinkClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    const a = e.target as HTMLAnchorElement;
 
-    e.preventDefault();
+    // If not a link and parent isn't #ast, bubble up
+    if (a.tagName != 'A' && a.parentElement!.id != 'ast') {
+      e.target = a.parentElement!;
+      this.onLinkClick(e);
+      return;
+    }
+
+    // Empty link, do nothing
+    if (!a.href) return;
+
+    // External link, open in new tab
+    if (a.origin != location.origin) {
+      e.preventDefault();
+      return window.open(a.href);
+    }
+
+    // Hash link for current section, allow normal behavior
+    if (a.pathname == location.pathname && a.hash.length > 1) return;
 
     // Link for another section, change and optionally focus #hash
-    const match = href.match(/^ast\/(\d+)\.json(?:#(.*))?$/);
+    const match = a.href.match(/\/ast\/(\d+)\.json(?:#(.*))?$/);
+    e.preventDefault();
     if (match) {
       const pub = this.state.pub!;
 
@@ -108,10 +123,6 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       // Set location as bookmark and navigate to it
       pub.bookmark = { section: +match[1], element: match[2] || 0 };
       this.loadSection(pub);
-    }
-    // External link, open in new tab
-    else {
-      window.open(href);
     }
   }
 
@@ -259,12 +270,6 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     }
   }
 
-  attributor(node: Insightful.AST): any {
-    if (typeof node == 'string' || node.n != 'a') return {};
-    const { a: { href = '' } = {} } = node; // yes, this is necessary for TS
-    return { onClick: (e: MouseEvent) => this.onLinkClick(e, href) };
-  }
-
   render() {
     const { insights, pub, ast } = this.state;
     const { classes } = this.props;
@@ -288,9 +293,13 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
           insights={insights}
         />
 
-        <div id="ast" className={classes.ast}>
+        <div
+          id="ast"
+          onClick={e => this.onLinkClick(e)}
+          className={classes.ast}
+        >
           {ast.map((node, i) => (
-            <AST key={i} ast={node} attributor={this.attributor} />
+            <AST key={i} ast={node} />
           ))}
         </div>
       </div>
