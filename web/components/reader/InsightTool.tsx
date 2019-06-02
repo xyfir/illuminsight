@@ -90,7 +90,9 @@ function _InsightTool({
     onChange(insights);
   }
 
-  return <div id="insight-tool" onClick={onClick} className={classes.tool} />;
+  return (
+    <div title="Insight tool" onClick={onClick} className={classes.tool} />
+  );
 }
 
 export const InsightTool = withStyles(styles)(_InsightTool);
