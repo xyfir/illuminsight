@@ -299,7 +299,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
           className={classes.ast}
         >
           {ast.map((node, i) => (
-            <AST key={i} ast={node} />
+            <AST key={i} ast={node} insights={insights} />
           ))}
         </div>
       </div>
