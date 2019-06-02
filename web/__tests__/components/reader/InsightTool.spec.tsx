@@ -16,9 +16,17 @@ test('<InsightTool>', async () => {
   const mockElementsFromPoint = ((document as any).elementsFromPoint = jest.fn());
   const mockGetComputedStyle = ((window as any).getComputedStyle = jest.fn());
 
+  // Mock getting #ast and its rect
+  const mockGetElementById = ((document as any).getElementById = jest.fn(
+    () => ({ getBoundingClientRect: jest.fn(() => ({ x: 150 })) })
+  ));
+
   function setMockReturns() {
     // Mock position of insight tool
-    mockGetBoundingClientRect.mockReturnValueOnce({ x: 0, y: 0 });
+    mockGetBoundingClientRect.mockReturnValueOnce({ y: 0 });
+
+    // Mock getting lineHeight of #ast
+    mockGetComputedStyle.mockReturnValueOnce({ lineHeight: '15.05px' });
 
     // elementsFromPoint() should return a fake div element that should be
     // detected as a container element and so not return
@@ -61,6 +69,8 @@ test('<InsightTool>', async () => {
   fireEvent.click(getByTitle('Insight tool'));
 
   // Ensure insight tool click handler works
+  expect(mockGetElementById).toHaveBeenCalledTimes(1);
+  // Remember: we mock two different getBoundingClientRect methods!
   expect(mockGetBoundingClientRect).toHaveBeenCalledTimes(1);
 
   // First call to getElement() failed because it got the container element
@@ -68,7 +78,7 @@ test('<InsightTool>', async () => {
   expect(mockElementsFromPoint).toHaveBeenCalledTimes(2);
 
   // All found elements (excluding #ast and parents) had their display checked
-  expect(mockGetComputedStyle).toHaveBeenCalledTimes(5);
+  expect(mockGetComputedStyle).toHaveBeenCalledTimes(6);
 
   // Validate the ast attribute was retrieved from our mock element
   expect(mockElement.getAttribute).toHaveBeenCalledTimes(1);

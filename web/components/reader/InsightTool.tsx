@@ -59,17 +59,24 @@ function _InsightTool({
 
   /**
    * Handle clicks to insight tool
-   * @todo `x + 15` should use actual margin size
-   * @todo `y + i * 15` should use actual line height size
    */
   function onClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    // Get position of insight tool
-    const rect = (event.target as HTMLDivElement).getBoundingClientRect() as DOMRect;
+    // Get elements
+    const tool = event.target as HTMLDivElement;
+    const ast = document.getElementById('ast')!;
+
+    // Get needed x/y coordinates
+    // Need x from #ast because of its dynamic width/margin
+    const { x } = ast.getBoundingClientRect() as DOMRect;
+    const { y } = tool.getBoundingClientRect() as DOMRect;
+
+    // Get line height of AST container
+    const lineHeight = +getComputedStyle(ast)!.lineHeight!.split('px')[0];
 
     // Find adjacent element with a bit of guesswork
     let element: HTMLElement | undefined = undefined;
     for (let i = 0; i < 3; i++) {
-      element = getElement(rect.x + 15, rect.y + i * 15);
+      element = getElement(x + 1, y + i * lineHeight);
       if (element) break;
     }
     if (!element) return;
