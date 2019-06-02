@@ -75,11 +75,7 @@ function _InsightTool({
     if (!element) return;
 
     // Get index of AST element
-    const elements = document.querySelectorAll('#ast *[ast]');
-    let index = -1;
-    for (let i = 0; i < elements.length; i++) {
-      if (element === elements[i]) index = i;
-    }
+    const index = +element.getAttribute('ast')!;
 
     // Remove insights
     if (insights[index]) delete insights[index];

@@ -5,12 +5,15 @@ import * as React from 'react';
 
 test('<InsightTool>', async () => {
   // Mock final element that insight tool will zero in on
-  const mockElement = { innerText: 'My name is Insightful.' };
+  const mockElement = {
+    innerText: 'My name is Insightful.',
+    getAttribute: jest.fn()
+  };
+  mockElement.getAttribute.mockReturnValueOnce(2);
 
   // Add mocks
   const mockGetBoundingClientRect = (HTMLDivElement.prototype.getBoundingClientRect = jest.fn());
   const mockElementsFromPoint = ((document as any).elementsFromPoint = jest.fn());
-  const mockQuerySelectorAll = ((document as any).querySelectorAll = jest.fn());
   const mockGetComputedStyle = ((window as any).getComputedStyle = jest.fn());
 
   function setMockReturns() {
@@ -40,9 +43,6 @@ test('<InsightTool>', async () => {
     mockGetComputedStyle.mockReturnValueOnce({ display: 'block' });
     mockGetComputedStyle.mockReturnValueOnce({ display: 'block' });
     mockGetComputedStyle.mockReturnValueOnce({ display: 'inline' });
-
-    // Mock querySelectorAll to return mockElement
-    mockQuerySelectorAll.mockReturnValueOnce(['!', '!', mockElement, '!']);
   }
 
   // Wrap <InsightTool>
@@ -70,9 +70,9 @@ test('<InsightTool>', async () => {
   // All found elements (excluding #ast and parents) had their display checked
   expect(mockGetComputedStyle).toHaveBeenCalledTimes(5);
 
-  // *[ast] elements were loaded
-  expect(mockQuerySelectorAll).toHaveBeenCalledTimes(1);
-  expect(mockQuerySelectorAll).toHaveBeenCalledWith('#ast *[ast]');
+  // Validate the ast attribute was retrieved from our mock element
+  expect(mockElement.getAttribute).toHaveBeenCalledTimes(1);
+  expect(mockElement.getAttribute).toHaveBeenCalledWith('ast');
 
   // Insights were generated and set to correct AST element index
   expect(_insights).toMatchObject({ 2: ['Insightful'] });
