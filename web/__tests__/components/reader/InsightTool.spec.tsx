@@ -54,11 +54,13 @@ test('<InsightTool>', async () => {
   }
 
   // Wrap <InsightTool>
-  let _insights: Insightful.Insights = {};
+  let _insightsIndex: Insightful.InsightsIndex = {};
   function InsightToolConsumer() {
-    const [insights, setInsights] = React.useState(_insights);
-    _insights = insights;
-    return <InsightTool onChange={setInsights} insights={insights} />;
+    const [insightsIndex, setInsightsIndex] = React.useState(_insightsIndex);
+    _insightsIndex = insightsIndex;
+    return (
+      <InsightTool onChange={setInsightsIndex} insightsIndex={insightsIndex} />
+    );
   }
 
   // Render <InsightTool> inside <InsightToolConsumer>
@@ -85,12 +87,12 @@ test('<InsightTool>', async () => {
   expect(mockElement.getAttribute).toHaveBeenCalledWith('ast');
 
   // Insights were generated and set to correct AST element index
-  expect(_insights).toMatchObject({ 2: ['Insightful'] });
+  expect(_insightsIndex).toMatchObject({ 2: ['Insightful'] });
 
   // Click insight tool again to disabled insights
   setMockReturns();
   fireEvent.click(getByTitle('Insight tool'));
 
   // Validate insights were toggled off for AST element index
-  expect(_insights).toMatchObject({});
+  expect(_insightsIndex).toMatchObject({});
 });

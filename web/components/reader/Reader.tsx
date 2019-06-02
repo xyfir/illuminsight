@@ -41,7 +41,7 @@ const styles = (theme: Theme) =>
   });
 
 interface ReaderState {
-  insights: Insightful.Insights;
+  insightsIndex: Insightful.InsightsIndex;
   pub?: Insightful.Pub;
   ast: Insightful.AST[];
 }
@@ -54,7 +54,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   lastScroll: number = 0;
   history: Insightful.Marker[] = [];
   imgURLs: string[] = [];
-  state: ReaderState = { insights: {}, ast: [] };
+  state: ReaderState = { insightsIndex: {}, ast: [] };
   zip?: JSZip;
 
   constructor(props: ReaderProps) {
@@ -271,7 +271,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   }
 
   render() {
-    const { insights, pub, ast } = this.state;
+    const { insightsIndex, pub, ast } = this.state;
     const { classes } = this.props;
 
     Indexer.reset();
@@ -289,17 +289,17 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         />
 
         <InsightTool
-          onChange={i => this.setState({ insights: i })}
-          insights={insights}
+          insightsIndex={insightsIndex}
+          onChange={i => this.setState({ insightsIndex: i })}
         />
 
         <div
-          id="ast"
-          onClick={e => this.onLinkClick(e)}
           className={classes.ast}
+          onClick={e => this.onLinkClick(e)}
+          id="ast"
         >
           {ast.map((node, i) => (
-            <AST key={i} ast={node} insights={insights} />
+            <AST key={i} ast={node} insightsIndex={insightsIndex} />
           ))}
         </div>
       </div>

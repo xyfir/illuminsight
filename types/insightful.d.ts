@@ -68,7 +68,7 @@ export namespace Insightful {
       }
     | string;
 
-  export interface Insights {
+  export interface InsightsIndex {
     [element: number]: string[];
   }
 

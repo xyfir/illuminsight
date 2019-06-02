@@ -8,7 +8,7 @@ test('<AST>', async () => {
   const { getByAltText, getByText, container } = render(
     <div>
       {testAST.map((node, i) => (
-        <AST key={i} ast={node} insights={{ 2: ['Insightful'] }} />
+        <AST key={i} ast={node} insightsIndex={{ 2: ['Insightful'] }} />
       ))}
     </div>
   );

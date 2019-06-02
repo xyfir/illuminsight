@@ -16,12 +16,12 @@ const styles = (theme: Theme) =>
   });
 
 function _InsightTool({
+  insightsIndex,
   onChange,
-  insights,
   classes
 }: {
-  onChange: (insights: Insightful.Insights) => void;
-  insights: Insightful.Insights;
+  onChange: (insights: Insightful.InsightsIndex) => void;
+  insightsIndex: Insightful.InsightsIndex;
 } & WithStyles<typeof styles>) {
   /**
    * Get element to parse insights from.
@@ -85,12 +85,12 @@ function _InsightTool({
     const index = +element.getAttribute('ast')!;
 
     // Remove insights
-    if (insights[index]) delete insights[index];
+    if (insightsIndex[index]) delete insightsIndex[index];
     // Parse insights from element's text
-    else insights[index] = getInsights(element.innerText);
+    else insightsIndex[index] = getInsights(element.innerText);
 
     // Send modified insights back to Reader
-    onChange(insights);
+    onChange(insightsIndex);
   }
 
   return (

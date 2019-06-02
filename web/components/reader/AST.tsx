@@ -4,10 +4,10 @@ import { Indexer } from 'lib/reader/Indexer';
 import * as React from 'react';
 
 export function AST({
-  insights,
+  insightsIndex,
   ast
 }: {
-  insights: Insightful.Insights;
+  insightsIndex: Insightful.InsightsIndex;
   ast: Insightful.AST;
 }) {
   const index = Indexer.index;
@@ -20,11 +20,13 @@ export function AST({
             { ...(ast.a || {}), ast: index },
             ast.c &&
               ast.c.map((child, i) => (
-                <AST key={i} ast={child} insights={insights} />
+                <AST key={i} ast={child} insightsIndex={insightsIndex} />
               ))
           )
         : ast}
-      {insights[index] ? <Insights insights={insights[index]} /> : null}
+      {insightsIndex[index] ? (
+        <Insights insights={insightsIndex[index]} />
+      ) : null}
     </React.Fragment>
   );
 }
