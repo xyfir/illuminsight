@@ -8,7 +8,7 @@ test('<AST>', async () => {
   const { getByAltText, getByText, container } = render(
     <div>
       {testAST.map((node, i) => (
-        <AST key={i} ast={node} insights={{}} />
+        <AST key={i} ast={node} insights={{ 2: ['Insightful'] }} />
       ))}
     </div>
   );
@@ -21,6 +21,10 @@ test('<AST>', async () => {
   // p
   el = getByText('This is a paragraph', { exact: false });
   expect(el.tagName).toBe('P');
+
+  // Insight rendered after p
+  getByText('Insightful');
+  expect(el.nextElementSibling!.textContent).toBe('Insightful');
 
   // p > a
   el = getByText('with a link');
