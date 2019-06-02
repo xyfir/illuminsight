@@ -1,10 +1,10 @@
-import { getInsightables } from 'lib/reader/get-insightables';
+import { getInsights } from 'lib/reader/get-insights';
 
-test('getInsightables()', () => {
-  const insightables = getInsightables(
+test('getInsights()', () => {
+  const insights = getInsights(
     'What is so special about Insightful? The second largest city in California is San Diego. In July of 1958, NASA was created under President Eisenhower.'
   );
-  expect(insightables).toMatchObject([
+  expect(insights).toMatchObject([
     'Insightful',
     'California',
     'San Diego',

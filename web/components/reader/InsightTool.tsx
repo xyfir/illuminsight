@@ -1,5 +1,5 @@
 import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
-import { getInsightables } from 'lib/reader/get-insightables';
+import { getInsights } from 'lib/reader/get-insights';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
 
@@ -24,7 +24,7 @@ function _InsightTool({
   insights: Insightful.Insights;
 } & WithStyles<typeof styles>) {
   /**
-   * Get element to parse insightables from.
+   * Get element to parse insights from.
    */
   function getElement(x: number, y: number): HTMLElement | undefined {
     // Get elements to right of tool
@@ -87,7 +87,7 @@ function _InsightTool({
     // Remove insights
     if (insights[index]) delete insights[index];
     // Parse insights from element's text
-    else insights[index] = getInsightables(element.innerText);
+    else insights[index] = getInsights(element.innerText);
 
     // Send modified insights back to Reader
     onChange(insights);

@@ -2,7 +2,7 @@ import { stopwords } from 'lib/reader/stopwords';
 
 const regex = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[^.\s!?])\s+([A-Z][-A-Za-z']*)/gm;
 
-export function getInsightables(text: string): string[] {
+export function getInsights(text: string): string[] {
   return Array.from(
     // Removes duplicates
     new Set(
