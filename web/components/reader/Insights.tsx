@@ -1,3 +1,4 @@
+import { Insightful } from 'types/insightful';
 import * as React from 'react';
 import {
   createStyles,
@@ -11,16 +12,18 @@ const styles = (theme: Theme) => createStyles({});
 
 function _Insights({
   insights
-}: { insights: string[] } & WithStyles<typeof styles>) {
+}: { insights: Insightful.Insight[] } & WithStyles<typeof styles>) {
   return (
     <div>
       {insights.map(insight => (
         <Chip
-          key={insight}
-          label={insight}
+          key={insight.text}
+          label={insight.text}
           onClick={() =>
             window.open(
-              `https://www.google.com/search?q=${encodeURIComponent(insight)}`
+              `https://www.google.com/search?q=${encodeURIComponent(
+                insight.text
+              )}`
             )
           }
         />

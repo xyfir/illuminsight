@@ -1,8 +1,12 @@
+import { Insightful } from 'types/insightful';
 import { stopwords } from 'lib/reader/stopwords';
 
 const regex = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[^.\s!?])\s+([A-Z][-A-Za-z']*)/gm;
 
-export function getInsights(text: string): string[] {
+/**
+ * Generate insights from provided text content.
+ */
+export function getInsights(text: string): Insightful.Insight[] {
   return Array.from(
     // Removes duplicates
     new Set(
@@ -13,6 +17,7 @@ export function getInsights(text: string): string[] {
         .filter(item => !stopwords.includes(item.toLowerCase()))
         // Trim whitespace
         .map(item => item.trim())
-    )
+    ),
+    insight => ({ text: insight })
   );
 }

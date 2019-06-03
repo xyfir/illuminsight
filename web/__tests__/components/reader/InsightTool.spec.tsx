@@ -87,7 +87,7 @@ test('<InsightTool>', async () => {
   expect(mockElement.getAttribute).toHaveBeenCalledWith('ast');
 
   // Insights were generated and set to correct AST element index
-  expect(_insightsIndex).toMatchObject({ 2: ['Insightful'] });
+  expect(_insightsIndex).toMatchObject({ 2: [{ text: 'Insightful' }] });
 
   // Click insight tool again to disabled insights
   setMockReturns();

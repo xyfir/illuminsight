@@ -68,8 +68,12 @@ export namespace Insightful {
       }
     | string;
 
+  export interface Insight {
+    text: string;
+  }
+
   export interface InsightsIndex {
-    [element: number]: string[];
+    [element: number]: Insight[];
   }
 
   export namespace Env {

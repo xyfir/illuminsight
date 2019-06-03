@@ -1,4 +1,5 @@
 import { fireEvent, render } from 'react-testing-library';
+import { Insightful } from 'types/insightful';
 import { Insights } from 'components/reader/Insights';
 import * as React from 'react';
 
@@ -7,7 +8,8 @@ test('<Insights>', async () => {
   const mockOpen = ((window as any).open = jest.fn());
 
   // Render insights
-  const { getByText } = render(<Insights insights={['Hello', 'World']} />);
+  const insights: Insightful.Insight[] = [{ text: 'Hello' }, { text: 'World' }];
+  const { getByText } = render(<Insights insights={insights} />);
 
   // Click "Hello" insight
   fireEvent.click(getByText('Hello'));
