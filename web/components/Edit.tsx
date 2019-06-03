@@ -186,7 +186,7 @@ class _Edit extends React.Component<EditProps, EditState> {
 
     // Take us home and notify user
     history.replace('/');
-    enqueueSnackbar(`${pub.name} was deleted`);
+    // enqueueSnackbar(`${pub.name} was deleted`);
   }
 
   onChange(prop: keyof Insightful.Pub, value: any) {
@@ -224,7 +224,7 @@ class _Edit extends React.Component<EditProps, EditState> {
 
     // Update tags and notify user
     await this.saveTags(pubs);
-    enqueueSnackbar(`${pub.name} was updated`);
+    // enqueueSnackbar(`${pub.name} was updated`);
   }
 
   async saveTags(pubs: Insightful.Pub[]) {

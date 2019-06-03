@@ -200,7 +200,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     await localForage.setItem('tag-list', tags);
     await localForage.setItem('pub-list', pubs);
 
-    enqueueSnackbar(`${pub.name} added to library`);
+    // enqueueSnackbar(`${pub.name} added to library`);
   }
 
   return (
