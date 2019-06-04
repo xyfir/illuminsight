@@ -1,6 +1,6 @@
 module.exports = {
   setupFilesAfterEnv: [
-    'react-testing-library/cleanup-after-each',
+    '@testing-library/react/cleanup-after-each',
     '<rootDir>/lib/test/setup.ts'
   ],
   transform: {

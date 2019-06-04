@@ -12,7 +12,7 @@ import {
   fireEvent,
   render,
   wait
-} from 'react-testing-library';
+} from '@testing-library/react';
 
 test('<Reader>', async () => {
   // Mock scrolling to bookmarked element

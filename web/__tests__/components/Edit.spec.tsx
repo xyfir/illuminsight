@@ -1,5 +1,5 @@
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
-import { fireEvent, render, wait } from 'react-testing-library';
+import { fireEvent, render, wait } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
 import { readFileSync } from 'fs';

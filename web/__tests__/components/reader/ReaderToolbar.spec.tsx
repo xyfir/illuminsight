@@ -1,4 +1,4 @@
-import { waitForDomChange, fireEvent, render } from 'react-testing-library';
+import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
 import { MemoryRouter } from 'react-router-dom';
 import { Insightful } from 'types/insightful';

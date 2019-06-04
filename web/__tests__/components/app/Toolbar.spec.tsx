@@ -1,5 +1,5 @@
 import { Toolbar } from 'components/app/Toolbar';
-import { render } from 'react-testing-library';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 
 test('<Toolbar>', async () => {

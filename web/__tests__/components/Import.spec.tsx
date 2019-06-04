@@ -13,7 +13,7 @@ import {
   fireEvent,
   render,
   wait
-} from 'react-testing-library';
+} from '@testing-library/react';
 
 test('<Import>', async () => {
   // Render <Import>

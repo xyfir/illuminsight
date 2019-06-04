@@ -1,4 +1,4 @@
-import { fireEvent, render } from 'react-testing-library';
+import { fireEvent, render } from '@testing-library/react';
 import { Insightful } from 'types/insightful';
 import { Insights } from 'components/reader/Insights';
 import * as React from 'react';

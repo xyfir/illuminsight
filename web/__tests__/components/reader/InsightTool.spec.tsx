@@ -1,4 +1,4 @@
-import { fireEvent, render, wait } from 'react-testing-library';
+import { fireEvent, render, wait } from '@testing-library/react';
 import { InsightTool } from 'components/reader/InsightTool';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';

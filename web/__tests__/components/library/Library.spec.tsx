@@ -1,4 +1,4 @@
-import { waitForDomChange, fireEvent, render } from 'react-testing-library';
+import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { StaticRouter } from 'react-router-dom';
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';

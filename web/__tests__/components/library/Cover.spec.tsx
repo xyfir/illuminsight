@@ -1,4 +1,4 @@
-import { waitForDomChange, render } from 'react-testing-library';
+import { waitForDomChange, render } from '@testing-library/react';
 import * as localForage from 'localforage';
 import * as React from 'react';
 import { Cover } from 'components/library/Cover';
