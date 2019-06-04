@@ -5,6 +5,7 @@ import {
   createStyles,
   WithStyles,
   withStyles,
+  Typography,
   Paper,
   Theme,
   Chip
@@ -28,6 +29,7 @@ function _Insights({
   classes
 }: { insights: Insightful.Insight[] } & WithStyles<typeof styles>) {
   const [showWiki, setShowWiki] = React.useState(-1);
+  const insight = insights[showWiki];
 
   function onClick(insight: Insightful.Insight, i: number) {
     if (insight.wiki) {
@@ -51,19 +53,25 @@ function _Insights({
         />
       ))}
 
-      {showWiki > -1 ? (
-        <Paper
-          dangerouslySetInnerHTML={{
-            __html: insights[showWiki]
-              .wiki!.html()
-              .replace(
-                /<a class="link" href=".\//g,
-                '<a class="link" href="https://en.wikipedia.org/wiki/'
-              )
-          }}
-          className={classes.paper}
-          elevation={2}
-        />
+      {insight ? (
+        <Paper className={classes.paper} elevation={2}>
+          <Typography variant="caption">
+            Source: (English) Wikipedia.org:{' '}
+            <a href={`https://en.wikipedia.org/wiki/${insight.text}`}>
+              {insight.text}
+            </a>
+          </Typography>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: insight
+                .wiki!.html()
+                .replace(
+                  /<a class="link" href=".\//g,
+                  '<a class="link" href="https://en.wikipedia.org/wiki/'
+                )
+            }}
+          />
+        </Paper>
       ) : null}
     </div>
   );
