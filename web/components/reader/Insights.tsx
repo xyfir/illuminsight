@@ -43,7 +43,16 @@ function _Insights({
             className={classes.chip}
           />
           {showWiki.includes(insight.text) ? (
-            <div dangerouslySetInnerHTML={{ __html: insight.wiki!.html() }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: insight
+                  .wiki!.html()
+                  .replace(
+                    /<a class="link" href=".\//g,
+                    '<a class="link" href="https://en.wikipedia.org/wiki/'
+                  )
+              }}
+            />
           ) : null}
         </React.Fragment>
       ))}
