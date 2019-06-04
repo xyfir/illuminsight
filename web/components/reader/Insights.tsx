@@ -5,12 +5,19 @@ import {
   createStyles,
   WithStyles,
   withStyles,
+  Paper,
   Theme,
   Chip
 } from '@material-ui/core';
 
 const styles = (theme: Theme) =>
   createStyles({
+    paper: {
+      maxHeight: '60vh',
+      overflow: 'auto',
+      padding: '0.3em',
+      margin: '1em 0.3em'
+    },
     chip: {
       margin: '0 0.3em'
     }
@@ -45,7 +52,7 @@ function _Insights({
       ))}
 
       {showWiki > -1 ? (
-        <div
+        <Paper
           dangerouslySetInnerHTML={{
             __html: insights[showWiki]
               .wiki!.html()
@@ -54,6 +61,8 @@ function _Insights({
                 '<a class="link" href="https://en.wikipedia.org/wiki/'
               )
           }}
+          className={classes.paper}
+          elevation={2}
         />
       ) : null}
     </div>
