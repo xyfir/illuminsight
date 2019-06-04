@@ -1,7 +1,9 @@
-import { fireEvent, render } from 'react-testing-library';
+import { fireEvent, render, wait } from 'react-testing-library';
 import { InsightTool } from 'components/reader/InsightTool';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
+// @ts-ignore
+import * as wtf from 'wtf_wikipedia';
 
 test('<InsightTool>', async () => {
   // Mock final element that insight tool will zero in on
@@ -15,6 +17,10 @@ test('<InsightTool>', async () => {
   const mockGetBoundingClientRect = (HTMLDivElement.prototype.getBoundingClientRect = jest.fn());
   const mockElementsFromPoint = ((document as any).elementsFromPoint = jest.fn());
   const mockGetComputedStyle = ((window as any).getComputedStyle = jest.fn());
+
+  // Mock fetching Wikipedia article
+  const mockFetch = ((wtf as any).fetch = jest.fn());
+  mockFetch.mockResolvedValueOnce(null);
 
   // Mock getting #ast and its rect
   const mockGetElementById = ((document as any).getElementById = jest.fn(
@@ -87,9 +93,10 @@ test('<InsightTool>', async () => {
   expect(mockElement.getAttribute).toHaveBeenCalledWith('ast');
 
   // Insights were generated and set to correct AST element index
+  await wait(() => expect(mockFetch).toHaveBeenCalled());
   expect(_insightsIndex).toMatchObject({ 2: [{ text: 'Insightful' }] });
 
-  // Click insight tool again to disabled insights
+  // Click insight tool again to disable insights
   setMockReturns();
   fireEvent.click(getByTitle('Insight tool'));
 

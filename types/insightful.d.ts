@@ -69,6 +69,7 @@ export namespace Insightful {
     | string;
 
   export interface Insight {
+    wiki?: any;
     text: string;
   }
 

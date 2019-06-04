@@ -60,7 +60,7 @@ function _InsightTool({
   /**
    * Handle clicks to insight tool
    */
-  function onClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+  async function onClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     // Get elements
     const tool = event.target as HTMLDivElement;
     const ast = document.getElementById('ast')!;
@@ -87,7 +87,7 @@ function _InsightTool({
     // Remove insights
     if (insightsIndex[index]) delete insightsIndex[index];
     // Parse insights from element's text
-    else insightsIndex[index] = getInsights(element.innerText);
+    else insightsIndex[index] = await getInsights(element.innerText);
 
     // Send modified insights back to Reader
     onChange(insightsIndex);
