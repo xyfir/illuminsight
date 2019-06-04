@@ -1,5 +1,4 @@
 import { getInsights } from 'lib/reader/get-insights';
-// @ts-ignore
 import * as wtf from 'wtf_wikipedia';
 
 test('getInsights()', async () => {

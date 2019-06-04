@@ -2,7 +2,6 @@ import { fireEvent, render, wait } from '@testing-library/react';
 import { InsightTool } from 'components/reader/InsightTool';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
-// @ts-ignore
 import * as wtf from 'wtf_wikipedia';
 
 test('<InsightTool>', async () => {

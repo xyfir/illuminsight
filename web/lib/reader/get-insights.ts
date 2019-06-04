@@ -1,10 +1,6 @@
 import { Insightful } from 'types/insightful';
 import { stopwords } from 'lib/reader/stopwords';
-// @ts-ignore
 import * as wtf from 'wtf_wikipedia';
-
-// @ts-ignore
-window.wtf = wtf;
 
 const regex = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[^.\s!?])\s+([A-Z][-A-Za-z']*)/gm;
 
