@@ -20,11 +20,11 @@ function _Insights({
   insights,
   classes
 }: { insights: Insightful.Insight[] } & WithStyles<typeof styles>) {
-  const [showWiki, setShowWiki] = React.useState<string[]>([]);
+  const [showWiki, setShowWiki] = React.useState(-1);
 
-  function onClick(insight: Insightful.Insight) {
+  function onClick(insight: Insightful.Insight, i: number) {
     if (insight.wiki) {
-      setShowWiki(showWiki.concat(insight.text));
+      setShowWiki(i);
     } else {
       window.open(
         `https://www.google.com/search?q=${encodeURIComponent(insight.text)}`
@@ -34,28 +34,28 @@ function _Insights({
 
   return (
     <div>
-      {insights.map(insight => (
-        <React.Fragment key={insight.text}>
-          <Chip
-            icon={insight.wiki ? <InfoIcon /> : <SearchIcon />}
-            label={insight.text}
-            onClick={() => onClick(insight)}
-            className={classes.chip}
-          />
-          {showWiki.includes(insight.text) ? (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: insight
-                  .wiki!.html()
-                  .replace(
-                    /<a class="link" href=".\//g,
-                    '<a class="link" href="https://en.wikipedia.org/wiki/'
-                  )
-              }}
-            />
-          ) : null}
-        </React.Fragment>
+      {insights.map((insight, i) => (
+        <Chip
+          key={insight.text}
+          icon={insight.wiki ? <InfoIcon /> : <SearchIcon />}
+          label={insight.text}
+          onClick={() => onClick(insight, i)}
+          className={classes.chip}
+        />
       ))}
+
+      {showWiki > -1 ? (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: insights[showWiki]
+              .wiki!.html()
+              .replace(
+                /<a class="link" href=".\//g,
+                '<a class="link" href="https://en.wikipedia.org/wiki/'
+              )
+          }}
+        />
+      ) : null}
     </div>
   );
 }
