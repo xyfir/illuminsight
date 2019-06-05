@@ -1,11 +1,16 @@
-import { Search as SearchIcon, Info as InfoIcon } from '@material-ui/icons';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
+import {
+  ExpandMore as ExpandMoreIcon,
+  Search as SearchIcon,
+  Info as InfoIcon
+} from '@material-ui/icons';
 import {
   createStyles,
   WithStyles,
   withStyles,
   Typography,
+  Button,
   Paper,
   Theme,
   Chip
@@ -28,17 +33,29 @@ function _Insights({
   insights,
   classes
 }: { insights: Insightful.Insight[] } & WithStyles<typeof styles>) {
+  const [showFullArticle, setShowFullArticle] = React.useState(false);
   const [showWiki, setShowWiki] = React.useState(-1);
   const insight = insights[showWiki];
 
   function onClick(insight: Insightful.Insight, i: number) {
     if (insight.wiki) {
+      setShowFullArticle(false);
       setShowWiki(i);
     } else {
       window.open(
         `https://www.google.com/search?q=${encodeURIComponent(insight.text)}`
       );
     }
+  }
+
+  function getArticleHTML() {
+    return (showFullArticle
+      ? insight.wiki!.html()
+      : insight.wiki!.sections()[0].html()
+    ).replace(
+      /<a class="link" href=".\//g,
+      '<a class="link" href="https://en.wikipedia.org/wiki/'
+    );
   }
 
   return (
@@ -54,24 +71,25 @@ function _Insights({
       ))}
 
       {insight ? (
-        <Paper className={classes.paper} elevation={2}>
-          <Typography variant="caption">
-            Source: (English) Wikipedia.org:{' '}
-            <a href={`https://en.wikipedia.org/wiki/${insight.text}`}>
-              {insight.text}
-            </a>
-          </Typography>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: insight
-                .wiki!.html()
-                .replace(
-                  /<a class="link" href=".\//g,
-                  '<a class="link" href="https://en.wikipedia.org/wiki/'
-                )
-            }}
-          />
-        </Paper>
+        <React.Fragment>
+          <Paper className={classes.paper} elevation={2}>
+            <Typography variant="caption">
+              Source: (English) Wikipedia.org:{' '}
+              <a href={`https://en.wikipedia.org/wiki/${insight.text}`}>
+                {insight.text}
+              </a>
+            </Typography>
+
+            <div dangerouslySetInnerHTML={{ __html: getArticleHTML() }} />
+
+            {showFullArticle ? null : (
+              <Button onClick={() => setShowFullArticle(true)} variant="text">
+                <ExpandMoreIcon />
+                Continue Reading
+              </Button>
+            )}
+          </Paper>
+        </React.Fragment>
       ) : null}
     </div>
   );
