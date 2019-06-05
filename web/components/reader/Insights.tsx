@@ -2,6 +2,7 @@ import { Insightful } from 'types/insightful';
 import * as React from 'react';
 import {
   ExpandMore as ExpandMoreIcon,
+  ListAlt as StatisticsIcon,
   Search as SearchIcon,
   Info as InfoIcon
 } from '@material-ui/icons';
@@ -34,12 +35,14 @@ function _Insights({
   classes
 }: { insights: Insightful.Insight[] } & WithStyles<typeof styles>) {
   const [showFullArticle, setShowFullArticle] = React.useState(false);
+  const [showInfoBoxes, setShowInfoBoxes] = React.useState(false);
   const [showWiki, setShowWiki] = React.useState(-1);
   const insight = insights[showWiki];
 
   function onClick(insight: Insightful.Insight, i: number) {
     if (insight.wiki) {
       setShowFullArticle(false);
+      setShowInfoBoxes(false);
       setShowWiki(i);
     } else {
       window.open(
@@ -82,10 +85,30 @@ function _Insights({
 
             <div dangerouslySetInnerHTML={{ __html: getArticleHTML() }} />
 
+            {showInfoBoxes && !showFullArticle ? (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: insight
+                    .wiki!.infoboxes()
+                    .map((i: any) => i.html())
+                    .join('\n')
+                }}
+              />
+            ) : null}
+
             {showFullArticle ? null : (
               <Button onClick={() => setShowFullArticle(true)} variant="text">
                 <ExpandMoreIcon />
                 Continue Reading
+              </Button>
+            )}
+
+            {showInfoBoxes ||
+            showFullArticle ||
+            !insight.wiki!.infoboxes().length ? null : (
+              <Button onClick={() => setShowInfoBoxes(true)} variant="text">
+                <StatisticsIcon />
+                Show Statistics
               </Button>
             )}
           </Paper>
