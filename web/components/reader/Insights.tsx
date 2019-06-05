@@ -5,22 +5,26 @@ import {
   ListAlt as StatisticsIcon,
   Search as SearchIcon,
   Info as InfoIcon,
+  Home as HomeIcon,
   Toc as TOCIcon
 } from '@material-ui/icons';
 import {
   createStyles,
-  WithStyles,
-  withStyles,
+  Breadcrumbs,
   Typography,
   IconButton,
+  makeStyles,
   Button,
   Paper,
-  Theme,
   Chip
 } from '@material-ui/core';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
+    paperHeader: {
+      alignItems: 'center',
+      display: 'flex'
+    },
     tocButton: {
       marginRight: '0.3em'
     },
@@ -36,17 +40,16 @@ const styles = (theme: Theme) =>
     chip: {
       margin: '0 0.3em'
     }
-  });
+  })
+);
 
 type SectionKey = 'all' | 'toc' | 'main' | 'main+stats' | number;
 
-function _Insights({
-  insights,
-  classes
-}: { insights: Insightful.Insight[] } & WithStyles<typeof styles>) {
+export function Insights({ insights }: { insights: Insightful.Insight[] }) {
   const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
   const [showWiki, setShowWiki] = React.useState(-1);
   const insight = insights[showWiki];
+  const classes = useStyles();
 
   function onClick(insight: Insightful.Insight, i: number) {
     if (insight.wiki) {
@@ -129,23 +132,49 @@ function _Insights({
       {/* Selected Wikipedia insight */}
       {insight ? (
         <Paper className={classes.paper} elevation={2}>
-          {/* Table of Contents */}
-          {insight.wiki!.sections().length > 2 ? (
-            <IconButton
-              className={classes.tocButton}
-              onClick={() => setSectionKey('toc')}
-            >
-              <TOCIcon />
-            </IconButton>
-          ) : null}
+          <header className={classes.paperHeader}>
+            {/* Table of Contents */}
+            {insight.wiki!.sections().length > 2 ? (
+              <IconButton
+                className={classes.tocButton}
+                onClick={() => setSectionKey('toc')}
+              >
+                <TOCIcon />
+              </IconButton>
+            ) : null}
 
-          {/* Attribution */}
-          <Typography variant="caption">
-            Source: (English) Wikipedia.org:{' '}
-            <a href={`https://en.wikipedia.org/wiki/${insight.text}`}>
-              {insight.text}
-            </a>
-          </Typography>
+            {/* Section breadcrumbs | attribution */}
+            {typeof sectionKey == 'number' ? (
+              <Breadcrumbs aria-label="Breadcrumb" maxItems={3}>
+                {/* Root */}
+                <Chip
+                  onClick={() => setSectionKey('main')}
+                  variant="outlined"
+                  icon={<HomeIcon />}
+                  label={
+                    insight.wiki!.title().length < insight.text.length
+                      ? insight.wiki!.title()
+                      : insight.text
+                  }
+                  size="small"
+                />
+
+                {/* Current section */}
+                <Chip
+                  label={insight.wiki!.sections()[sectionKey].title()}
+                  variant="outlined"
+                  size="small"
+                />
+              </Breadcrumbs>
+            ) : (
+              <Typography variant="caption">
+                Source: (English) Wikipedia.org:{' '}
+                <a href={`https://en.wikipedia.org/wiki/${insight.text}`}>
+                  {insight.text}
+                </a>
+              </Typography>
+            )}
+          </header>
 
           {sectionKey == 'toc' ? (
             <WikiTOC sections={insight.wiki!.sections().slice(1)} depth={0} />
@@ -176,5 +205,3 @@ function _Insights({
     </div>
   );
 }
-
-export const Insights = withStyles(styles)(_Insights);
