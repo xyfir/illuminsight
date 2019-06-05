@@ -38,7 +38,7 @@ declare module 'wtf_wikipedia' {
 
     private options: object;
 
-    title(str: string | undefined): string;
+    title(str?: string): string;
 
     isRedirect(): boolean;
 
@@ -162,10 +162,11 @@ declare module 'wtf_wikipedia' {
   }
 
   class Section {
-    private depth: number;
     private doc: Document;
     private _title: string;
     private data: object;
+
+    depth: number;
 
     title(): string;
 

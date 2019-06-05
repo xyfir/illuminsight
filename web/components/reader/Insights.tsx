@@ -1,4 +1,5 @@
 import { Insightful } from 'types/insightful';
+import { Section } from 'wtf_wikipedia';
 import * as React from 'react';
 import {
   ExpandMore as ExpandMoreIcon,
@@ -75,7 +76,7 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
     if (sectionKey == 'main+stats') {
       html += insight
         .wiki!.infoboxes()
-        .map((i: any) => i.html())
+        .map(i => i.html())
         .join('\n');
     }
 
@@ -86,20 +87,24 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
     );
   }
 
-  function WikiTOC({ sections, depth }: { sections: any[]; depth: number }) {
+  function WikiTOC({
+    sections,
+    depth
+  }: {
+    sections: Section[];
+    depth: number;
+  }) {
     return (
       <ul>
         {sections
           .filter(section => section.depth == depth)
-          .map((section: any) => (
+          .map(section => (
             <li key={section.title()}>
               <a
                 className={classes.tocLink}
                 onClick={() =>
                   setSectionKey(
-                    insight
-                      .wiki!.sections()
-                      .findIndex((s: any) => s === section)
+                    insight.wiki!.sections().findIndex(s => s === section)
                   )
                 }
               >
@@ -146,7 +151,7 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
             {/* Section breadcrumbs | attribution */}
             {typeof sectionKey == 'number' ? (
               <Breadcrumbs aria-label="Breadcrumb" maxItems={3}>
-                {/* Root */}
+                {/* Root section */}
                 <Chip
                   onClick={() => setSectionKey('main')}
                   variant="outlined"
