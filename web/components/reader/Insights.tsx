@@ -134,7 +134,7 @@ function _Insights({
       {insight ? (
         <Paper className={classes.paper} elevation={2}>
           {/* Table of Contents */}
-          {insight!.wiki.sections().length > 2 ? (
+          {insight.wiki!.sections().length > 2 ? (
             <IconButton
               className={classes.tocButton}
               onClick={() => setShowTOC(true)}

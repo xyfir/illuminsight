@@ -92,33 +92,33 @@ declare module 'wtf_wikipedia' {
 
     images(): Image[];
 
-    links(clue: string | undefined | null): object[];
+    links(clue?: string): object[];
 
     links(clue: number): object;
 
     // Singular
     link(clue: number): object;
 
-    interwiki(clue: string | undefined | null): object[];
+    interwiki(clue?: string): object[];
 
     interwiki(clue: number): object;
 
-    lists(clue: string | undefined | null): List[];
+    lists(clue?: string): List[];
 
     lists(clue: number): List;
 
-    tables(clue: string | undefined | null): Table[];
+    tables(clue?: string): Table[];
 
     tables(clue: number): Table;
 
     // Singular
     table(clue: number): Table;
 
-    templates(clue: string | undefined | null): object[];
+    templates(clue?: string): object[];
 
     templates(clue: number): object;
 
-    references(clue: string | undefined | null): Reference[];
+    references(clue?: string): Reference[];
 
     references(clue: number): Reference;
 
@@ -126,7 +126,7 @@ declare module 'wtf_wikipedia' {
     reference(clue: number): Reference;
 
     // Alias of references
-    citations(clue: string | undefined | null): Reference[];
+    citations(clue?: string): Reference[];
 
     // Alias of references
     citations(clue: number): Reference;
@@ -134,7 +134,7 @@ declare module 'wtf_wikipedia' {
     // Alias and singular
     citation(clue: number): Reference;
 
-    coordinates(clue: string | undefined | null): object[];
+    coordinates(clue?: string): object[];
 
     coordinates(clue: number): object;
 
@@ -148,15 +148,15 @@ declare module 'wtf_wikipedia' {
 
     infoboxes(): Infobox[];
 
-    text(options: object | null | undefined): string;
+    text(options?: object): string;
 
-    markdown(options: object | null | undefined): string;
+    markdown(options?: object): string;
 
-    latex(options: object | null | undefined): string;
+    latex(options?: object): string;
 
-    html(options: object | null | undefined): string;
+    html(options?: object): string;
 
-    json(options: object | null | undefined): object;
+    json(options?: object): object;
 
     debug(): Document;
   }
@@ -181,11 +181,11 @@ declare module 'wtf_wikipedia' {
 
     paragraphs(): Paragraph[];
 
-    paragraph(n: number | undefined | null): Paragraph;
+    paragraph(n?: number): Paragraph;
 
     links(n: number): object;
 
-    links(n: string | undefined | null): object[];
+    links(n?: string): object[];
 
     tables(n: number): Table;
 
@@ -193,7 +193,7 @@ declare module 'wtf_wikipedia' {
 
     templates(clue: number): object;
 
-    templates(clue: string | undefined | null): object[];
+    templates(clue?: string): object[];
 
     infoboxes(clue: number): Infobox;
 
@@ -243,27 +243,27 @@ declare module 'wtf_wikipedia' {
     // Alias of lastSibling()
     previous(): Section | null;
 
-    children(n: string | undefined | null): Section[];
+    children(n?: string): Section[];
 
     children(n: number): Section;
 
     // Alias of children
-    sections(n: string | undefined | null): Section[];
+    sections(n?: string): Section[];
 
     // Alias of children
     sections(n: number): Section;
 
     parent(): null | Section;
 
-    text(options: object | null | undefined): string;
+    text(options?: object): string;
 
-    markdown(options: object | null | undefined): string;
+    markdown(options?: object): string;
 
-    latex(options: object | null | undefined): string;
+    latex(options?: object): string;
 
-    html(options: object | null | undefined): string;
+    html(options?: object): string;
 
-    json(options: object | null | undefined): object;
+    json(options?: object): object;
   }
 
   class Infobox {
@@ -276,7 +276,7 @@ declare module 'wtf_wikipedia' {
 
     links(n: number): object;
 
-    links(n: string | undefined | null): object[];
+    links(n?: string): object[];
 
     image(): Image | null;
 
@@ -292,13 +292,13 @@ declare module 'wtf_wikipedia' {
 
     text(): string;
 
-    markdown(options: object | null | undefined): string;
+    markdown(options?: object): string;
 
-    latex(options: object | null | undefined): string;
+    latex(options?: object): string;
 
-    html(options: object | null | undefined): string;
+    html(options?: object): string;
 
-    json(options: object | null | undefined): object;
+    json(options?: object): object;
   }
 
   class Table {
@@ -306,7 +306,7 @@ declare module 'wtf_wikipedia' {
 
     links(n: number): object;
 
-    links(n: string | undefined | null): object[];
+    links(n?: string): object[];
 
     keyValue(options: object): object;
 
@@ -318,13 +318,13 @@ declare module 'wtf_wikipedia' {
 
     text(): string;
 
-    markdown(options: object | null | undefined): string;
+    markdown(options?: object): string;
 
-    latex(options: object | null | undefined): string;
+    latex(options?: object): string;
 
-    html(options: object | null | undefined): string;
+    html(options?: object): string;
 
-    json(options: object | null | undefined): object;
+    json(options?: object): object;
   }
 
   class Reference {
@@ -334,17 +334,17 @@ declare module 'wtf_wikipedia' {
 
     links(n: number): object;
 
-    links(n: string | undefined | null): object[];
+    links(n?: string): object[];
 
     text(): string;
 
-    markdown(options: object | null | undefined): string;
+    markdown(options?: object): string;
 
-    latex(options: object | null | undefined): string;
+    latex(options?: object): string;
 
-    html(options: object | null | undefined): string;
+    html(options?: object): string;
 
-    json(options: object | null | undefined): object;
+    json(options?: object): object;
   }
 
   class Paragraph {
@@ -374,21 +374,21 @@ declare module 'wtf_wikipedia' {
 
     links(n: number): object;
 
-    links(n: string | undefined | null): object;
+    links(n?: string): object;
 
     interwiki(num: number): object;
 
     interwiki(): object[];
 
-    text(options: object | null | undefined): string;
+    text(options?: object): string;
 
-    markdown(options: object | null | undefined): string;
+    markdown(options?: object): string;
 
-    latex(options: object | null | undefined): string;
+    latex(options?: object): string;
 
-    html(options: object | null | undefined): string;
+    html(options?: object): string;
 
-    json(options: object | null | undefined): object;
+    json(options?: object): object;
   }
 
   class Image {
@@ -418,13 +418,13 @@ declare module 'wtf_wikipedia' {
 
     text(): string;
 
-    markdown(options: object | null | undefined): string;
+    markdown(options?: object): string;
 
-    latex(options: object | null | undefined): string;
+    latex(options?: object): string;
 
-    html(options: object | null | undefined): string;
+    html(options?: object): string;
 
-    json(options: object | null | undefined): object;
+    json(options?: object): object;
   }
 
   class List {
@@ -434,21 +434,21 @@ declare module 'wtf_wikipedia' {
 
     links(n: number): object;
 
-    links(n: string | undefined | null): object;
+    links(n?: string): object;
 
     interwiki(num: number): object;
 
     interwiki(): object[];
 
-    text(options: object | null | undefined): string;
+    text(options?: object): string;
 
-    markdown(options: object | null | undefined): string;
+    markdown(options?: object): string;
 
-    latex(options: object | null | undefined): string;
+    latex(options?: object): string;
 
-    html(options: object | null | undefined): string;
+    html(options?: object): string;
 
-    json(options: object | null | undefined): object;
+    json(options?: object): object;
   }
 
   class Sentence {
@@ -456,7 +456,7 @@ declare module 'wtf_wikipedia' {
 
     links(n: number): object;
 
-    links(n: string | undefined | null): object;
+    links(n?: string): object;
 
     interwiki(num: number): object;
 
@@ -491,12 +491,12 @@ declare module 'wtf_wikipedia' {
     // Alias of text
     plaintext(str: string | null | undefined): string;
 
-    markdown(options: object | null | undefined): string;
+    markdown(options?: object): string;
 
-    latex(options: object | null | undefined): string;
+    latex(options?: object): string;
 
-    html(options: object | null | undefined): string;
+    html(options?: object): string;
 
-    json(options: object | null | undefined): object;
+    json(options?: object): object;
   }
 }

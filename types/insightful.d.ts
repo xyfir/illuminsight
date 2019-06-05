@@ -1,3 +1,5 @@
+import { Document } from 'wtf_wikipedia';
+
 export namespace Insightful {
   export interface Tag {
     id: number;
@@ -69,7 +71,7 @@ export namespace Insightful {
     | string;
 
   export interface Insight {
-    wiki?: any;
+    wiki?: Document;
     text: string;
   }
 
