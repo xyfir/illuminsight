@@ -38,23 +38,19 @@ const styles = (theme: Theme) =>
     }
   });
 
+type SectionKey = 'all' | 'toc' | 'main' | 'main+stats' | number;
+
 function _Insights({
   insights,
   classes
 }: { insights: Insightful.Insight[] } & WithStyles<typeof styles>) {
-  const [showFullArticle, setShowFullArticle] = React.useState(false);
-  const [showInfoBoxes, setShowInfoBoxes] = React.useState(false);
-  const [sectionIndex, setSectionIndex] = React.useState(-1);
+  const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
   const [showWiki, setShowWiki] = React.useState(-1);
-  const [showTOC, setShowTOC] = React.useState(false);
   const insight = insights[showWiki];
 
   function onClick(insight: Insightful.Insight, i: number) {
     if (insight.wiki) {
-      setShowFullArticle(false);
-      setShowInfoBoxes(false);
-      setSectionIndex(-1);
-      setShowTOC(false);
+      setSectionKey('main');
       setShowWiki(i);
     } else {
       window.open(
@@ -67,12 +63,13 @@ function _Insights({
     let html = '';
 
     // Get html for main section, full article, or specified section
-    if (sectionIndex > -1) html = insight.wiki!.sections()[sectionIndex].html();
-    else if (showFullArticle) html = insight.wiki!.html();
+    if (typeof sectionKey == 'number')
+      html = insight.wiki!.sections()[sectionKey].html();
+    else if (sectionKey == 'all') html = insight.wiki!.html();
     else html = insight.wiki!.sections()[0].html();
 
     // Get infobox HTML
-    if (showInfoBoxes && !showFullArticle) {
+    if (sectionKey == 'main+stats') {
       html += insight
         .wiki!.infoboxes()
         .map((i: any) => i.html())
@@ -95,14 +92,13 @@ function _Insights({
             <li key={section.title()}>
               <a
                 className={classes.tocLink}
-                onClick={() => (
-                  setSectionIndex(
+                onClick={() =>
+                  setSectionKey(
                     insight
                       .wiki!.sections()
                       .findIndex((s: any) => s === section)
-                  ),
-                  setShowTOC(false)
-                )}
+                  )
+                }
               >
                 {section.title()}
               </a>
@@ -137,7 +133,7 @@ function _Insights({
           {insight.wiki!.sections().length > 2 ? (
             <IconButton
               className={classes.tocButton}
-              onClick={() => setShowTOC(true)}
+              onClick={() => setSectionKey('toc')}
             >
               <TOCIcon />
             </IconButton>
@@ -151,27 +147,28 @@ function _Insights({
             </a>
           </Typography>
 
-          {showTOC ? (
+          {sectionKey == 'toc' ? (
             <WikiTOC sections={insight.wiki!.sections().slice(1)} depth={0} />
           ) : (
             <React.Fragment>
               <div dangerouslySetInnerHTML={{ __html: getSectionHTML() }} />
 
-              {showFullArticle ? null : (
-                <Button onClick={() => setShowFullArticle(true)} variant="text">
+              {sectionKey == 'main' || sectionKey == 'main+stats' ? (
+                <Button onClick={() => setSectionKey('all')} variant="text">
                   <ExpandMoreIcon />
                   Continue Reading
                 </Button>
-              )}
+              ) : null}
 
-              {showInfoBoxes ||
-              showFullArticle ||
-              !insight.wiki!.infoboxes().length ? null : (
-                <Button onClick={() => setShowInfoBoxes(true)} variant="text">
+              {sectionKey == 'main' && insight.wiki!.infoboxes().length ? (
+                <Button
+                  onClick={() => setSectionKey('main+stats')}
+                  variant="text"
+                >
                   <StatisticsIcon />
                   Show Statistics
                 </Button>
-              )}
+              ) : null}
             </React.Fragment>
           )}
         </Paper>
