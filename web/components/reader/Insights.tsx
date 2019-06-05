@@ -24,6 +24,9 @@ const styles = (theme: Theme) =>
     tocButton: {
       marginRight: '0.3em'
     },
+    tocLink: {
+      cursor: 'pointer'
+    },
     paper: {
       maxHeight: '60vh',
       overflow: 'auto',
@@ -91,6 +94,7 @@ function _Insights({
           .map((section: any) => (
             <li key={section.title()}>
               <a
+                className={classes.tocLink}
                 onClick={() => (
                   setSectionIndex(
                     insight
