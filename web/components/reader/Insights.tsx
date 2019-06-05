@@ -52,6 +52,7 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
   const insight = insights[showWiki];
   const classes = useStyles();
 
+  /** Handle an insight chip being clicked */
   function onClick(insight: Insightful.Insight, i: number) {
     if (insight.wiki) {
       setSectionKey('main');
@@ -63,6 +64,7 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
     }
   }
 
+  /** Build HTML to display for section */
   function getSectionHTML() {
     let html = '';
 
@@ -87,6 +89,18 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
     );
   }
 
+  /** Get all ancestors of wiki section */
+  function getSectionAncestors(section: Section): Section[] {
+    const ancestors: Section[] = [];
+    let parent = section.parent();
+    while (parent !== null) {
+      ancestors.push(parent);
+      parent = parent.parent();
+    }
+    return ancestors.reverse();
+  }
+
+  /** Render a wiki article's table of contents */
   function WikiTOC({
     sections,
     depth
@@ -124,12 +138,12 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
   return (
     <div>
       {/* Insight list */}
-      {insights.map((insight, i) => (
+      {insights.map((_insight, i) => (
         <Chip
-          key={insight.text}
-          icon={insight.wiki ? <InfoIcon /> : <SearchIcon />}
-          label={insight.text}
-          onClick={() => onClick(insight, i)}
+          key={_insight.text}
+          icon={_insight.wiki ? <InfoIcon /> : <SearchIcon />}
+          label={_insight.text}
+          onClick={() => onClick(_insight, i)}
           className={classes.chip}
         />
       ))}
@@ -150,7 +164,7 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
 
             {/* Section breadcrumbs | attribution */}
             {typeof sectionKey == 'number' ? (
-              <Breadcrumbs aria-label="Breadcrumb" maxItems={3}>
+              <Breadcrumbs aria-label="Breadcrumb" maxItems={4}>
                 {/* Root section */}
                 <Chip
                   onClick={() => setSectionKey('main')}
@@ -163,6 +177,23 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
                   }
                   size="small"
                 />
+
+                {/* Intermediate sections */}
+                {getSectionAncestors(insight.wiki!.sections()[sectionKey]).map(
+                  section => (
+                    <Chip
+                      onClick={() =>
+                        setSectionKey(
+                          insight.wiki!.sections().findIndex(s => s === section)
+                        )
+                      }
+                      variant="outlined"
+                      label={section.title()}
+                      size="small"
+                      key={section.title()}
+                    />
+                  )
+                )}
 
                 {/* Current section */}
                 <Chip
