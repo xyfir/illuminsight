@@ -1,11 +1,15 @@
 import * as localForage from 'localforage';
 import { Insightful } from 'types/insightful';
+import { setConfig } from 'react-hot-loader';
 import { render } from 'react-dom';
 import * as React from 'react';
 import * as wtf from 'wtf_wikipedia';
 import { hot } from 'react-hot-loader/root';
 import { App } from 'components/app/App';
 import 'typeface-roboto';
+
+/** @todo remove -- https://github.com/gaearon/react-hot-loader/issues/1262 */
+setConfig({ reloadHooks: false });
 
 declare global {
   interface Window {
