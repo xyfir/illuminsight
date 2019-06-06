@@ -1,8 +1,12 @@
-import { Search as SearchIcon, Info as InfoIcon } from '@material-ui/icons';
 import { createStyles, makeStyles, Chip } from '@material-ui/core';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
+import {
+  CloseOutlined as CloseIcon,
+  Search as SearchIcon,
+  Info as InfoIcon
+} from '@material-ui/icons';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -18,7 +22,8 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
 
   /** Handle an insight chip being clicked */
   function onClick(insight: Insightful.Insight, i: number) {
-    if (insight.wiki) return setShowWiki(i);
+    // Open or close wiki article
+    if (insight.wiki) return setShowWiki(showWiki == i ? -1 : i);
 
     window.open(
       `https://www.google.com/search?q=${encodeURIComponent(insight.text)}`
@@ -31,7 +36,15 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
       {insights.map((insight, i) => (
         <Chip
           key={insight.text}
-          icon={insight.wiki ? <InfoIcon /> : <SearchIcon />}
+          icon={
+            showWiki == i ? (
+              <CloseIcon />
+            ) : insight.wiki ? (
+              <InfoIcon />
+            ) : (
+              <SearchIcon />
+            )
+          }
           label={insight.text}
           onClick={() => onClick(insight, i)}
           className={classes.chip}

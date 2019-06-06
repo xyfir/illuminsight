@@ -14,7 +14,7 @@ test('<Insights>', async () => {
     { text: 'Cormac McCarthy' },
     { text: 'Blood Meridian', wiki: wtf(testWikitext) }
   ];
-  const { getByText } = render(<Insights insights={insights} />);
+  const { getAllByText, getByText } = render(<Insights insights={insights} />);
 
   // Click "Cormac McCarthy" insight
   fireEvent.click(getByText('Cormac McCarthy'));
@@ -30,4 +30,12 @@ test('<Insights>', async () => {
 
   // Expect "Blood Meridian" insight to have opened wiki article
   getByText('novel by American author', { exact: false });
+
+  // Click "Blood Meridian" insight again to close wiki article
+  fireEvent.click(getAllByText('Blood Meridian')[0]);
+
+  // Expect wiki article to have closed
+  expect(() =>
+    getByText('novel by American author', { exact: false })
+  ).toThrow();
 });
