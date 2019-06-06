@@ -1,31 +1,33 @@
 import { fireEvent, render } from '@testing-library/react';
+import { testWikitext } from 'lib/test/data';
 import { Insightful } from 'types/insightful';
 import { Insights } from 'components/reader/Insights';
 import * as React from 'react';
+import * as wtf from 'wtf_wikipedia';
 
 test('<Insights>', async () => {
   // Mock window.open
   const mockOpen = ((window as any).open = jest.fn());
 
   // Render insights
-  const insights: Insightful.Insight[] = [{ text: 'Hello' }, { text: 'World' }];
+  const insights: Insightful.Insight[] = [
+    { text: 'Cormac McCarthy' },
+    { text: 'Blood Meridian', wiki: wtf(testWikitext) }
+  ];
   const { getByText } = render(<Insights insights={insights} />);
 
-  // Click "Hello" insight
-  fireEvent.click(getByText('Hello'));
+  // Click "Cormac McCarthy" insight
+  fireEvent.click(getByText('Cormac McCarthy'));
 
-  // Expect "Hello" insight to have opened Google search
+  // Expect "Cormac McCarthy" insight to have opened Google search
   expect(mockOpen).toHaveBeenCalledTimes(1);
   expect(mockOpen).toHaveBeenCalledWith(
-    'https://www.google.com/search?q=Hello'
+    'https://www.google.com/search?q=Cormac%20McCarthy'
   );
 
-  // Click "World" insight
-  fireEvent.click(getByText('World'));
+  // Click "Blood Meridian" insight
+  fireEvent.click(getByText('Blood Meridian'));
 
-  // Expect "World" insight to have opened Google search
-  expect(mockOpen).toHaveBeenCalledTimes(2);
-  expect(mockOpen).toHaveBeenCalledWith(
-    'https://www.google.com/search?q=World'
-  );
+  // Expect "Blood Meridian" insight to have opened wiki article
+  getByText('novel by American author', { exact: false });
 });
