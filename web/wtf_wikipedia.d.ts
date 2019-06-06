@@ -6,7 +6,7 @@
 export = wtf;
 export as namespace wtf;
 
-declare function wtf(wiki: string, options: any): any;
+declare function wtf(wiki: string, options?: any): wtf.Document;
 
 declare module wtf {
   export const version: string;
