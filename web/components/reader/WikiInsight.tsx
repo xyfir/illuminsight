@@ -96,7 +96,7 @@ export function WikiInsight({
     return (
       <ul>
         {sections
-          .filter(section => section.depth == depth)
+          .filter(section => section.indentation() == depth)
           .map(section => (
             <li key={section.title()}>
               <a
