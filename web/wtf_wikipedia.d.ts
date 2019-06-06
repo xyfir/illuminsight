@@ -3,7 +3,12 @@
 // Definitions by: Rob Rose <https://github.com/RobRoseKnows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'wtf_wikipedia' {
+export = wtf;
+export as namespace wtf;
+
+declare function wtf(wiki: string, options: any): any;
+
+declare module wtf {
   export const version: string;
 
   export function category(
