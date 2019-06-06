@@ -4,7 +4,7 @@ import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
 import { readFileSync } from 'fs';
 import { Insightful } from 'types/insightful';
-import { testTags } from 'lib/test/objects';
+import { testTags } from 'lib/test/data';
 import { resolve } from 'path';
 import * as React from 'react';
 import * as JSZip from 'jszip';

@@ -2,7 +2,7 @@ import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
 import { MemoryRouter } from 'react-router-dom';
 import { Insightful } from 'types/insightful';
-import { testPub } from 'lib/test/objects';
+import { testPub } from 'lib/test/data';
 import * as React from 'react';
 
 test('<ReaderToolbar>', async () => {

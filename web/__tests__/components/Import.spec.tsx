@@ -2,7 +2,7 @@ import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
 import { MemoryRouter } from 'react-router';
 import { Insightful } from 'types/insightful';
-import { testPub } from 'lib/test/objects';
+import { testPub } from 'lib/test/data';
 import { Import } from 'components/Import';
 import * as JSZip from 'jszip';
 import * as React from 'react';
