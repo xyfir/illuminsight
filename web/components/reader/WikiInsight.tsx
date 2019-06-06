@@ -126,6 +126,7 @@ export function WikiInsight({
         {/* Table of Contents */}
         {insight.wiki.sections().length > 2 ? (
           <IconButton
+            aria-label="Wiki article table of contents"
             className={classes.tocButton}
             onClick={() => setSectionKey('toc')}
           >
