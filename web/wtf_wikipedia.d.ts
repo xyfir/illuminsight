@@ -1,6 +1,7 @@
-// Type definitions for wtf_wikipedia 7.3
+// Type definitions for wtf_wikipedia 7.3.0
 // Project: https://github.com/spencermountain/wtf_wikipedia#readme
 // Definitions by: Rob Rose <https://github.com/RobRoseKnows>
+//                 Mr. Xyfir <https://github.com/MrXyfir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = wtf;
@@ -49,18 +50,18 @@ declare module wtf {
 
     redirectTo(): Document;
 
-    // Alias of redirectTo
+    /** Alias of redirectTo */
     redirectsTo(): Document;
 
-    // Alias of redirectTo
+    /** Alias of redirectTo */
     redirect(): Document;
 
-    // Alias of redirectTo
+    /** Alias of redirectTo */
     redirects(): Document;
 
     isDisambiguation(): boolean;
 
-    // Alias of isDisambiguation
+    /** Alias of isDisambiguation */
     isDisambig(): boolean;
 
     categories(clue: number): string;
@@ -130,10 +131,10 @@ declare module wtf {
     // Singular
     reference(clue: number): Reference;
 
-    // Alias of references
+    /** Alias of references */
     citations(clue?: string): Reference[];
 
-    // Alias of references
+    /** Alias of references */
     citations(clue: number): Reference;
 
     // Alias and singular
@@ -170,8 +171,7 @@ declare module wtf {
     private doc: Document;
     private _title: string;
     private data: object;
-
-    depth: number;
+    private depth: number;
 
     title(): string;
 
@@ -225,38 +225,38 @@ declare module wtf {
 
     references(): Reference[];
 
-    // Alias of references()
+    /** Alias of references() */
     citations(clue: number): Reference;
 
-    // Alias of references()
+    /** Alias of references() */
     citations(): Reference[];
 
     remove(): Document;
 
     nextSibling(): Section | null;
 
-    // Alias of nextSibling()
+    /** Alias of nextSibling() */
     next(): Section | null;
 
     lastSibling(): Section | null;
 
-    // Alias of lastSibling()
+    /** Alias of lastSibling() */
     last(): Section | null;
 
-    // Alias of lastSibling()
+    /** Alias of lastSibling() */
     previousSibling(): Section | null;
 
-    // Alias of lastSibling()
+    /** Alias of lastSibling() */
     previous(): Section | null;
 
     children(n?: string): Section[];
 
     children(n: number): Section;
 
-    // Alias of children
+    /** Alias of children */
     sections(n?: string): Section[];
 
-    // Alias of children
+    /** Alias of children */
     sections(n: number): Section;
 
     parent(): null | Section;
@@ -277,7 +277,7 @@ declare module wtf {
 
     type(): string;
 
-    // Alias of type()
+    /** Alias of type() */
     template(): string;
 
     links(n: number): object;
@@ -286,14 +286,14 @@ declare module wtf {
 
     image(): Image | null;
 
-    // Alias of image()
+    /** Alias of image() */
     images(): Image | null;
 
     get(key: string): object | null;
 
     keyValue(): object;
 
-    // Alias of keyValue()
+    /** Alias of keyValue() */
     data(): object;
 
     text(): string;
@@ -316,7 +316,7 @@ declare module wtf {
 
     keyValue(options: object): object;
 
-    // Alias of keyValue
+    /** Alias of keyValue */
     keyvalue(options: object): object;
 
     // Alais of keyValue
@@ -364,10 +364,10 @@ declare module wtf {
 
     references(): Reference[];
 
-    // Alias of references
+    /** Alias of references */
     citations(num: number): Reference;
 
-    // Alias of references
+    /** Alias of references */
     citations(): Reference[];
 
     lists(num: number): List;
@@ -410,12 +410,12 @@ declare module wtf {
 
     url(): string;
 
-    // Alias of url()
+    /** Alias of url() */
     src(): string;
 
     thumbnail(size: number): string;
 
-    // Alias of thumbnail()
+    /** Alias of thumbnail() */
     thumb(size: number): string;
 
     format(): string;
@@ -472,20 +472,20 @@ declare module wtf {
 
     bolds(): string[];
 
-    // Alias of bolds
+    /** Alias of bolds */
     bold(n: number): string;
 
-    // Alias of bolds
+    /** Alias of bolds */
     bold(): string[];
 
     italics(n: number): string;
 
     italics(): string[];
 
-    // Alias of italics
+    /** Alias of italics */
     italic(n: number): string;
 
-    // Alias of italics
+    /** Alias of italics */
     italic(): string[];
 
     dates(n: number): string;
@@ -494,7 +494,7 @@ declare module wtf {
 
     text(str: string | null | undefined): string;
 
-    // Alias of text
+    /** Alias of text */
     plaintext(str: string | null | undefined): string;
 
     markdown(options?: object): string;
