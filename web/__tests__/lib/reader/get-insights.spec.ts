@@ -24,6 +24,6 @@ test('getInsights()', async () => {
   expect(insights).toBeArrayOfSize;
   for (let i = 0; i < 6; i++) {
     expect(mockFetch).toHaveBeenNthCalledWith(i + 1, items[i]);
-    expect(insights[i]).toMatchObject({ text: items[i], wiki: null });
+    expect(insights[i]).toMatchObject({ text: items[i], wiki: undefined });
   }
 });

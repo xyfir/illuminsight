@@ -23,7 +23,7 @@ export async function getInsights(text: string): Promise<Insightful.Insight[]> {
   );
 
   for (let insight of insights) {
-    insight.wiki = await wtf.fetch(insight.text);
+    insight.wiki = (await wtf.fetch(insight.text)) || undefined;
   }
 
   return insights;
