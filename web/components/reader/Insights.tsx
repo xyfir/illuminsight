@@ -1,9 +1,11 @@
-import { createStyles, makeStyles, Chip } from '@material-ui/core';
+import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
 import {
   CloseOutlined as CloseIcon,
+  ChevronLeft as BackIcon,
+  ExpandMore as ExpandMoreIcon,
   Search as SearchIcon,
   Info as InfoIcon
 } from '@material-ui/icons';
@@ -18,38 +20,77 @@ const useStyles = makeStyles(() =>
 
 export function Insights({ insights }: { insights: Insightful.Insight[] }) {
   const [showWiki, setShowWiki] = React.useState(-1);
+  const [expand, setExpand] = React.useState(-1);
   const classes = useStyles();
 
   /** Handle an insight chip being clicked */
-  function onClick(insight: Insightful.Insight, i: number) {
-    // Open or close wiki article
-    if (insight.wiki) return setShowWiki(showWiki == i ? -1 : i);
+  function onClick(i: number, type: 'search' | 'wiki') {
+    const { [i]: insight } = insights;
 
-    window.open(
-      `https://www.google.com/search?q=${encodeURIComponent(insight.text)}`
-    );
+    // Open or close wiki article
+    if (type == 'wiki') setShowWiki(showWiki == i ? -1 : i);
+    // Search Google
+    else if (type == 'search')
+      window.open(
+        `https://www.google.com/search?q=${encodeURIComponent(insight.text)}`
+      );
   }
 
   return (
     <div>
-      {/* Insight list */}
-      {insights.map((insight, i) => (
-        <Chip
-          key={insight.text}
-          icon={
-            showWiki == i ? (
-              <CloseIcon />
-            ) : insight.wiki ? (
-              <InfoIcon />
-            ) : (
-              <SearchIcon />
-            )
-          }
-          label={insight.text}
-          onClick={() => onClick(insight, i)}
-          className={classes.chip}
-        />
-      ))}
+      {/* Insight list (top level | expanded) */}
+      {expand == -1 ? (
+        insights.map((insight, i) => (
+          <Chip
+            key={insight.text}
+            icon={
+              showWiki == i ? (
+                <CloseIcon />
+              ) : insight.wiki ? (
+                <InfoIcon />
+              ) : (
+                <SearchIcon />
+              )
+            }
+            label={insight.text}
+            onClick={() => onClick(i, insight.wiki ? 'wiki' : 'search')}
+            // onDelete / deleteIcon are repurposed for expanding insights
+            onDelete={insight.wiki ? () => setExpand(i) : undefined}
+            className={classes.chip}
+            deleteIcon={
+              insight.wiki ? (
+                <span title={`View all insights for "${insight.text}"`}>
+                  <ExpandMoreIcon />
+                </span>
+              ) : (
+                undefined
+              )
+            }
+          />
+        ))
+      ) : (
+        <React.Fragment>
+          <IconButton
+            aria-label="Back to previous insights"
+            onClick={() => setExpand(-1)}
+          >
+            <BackIcon />
+          </IconButton>
+
+          <Chip
+            icon={<InfoIcon />}
+            label="Wikipedia"
+            onClick={() => onClick(expand, 'wiki')}
+            className={classes.chip}
+          />
+          <Chip
+            icon={<SearchIcon />}
+            label="Google"
+            onClick={() => onClick(expand, 'search')}
+            className={classes.chip}
+          />
+        </React.Fragment>
+      )}
 
       {/* Selected Wikipedia insight */}
       {insights[showWiki] ? (
