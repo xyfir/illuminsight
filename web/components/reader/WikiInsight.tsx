@@ -65,9 +65,18 @@ export function WikiInsight({
    *  ignores everything else.
    */
   async function onLinkClick(event: React.MouseEvent) {
-    // If not a link to another wikipedia article then ignore and bubble up
     const a = event.target as HTMLAnchorElement;
-    if (a.tagName != 'A' || a.classList.contains('external')) return;
+
+    // If not a link, bubble up
+    if (a.tagName != 'A' && a.parentElement!.tagName != 'DIV') {
+      event.target = a.parentElement!;
+      onLinkClick(event);
+      return;
+    }
+    if (!a.href) return;
+
+    // If not a link to another wikipedia article, let Reader handler it
+    if (a.classList.contains('external')) return;
 
     event.preventDefault();
     event.stopPropagation();
