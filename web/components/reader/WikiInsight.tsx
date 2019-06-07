@@ -1,7 +1,8 @@
 import { Insightful } from 'types/insightful';
-import { Section } from 'wtf_wikipedia';
 import * as React from 'react';
+import * as wtf from 'wtf_wikipedia';
 import {
+  ChevronLeft as BackIcon,
   ExpandMore as ExpandMoreIcon,
   ListAlt as StatisticsIcon,
   Home as HomeIcon,
@@ -21,11 +22,12 @@ import {
 const useStyles = makeStyles(() =>
   createStyles({
     paperHeader: {
+      marginBottom: '0.3em',
       alignItems: 'center',
       display: 'flex'
     },
-    tocButton: {
-      marginRight: '0.3em'
+    iconButton: {
+      marginRight: '0.1em'
     },
     tocLink: {
       cursor: 'pointer'
@@ -47,7 +49,37 @@ export function WikiInsight({
   insight: Required<Insightful.Insight>;
 }) {
   const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
+  const [articleKey, setArticleKey] = React.useState(0);
+  const [articles, setArticles] = React.useState([insight.wiki]);
+  const article = articles[articleKey];
   const classes = useStyles();
+
+  /** Go back to previous article in history */
+  function onPreviousArticle() {
+    setSectionKey('main');
+    setArticleKey(articleKey - 1);
+  }
+
+  /**
+   * Triggered whenever an element in article is clicked. Handles wiki links,
+   *  ignores everything else.
+   */
+  async function onLinkClick(event: React.MouseEvent) {
+    // If not a link to another wikipedia article then ignore and bubble up
+    const a = event.target as HTMLAnchorElement;
+    if (a.tagName != 'A' || a.classList.contains('external')) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Load wiki article into viewer
+    const article = await wtf.fetch(a.getAttribute('href')!.substr(2));
+    if (article) {
+      setArticles(articles.slice(0, articleKey + 1).concat(article));
+      setSectionKey('main');
+      setArticleKey(articleKey + 1);
+    }
+  }
 
   /** Build HTML to display for section */
   function getSectionHTML() {
@@ -55,28 +87,24 @@ export function WikiInsight({
 
     // Get html for main section, full article, or specified section
     if (typeof sectionKey == 'number')
-      html = insight.wiki.sections()[sectionKey].html();
-    else if (sectionKey == 'all') html = insight.wiki.html();
-    else html = insight.wiki.sections()[0].html();
+      html = article.sections()[sectionKey].html();
+    else if (sectionKey == 'all') html = article.html();
+    else html = article.sections()[0].html();
 
     // Get infobox HTML
     if (sectionKey == 'main+stats') {
-      html += insight.wiki
+      html += article
         .infoboxes()
         .map(i => i.html())
         .join('\n');
     }
 
-    // Update links so they're not local
-    return html.replace(
-      /<a class="link" href=".\//g,
-      '<a class="link" href="https://en.wikipedia.org/wiki/'
-    );
+    return html;
   }
 
   /** Get all ancestors of wiki section */
-  function getSectionAncestors(section: Section): Section[] {
-    const ancestors: Section[] = [];
+  function getSectionAncestors(section: wtf.Section): wtf.Section[] {
+    const ancestors: wtf.Section[] = [];
     let parent = section.parent();
     while (parent !== null) {
       ancestors.push(parent);
@@ -90,7 +118,7 @@ export function WikiInsight({
     sections,
     depth
   }: {
-    sections: Section[];
+    sections: wtf.Section[];
     depth: number;
   }) {
     return (
@@ -103,7 +131,7 @@ export function WikiInsight({
                 className={classes.tocLink}
                 onClick={() =>
                   setSectionKey(
-                    insight.wiki.sections().findIndex(s => s === section)
+                    article.sections().findIndex(s => s === section)
                   )
                 }
               >
@@ -123,11 +151,22 @@ export function WikiInsight({
   return (
     <Paper className={classes.paper} elevation={2}>
       <header className={classes.paperHeader}>
-        {/* Table of Contents */}
-        {insight.wiki.sections().length > 2 ? (
+        {/* Previous article button */}
+        {articleKey ? (
+          <IconButton
+            aria-label="Go back to previous article"
+            className={classes.iconButton}
+            onClick={onPreviousArticle}
+          >
+            <BackIcon />
+          </IconButton>
+        ) : null}
+
+        {/* Table of contents button */}
+        {article.sections().length > 2 ? (
           <IconButton
             aria-label="Wiki article table of contents"
-            className={classes.tocButton}
+            className={classes.iconButton}
             onClick={() => setSectionKey('toc')}
           >
             <TOCIcon />
@@ -141,22 +180,18 @@ export function WikiInsight({
             <Chip
               onClick={() => setSectionKey('main')}
               variant="outlined"
+              label={article.title()}
               icon={<HomeIcon />}
-              label={
-                insight.wiki.title().length < insight.text.length
-                  ? insight.wiki.title()
-                  : insight.text
-              }
               size="small"
             />
 
             {/* Intermediate sections */}
-            {getSectionAncestors(insight.wiki.sections()[sectionKey]).map(
+            {getSectionAncestors(article.sections()[sectionKey]).map(
               section => (
                 <Chip
                   onClick={() =>
                     setSectionKey(
-                      insight.wiki.sections().findIndex(s => s === section)
+                      article.sections().findIndex(s => s === section)
                     )
                   }
                   variant="outlined"
@@ -168,26 +203,27 @@ export function WikiInsight({
             )}
 
             {/* Current section */}
-            <Chip
-              label={insight.wiki.sections()[sectionKey].title()}
-              size="small"
-            />
+            <Chip label={article.sections()[sectionKey].title()} size="small" />
           </Breadcrumbs>
         ) : (
           <Typography variant="caption">
             Source: (English) Wikipedia.org:{' '}
-            <a href={`https://en.wikipedia.org/wiki/${insight.text}`}>
-              {insight.text}
+            <a href={`https://en.wikipedia.org/wiki/${article.title()}`}>
+              {article.title()}
             </a>
           </Typography>
         )}
       </header>
 
+      {/* Section content */}
       {sectionKey == 'toc' ? (
-        <WikiTOC sections={insight.wiki.sections().slice(1)} depth={0} />
+        <WikiTOC sections={article.sections().slice(1)} depth={0} />
       ) : (
         <React.Fragment>
-          <div dangerouslySetInnerHTML={{ __html: getSectionHTML() }} />
+          <div
+            dangerouslySetInnerHTML={{ __html: getSectionHTML() }}
+            onClick={onLinkClick}
+          />
 
           {sectionKey == 'main' || sectionKey == 'main+stats' ? (
             <Button onClick={() => setSectionKey('all')} variant="text">
@@ -196,7 +232,7 @@ export function WikiInsight({
             </Button>
           ) : null}
 
-          {sectionKey == 'main' && insight.wiki.infoboxes().length ? (
+          {sectionKey == 'main' && article.infoboxes().length ? (
             <Button onClick={() => setSectionKey('main+stats')} variant="text">
               <StatisticsIcon />
               Show Statistics
