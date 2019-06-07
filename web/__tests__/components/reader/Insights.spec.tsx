@@ -14,7 +14,7 @@ test('<Insights>', async () => {
     { text: 'Cormac McCarthy' },
     { text: 'Blood Meridian', wiki: wtf(testWikitext) }
   ];
-  const { getByLabelText, getAllByText, getByTitle, getByText } = render(
+  const { getByLabelText, getAllByText, getByText } = render(
     <Insights insights={insights} />
   );
 
@@ -42,7 +42,7 @@ test('<Insights>', async () => {
   ).toThrow();
 
   // Click secondary action to view all insights of text
-  fireEvent.click(getByTitle('View all insights for "Blood Meridian"'));
+  fireEvent.click(getByLabelText('View all insights for "Blood Meridian"'));
 
   // Expect other insights to be gone
   expect(() => getByText('Cormac McCarthy')).toThrow();

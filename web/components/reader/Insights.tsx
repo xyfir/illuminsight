@@ -59,9 +59,9 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
             className={classes.chip}
             deleteIcon={
               insight.wiki ? (
-                <span title={`View all insights for "${insight.text}"`}>
-                  <ExpandMoreIcon />
-                </span>
+                <ExpandMoreIcon
+                  aria-label={`View all insights for "${insight.text}"`}
+                />
               ) : (
                 undefined
               )
