@@ -25,18 +25,14 @@ test('<WikiInsight>', () => {
   // in infobox:
   expect(() => getByText('historical novel')).toThrow();
 
-  // Validate links are fixed
-  let el = getByText('anti-Western');
-  expect((el as HTMLAnchorElement).href).toBe(
-    'https://en.wikipedia.org/wiki/Revisionist_Western'
-  );
-
   // Validate attribution
-  el = getByText('Source: (English) Wikipedia.org:');
+  let el = getByText('Source: (English) Wikipedia.org:');
   el = el.querySelector('a')!;
-  expect(el.textContent).toBe('Blood Meridian');
+  expect(el.textContent).toBe(
+    'Blood Meridian or The Evening Redness in the West'
+  );
   expect((el as HTMLAnchorElement).href).toBe(
-    'https://en.wikipedia.org/wiki/Blood%20Meridian'
+    'https://en.wikipedia.org/wiki/Blood%20Meridian%20or%20The%20Evening%20Redness%20in%20the%20West'
   );
 
   // Trigger 'main+stats' section
@@ -98,8 +94,10 @@ test('<WikiInsight>', () => {
   expect(els[0].tagName).toBe('SPAN');
   expect(els[1].tagName).toBe('H1');
 
-  // Trigger section change from breadcrumbs to main "Blood Meridian"
-  fireEvent.click(getByText('Blood Meridian'));
+  // Trigger section change from breadcrumbs to main "Blood Meridian or The Evening Redness in the West"
+  fireEvent.click(
+    getByText('Blood Meridian or The Evening Redness in the West')
+  );
 
   // Validate we're back to main section
   getByText('Source: (English) Wikipedia.org:');
