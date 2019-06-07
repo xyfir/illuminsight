@@ -1,10 +1,10 @@
-import { fireEvent, render } from '@testing-library/react';
-import { testWikitext } from 'lib/test/data';
+import { waitForDomChange, fireEvent, render } from '@testing-library/react';
+import { alternateTestWikitext, testWikitext } from 'lib/test/data';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
 import * as wtf from 'wtf_wikipedia';
 
-test('<WikiInsight>', () => {
+test('<WikiInsight>', async () => {
   const { getByLabelText, getAllByText, getByText } = render(
     <WikiInsight
       insight={{
@@ -15,9 +15,7 @@ test('<WikiInsight>', () => {
   );
 
   // Validate only main section was rendered
-  getByText("McCarthy's fifth book, it was published by", {
-    exact: false
-  });
+  getByText("McCarthy's fifth book", { exact: false });
   // in second section:
   expect(() =>
     getByText('The novel follows an adolescent runaway', { exact: false })
@@ -39,9 +37,7 @@ test('<WikiInsight>', () => {
   fireEvent.click(getByText('Show Statistics'));
 
   // Validate infobox has loaded alonside main section
-  getByText("McCarthy's fifth book, it was published by", {
-    exact: false
-  });
+  getByText("McCarthy's fifth book", { exact: false });
   getByText('historical novel');
   getByText('337 pp (first edition, hardback)');
 
@@ -52,9 +48,7 @@ test('<WikiInsight>', () => {
   fireEvent.click(getByText('Continue Reading'));
 
   // Validate entire article has loaded
-  getByText("McCarthy's fifth book, it was published by", {
-    exact: false
-  });
+  getByText("McCarthy's fifth book", { exact: false });
   getByText('The novel follows an adolescent runaway', { exact: false });
   getByText('historical novel');
 
@@ -101,9 +95,25 @@ test('<WikiInsight>', () => {
 
   // Validate we're back to main section
   getByText('Source: (English) Wikipedia.org:');
-  getByText("McCarthy's fifth book, it was published by", {
-    exact: false
-  });
+  getByText("McCarthy's fifth book", { exact: false });
   getByText('Continue Reading');
   getByText('Show Statistics');
+
+  // Mock wtf_wikipedia.fetch()
+  const mockFetch = ((wtf as any).fetch = jest.fn());
+  mockFetch.mockResolvedValueOnce(wtf(alternateTestWikitext));
+
+  // Click "Cormac McCarthy" link
+  fireEvent.click(getByText('Cormac McCarthy'));
+
+  // Validate new article was loaded
+  expect(mockFetch).toHaveBeenCalledWith('Cormac_McCarthy');
+  await waitForDomChange();
+  getByText('American novelist, playwright, and', { exact: false });
+
+  // Click back button to main "Blood Meridian" article
+  fireEvent.click(getByLabelText('Go back to previous article'));
+
+  // Validate we're back to main article
+  getByText("McCarthy's fifth book", { exact: false });
 });
