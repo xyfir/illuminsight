@@ -305,3 +305,226 @@ By early 2011, [[James Franco]] was thinking of adapting ''Blood Meridian'', alo
 [[Category:Fiction set in 1849]]
 [[Category:Fiction set in 1850]]
 [[Category:Fiction set in 1878]]`;
+
+export const alternateTestWikitext = `{{short description|American novelist, playwright, and screenwriter}}
+{{About|the American author}}
+{{Use mdy dates|date=July 2017}}
+{{Infobox writer
+| name         = Cormac McCarthy
+| birth_name   = Charles McCarthy
+| birth_date   = {{Birth date and age|1933|7|20|mf=y}}
+| birth_place  = [[Providence, Rhode Island]], U.S.
+| occupation   = Novelist, playwright, screenwriter
+| nationality  = American
+| genre        = [[Southern gothic]], [[Western fiction|western]], [[Apocalyptic and post-apocalyptic fiction|post-apocalyptic]]
+| notableworks = ''[[Suttree]]'' (1979)<br>''[[Blood Meridian]]'' (1985)<br>''[[All the Pretty Horses (novel)|All the Pretty Horses]]'' (1992)<br>''[[No Country for Old Men]]'' (2005)<br>''[[The Road]]'' (2006)
+| spouse       = {{Marriage|Lee Holleman|1961|1962|reason=divorced}}<br />{{Marriage|Annie DeLisle|1967|1981|reason=divorced}}<br />{{Marriage|Jennifer Winkley|1997|2006|reason=divorced}}
+| children     = Cullen McCarthy, son, {{abbr|b.|born}} 1962 (with Lee Holleman)<br />
+John McCarthy, son, {{abbr|b.|born}} 1998 (with Jennifer Winkley)
+| signature    = Cormac McCarthy signature.svg
+| website      = {{URL|http://randomhouse.com/kvpa/cormacmccarthy/}}
+}}
+
+'''Cormac McCarthy''' (born '''Charles McCarthy''';<ref name=newmillenniumwritings>{{cite news| author = Don Williams| title = Cormac McCarthy Crosses the Great Divide| url = http://newmillenniumwritings.com/Issue14/CormacMcCarthy.html| publisher = [[New Millennium Writings]]| access-date = February 8, 2016| archive-url = https://web.archive.org/web/20160303171328/http://newmillenniumwritings.com/Issue14/CormacMcCarthy.html| archive-date = March 3, 2016| dead-url = yes| df = mdy-all}}</ref> July 20, 1933) is an American novelist, playwright, and screenwriter. He has written ten novels, spanning the [[Southern Gothic]], [[Western fiction|Western]], and [[Apocalyptic and post-apocalyptic fiction|post-apocalyptic]] genres.
+
+McCarthy's fifth novel, ''[[Blood Meridian]]'' (1985), was on ''[[Time (magazine)|Time]]'' magazine's 2005 list of the 100 best English-language books published since 1923.<ref name="Time Magazine 2005" >{{cite news | author = Lev Grossman and Richard Lacayo| title = All Time 100 Novels – The Complete List| url = http://www.time.com/time/2005/100books/the_complete_list.html|magazine= [[Time (magazine)|Time]]| date=October 16, 2005| accessdate =June 3, 2008}}</ref>
+
+For ''[[All the Pretty Horses (novel)|All the Pretty Horses]]'' (1992), he won both the [[National Book Award]]<ref name=nba1992/> and [[National Book Critics Circle Award]]. His 2005 novel ''[[No Country for Old Men]]'' was adapted as a 2007 [[No Country for Old Men (film)|film of the same name]], which won four [[Academy Awards]], including [[Academy Award for Best Picture|Best Picture]].<ref>{{cite news|url=https://www.npr.org/templates/story/story.php?storyId=19325798|title='No Country for Old Men' Wins Four Oscars|publisher=NPR|date=February 25, 2008|accessdate=July 15, 2017}}</ref> ''All the Pretty Horses'', ''[[The Road]]'', and ''[[Child of God]]'' have also been [[film adaptation|adapted as motion pictures]],<ref>{{cite news|url=https://www.theguardian.com/film/2014/jul/31/child-of-god-review-james-franco-cormac-mccarthy|title=Child of God review – James Franco misfires with this punishing thriller|first=Jordan|last=Hoffman|work=The Guardian|date=July 31, 2014|accessdate=July 15, 2017}}</ref> while ''[[Outer Dark]]'' was turned into a 15-minute short.
+
+McCarthy won the 2007 [[Pulitzer Prize]]<ref name=pulitzer/> and the [[James Tait Black Memorial Prize]] for Fiction for ''[[The Road]]'' (2006).<ref>{{cite web |last1=Mccarthy |first1=Cormacmes |title=Winner of James Tait Black Award . |url=https://www.ed.ac.uk/events/james-tait-black/winners/fiction |website=James Tait Black |accessdate=27 August 2018}}</ref> In 2010, ''[[The Times]]'' ranked ''The Road'' first on its list of the 100 best fiction and non-fiction books of the past 10 years. Literary critic [[Harold Bloom]] named McCarthy as one of the four major American novelists of his time, alongside [[Don DeLillo]], [[Thomas Pynchon]] and [[Philip Roth]],<ref name= bloom >{{cite news|url=http://www.boston.com/news/globe/editorial_opinion/oped/articles/2003/09/24/dumbing_down_american_readers/|title=Dumbing down American readers|last=Bloom|first=Harold|work=Boston Globe|date=September 24, 2003|accessdate=December 4, 2009}}</ref> and called ''Blood Meridian''  "the greatest single book since [[William Faulkner|Faulkner]]'s ''[[As I Lay Dying (novel)|As I Lay Dying]]''".<ref name= bloommeridian >{{cite news|url=http://www.avclub.com/articles/harold-bloom-on-blood-meridian,29214/|title=Harold Bloom on ''Blood Meridian''|last=Bloom|first=Harold|work=A.V. Club|date=June 15, 2009|accessdate=March 3, 2010}}</ref>
+
+==Writing career==
+[[Random House]]  published McCarthy's first novel, ''[[The Orchard Keeper]]'', in 1965. McCarthy decided to send the manuscript to Random House because "it was the only publisher [he] had heard of". At Random House, the manuscript found its way to Albert Erskine, who had been [[William Faulkner]]'s editor until Faulkner's death in 1962.<ref>{{cite news|url=http://www.oxfordreference.com/views/ENTRY.html?subview=Main&entry=t197.e0180 |title=The Oxford Encyclopedia of American Literature: McCarthy, Cormac &#124; Books &#124; |publisher=Oxford University Press |year= 2004 |accessdate=October 25, 2011| location=New York | first=Kimberly | last=Lewis}}</ref> Erskine continued to edit McCarthy's work for the next 20 years.
+
+In the summer of 1965, using a Traveling Fellowship award from [[The American Academy of Arts and Letters]], McCarthy shipped out aboard the liner ''Sylvania'' hoping to visit Ireland. While on the ship, he met Anne DeLisle, who was working on the '' Sylvania'' as a singer. In 1966, they were married in England. Also in 1966, McCarthy received a [[Rockefeller Foundation]] Grant, which he used to travel around [[Southern Europe]] before landing in [[Ibiza]], where he wrote his second novel, ''[[Outer Dark]]'' (1968). Afterward he returned to America with his wife, and ''Outer Dark'' was published to generally favorable reviews.<ref name=persp>{{cite book|last=Arnold|first=Edwin|title=Perspectives on Cormac McCarthy|publisher=[[University Press of Mississippi]]|year=1999|isbn=1-57806-105-9}}</ref>
+
+In 1969, the couple moved to [[Louisville, Tennessee]], and purchased a barn, which McCarthy renovated, doing the stonework himself.<ref name= persp/> Here he wrote his next book, ''[[Child of God]]'' (1973), based on actual events. Like ''Outer Dark'' before it, ''Child of God'' was set in southern [[Appalachia]]. In 1976, McCarthy separated from Anne DeLisle and moved to [[El Paso, Texas]]. In 1979, his novel ''[[Suttree]]'', which he had been writing on and off for 20 years,<ref name= nytint/> was finally published.{{citation needed|date=July 2017}}
+
+Supporting himself with the money from his 1981 [[MacArthur Fellows Program|MacArthur Fellowship]], McCarthy wrote his next novel, ''[[Blood Meridian|Blood Meridian, or the Evening Redness in the West]]'' (1985). The book has grown appreciably in stature in literary circles; in a 2006 poll of authors and publishers conducted by ''The New York Times Magazine'' to list the greatest American novels of the previous quarter-century, ''Blood Meridian'' placed third, behind only [[Toni Morrison]]'s ''[[Beloved (novel)|Beloved]]'' (1987) and [[Don DeLillo]]'s ''[[Underworld (DeLillo novel)|Underworld]]'' (1997).<ref name="New York Times 2006" >{{cite news|title=What Is the Best Work of American Fiction of the Last 25 Years?|url=https://www.nytimes.com/2006/05/21/books/fiction-25-years.html|newspaper=[[The New York Times]]|date=May 21, 2006|accessdate=April 30, 2010}}</ref>
+
+In 1992, an article in ''The New York Times'' noted that none of McCarthy's novels published to that point had sold more than 5,000 hardcover copies, and that "for most of his career, he did not even have an agent".<ref>{{cite news|url=https://www.nytimes.com/books/98/05/17/specials/mccarthy-venom.html|title=Cormac McCarthy's Venomous Fiction|first=Richard B.|last=Woodward|newspaper=[[The New York Times]]|date=April 19, 1992|accessdate=May 25, 2015}}</ref>
+
+McCarthy finally received widespread recognition after the publication of ''[[All the Pretty Horses (novel)|All the Pretty Horses]]'' (1992), when it won the National Book Award<ref name=nba1992/><ref>{{cite book|chapter=History and the Ugly Facts of ''Blood Meridian''|first=Dana|last=Phillips|editor-first=James D.|editor-last=Lilley|title=Cormac McCarthy: New Directions|year=2014|location=Albuquerque, NM|publisher=University of New Mexico Press|pages=17–46}}</ref> and the National Book Critics Circle Award. It was followed by ''[[The Crossing (McCarthy novel)|The Crossing]]'' (1994) and ''[[Cities of the Plain (novel)|Cities of the Plain]]'' (1998), completing the [[Border Trilogy]]. In the midst of this trilogy came, c. 1994, ''[[The Stonemason]]''<ref>{{cite web|title=The Stonemason|url=http://search.lib.unc.edu/search?R=UNCb2617550|website=UNC-Chapel Hill Library catalog|publisher=University of North Carolina at Chapel Hill|accessdate=January 31, 2017}}</ref> (first performed in 1995), McCarthy's second dramatic work. He had previously written a film for [[PBS]],'' [[The Gardener's Son]]'', which aired January 6, 1977.{{citation needed|date=July 2017}}
+
+McCarthy's next book, ''[[No Country for Old Men]]'' (2005), was originally conceived as a screenplay before being turned into a novel. It stayed with the Western setting and themes yet moved to a more contemporary period. The [[Coen brothers]] adapted it into a 2007 [[No Country for Old Men (film)|film of the same name]],  which won four [[Academy Awards]] and more than 75 film awards globally. McCarthy's next book, ''[[The Road]]'' (2006), won international acclaim and the [[Pulitzer Prize for Fiction]];<ref name=pulitzer/> a 2009 [[The Road (2009 film)|film adaptation]] was directed by [[John Hillcoat]], written by [[Joe Penhall]], and starred [[Viggo Mortensen]] and [[Kodi Smit-McPhee]]. Also in 2006, McCarthy published the play ''[[The Sunset Limited]]''; he adapted it as a screenplay for an [[HBO]] film (airdate February 2011). It was directed and executive produced by [[Tommy Lee Jones]], who also starred opposite [[Samuel L. Jackson]].
+
+In 2012, McCarthy sold his original screenplay ''[[The Counselor]]'' to [[Nick Wechsler (producer)|Nick Wechsler]], Paula Mae Schwartz, and Steve Schwartz, who had previously produced the film adaptation of McCarthy's novel ''[[The Road (2009 film)|The Road]]''.<ref>{{cite news|url= http://www.thewrap.com/deal-central/column-post/no-country-old-men-novelist-cormac-mccarthy-sells-first-spec-script-34512 |title=Cormac McCarthy Sells First Spec Script |work=TheWrap}}</ref> [[Ridley Scott]] directed, and the cast included [[Brad Pitt]], [[Michael Fassbender]], [[Penélope Cruz]], [[Javier Bardem]], and [[Cameron Diaz]].  Production finished in 2012, and it was released on October 25, 2013, to polarized critical reception.{{citation needed|date=February 2015}}
+
+In a 2017 essay titled "The Kekulé Problem", McCarthy analyzed a dream of [[August Kekulé]]'s as a model of the [[unconscious mind]] and the [[liguistics|origins of language]].<ref>{{cite web|url=http://nautil.us/issue/47/consciousness/the-kekul-problem|title=The Kekulé Problem|date=April 20, 2017|accessdate=July 4, 2018}}</ref> Kekulé claimed to have discovered the ring-like shape of a [[benzene]] molecule after dreaming of an "[[ouroboros]]".
+
+===Current projects===
+''The Guardian'' reported in 2009 that McCarthy was at work on three new novels.<ref>{{cite news|url=https://www.theguardian.com/books/2009/may/18/cormac-mccarthy-archive-texas|title=Cormac McCarthy archive goes on display in Texas|publisher=Guardian|date=May 18, 2009|accessdate=January 11, 2010|location=London, UK|first=Alison|last=Flood}}</ref> One is set in 1980s [[New Orleans]] and follows a young man as he deals with the suicide of his sister. According to McCarthy, this will feature a prominent female character. He also states that the new novel is "long".<ref>{{cite news|last=Jurgensen|first=John|url=https://www.wsj.com/articles/SB10001424052748704576204574529703577274572|title=Cormac McCarthy on The Road|publisher=Online.wsj.com|date=November 20, 2009|accessdate=January 11, 2010}}</ref>
+
+===Archives===
+The comprehensive archive of McCarthy's personal papers is preserved at the [[Wittliff collections]], [[Texas State University]], San Marcos, Texas. The McCarthy papers consists of 98 boxes (46 linear feet).<ref name="alek">[http://www.thewittliffcollections.txstate.edu/research/a-z/mccarthy.html Cormac McCarthy Papers at The Wittliff Collections, Texas State University, San Marcos, TX]</ref> The acquisition of the Cormac McCarthy Papers resulted from years of ongoing conversations between McCarthy and Southwestern Writers Collection founder, [[Bill Wittliff]], who negotiated the proceedings.<ref>{{cite news|url=http://www.hollywoodreporter.com/news/texas-state-acquires-mccarthy-archives-102545|title=Texas State acquires McCarthy archives|agency=Associated Press|work=The Hollywood Reporter|date=January 15, 2008|accessdate=July 15, 2017}}</ref>
+
+The Southwestern Writers Collection/[[Wittliff collections]] also holds The Wolmer Collection of Cormac McCarthy, which consists of letters between McCarthy and bibliographer J. Howard Woolmer,<ref name="Wittliff">{{cite web|url=http://www.thewittliffcollections.txstate.edu/research/a-z/woolmer.html|title=Woolmer Collection of Cormac McCarthy : The Wittliff Collections : Texas State University|date=September 21, 2016|website=Thewittliffcollections.txstate.edu|accessdate=November 29, 2017}}</ref> and four other related collections.<ref name="Wittliff"/>
+
+===Spanish dialogue in McCarthy's Western novels===
+In "Mojado Reverso; or, a Reverse Wetback: On John Grady Cole's Mexican Ancestry in ''All the Pretty Horses''," Jeffrey Herlihy-Mera observes: "John Grady Cole is a native speaker of Spanish. This is also the case of several other important characters in the Border Trilogy, including Billy Parhnam (sic), John Grady's mother (and possibly his grandfather and brothers), and perhaps Jimmy Blevins, each of whom are speakers of Spanish who were ostensibly born in the US political space into families with what are generally considered English-speaking surnames…This is also the case of Judge Holden in ''Blood Meridian''."<ref name="academia.edu">Herlihy-Mera, Jeffrey. "[https://www.academia.edu/16839513/_Mojado-Reverso_or_a_Reverse_Wetback_On_John_Grady_Cole_s_Mexican_Ancestry_in_Cormac_McCarthy_s_All_the_Pretty_Horses Mojado Reverso; or, A Reverse Wetback: On John Grady Cole's Mexican Ancestry in ''All the Pretty Horses''"], ''Modern Fiction Studies'', Fall 2015; retrieved March 25, 2016.</ref><ref name="muse.jhu.edu">Herlihy-Mera, Jeffrey. [https://muse.jhu.edu/login?auth=0&type=summary&url=/journals/modern_fiction_studies/v061/61.3.herlihy-mera.pdf Mojado Reverso; or, A Reverse Wetback: On John Grady Cole's Mexican Ancestry in ''All the Pretty Horses''"], ''Modern Fiction Studies'', Fall 2015; retrieved October 15, 2015.</ref>
+
+The Cormac McCarthy Society has made [[PDF]] documents comprising Spanish-to-English translations of dialogue for four of McCarthy's Western novels:  ''Blood Meridian'', ''All the Pretty Horses'', ''The Crossing'', and ''Cities of the Plain''.<ref>{{cite web|url=http://cormacmccarthy.cookingwithmarty.com/wp-content/uploads/BMTrans.pdf|website=Cormac McCarthy|title=A Translation of the Spanish in ''Blood Meridian''|accessdate=July 14, 2017}}</ref><ref>{{cite web|url=http://cormacmccarthy.cookingwithmarty.com/wp-content/uploads/CrossingTrans.pdf|website=Cormac McCarthy|title=A Translation of Spanish Passages in ''The Crossing''|author=Campbell, Lt. Jim|accessdate=July 14, 2017}}</ref><ref>{{cite web|author=Stevens, Brent|url=http://cormacmccarthy.cookingwithmarty.com/wp-content/uploads/ATPHTrans.pdf#page=1&zoom=auto,-169,792|title=A Translation of the Spanish Passages in ''All the Pretty Horses''|website=CormacMcCarthy.com|accessdate=July 14, 2017}}</ref><ref>{{cite web|url= http://cormacmccarthy.cookingwithmarty.com/wp-content/uploads/COTPTrans.pdf|website=Cormac McCarthy|title=A Translation of the Spanish in ''Cities of the Plain''|accessdate=July 14, 2017}}</ref>
+
+==Writing style==
+McCarthy makes sparse use of punctuation,<ref>{{cite web|url=http://www.openculture.com/2013/08/cormac-mccarthys-punctuation-rules.html|title=Cormac McCarthy's Three Punctuation Rules, and How They All Go Back to James Joyce|first=Josh|last=Jones|publisher=Open Culture|date=August 13, 2013|accessdate=September 13, 2015}}</ref> even replacing most commas with "and" (a [[polysyndeton]]). He told [[Oprah Winfrey]] in an interview that he prefers "simple declarative sentences" and that he uses capital letters, periods, an occasional comma, a colon for setting off a list, but never semicolons.<ref>{{cite book|first=Kenneth|last=Lincoln|title=Cormac McCarthy|location=Basingstoke|publisher=Palgrave Macmillan|year=2009|isbn=978-0230619678|page=14}}</ref> He does not use quotation marks for dialogue and believes there is no reason to "blot the page up with weird little marks".<ref>{{cite book|first=David|last=Crystal|title=Making a Point: The Pernickity Story of English Punctuation|year=2015|publisher=Profile Book|location=London|isbn=978-1781253502|page=92}}</ref> [[Erik Hage]] notes that McCarthy's dialogue also often lacks attribution, but that "[s]omehow...the reader remains oriented as to who is speaking".<ref>{{cite book|first=Erik|last=Hage|title=Cormac McCarthy: A Literary Companion|location=Jefferson, NC|publisher=McFarland & Company|year=2010|isbn=978-0786443109|page=156}}</ref> His attitude to punctuation dates to some editing work he did for a professor of English while he was enrolled at the University of Tennessee, when he stripped out much of the punctuation in the book being edited, which pleased the professor.<ref>{{cite book|first=Willard P.|last=Greenwood|title=Reading Cormac McCarthy|year=2009|location=Santa Barbara, CA|publisher=ABC-CLIO|isbn=978-0313356643|page=4}}</ref> McCarthy also edited fellow Santa Fe Institute Fellow [[W. Brian Arthur]]'s influential article "Increasing Returns and the New World of Business", published in the ''[[Harvard Business Review]]'' in 1996, removing commas from the text.<ref>{{cite news|url=https://www.fastcompany.com/3064681/most-creative-people/most-important-economic-theory-in-technology-brian-Arthur|title=A Short History Of The Most Important Economic Theory In Tech|first=Rick|last=Tetzeli|publisher=Fast Company|date=December 7, 2016|accessdate=July 15, 2017}}</ref> He has also done copy-editing work for physicists [[Lawrence M. Krauss]] and [[Lisa Randall]].<ref>{{cite news|url=https://www.theguardian.com/books/2012/feb/21/cormac-mccarthy-scientific-copy-editor|title=Cormac McCarthy's parallel career revealed – as a scientific copy editor!|first=Alison|last=Flood|work=The Guardian|date=February 21, 2012|accessdate=July 15, 2017}}</ref>
+
+==Inspiration==
+In one of his few interviews (with ''The New York Times''), McCarthy revealed that he respects only authors who "deal with issues of life and death," citing [[Henry James]] and [[Marcel Proust]] as examples of writers who do not rate with him. "I don't understand them ... To me, that's not literature. A lot of writers who are considered good I consider strange", he said.<ref name= nytint/>
+
+[[Oprah Winfrey]] selected McCarthy's 2006 novel ''[[The Road]]'' as the April 2007 selection for her [[Oprah's Book Club|Book Club]].<ref name= oprahbookclub >{{cite news|title=Your Reader's Guide to The Road|url=http://www.oprah.com/article/oprahsbookclub/road/road_book_synopsis| publisher=Oprah.com}}</ref> As a result, McCarthy agreed to his first television interview, which aired on ''[[The Oprah Winfrey Show]]'' on June 5, 2007. The interview took place in the library of the Santa Fe Institute. McCarthy told Winfrey that he does not know any writers and much prefers the company of scientists. During the interview, he related several stories illustrating the degree of outright poverty he endured at times during his career as a writer. He also spoke about the experience of fathering a child at an advanced age, and how his son was the inspiration for ''The Road''.{{citation needed|date=July 2017}}
+
+Regarding his own literary constraints when writing novels, McCarthy said he is "not a fan of some of the Latin American writers, [[magical realism]]. You know, it's hard enough to get people to believe what you're telling them without making it impossible. It has to be vaguely plausible."<ref>{{cite news|url=http://www.time.com/time/magazine/article/0,9171,1673269-2,00.html|title=A conversation between author Cormac McCarthy and the Coen Brothers, about the new movie No Country for Old Men|website=Time.com|date=October 18, 2007}}</ref>
+
+As reported in ''[[Wired (magazine)|Wired]]'' magazine, McCarthy's [[Olivetti Lettera 32]] typewriter, which he had owned since buying it in a Knoxville pawnshop for $50 in 1963, was put up for auction at [[Christie's]] in 2009. He estimates he has typed around five million words on the machine, and maintenance consisted of "blowing out the dust with a service station hose". The Olivetti was auctioned on December 4, 2009, and the auction house estimated it would fetch between $15,000 and $20,000; it sold for $254,500.<ref>{{cite news|last=Kennedy|first=Randy|url=http://artsbeat.blogs.nytimes.com/2009/12/04/cormac-mccarthys-typewriter-brings-254500-at-auction|title=Cormac McCarthy's Typewriter Brings $254,500 at Auction|publisher=Artsbeat.blogs.nytimes.com|date=December 4, 2009|accessdate=January 11, 2010}}</ref> Its replacement is another Olivetti, bought for McCarthy by his friend John Miller for $11.<ref>{{cite news|url=https://www.wired.com/gadgetlab/2009/12/cormac-mccarthys-typewriter-dies-after-50-years-and-five-million-words|title=Cormac McCarthy's Typewriter Dies After 50 Years and 5 Million Words|website=Wired.com|date=December 2, 2009|accessdate=January 11, 2010|first=Charlie|last=Sorrel}}</ref>
+
+==Personal life==
+McCarthy was born in [[Providence, Rhode Island]], one of six children of Charles Joseph McCarthy and Gladys Christina (née McGrail) McCarthy.<ref name=kns1>Fred Brown, "[http://www.knoxnews.com/news/2009/jan/29/sister-childhood-home-made-writer/ Childhood Home Made Cormac McCarthy]," ''Knoxville News Sentinel'', January 29, 2009; retrieved July 14, 2017.</ref> In 1937, his family relocated to Knoxville, where his father worked as a lawyer for the [[Tennessee Valley Authority]].<ref name=bio>[http://www.cormacmccarthy.com/biography/ Cormac McCarthy: A Biography].  Cormac McCarthy Society official website; retrieved April 27, 2012.</ref>
+
+The family first lived on Noelton Drive in the upscale [[Sequoyah Hills, Tennessee|Sequoyah Hills]] subdivision, but by 1941 had settled in a house on Martin Mill Pike in [[South Knoxville]] (this latter house burned in 2009).<ref>Jack Neely, [https://web.archive.org/web/20130728114947/http://www.metropulse.com/news/2009/feb/03/house-where-i-grew "The House Where I Grew Up"], ''Metro Pulse'', February 3, 2009; accessed October 2, 2015.</ref> Among his childhood friends was Jim Long (1930–2012), who would later be depicted as J-Bone in his novel ''Suttree''.<ref name=jbone>Jack Neely, [https://web.archive.org/web/20131231000123/http://www.metropulse.com/news/2012/sep/19/jim-j-bone-long-1931-2012-one-visit-not-quite-fict/?print=1 Jim "J-Bone" Long, 1930-2012: One Visit With a Not-Quite Fictional Character], ''Metro Pulse'', September 19, 2012; accessed October 2, 2015.</ref>
+
+McCarthy attended St. Mary's Parochial School and [[Knoxville Catholic High School]],<ref>Wesley Morgan, Rich Wallach (ed.), "[https://books.google.com/books?id=Oqyh6snZAB0C&pg=PA89&q=james%20william%20long James William Long]," ''You Would Not Believe What Watches: Suttree and Cormac McCarthy's Knoxville'' (LSU Press, 1 May 2013), p. 59.</ref> and was an [[altar boy]] at Knoxville's [[Church of the Immaculate Conception (Knoxville, Tennessee)|Church of the Immaculate Conception]].<ref name=jbone/> He attended the [[University of Tennessee]] from 1951–52 and 1957–59 but never graduated. While at UT he published two stories in ''The Phoenix'' and was awarded the [[Ingram Merrill Foundation|Ingram Merrill Award]] for creative writing in 1959 and 1960.{{citation needed|date=July 2017}}
+
+For purposes of his writing career, McCarthy decided to change his first name from Charles to Cormac to avoid association with famous ventriloquist [[Edgar Bergen]]'s dummy Charlie McCarthy,<ref>{{cite web|url=https://books.google.com/books?id=QFw722-PbCcC&pg=PT404|title=Irish Catholic Writers and the Invention of the American South|first=Bryan|last=Giemza|date=July 8, 2013|publisher=LSU Press|accessdate=November 29, 2017|via=Google Books}}</ref> changing it to Cormac after famous Irish high kings [[Cormac mac Airt]] and [[Cormac mac Cuilennáin]].<ref>{{cite web|url=https://appellationmountain.net/name-of-the-day-cormac/|title=Name of the Day: Cormac - Appellation Mountain|date=July 30, 2009|website=Appellationmountain.net|accessdate=November 29, 2017}}</ref>
+
+After marrying fellow student Lee Holleman in 1961, they "moved to a shack with no heat and running water in the foothills of the Smoky Mountains outside of Knoxville". There they had a son, Cullen, in 1962. While caring for the baby and tending to the chores of the house, Lee was asked by Cormac to also get a day job so he could focus on his novel writing. Dismayed with the situation, she moved to Wyoming, where she filed for divorce and landed her first job teaching.<ref>{{cite news|title=Obituary: Lee McCarthy|url=http://www.legacy.com/obituaries/bakersfield/obituary.aspx?n=lee-mccarthy&pid=125527543|newspaper=The Bakersfield Californian|date=March 29, 2009}}</ref>{{Copypaste|reason=The last three sentences were copy and pasted from the source|date=April 2019}}
+
+Cormac McCarthy is fluent in Spanish and lived in Ibiza, Spain, in the 1960s and later settled in El Paso, Texas, where he lived for nearly 20 years.<ref name="muse.jhu.edu"/> In an interview with Richard B. Woodward from ''[[The New York Times]]'', "McCarthy doesn't drink anymore – he quit 16 years ago in El Paso, with one of his young girlfriends – and ''Suttree'' reads like a farewell to that life. 'The friends I do have are simply those who quit drinking,' he says. 'If there is an occupational hazard to writing, it's drinking.'".<ref>{{cite news|url=https://www.nytimes.com/books/98/05/17/specials/mccarthy-venom.html|newspaper=[[The New York Times]]|title=The New York Times: Book Review Search Article|date=May 17, 1998}}</ref>
+
+In the late 1990s, McCarthy moved to the [[Tesuque, New Mexico]] area, north of [[Santa Fe, New Mexico|Santa Fe]], with his third wife, Jennifer Winkley, and their son, John. McCarthy and Winkley divorced in 2006.
+
+===Family===
+;Children:
+* Cullen McCarthy (born 1962), son (with Lee Holleman)<ref name=Holleman>{{cite web|url=http://www.legacy.com/obituaries/bakersfield/obituary.aspx?page=notice&pid=125527543| title=Lee McCarthy Obituary|date=March 29, 2009|publisher=[[The Bakersfield Californian]]| accessdate=January 20, 2011}}</ref>
+* John Francis McCarthy (born 1998), son (with Jennifer Winkley)<ref>{{cite news|url=http://archive.knoxnews.com/news/local/cormac-mccarthy-on-the-trail-of-a-legend-ep-412332474-360064991.html/|title=Cormac McCarthy: On the trail of a legend|first=Fred|last=Brown|work=Knoxville News Sentinel|date=December 16, 2007|accessdate=December 9, 2017}}</ref>
+
+;Marriages:
+* Lee Holleman, (1961–1962)
+* Annie DeLisle, (1967–1981)
+* Jennifer Winkley (1997–2006)
+
+==Bibliography==
+{{Expand list|date=May 2017}}
+
+===Novels===
+* ''[[The Orchard Keeper]]'' (1965) {{ISBN|0-679-72872-4}}
+* ''[[Outer Dark]]'' (1968) {{ISBN|0-679-72873-2}}
+* ''[[Child of God]]'' (1973) {{ISBN|0-679-72874-0}}
+* ''[[Suttree]]'' (1979) {{ISBN|0-679-73632-8}}
+* ''[[Blood Meridian|Blood Meridian or the Evening Redness in the West]]'' (1985) {{ISBN|0-679-72875-9}}
+* ''[[All the Pretty Horses (novel)|All the Pretty Horses]]'' (1992) {{ISBN|0-679-74439-8}} – [[Border Trilogy]], 1
+* ''[[The Crossing (McCarthy novel)|The Crossing]]'' (1994) {{ISBN|0-679-76084-9}} – Border Trilogy, 2
+* ''[[Cities of the Plain (novel)|Cities of the Plain]]'' (1998) {{ISBN|0-679-74719-2}} – Border Trilogy, 3
+* ''[[No Country for Old Men]]'' (2005) {{ISBN|0-375-70667-4}}
+* ''[[The Road]]'' (2006) {{ISBN|0-307-38789-5}}
+* ''The Passenger'' (forthcoming)<ref>{{cite web|title=The Cormac McCarthy Papers|url=http://www.thewittliffcollections.txstate.edu/research/a-z/mccarthypapers.html|website=thewittliffcollections.txstate.edu|accessdate=July 14, 2017}}</ref>
+
+===Short fiction===
+* "Wake for Susan" (1959)<ref>{{cite news|title=Wake for Susan|work=The Phoenix|origyear= October 1959|pages=3–6|url=http://biblioklept.org/2011/02/02/wake-for-susan-cormac-mccarthy|author=McCormack, McCarthy|date=February 2, 2011|accessdate=July 14, 2017}}</ref>
+* "A Drowning Incident" (1960)<ref>{{cite news|title=A Drowning Incident|work=The Phoenix|date=March 1960|pages=3–4|author=McCarthy, Cormac}}</ref>
+* "The Dark Waters" (1965)<ref>{{cite news|title=The Dark Waters|work=The Sewanee Review|date= Spring 1965|pages=210–16|jstor=27541110|author=McCarthy, Cormac}}</ref>
+
+===Essays===
+* "The Kekulé Problem" (2017)<ref>{{cite news|title=The Kekulé Problem|work=Nautilus|origyear= April 2017|pages=3–6|url=http://nautil.us/issue/47/consciousness/the-kekul-problem|author=McCormack, McCarthy|date=April 17, 2017|accessdate=July 1, 2018}}</ref>
+
+===Screenplays===
+* ''[[The Gardener's Son]]'' (1996) {{ISBN|0-88001-481-4}}
+* ''[[The Counselor]]'' (2013) {{ISBN|978-1-4472-2764-9}} <ref>{{cite news|work=Collider|url=http://collider.com/cormac-mccarthy-the-counselor/138813|title=Author Cormac McCarthy Sells His First Spec Script THE COUNSELOR|page=138813|accessdate=July 14, 2017}}</ref><ref>{{cite journal |author=McCarthy, Cormac|title=Scenes of the crime|journal=The New Yorker|volume=89|issue=17|pages=66–69|url=http://www.newyorker.com/magazine/2013/06/10/scenes-of-the-crime|date=June 10, 2013|accessdate=July 14, 2017}}</ref>
+
+====Unpublished====
+* ''[[The Sunset Limited (film)|The Sunset Limited]]'' (2011)
+
+===Plays===
+* ''[[The Stonemason]]'' ([[:Category:1995 plays|1995]]) {{ISBN|978-0-679-76280-5}}
+* ''[[The Sunset Limited]]'' ([[:Category:2006 plays|2006]]) {{ISBN|0-307-27836-0}}
+
+==Awards==
+* 1959, 1960 Ingram-Merrill awards
+* 1965 Traveling Fellowship from the [[American Academy of Arts and Letters]]
+* 1966 [[William Faulkner Foundation Award]] for notable first novel for ''The Orchard Keeper''<ref name=nytint>
+{{cite news|last=Woodward|first=Richard|title=Cormac McCarthy's Venomous Fiction|newspaper=[[The New York Times]]|date=May 17, 1998|url=https://www.nytimes.com/books/98/05/17/specials/mccarthy-venom.html|accessdate=July 14, 2017}}</ref>
+* 1969 [[Guggenheim Fellowship]] for creative writing
+* 1981 [[MacArthur Fellows Program|MacArthur Fellowship]]<ref name=persp/>
+* 1992 [[National Book Award for Fiction]]<ref name=nba1992>
+[https://www.nationalbook.org/awards-prizes/national-book-awards-1992 "National Book Awards – 1992"]. [[National Book Foundation]]; retrieved March 28, 2012.<br/>(With acceptance speech by McCarthy and essay by Harold Augenbraum from the Awards 60-year anniversary blog.)</ref> and the [[National Book Critics Circle Award]] for ''[[All the Pretty Horses (novel)|All the Pretty Horses]]''{{citation needed|date=July 2017}}
+* 1996 [[International Dublin Literary Award]] longlist for ''[[The Crossing (McCarthy novel)|The Crossing]]''
+* 2000 [[International Dublin Literary Award]] longlist for ''[[Cities of the Plain (novel)|Cities of the Plain]]''
+* 2006 [[James Tait Black Memorial Prize]] for Fiction and [[Believer Book Award]] for ''[[The Road]]''
+* 2007 [[Pulitzer Prize for Fiction]] for ''[[The Road]]''<ref name=pulitzer>
+[https://www.pulitzer.org/prize-winners-by-category/219 "Fiction"]. ''Past winners & finalists by category'', Pulitzer.org; retrieved March 28, 2012.</ref>
+* 2007 [[International Dublin Literary Award]] shortlist for ''[[No Country for Old Men]]''
+* 2008 [[Maltese Falcon Award#Falcon Awards|Maltese Falcon Award]], Japan, for ''[[No Country for Old Men]]''
+* 2008 [[Premio Ignotus]] for ''The Road''
+* 2008 [[International Dublin Literary Award]] longlist for ''[[The Road]]''
+* 2008 [[PEN/Saul Bellow Award for Achievement in American Fiction]], for a career whose writing "possesses qualities of excellence, ambition, and scale of achievement over a sustained career which place him or her in the highest rank of American literature."{{citation needed|date=July 2017}}
+* 2012 [[Best of the James Tait Black]], shortlist, ''The Road''<ref name=leadbetter>{{cite web|url=http://www.heraldscotland.com/news/home-news/book-prize-names-six-of-the-best-in-search-for-winner.19197747|title=Book prize names six of the best in search for winner|work=Herald Scotland|author=Russell Leadbetter|accessdate=July 14, 2017}}</ref><ref name=bbcnews2012>{{cite news|url=https://www.bbc.co.uk/news/uk-scotland-20020630|title=Authors in running for 'best of best' James Tait Black award|work=BBC News|accessdate=July 14, 2017}}</ref>
+
+==Dramatic adaptations==
+;Released
+:'''''Television:'''''
+* ''[[The Gardener's Son]]'' (airdate January 1977) was broadcast as part of a series for [[Public Broadcasting Service|PBS]]. McCarthy wrote the screenplay upon request for director Richard Pearce.<ref>{{cite news|last=Woodward |first=Richard B. |url=https://query.nytimes.com/gst/fullpage.html?res=9E0CE6DA163EF93AA25757C0A964958260 |title=Cormac McCarthy's Venomous Fiction – Biography|newspaper=[[The New York Times]]|date=April 19, 1992|accessdate=January 11, 2010}}</ref>
+* An adaptation of McCarthy's play ''[[The Sunset Limited]]'' (2006) aired on [[HBO]] in February 2011,  starring Tommy Lee Jones (who also directed) and [[Samuel L. Jackson]].<ref>{{cite news| url=http://articles.latimes.com/2011/jan/09/entertainment/la-ca-winter-sunset-limited-20110109 | work=Los Angeles Times | first=Melissa | last=Maerz | date=January 9, 2011| title=Midseason Television preview: 'The Sunset Limited'}}</ref>
+:'''''Feature films:'''''
+* McCarthy's 1992 novel ''[[All the Pretty Horses (novel)|All the Pretty Horses]]'' was made into a 2000 [[All the Pretty Horses (film)|film]] directed by [[Billy Bob Thornton]], starring [[Matt Damon]] and [[Penélope Cruz]].
+* McCarthy's 2005 novel ''[[No Country for Old Men]]'' was adapted into a 2007 [[Academy Awards|Academy Award]]-winning [[No Country for Old Men (film)|film]] directed by the [[Coen brothers]] and starring [[Tommy Lee Jones]], [[Josh Brolin]], and [[Javier Bardem]].
+* A [[The Road (2009 film)|2009 film]] based on the 2006 novel ''[[The Road]]'' was directed by [[John Hillcoat]] and adapted by [[Joe Penhall]].<ref>{{cite news| author =| coauthors =| title = John Hillcoat Hits The Road| url = http://www.empireonline.com/news/story.asp?NID=20573| format =| work =| publisher = Empire Online UK| id =| pages =| page =| date =| accessdate =| language =| quote = }}</ref> The leading roles include [[Viggo Mortensen]] as the father,<ref>{{cite news|author= |coauthors= |title=Is Guy Pearce Going on 'The Road'? |url=http://www.cinematical.com/2007/11/05/is-guy-pearce-going-on-the-road/ |date=November 5, 2007 |publisher=Cinematical.com |deadurl=yes |archiveurl=https://web.archive.org/web/20080311120802/http://www.cinematical.com/2007/11/05/is-guy-pearce-going-on-the-road/ |archivedate=March 11, 2008 }}</ref> [[Kodi Smit-McPhee]] as the boy, [[Charlize Theron]] as the wife,<ref>{{cite news| author=Staff| date=January 15, 2008| title=Theron Hits The Road| publisher=Sci Fi Wire| url=http://www.scifi.com/scifiwire/index.php?category=0&id=47293| accessdate=May 24, 2006| archiveurl = https://web.archive.org/web/20080116151318/http://www.scifi.com/scifiwire/index.php?category=0&id=47293| archivedate = January 16, 2008}}</ref> and [[Robert Duvall]] as the old man. The film opened on November 25, 2009 to mostly positive reviews.<ref>{{cite news | first=Steven | last=Zeitchik | url=https://www.reuters.com/article/filmNews/idUSTRE49J0A820081020 | title= Road rerouted into 2009 release schedule | work=[[The Hollywood Reporter]] | publisher=Reuters | date=October 18, 2008}}</ref>
+* A [[Child of God (film)|2013 film adaptation]] of McCarthy's 1973 novel ''[[Child of God]]'', directed by [[James Franco]], premiered at the [[70th Venice International Film Festival]].<ref>{{cite news| url=http://www.hollywoodreporter.com/review/child-god-venice-review-618828 | work=The Hollywood Reporter | first=David | last=Rooney | title=Child of God: Venice Review | date=August 31, 2013}}</ref>
+:'''''Short films:'''''
+* In 2009, ''[[Outer Dark]]'' was made into a 15-minute short film (directed by Stephen Imwalle)<ref>{{cite web|title=Outer Dark (2009)|url=https://www.imdb.com/title/tt1202237/|website=imdb.com|accessdate=January 30, 2018}}</ref> released on the U.S. festival circuit.
+
+;Rumored
+* A film adaptation of ''[[Blood Meridian]]'' has been rumored for years; James Franco, [[Todd Field]], [[Scott Rudin]], and [[Ridley Scott]] have been connected at one point or another to the project, which has fallen through at least twice.<ref name=Exclusive>{{cite web|last=Staskiewicz|first=Keith|title=EW exclusive: James Franco talks directing William Faulkner, and how Jacob from 'Lost' helped him land 'Blood Meridian'|url=http://insidemovies.ew.com/2011/01/03/james-franco-william-faulkner-acormac-mccarthy/|work=ew.com|accessdate=September 28, 2011}}</ref><ref name=Maybe>{{cite web|last=Anderton|first=Ethan|title=James Franco Maybe Adapting 'As I Lay Dying' & 'Blood Meridian'|url=http://www.firstshowing.net/2011/james-franco-maybe-adapting-as-i-lay-dying-blood-meridian/|work=firstshowing.net|accessdate=September 28, 2011}}</ref>
+
+==References==
+{{Reflist}}
+
+==Further reading==
+*{{cite book|title=Understanding Cormac McCarthy|first=Steven|last=Frye|publisher=University of South Carolina Press|year=2009|location=Columbia, SC|isbn=978-1570038396}}
+*{{cite book|title=The Cambridge Companion to Cormac McCarthy|editor-first=Steven|editor-last=Frye|publisher=Cambridge University Press|location=Cambridge|year=2013|isbn=978-1107644809}}
+*{{cite journal|title=Cormac McCarthy: A Bibliography|first=Dianne C.|last=Luce|journal=The Cormac McCarthy Journal|volume=1|issue=1|pages=72–84|year=2001|jstor=4290933}} ([http://www.cormacmccarthy.com/wp-content/uploads/McCarthyEnglishBib_20111026.pdf updated version] published 26 October 2011)
+*{{cite episode|url=http://www.sciencefriday.com/segment/04/08/2011/connecting-science-and-art.html|title=Connecting Science and Art|series=Science Friday|date=April 8, 2011|accessdate=May 25, 2015}}
+
+==External links==
+{{Wikiquote}}
+* [http://www.cormacmccarthy.com/ The Cormac McCarthy Society]
+* [http://www.thewittliffcollections.txstate.edu/research/a-z/mccarthy.html Southwestern Writers Collection at the Witliff Collection, Texas State University] – Cormac McCarthy Papers
+* {{worldcat id|id=lccn-n82-28392}}
+* {{IMDb name|0565092}}
+* [http://westernamericanliterature.com/cormac-mccarthy/ Western American Literature Journal: Cormac McCarthy]
+
+{{NBA for Fiction 1975–1999}}
+{{PulitzerPrize Fiction 2001–2025}}
+{{Cormac McCarthy}}
+{{Authority control}}
+
+{{DEFAULTSORT:McCarthy, Cormac}}
+[[Category:Cormac McCarthy| ]]
+[[Category:1933 births]]
+[[Category:Living people]]
+[[Category:20th-century American novelists]]
+[[Category:21st-century American novelists]]
+[[Category:American male dramatists and playwrights]]
+[[Category:American male novelists]]
+[[Category:American male screenwriters]]
+[[Category:American people of Irish descent]]
+[[Category:Believer Book Award winners]]
+[[Category:Guggenheim Fellows]]
+[[Category:James Tait Black Memorial Prize recipients]]
+[[Category:MacArthur Fellows]]
+[[Category:Maltese Falcon Award winners]]
+[[Category:Minimalist writers]]
+[[Category:National Book Award winners]]
+[[Category:People from El Paso, Texas]]
+[[Category:People from Knoxville, Tennessee]]
+[[Category:Pulitzer Prize for Fiction winners]]
+[[Category:The New Yorker people]]
+[[Category:United States Air Force airmen]]
+[[Category:Western (genre) writers]]
+[[Category:Writers from Santa Fe, New Mexico]]
+[[Category:Screenwriters from New Mexico]]
+[[Category:Screenwriters from Tennessee]]
+[[Category:Screenwriters from Texas]]
+[[Category:Santa Fe Institute people]]
+[[Category:Screenwriters from Rhode Island]]
+[[Category:Novelists from Texas]]
+[[Category:Novelists from Tennessee]]
+[[Category:People from Tesuque, New Mexico]]`;
