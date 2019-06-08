@@ -1,14 +1,19 @@
-import { createStyles, IconButton, makeStyles } from '@material-ui/core';
 import { RemoveRedEye as Eyecon } from '@material-ui/icons';
 import { getInsights } from 'lib/reader/get-insights';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
+import {
+  CircularProgress,
+  createStyles,
+  IconButton,
+  makeStyles
+} from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
     tool: {
       position: 'absolute',
-      left: '0.1em',
+      left: '-15px',
       top: '50%'
     }
   })
@@ -21,6 +26,7 @@ export function InsightTool({
   onChange: (insights: Insightful.InsightsIndex) => void;
   insightsIndex: Insightful.InsightsIndex;
 }) {
+  const [active, setActive] = React.useState(false);
   const classes = useStyles();
 
   /**
@@ -61,6 +67,9 @@ export function InsightTool({
    * Handle clicks to insight tool
    */
   async function onClick(event: React.MouseEvent) {
+    if (active) return;
+    setActive(true);
+
     // Get elements
     const tool = event.target as HTMLButtonElement;
     const ast = document.getElementById('ast')!;
@@ -84,23 +93,28 @@ export function InsightTool({
     // Get index of AST element
     const index = +element.getAttribute('ast')!;
 
-    // Remove insights
+    // // Remove insights
     if (insightsIndex[index]) delete insightsIndex[index];
     // Parse insights from element's text
     else insightsIndex[index] = await getInsights(element.innerText);
 
     // Send modified insights back to Reader
     onChange(insightsIndex);
+    setActive(false);
   }
 
   return (
-    <IconButton
-      className={classes.tool}
-      onClick={onClick}
-      title="Insight tool"
-      size="small"
-    >
-      <Eyecon />
-    </IconButton>
+    <React.Fragment>
+      {active ? <CircularProgress className={classes.tool} size={30} /> : null}
+      <IconButton
+        className={classes.tool}
+        disabled={active}
+        onClick={onClick}
+        title="Insight tool"
+        size="small"
+      >
+        <Eyecon />
+      </IconButton>
+    </React.Fragment>
   );
 }
