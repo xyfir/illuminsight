@@ -13,7 +13,7 @@ test('<InsightTool>', async () => {
   mockElement.getAttribute.mockReturnValueOnce(2);
 
   // Add mocks
-  const mockGetBoundingClientRect = (HTMLDivElement.prototype.getBoundingClientRect = jest.fn());
+  const mockGetBoundingClientRect = (HTMLButtonElement.prototype.getBoundingClientRect = jest.fn());
   const mockElementsFromPoint = ((document as any).elementsFromPoint = jest.fn());
   const mockGetComputedStyle = ((window as any).getComputedStyle = jest.fn());
 
@@ -78,7 +78,7 @@ test('<InsightTool>', async () => {
   // Ensure insight tool click handler works
   expect(mockGetElementById).toHaveBeenCalledTimes(1);
   // Remember: we mock two different getBoundingClientRect methods!
-  expect(mockGetBoundingClientRect).toHaveBeenCalledTimes(1);
+  await wait(() => expect(mockGetBoundingClientRect).toHaveBeenCalledTimes(1));
 
   // First call to getElement() failed because it got the container element
   // On second try it found our mockElement
