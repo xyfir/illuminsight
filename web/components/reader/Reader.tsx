@@ -25,6 +25,7 @@ const styles = (theme: Theme) =>
       fontFamily: 'serif',
       overflow: 'hidden',
       fontSize: '125%',
+      padding: '50vh 0',
       margin: '1em auto !important',
       color: theme.palette.getContrastText(theme.palette.background.default),
       '& img': {
@@ -264,7 +265,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       if (el) el.scrollIntoView(true);
     }
     // Get by index
-    else if (element > 0) {
+    else {
       const el = document.querySelector(`#ast *[ast="${element}"]`);
       if (el) el.scrollIntoView(true);
     }
