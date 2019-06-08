@@ -1,32 +1,28 @@
+import { createStyles, IconButton, makeStyles } from '@material-ui/core';
 import { RemoveRedEye as Eyecon } from '@material-ui/icons';
 import { getInsights } from 'lib/reader/get-insights';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
-import {
-  createStyles,
-  IconButton,
-  WithStyles,
-  withStyles,
-  Theme
-} from '@material-ui/core';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     tool: {
       position: 'absolute',
       left: '0.1em',
       top: '50%'
     }
-  });
+  })
+);
 
-function _InsightTool({
+export function InsightTool({
   insightsIndex,
-  onChange,
-  classes
+  onChange
 }: {
   onChange: (insights: Insightful.InsightsIndex) => void;
   insightsIndex: Insightful.InsightsIndex;
-} & WithStyles<typeof styles>) {
+}) {
+  const classes = useStyles();
+
   /**
    * Get element to parse insights from.
    */
@@ -108,5 +104,3 @@ function _InsightTool({
     </IconButton>
   );
 }
-
-export const InsightTool = withStyles(styles)(_InsightTool);
