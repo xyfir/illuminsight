@@ -1,17 +1,21 @@
-import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
+import { RemoveRedEye as Eyecon } from '@material-ui/icons';
 import { getInsights } from 'lib/reader/get-insights';
 import { Insightful } from 'types/insightful';
 import * as React from 'react';
+import {
+  createStyles,
+  IconButton,
+  WithStyles,
+  withStyles,
+  Theme
+} from '@material-ui/core';
 
 const styles = (theme: Theme) =>
   createStyles({
     tool: {
-      backgroundColor: theme.palette.grey[400],
       position: 'absolute',
-      height: '3em',
-      width: '0.8em',
-      top: '50%',
-      left: '0%'
+      left: '0.1em',
+      top: '50%'
     }
   });
 
@@ -60,9 +64,9 @@ function _InsightTool({
   /**
    * Handle clicks to insight tool
    */
-  async function onClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+  async function onClick(event: React.MouseEvent) {
     // Get elements
-    const tool = event.target as HTMLDivElement;
+    const tool = event.target as HTMLButtonElement;
     const ast = document.getElementById('ast')!;
 
     // Get needed x/y coordinates
@@ -94,7 +98,14 @@ function _InsightTool({
   }
 
   return (
-    <div title="Insight tool" onClick={onClick} className={classes.tool} />
+    <IconButton
+      className={classes.tool}
+      onClick={onClick}
+      title="Insight tool"
+      size="small"
+    >
+      <Eyecon />
+    </IconButton>
   );
 }
 
