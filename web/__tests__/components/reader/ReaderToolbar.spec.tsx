@@ -18,7 +18,9 @@ test('<ReaderToolbar>', async () => {
   }
 
   // Render <ReaderToolbar> inside <ReaderToolbarConsumer>
-  const { getByTitle, getByText } = render(<ReaderToolbarConsumer />);
+  const { getByLabelText, getByTitle, getByText } = render(
+    <ReaderToolbarConsumer />
+  );
 
   // Validate controls
   expect(() => getByTitle('Go to previous section')).toThrow();
@@ -49,6 +51,26 @@ test('<ReaderToolbar>', async () => {
   fireEvent.click(getByText('Pride and Prejudice'));
   await waitForDomChange();
   await waitForDomChange();
+
+  // Open More, FontSize
+  fireEvent.click(getByTitle('View more menu items'));
+  fireEvent.click(getByText('Font Size'));
+  await waitForDomChange();
+
+  // Mock methods used by onChangeFontSize()
+  const mockGetElementById = ((document as any).getElementById = jest.fn());
+  const mockElement = { style: { fontSize: '125%' } };
+  mockGetElementById.mockReturnValue(mockElement);
+
+  // Increase font size
+  fireEvent.click(getByLabelText('Increase font size'));
+  expect(mockGetElementById).toHaveBeenCalledTimes(1);
+  expect(mockElement.style.fontSize).toBe('130%');
+
+  // Decrease font size
+  fireEvent.click(getByLabelText('Decrease font size'));
+  expect(mockGetElementById).toHaveBeenCalledTimes(2);
+  expect(mockElement.style.fontSize).toBe('125%');
 
   // Validate controls
   getByTitle('Go to previous section');
