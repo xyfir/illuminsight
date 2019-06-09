@@ -188,13 +188,13 @@ export function ReaderToolbar({
           {dialog == 'font-size' ? (
             <React.Fragment>
               <IconButton
-                aria-label="Increase font size"
+                aria-label="Decrease font size"
                 onClick={() => onChangeFontSize('-')}
               >
                 <DecreaseIcon />
               </IconButton>
               <IconButton
-                aria-label="Decrease font size"
+                aria-label="Increase font size"
                 onClick={() => onChangeFontSize('+')}
               >
                 <IncreaseIcon />
