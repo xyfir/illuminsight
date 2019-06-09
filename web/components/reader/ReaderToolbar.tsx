@@ -3,8 +3,11 @@ import { Toolbar } from 'components/app/Toolbar';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import {
+  RemoveCircleOutline as DecreaseIcon,
+  AddCircleOutline as IncreaseIcon,
   NavigateBefore as PreviousIcon,
   NavigateNext as NextIcon,
+  FormatSize as FontSizeIcon,
   MoreVert as MoreIcon,
   Replay as BackIcon,
   Home as HomeIcon,
@@ -18,39 +21,52 @@ import {
   ListItemIcon,
   createStyles,
   IconButton,
-  WithStyles,
-  withStyles,
+  makeStyles,
   ListItem,
   MenuItem,
   Tooltip,
   Dialog,
-  Theme,
   Menu,
   List
 } from '@material-ui/core';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles(theme =>
   createStyles({
     linkMenuItem: {
       textDecoration: 'none',
       color: theme.palette.getContrastText(theme.palette.background.paper)
     }
-  });
+  })
+);
 
-function _ReaderToolbar({
+type DialogView = false | 'toc' | 'font-size';
+
+export function ReaderToolbar({
   onChange,
   history,
-  classes,
   pub
 }: {
   onChange: (pub: Insightful.Pub) => void;
   history: Insightful.Marker[];
   pub?: Insightful.Pub;
-} & WithStyles<typeof styles>) {
+}) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [showTOC, setShowTOC] = React.useState(false);
+  const [dialog, setDialog] = React.useState<DialogView>(false);
+  const classes = useStyles();
 
   if (!pub) return null;
+
+  /** Increase or decrease #ast font size */
+  function onChangeFontSize(action: '+' | '-') {
+    let fontSize = +localStorage.getItem('fontSize')! || 125;
+
+    if (action == '+' && fontSize == 200) return;
+    if (action == '-' && fontSize == 100) return;
+
+    fontSize = action == '+' ? fontSize + 5 : fontSize - 5;
+    localStorage.setItem('fontSize', fontSize.toString());
+    document.getElementById('ast')!.style.fontSize = `${fontSize}%`;
+  }
 
   /** Navigate by updating pub bookmark */
   function onNavigate(marker: Insightful.Marker) {
@@ -64,7 +80,7 @@ function _ReaderToolbar({
     if (!pub) return;
     history.push(pub.bookmark);
     onNavigate(tocMarker);
-    setShowTOC(false);
+    setDialog(false);
   }
 
   return (
@@ -109,29 +125,6 @@ function _ReaderToolbar({
         </IconButton>
       )}
 
-      {/* Table of Contents dialog */}
-      {pub.toc.length > 1 ? (
-        <Dialog
-          aria-labelledby="toc-dialog"
-          maxWidth={false}
-          onClose={() => setShowTOC(false)}
-          open={showTOC}
-        >
-          <DialogContent>
-            <List>
-              <ListSubheader disableSticky={true}>
-                Table of Contents
-              </ListSubheader>
-              {pub.toc.map((section, i) => (
-                <ListItem key={i} button onClick={() => onSelect(section)}>
-                  <ListItemText primary={section.title} />
-                </ListItem>
-              ))}
-            </List>
-          </DialogContent>
-        </Dialog>
-      ) : null}
-
       {/* Next Section */}
       {pub.sections - 1 > pub.bookmark.section ? (
         <Tooltip title="Go to next section">
@@ -162,7 +155,7 @@ function _ReaderToolbar({
         onClose={() => setAnchorEl(null)}
         anchorEl={anchorEl}
       >
-        <MenuItem onClick={() => (setShowTOC(true), setAnchorEl(null))}>
+        <MenuItem onClick={() => (setDialog('toc'), setAnchorEl(null))}>
           <ListItemIcon>
             <TOCIcon />
           </ListItemIcon>
@@ -176,9 +169,51 @@ function _ReaderToolbar({
             Edit Metadata
           </MenuItem>
         </Link>
+        <MenuItem onClick={() => (setDialog('font-size'), setAnchorEl(null))}>
+          <ListItemIcon>
+            <FontSizeIcon />
+          </ListItemIcon>
+          Font Size
+        </MenuItem>
       </Menu>
+
+      {/* Configure font size | table of contents */}
+      <Dialog
+        aria-labelledby="dialog"
+        maxWidth={false}
+        onClose={() => setDialog(false)}
+        open={!!dialog}
+      >
+        <DialogContent>
+          {dialog == 'font-size' ? (
+            <React.Fragment>
+              <IconButton
+                aria-label="Increase font size"
+                onClick={() => onChangeFontSize('-')}
+              >
+                <DecreaseIcon />
+              </IconButton>
+              <IconButton
+                aria-label="Decrease font size"
+                onClick={() => onChangeFontSize('+')}
+              >
+                <IncreaseIcon />
+              </IconButton>
+            </React.Fragment>
+          ) : dialog == 'toc' ? (
+            <List>
+              <ListSubheader disableSticky={true}>
+                Table of Contents
+              </ListSubheader>
+              {pub.toc.map((section, i) => (
+                <ListItem key={i} button onClick={() => onSelect(section)}>
+                  <ListItemText primary={section.title} />
+                </ListItem>
+              ))}
+            </List>
+          ) : null}
+        </DialogContent>
+      </Dialog>
     </Toolbar>
   );
 }
-
-export const ReaderToolbar = withStyles(styles)(_ReaderToolbar);

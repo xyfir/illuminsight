@@ -24,7 +24,7 @@ const styles = (theme: Theme) =>
     ast: {
       fontFamily: 'serif',
       overflow: 'hidden',
-      fontSize: '125%',
+      fontSize: `${+localStorage.getItem('fontSize')! || 125}%`,
       padding: '50vh 0',
       margin: '1em auto !important',
       color: theme.palette.getContrastText(theme.palette.background.default),
