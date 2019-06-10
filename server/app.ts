@@ -33,6 +33,9 @@ if (process.enve.NODE_ENV == 'development') {
     next();
   });
 }
+app.use('/sw.js', (req, res) =>
+  res.sendFile(path.resolve(process.enve.WEB_DIRECTORY, 'dist', 'sw.js'))
+);
 app.use(
   '/static',
   Express.static(path.resolve(process.enve.WEB_DIRECTORY, 'dist'))

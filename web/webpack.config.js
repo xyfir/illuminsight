@@ -2,6 +2,7 @@ require('dotenv').config();
 require('enve');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
@@ -88,7 +89,11 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({ minify: PROD, template: 'template.html' }),
     PROD ? new CompressionPlugin({ filename: '[path].gz' }) : null,
-    PROD ? null : new webpack.HotModuleReplacementPlugin()
+    PROD ? null : new webpack.HotModuleReplacementPlugin(),
+    new CopyPlugin([
+      { from: './lib/app/manifest.json', to: '.' },
+      { from: './lib/app/sw.js', to: '.' }
+    ])
   ].filter(p => p !== null),
 
   devtool: 'inline-source-map',

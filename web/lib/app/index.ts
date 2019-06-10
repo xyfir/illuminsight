@@ -8,8 +8,9 @@ import { hot } from 'react-hot-loader/root';
 import { App } from 'components/app/App';
 import 'typeface-roboto';
 
-/** @todo remove -- https://github.com/gaearon/react-hot-loader/issues/1262 */
-setConfig({ reloadHooks: false });
+// Expose globals for debugging/testing purposes
+window.localForage = localForage;
+window.wtf = wtf;
 
 declare global {
   interface Window {
@@ -23,10 +24,18 @@ declare global {
   }
 }
 
-localForage.config({ driver: localForage.INDEXEDDB, name: 'insightful' });
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () =>
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(r => console.log('SW', r))
+      .catch(e => console.error('SW', e))
+  );
+}
 
-// Expose globals for debugging/testing purposes
-window.localForage = localForage;
-window.wtf = wtf;
+/** @todo remove -- https://github.com/gaearon/react-hot-loader/issues/1262 */
+setConfig({ reloadHooks: false });
+
+localForage.config({ driver: localForage.INDEXEDDB, name: 'insightful' });
 
 render(React.createElement(hot(App)), document.getElementById('content'));
