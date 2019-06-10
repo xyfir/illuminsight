@@ -2,6 +2,7 @@ require('dotenv').config();
 require('enve');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
@@ -93,7 +94,8 @@ module.exports = {
     new CopyPlugin([
       { from: './lib/app/manifest.json', to: '.' },
       { from: './lib/app/sw.js', to: '.' }
-    ])
+    ]),
+    new ManifestPlugin({ fileName: 'webpack.json' })
   ].filter(p => p !== null),
 
   devtool: 'inline-source-map',
