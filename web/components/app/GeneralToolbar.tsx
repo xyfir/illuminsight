@@ -4,16 +4,43 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import {
   LibraryBooks as LibraryIcon,
-  LibraryAdd as ImportIcon,
   Brightness2 as MoonIcon,
-  WbSunny as SunIcon
+  LibraryAdd as ImportIcon,
+  WbSunny as SunIcon,
+  GetApp as InstallIcon
 } from '@material-ui/icons';
 
+// Types don't yet exist for BeforeInstallPromptEvent
+let beforeInstallPromptEvent: any = null;
+
 export function GeneralToolbar() {
+  const [install, setInstall] = React.useState(!!beforeInstallPromptEvent);
+
+  /** Listen for beforeinstallprompt event */
+  function onBeforeInstallPrompt(event: any) {
+    beforeInstallPromptEvent = event;
+    setInstall(true);
+  }
+
+  /** Toggle dark/light theme */
   function onTheme(dark: boolean) {
     localStorage.theme = dark ? 'dark' : 'light';
     location.reload();
   }
+
+  /** Begin PWA installation */
+  function onInstall() {
+    beforeInstallPromptEvent.prompt();
+    beforeInstallPromptEvent = null;
+    setInstall(false);
+  }
+
+  // Listen for beforeinstallprompt event
+  React.useEffect(() => {
+    window.addEventListener('beforeinstallprompt', onBeforeInstallPrompt);
+    return () =>
+      window.removeEventListener('beforeinstallprompt', onBeforeInstallPrompt);
+  }, []);
 
   return (
     <Toolbar>
@@ -38,6 +65,12 @@ export function GeneralToolbar() {
           </IconButton>
         </Link>
       </Tooltip>
+
+      {install ? (
+        <IconButton onClick={onInstall}>
+          <InstallIcon />
+        </IconButton>
+      ) : null}
     </Toolbar>
   );
 }
