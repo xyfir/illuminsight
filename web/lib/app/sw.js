@@ -1,10 +1,15 @@
-const precacheResources = ['/', '/library', 'index.html', '/static/main.js'];
-const cacheName = 'cache-11';
+const cacheName = 'insightful';
 
 self.addEventListener('install', event => {
   console.log('SW: install');
   event.waitUntil(
-    caches.open(cacheName).then(cache => cache.addAll(precacheResources))
+    new Promise(async resolve => {
+      const manifest = await (await fetch('/static/webpack.json')).json();
+      const assets = Object.values(manifest).filter(e => e != '/static/sw.js');
+      assets.push('/');
+      const cache = await caches.open(cacheName);
+      resolve(await cache.addAll(assets));
+    })
   );
 });
 
