@@ -1,11 +1,15 @@
 {
   "name": "Insightful",
   "short_name": "Insightful",
+  "description": "Read smarter.",
   "lang": "en-US",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#1976d2",
-  "background_color": "#1976d2",
+  "background_color": "#fafafa",
+  "serviceworker": {
+    "src": "/sw.js"
+  },
   "icons": [
     {
       "src": "https://www.xyfir.com/static/icons/ptorx/android-chrome-192x192.png",
@@ -17,5 +21,6 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ]
+  ],
+  "categories": ["books", "education", "entertainment", "productivity"]
 }
