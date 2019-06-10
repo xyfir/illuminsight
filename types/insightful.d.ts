@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Document } from 'wtf_wikipedia';
 
 export namespace Insightful {
