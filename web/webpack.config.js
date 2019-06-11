@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('enve');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -12,11 +13,16 @@ const PROD = process.enve.NODE_ENV == 'production';
 module.exports = {
   mode: process.enve.NODE_ENV,
 
-  entry: './lib/app/index.ts',
+  entry: {
+    app: './lib/app/index.ts',
+    sw: './lib/app/sw.ts'
+  },
 
   output: {
+    globalObject: 'this',
     publicPath: '/static/',
-    filename: PROD ? '[name].[hash].js' : '[name].js',
+    filename: chunkData =>
+      chunkData.chunk.name === 'sw' ? 'sw.js' : '[name].[hash].js',
     pathinfo: false,
     path: path.resolve(__dirname, 'dist')
   },
@@ -32,6 +38,30 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /sw\.js$/,
+        loader: 'babel-loader',
+        include: [path.resolve(__dirname, 'lib')],
+        exclude: /node_modules/,
+        options: {
+          presets: [
+            '@babel/preset-typescript',
+            [
+              '@babel/preset-env',
+              {
+                targets: {
+                  browsers: [
+                    'last 2 Chrome versions',
+                    'last 2 Firefox versions'
+                    // 'last 1 iOS versions',
+                    // 'last 1 Android versions'
+                  ]
+                }
+              }
+            ]
+          ]
+        }
+      },
+      {
         test: /\.(js|jsx|ts|tsx)$/,
         loader: 'babel-loader',
         include: [
@@ -39,7 +69,7 @@ module.exports = {
           path.resolve(__dirname, 'constants'),
           path.resolve(__dirname, 'lib')
         ],
-        exclude: /node_modules/,
+        exclude: /node_modules|sw\.js/,
         options: {
           presets: [
             ['@babel/preset-typescript', { isTSX: true, allExtensions: true }],
@@ -88,17 +118,20 @@ module.exports = {
         return o;
       }, {})
     }),
-    new HtmlWebpackPlugin({ minify: PROD, template: 'template.html' }),
+    new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: ['**/*', '!manifest.json']
+    }),
+    new HtmlWebpackPlugin({
+      excludeChunks: ['sw'],
+      template: 'template.html'
+    }),
     PROD ? new CompressionPlugin({ filename: '[path].gz' }) : null,
     PROD ? null : new webpack.HotModuleReplacementPlugin(),
-    new CopyPlugin([
-      { from: './lib/app/manifest.json', to: '.' },
-      { from: './lib/app/sw.js', to: '.' }
-    ]),
+    new CopyPlugin([{ from: './lib/app/manifest.json', to: '.' }]),
     new ManifestPlugin({ fileName: 'webpack.json' })
   ].filter(p => p !== null),
 
-  devtool: 'inline-source-map',
+  devtool: PROD ? false : 'inline-source-map',
 
   watchOptions: {
     aggregateTimeout: 500,
@@ -110,6 +143,7 @@ module.exports = {
     /** @todo remove this eventually */
     disableHostCheck: true,
     contentBase: path.join(__dirname, 'dist'),
+    writeToDisk: true,
     port: process.enve.DEV_SERVER_PORT,
     hot: true
   }
