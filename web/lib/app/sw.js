@@ -2,15 +2,13 @@ const cacheName = 'insightful';
 
 self.addEventListener('install', event => {
   console.log('SW: install');
-  event.waitUntil(
-    new Promise(async resolve => {
-      const manifest = await (await fetch('/static/webpack.json')).json();
-      const assets = Object.values(manifest).filter(e => e != '/static/sw.js');
-      assets.push('/');
-      const cache = await caches.open(cacheName);
-      resolve(await cache.addAll(assets));
-    })
-  );
+  event.waitUntil(async () => {
+    const manifest = await (await fetch('/static/webpack.json')).json();
+    const assets = Object.values(manifest).filter(e => e != '/static/sw.js');
+    assets.push('/');
+    const cache = await caches.open(cacheName);
+    return await cache.addAll(assets);
+  });
 });
 
 self.addEventListener('activate', event => console.log('SW: activate'));
