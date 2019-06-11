@@ -1,6 +1,6 @@
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom';
 import { createStyles, CssBaseline, makeStyles } from '@material-ui/core';
-import { ThemeTypeContext, ThemeType, themes } from 'lib/app/theme';
+import { ToggleThemeContext, ThemeType, themes } from 'lib/app/theme';
 import { SnackbarProvider } from 'notistack';
 import { ThemeProvider } from '@material-ui/styles';
 import { Library } from 'components/library/Library';
@@ -27,15 +27,14 @@ export const App = () => {
   );
   const classes = useStyles();
 
-  function onSetThemeType(type: ThemeType) {
+  function toggleTheme() {
+    const type = themeType == 'dark' ? 'light' : 'dark';
     localStorage.theme = type;
     setThemeType(type);
   }
 
   return (
-    <ThemeTypeContext.Provider
-      value={{ type: themeType, setType: onSetThemeType }}
-    >
+    <ToggleThemeContext.Provider value={toggleTheme}>
       <ThemeProvider theme={themes[themeType]}>
         <CssBaseline />
         <SnackbarProvider
@@ -55,6 +54,6 @@ export const App = () => {
           </BrowserRouter>
         </SnackbarProvider>
       </ThemeProvider>
-    </ThemeTypeContext.Provider>
+    </ToggleThemeContext.Provider>
   );
 };
