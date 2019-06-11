@@ -67,9 +67,11 @@ export function GeneralToolbar() {
       </Tooltip>
 
       {install ? (
-        <IconButton onClick={onInstall}>
-          <InstallIcon />
-        </IconButton>
+        <Tooltip title="Install Insightful to home screen">
+          <IconButton onClick={onInstall}>
+            <InstallIcon />
+          </IconButton>
+        </Tooltip>
       ) : null}
     </Toolbar>
   );
