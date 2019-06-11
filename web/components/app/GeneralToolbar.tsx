@@ -1,4 +1,5 @@
 import { IconButton, Tooltip } from '@material-ui/core';
+import { ThemeTypeContext } from 'lib/app/theme';
 import { Toolbar } from 'components/app/Toolbar';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
@@ -15,17 +16,12 @@ let beforeInstallPromptEvent: any = null;
 
 export function GeneralToolbar() {
   const [install, setInstall] = React.useState(!!beforeInstallPromptEvent);
+  const themeType = React.useContext(ThemeTypeContext);
 
   /** Listen for beforeinstallprompt event */
   function onBeforeInstallPrompt(event: any) {
     beforeInstallPromptEvent = event;
     setInstall(true);
-  }
-
-  /** Toggle dark/light theme */
-  function onTheme(dark: boolean) {
-    localStorage.theme = dark ? 'dark' : 'light';
-    location.reload();
   }
 
   /** Begin PWA installation */
@@ -45,8 +41,12 @@ export function GeneralToolbar() {
   return (
     <Toolbar>
       <Tooltip title="Toggle light/dark theme">
-        <IconButton onClick={() => onTheme(localStorage.theme != 'dark')}>
-          {localStorage.theme == 'dark' ? <SunIcon /> : <MoonIcon />}
+        <IconButton
+          onClick={() =>
+            themeType.setType(themeType.type == 'light' ? 'dark' : 'light')
+          }
+        >
+          {themeType.type == 'dark' ? <SunIcon /> : <MoonIcon />}
         </IconButton>
       </Tooltip>
 
