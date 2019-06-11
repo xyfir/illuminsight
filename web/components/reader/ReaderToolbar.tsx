@@ -1,3 +1,4 @@
+import { ToggleThemeContext } from 'lib/app/theme';
 import { Insightful } from 'types/insightful';
 import { Toolbar } from 'components/app/Toolbar';
 import * as React from 'react';
@@ -7,8 +8,10 @@ import {
   AddCircleOutline as IncreaseIcon,
   NavigateBefore as PreviousIcon,
   NavigateNext as NextIcon,
+  Brightness2 as MoonIcon,
   FormatSize as FontSizeIcon,
   MoreVert as MoreIcon,
+  WbSunny as SunIcon,
   Replay as BackIcon,
   Home as HomeIcon,
   Edit as EditIcon,
@@ -52,6 +55,7 @@ export function ReaderToolbar({
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [dialog, setDialog] = React.useState<DialogView>(false);
+  const toggleTheme = React.useContext(ToggleThemeContext);
   const classes = useStyles();
 
   if (!pub) return null;
@@ -173,7 +177,13 @@ export function ReaderToolbar({
           <ListItemIcon>
             <FontSizeIcon />
           </ListItemIcon>
-          Font Size
+          Set Font Size
+        </MenuItem>
+        <MenuItem onClick={toggleTheme}>
+          <ListItemIcon>
+            {localStorage.theme == 'dark' ? <SunIcon /> : <MoonIcon />}
+          </ListItemIcon>
+          Toggle Theme
         </MenuItem>
       </Menu>
 
