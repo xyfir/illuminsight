@@ -47,6 +47,7 @@ test('<ReaderToolbar>', async () => {
 
   // Open More, TOC, and change section (middle)
   fireEvent.click(getByTitle('View more menu items'));
+  getByText('Toggle Theme');
   fireEvent.click(getByText('Table of Contents'));
   fireEvent.click(getByText('Pride and Prejudice'));
   await waitForDomChange();
@@ -54,7 +55,7 @@ test('<ReaderToolbar>', async () => {
 
   // Open More, FontSize
   fireEvent.click(getByTitle('View more menu items'));
-  fireEvent.click(getByText('Font Size'));
+  fireEvent.click(getByText('Set font Size'));
   await waitForDomChange();
 
   // Mock methods used by onChangeFontSize()
