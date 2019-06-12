@@ -1,10 +1,11 @@
 require('dotenv').config();
 require('enve');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const { version } = require('./package.json');
 const webpack = require('webpack');
 const path = require('path');
 
@@ -125,9 +126,39 @@ module.exports = {
       excludeChunks: ['sw'],
       template: 'template.html'
     }),
+    new WebappWebpackPlugin({
+      favicons: {
+        appleStatusBarStyle: 'black-translucent',
+        appDescription: 'Read smarter.',
+        developerName: 'Xyfir, LLC',
+        developerURL: 'https://www.xyfir.com',
+        appShortName: 'Insightful',
+        theme_color: '#1976d2',
+        background: '#fafafa',
+        start_url: '/',
+        version,
+        appName: 'Insightful',
+        display: 'standalone',
+        icons: {
+          appleStartup: false,
+          appleIcon: true,
+          favicons: true,
+          android: true,
+          firefox: true,
+          windows: false,
+          yandex: false,
+          coast: false
+        },
+        lang: 'en-US',
+        dir: 'ltr'
+      },
+      inject: true,
+      prefix: '',
+      cache: true,
+      logo: './icon.png'
+    }),
     PROD ? new CompressionPlugin({ filename: '[path].gz' }) : null,
     PROD ? null : new webpack.HotModuleReplacementPlugin(),
-    new CopyPlugin([{ from: './lib/app/manifest.json', to: '.' }]),
     new ManifestPlugin({ fileName: 'webpack.json' })
   ].filter(p => p !== null),
 
