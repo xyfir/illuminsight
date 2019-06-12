@@ -6,6 +6,14 @@ import { Library } from 'components/library/Library';
 import * as React from 'react';
 
 test('<Library>', async () => {
+  /** @todo remove -- https://github.com/mui-org/material-ui/issues/16184 */
+  (window as any).matchMedia = jest.fn(() => ({
+    matches: true,
+    media: '',
+    addListener: jest.fn(),
+    removeListener: jest.fn()
+  }));
+
   let id = 1556915133437;
   Date.prototype.getTime = () => id + 1000;
 
