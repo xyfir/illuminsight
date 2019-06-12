@@ -55,7 +55,7 @@ test('<ReaderToolbar>', async () => {
 
   // Open More, FontSize
   fireEvent.click(getByTitle('View more menu items'));
-  fireEvent.click(getByText('Set font Size'));
+  fireEvent.click(getByText('Set Font Size'));
   await waitForDomChange();
 
   // Mock methods used by onChangeFontSize()
