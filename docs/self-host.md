@@ -1,4 +1,4 @@
-# Setup Insightful
+# Self-Host Insightful
 
 This tutorial will outline how to get Insightful running on your own server.
 
@@ -43,6 +43,12 @@ Next, install Calibre:
 ```bash
 # ignore "Setting up desktop integration" error
 sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
+```
+
+If you get a libGL error during file conversion, you probably also need to run:
+
+```bash
+sudo apt install libgl1-mesa-glx
 ```
 
 Finally, install Pandoc ([get latest](https://github.com/jgm/pandoc/releases/)):
