@@ -41,20 +41,22 @@ npm install -g pm2
 Next, install Calibre:
 
 ```bash
+# ignore "Setting up desktop integration" error
 sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
 ```
 
-And finally, install Pandoc ([get latest](https://github.com/jgm/pandoc/releases/)):
+Finally, install Pandoc ([get latest](https://github.com/jgm/pandoc/releases/)):
 
 ```bash
 # replace X.X.X with latest version
 sudo wget https://github.com/jgm/pandoc/releases/download/X.X.X/pandoc-X.X.X-1-amd64.deb
 sudo dpkg -i pandoc-X.X.X-1-amd64.deb
+sudo rm pandoc-X.X.X-1-amd64.deb
 ```
 
 # Step 2: Create Temp Directory
 
-Now we need to create the temp directory where Insightful will write temporary data to the disk. You can put it wherever you'd like, but for now we'll put it alongside `insightful/`.
+Now we need to create the temp directory where Insightful will write temporary data to the disk. You can put it wherever and name it whatever you'd like, but for now we'll make it `temp/` alongside `insightful/`.
 
 ```bash
 mkdir ../temp
@@ -64,7 +66,7 @@ mkdir ../temp
 
 Insightful is configured via environment variables which are loaded via `.env` files located in each subdirectory.
 
-To understand the syntax of the `.env` files, know that they are first loaded via [dotenv](https://www.npmjs.com/package/dotenv) and then the string values provided by dotenv are parsed by [enve](https://www.npmjs.com/package/dotenv).
+To understand the syntax of the `.env` files, know that they are first loaded via [dotenv](https://www.npmjs.com/package/dotenv) and then the string values provided by dotenv are parsed by [enve](https://www.npmjs.com/package/enve).
 
 ## Step 3a: Create `.env` Files
 
@@ -74,7 +76,7 @@ First we'll create each file and then we'll work our way through populating them
 touch server/.env web/.env
 ```
 
-## Step 3e: Configure
+## Step 3b: Configure
 
 You can find the available environment variables in [types/insightful.d.ts](https://github.com/MrXyfir/insightful/blob/master/types/insightful.d.ts) under the `Insightful.Env` namespace.
 
