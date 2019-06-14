@@ -128,7 +128,7 @@ module.exports = {
     }),
     new WebappWebpackPlugin({
       favicons: {
-        appleStatusBarStyle: 'black-translucent',
+        appleStatusBarStyle: 'default',
         appDescription: 'Read smarter.',
         developerName: 'Xyfir, LLC',
         developerURL: 'https://www.xyfir.com',
