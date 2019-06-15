@@ -16,9 +16,9 @@ test('<GeneralToolbar />', async () => {
   getByTitle('Toggle light/dark theme');
   getByTitle('Import content into library');
   getByTitle('Search items in library');
-  expect(() => getByTitle('Install Insightful to home screen')).toThrow();
+  expect(() => getByTitle('Install Illuminsight to home screen')).toThrow();
 
   // Test beforeinstallprompt event triggering install button
   window.dispatchEvent(new Event('beforeinstallprompt'));
-  getByTitle('Install Insightful to home screen');
+  getByTitle('Install Illuminsight to home screen');
 });

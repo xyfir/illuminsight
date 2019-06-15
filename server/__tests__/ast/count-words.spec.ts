@@ -1,8 +1,8 @@
 import { countWords } from 'lib/ast/count-words';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 
 test('countWords()', async () => {
-  const ast: Insightful.AST[] = [
+  const ast: Illuminsight.AST[] = [
     { n: 'h1', a: { id: 'h1' }, c: ['Lorem Ipsum'] },
     {
       n: 'h4',

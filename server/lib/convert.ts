@@ -1,6 +1,6 @@
 import { basename, extname, resolve } from 'path';
 import { getByAttributeName } from 'lib/ast/get-by-attribute-name';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { countWords } from 'lib/ast/count-words';
 import { nodeToAST } from 'lib/ast/node-to-ast';
 import * as archiver from 'archiver';
@@ -114,7 +114,7 @@ export async function convert({
 
     // Relative file path/name for cover image
     const covers: { id1?: string; id2?: string; href?: string } = {};
-    let cover: Insightful.Pub['cover'];
+    let cover: Illuminsight.Pub['cover'];
 
     // How many resources (images usually) the content has
     let resources = 0;
@@ -185,7 +185,7 @@ export async function convert({
     // Loop through sections updating image and section links
     for (let sectionIndex = 0; sectionIndex < sections; sectionIndex++) {
       const section = `ast/${sectionIndex}.json`;
-      const ast: Insightful.AST[] = await readJSON(
+      const ast: Illuminsight.AST[] = await readJSON(
         resolve(astpubDirectory, section)
       );
 
@@ -247,7 +247,7 @@ export async function convert({
     }
 
     // Build Table of Contents
-    const toc: Insightful.Pub['toc'] = [];
+    const toc: Illuminsight.Pub['toc'] = [];
     for (let navPoint of navPoints) {
       const title = navPoint.querySelector('navLabel > text') as Element;
       const src = navPoint.querySelector('content') as Element;
@@ -266,7 +266,7 @@ export async function convert({
     }
 
     // Populate pub object which will be used for meta.json
-    const pub: Insightful.Pub = {
+    const pub: Illuminsight.Pub = {
       authors:
         Array.from(opfDoc.getElementsByTagName('dc:creator'))
           .map(creator => creator.textContent)

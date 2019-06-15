@@ -1,5 +1,5 @@
 import { ToggleThemeContext } from 'lib/app/theme';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { Toolbar } from 'components/app/Toolbar';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
@@ -49,9 +49,9 @@ export function ReaderToolbar({
   history,
   pub
 }: {
-  onChange: (pub: Insightful.Pub) => void;
-  history: Insightful.Marker[];
-  pub?: Insightful.Pub;
+  onChange: (pub: Illuminsight.Pub) => void;
+  history: Illuminsight.Marker[];
+  pub?: Illuminsight.Pub;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [dialog, setDialog] = React.useState<DialogView>(false);
@@ -73,14 +73,14 @@ export function ReaderToolbar({
   }
 
   /** Navigate by updating pub bookmark */
-  function onNavigate(marker: Insightful.Marker) {
-    const _pub: Insightful.Pub = Object.assign({}, pub);
+  function onNavigate(marker: Illuminsight.Marker) {
+    const _pub: Illuminsight.Pub = Object.assign({}, pub);
     _pub.bookmark = marker;
     onChange(_pub);
   }
 
   /** Navigate to Table of Contents selection */
-  function onSelect(tocMarker: Insightful.Pub['toc'][0]) {
+  function onSelect(tocMarker: Illuminsight.Pub['toc'][0]) {
     if (!pub) return;
     history.push(pub.bookmark);
     onNavigate(tocMarker);

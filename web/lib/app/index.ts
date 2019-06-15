@@ -1,5 +1,5 @@
 import * as localForage from 'localforage';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { setConfig } from 'react-hot-loader';
 import { render } from 'react-dom';
 import * as React from 'react';
@@ -19,7 +19,7 @@ declare global {
   }
   namespace NodeJS {
     interface Process {
-      enve: Insightful.Env.Web;
+      enve: Illuminsight.Env.Web;
     }
   }
 }
@@ -36,6 +36,6 @@ if ('serviceWorker' in navigator) {
 /** @todo remove -- https://github.com/gaearon/react-hot-loader/issues/1262 */
 setConfig({ reloadHooks: false });
 
-localForage.config({ driver: localForage.INDEXEDDB, name: 'insightful' });
+localForage.config({ driver: localForage.INDEXEDDB, name: 'illuminsight' });
 
 render(React.createElement(hot(App)), document.getElementById('content'));

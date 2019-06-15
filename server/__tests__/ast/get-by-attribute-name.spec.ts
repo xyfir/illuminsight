@@ -1,8 +1,8 @@
 import { getByAttributeName } from 'lib/ast/get-by-attribute-name';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 
 test('getByAttributeName()', () => {
-  const ast: Insightful.AST[] = [
+  const ast: Illuminsight.AST[] = [
     {
       n: 'div',
       c: [

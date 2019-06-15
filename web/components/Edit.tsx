@@ -2,7 +2,7 @@ import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import * as localForage from 'localforage';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import * as JSZip from 'jszip';
 import {
@@ -67,9 +67,9 @@ const styles = (theme: Theme) =>
   });
 
 interface EditState {
-  pub?: Insightful.Pub;
+  pub?: Illuminsight.Pub;
   cover?: string;
-  tags: Insightful.Tag[];
+  tags: Illuminsight.Tag[];
   tag: string;
 }
 type EditProps = WithStyles<typeof styles> &
@@ -92,11 +92,11 @@ class _Edit extends React.Component<EditProps, EditState> {
       // Load from localForage
       const file: Blob = await localForage.getItem(`pub-${pubId}`);
       if (file === null) throw 'Could not load data from storage';
-      const tags: Insightful.Tag[] = await localForage.getItem('tag-list');
+      const tags: Illuminsight.Tag[] = await localForage.getItem('tag-list');
 
       // Parse zip file and meta
       this.zip = await JSZip.loadAsync(file);
-      const pub: Insightful.Pub = JSON.parse(
+      const pub: Illuminsight.Pub = JSON.parse(
         await this.zip.file('meta.json').async('text')
       );
 
@@ -127,7 +127,7 @@ class _Edit extends React.Component<EditProps, EditState> {
     this.onChange('bookmark', {
       element: 0,
       section: 0
-    } as Insightful.Pub['bookmark']);
+    } as Illuminsight.Pub['bookmark']);
   }
 
   onUploadCover(file: File) {
@@ -173,7 +173,7 @@ class _Edit extends React.Component<EditProps, EditState> {
     const pub = this.state.pub!;
 
     // Remove pub from list
-    let pubs: Insightful.Pub[] = await localForage.getItem('pub-list');
+    let pubs: Illuminsight.Pub[] = await localForage.getItem('pub-list');
     pubs = pubs.filter(p => p.id != pub.id);
     await localForage.setItem('pub-list', pubs);
 
@@ -189,7 +189,7 @@ class _Edit extends React.Component<EditProps, EditState> {
     // enqueueSnackbar(`${pub.name} was deleted`);
   }
 
-  onChange(prop: keyof Insightful.Pub, value: any) {
+  onChange(prop: keyof Illuminsight.Pub, value: any) {
     const pub = this.state.pub!;
     this.setState({ pub: { ...pub, [prop]: value } });
   }
@@ -217,7 +217,7 @@ class _Edit extends React.Component<EditProps, EditState> {
     }
 
     // Save pub-list
-    const pubs: Insightful.Pub[] = await localForage.getItem('pub-list');
+    const pubs: Illuminsight.Pub[] = await localForage.getItem('pub-list');
     const index = pubs.findIndex(p => p.id == pub.id);
     pubs[index] = pub;
     await localForage.setItem('pub-list', pubs);
@@ -227,7 +227,7 @@ class _Edit extends React.Component<EditProps, EditState> {
     // enqueueSnackbar(`${pub.name} was updated`);
   }
 
-  async saveTags(pubs: Insightful.Pub[]) {
+  async saveTags(pubs: Illuminsight.Pub[]) {
     // Delete orphaned tags
     let tags = this.state.tags!;
     for (let tag of tags) {

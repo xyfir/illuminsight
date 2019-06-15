@@ -2,7 +2,7 @@ import * as InfiniteScroll from 'react-infinite-scroller';
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { formatRelative } from 'date-fns';
 import * as localForage from 'localforage';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import { Cover } from 'components/library/Cover';
 import * as Fuse from 'fuse.js';
@@ -79,13 +79,13 @@ const styles = (theme: Theme) =>
 
 function _Library({ classes }: WithStyles<typeof styles>) {
   const [selectedTags, setSelectedTags] = React.useState<
-    Insightful.Tag['id'][]
+    Illuminsight.Tag['id'][]
   >([]);
   const [showDrawer, setShowDrawer] = React.useState(false);
-  const [pubs, setPubs] = React.useState<Insightful.Pub[]>([]);
+  const [pubs, setPubs] = React.useState<Illuminsight.Pub[]>([]);
   const [search, setSearch] = React.useState('');
   const [page, setPage] = React.useState(0);
-  const [tags, setTags] = React.useState<Insightful.Tag[]>([]);
+  const [tags, setTags] = React.useState<Illuminsight.Tag[]>([]);
   const now = new Date();
 
   // Load pubs and tags from local storage on mount
@@ -93,10 +93,10 @@ function _Library({ classes }: WithStyles<typeof styles>) {
     localForage
       .getItem('tag-list')
       .then(tags => {
-        if (tags !== null) setTags(tags as Insightful.Tag[]);
+        if (tags !== null) setTags(tags as Illuminsight.Tag[]);
         return localForage.getItem('pub-list');
       })
-      .then(pubs => setPubs((pubs as Insightful.Pub[]) || []))
+      .then(pubs => setPubs((pubs as Illuminsight.Pub[]) || []))
       .catch(() => undefined);
   }, []);
 
@@ -239,7 +239,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
                           .map(
                             tag =>
                               `#${
-                                (tags.find(t => t.id == tag) as Insightful.Tag)
+                                (tags.find(t => t.id == tag) as Illuminsight.Tag)
                                   .name
                               }`
                           )

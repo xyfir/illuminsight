@@ -1,7 +1,7 @@
 import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { StaticRouter } from 'react-router-dom';
 import * as localForage from 'localforage';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { Library } from 'components/library/Library';
 import * as React from 'react';
 
@@ -21,7 +21,7 @@ test('<Library>', async () => {
   const mockGetItem = ((localForage as any).getItem = jest.fn());
 
   // Get tag-list
-  const tags: Insightful.Tag[] = [
+  const tags: Illuminsight.Tag[] = [
     { id: id++, name: 'tag-0' },
     { id: id++, name: 'tag-1' },
     { id: id++, name: 'tag-2' }
@@ -29,7 +29,7 @@ test('<Library>', async () => {
   mockGetItem.mockResolvedValueOnce(tags);
 
   // Get pub-list
-  const pubs: Insightful.Pub[] = [
+  const pubs: Illuminsight.Pub[] = [
     {
       authors: 'Jane Austen',
       bookmark: { section: 0, element: 0 },

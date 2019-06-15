@@ -2,7 +2,7 @@ import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
 import { readFileSync } from 'fs';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { resolve } from 'path';
 import { Reader } from 'components/reader/Reader';
 import * as React from 'react';
@@ -32,7 +32,7 @@ test('<Reader>', async () => {
   let zip = await JSZip.loadAsync(
     readFileSync(resolve(process.enve.FILES_DIRECTORY, 'ebook.astpub'))
   );
-  let pub: Insightful.Pub = JSON.parse(
+  let pub: Illuminsight.Pub = JSON.parse(
     await zip.file('meta.json').async('text')
   );
 
@@ -105,7 +105,7 @@ test('<Reader>', async () => {
   expect(pub.bookmark).toMatchObject({
     section: 1,
     element: 0
-  } as Insightful.Pub['bookmark']);
+  } as Illuminsight.Pub['bookmark']);
 
   // Mock document.querySelectorAll()
   const querySelectorAll = document.querySelectorAll;
@@ -129,7 +129,7 @@ test('<Reader>', async () => {
   expect(pub.bookmark).toMatchObject({
     section: 1,
     element: 2
-  } as Insightful.Pub['bookmark']);
+  } as Illuminsight.Pub['bookmark']);
 
   // Validate onScroll() throttles itself
   fireEvent.scroll(getByTestId('reader'), { target: { scrollTop: 200 } });
@@ -154,5 +154,5 @@ test('<Reader>', async () => {
   expect(pub.bookmark).toMatchObject({
     section: 4,
     element: 'link2H_4_0002'
-  } as Insightful.Pub['bookmark']);
+  } as Illuminsight.Pub['bookmark']);
 });

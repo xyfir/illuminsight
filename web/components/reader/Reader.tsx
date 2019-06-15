@@ -5,7 +5,7 @@ import { ReaderToolbar } from 'components/reader/ReaderToolbar';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
 import * as localForage from 'localforage';
 import { InsightTool } from 'components/reader/InsightTool';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { Indexer } from 'lib/reader/Indexer';
 import * as React from 'react';
 import * as JSZip from 'jszip';
@@ -42,9 +42,9 @@ const styles = (theme: Theme) =>
   });
 
 interface ReaderState {
-  insightsIndex: Insightful.InsightsIndex;
-  pub?: Insightful.Pub;
-  ast: Insightful.AST[];
+  insightsIndex: Illuminsight.InsightsIndex;
+  pub?: Illuminsight.Pub;
+  ast: Illuminsight.AST[];
 }
 type ReaderProps = WithStyles<typeof styles> &
   RouteComponentProps &
@@ -53,7 +53,7 @@ type ReaderProps = WithStyles<typeof styles> &
 class _Reader extends React.Component<ReaderProps, ReaderState> {
   lastScrollSave: number = 0;
   lastScroll: number = 0;
-  history: Insightful.Marker[] = [];
+  history: Illuminsight.Marker[] = [];
   imgURLs: string[] = [];
   state: ReaderState = { insightsIndex: {}, ast: [] };
   zip?: JSZip;
@@ -178,7 +178,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       this.zip = await JSZip.loadAsync(file as Blob);
 
       // Load meta.json
-      const pub: Insightful.Pub = JSON.parse(
+      const pub: Illuminsight.Pub = JSON.parse(
         await this.zip.file('meta.json').async('text')
       );
 
@@ -195,7 +195,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   /**
    * Load section from zip file by bookmark.
    */
-  async loadSection(pub: Insightful.Pub) {
+  async loadSection(pub: Illuminsight.Pub) {
     const { enqueueSnackbar, history } = this.props;
     const zip = this.zip as JSZip;
 
@@ -205,7 +205,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       this.imgURLs = [];
 
       // Load AST for section
-      const ast: Insightful.AST[] = JSON.parse(
+      const ast: Illuminsight.AST[] = JSON.parse(
         await zip.file(`ast/${pub.bookmark.section}.json`).async('text')
       );
 
@@ -244,7 +244,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   /**
    * Save meta.json in zip file and update storage.
    */
-  async saveFile(pub: Insightful.Pub) {
+  async saveFile(pub: Illuminsight.Pub) {
     const zip = this.zip as JSZip;
     zip.file('meta.json', JSON.stringify(pub));
     await localForage.setItem(
@@ -256,7 +256,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   /**
    * Scroll to `pub.bookmark.element` if able.
    */
-  scrollToBookmark(pub: Insightful.Pub) {
+  scrollToBookmark(pub: Illuminsight.Pub) {
     const { element } = pub.bookmark;
 
     // Get by id

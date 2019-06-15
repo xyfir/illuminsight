@@ -1,13 +1,13 @@
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 
 /**
  * Get nodes from AST by attribute name.
  */
 export function getByAttributeName(
   name: string,
-  ast: Insightful.AST[]
-): Insightful.AST[] {
-  const matches: Insightful.AST[] = [];
+  ast: Illuminsight.AST[]
+): Illuminsight.AST[] {
+  const matches: Illuminsight.AST[] = [];
 
   for (let node of ast) {
     // Ignore string nodes

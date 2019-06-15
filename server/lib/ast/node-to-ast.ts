@@ -1,4 +1,4 @@
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 
 const REPLACEMENT_ATTRIBUTES: { [attr: string]: string } = {
   'xlink:href': 'href'
@@ -15,10 +15,10 @@ export function nodeToAST(
    * Preserve whitespace if a child of a `<pre>` element.
    */
   pre: boolean = false
-): Insightful.AST | undefined {
+): Illuminsight.AST | undefined {
   // Element node
   if (node.nodeType == node.ELEMENT_NODE) {
-    const ast: Insightful.AST = { n: node.nodeName.toLowerCase() };
+    const ast: Illuminsight.AST = { n: node.nodeName.toLowerCase() };
 
     // Ignore excluded elements
     if (EXCLUDED_ELEMENTS.includes(ast.n)) return;

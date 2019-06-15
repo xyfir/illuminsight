@@ -14,7 +14,7 @@ self.addEventListener('install', event => {
     assets.push('/');
 
     // Cache all assets
-    const cache = await caches.open('insightful');
+    const cache = await caches.open('illuminsight');
     await cache.addAll(assets);
     console.log('cached');
     return;

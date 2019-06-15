@@ -8,10 +8,10 @@ test('getInsights()', async () => {
 
   // Get insights
   const insights = await getInsights(
-    'What is so special about Insightful? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.'
+    'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.'
   );
   const items = [
-    'Insightful',
+    'Illuminsight',
     'California',
     'San Diego',
     'July',

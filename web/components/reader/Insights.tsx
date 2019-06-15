@@ -1,6 +1,6 @@
 import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
 import { WikiInsight } from 'components/reader/WikiInsight';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import {
   CloseOutlined as CloseIcon,
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export function Insights({ insights }: { insights: Insightful.Insight[] }) {
+export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
   const [showWiki, setShowWiki] = React.useState(-1);
   const [expand, setExpand] = React.useState(-1);
   const classes = useStyles();
@@ -95,7 +95,7 @@ export function Insights({ insights }: { insights: Insightful.Insight[] }) {
       {/* Selected Wikipedia insight */}
       {insights[showWiki] ? (
         <WikiInsight
-          insight={insights[showWiki] as Required<Insightful.Insight>}
+          insight={insights[showWiki] as Required<Illuminsight.Insight>}
           key={showWiki}
         />
       ) : null}

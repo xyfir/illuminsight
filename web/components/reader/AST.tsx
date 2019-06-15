@@ -1,4 +1,4 @@
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { Insights } from 'components/reader/Insights';
 import { Indexer } from 'lib/reader/Indexer';
 import * as React from 'react';
@@ -7,8 +7,8 @@ export function AST({
   insightsIndex,
   ast
 }: {
-  insightsIndex: Insightful.InsightsIndex;
-  ast: Insightful.AST;
+  insightsIndex: Illuminsight.InsightsIndex;
+  ast: Illuminsight.AST;
 }) {
   const index = Indexer.index;
 

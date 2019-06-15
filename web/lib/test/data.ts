@@ -1,13 +1,13 @@
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 
-export const testTags: Insightful.Tag[] = [
+export const testTags: Illuminsight.Tag[] = [
   { id: 1556915133433, name: 'alpha' },
   { id: 1556915133434, name: 'bravo' },
   { id: 1556915133435, name: 'charlie' },
   { id: 1556915133436, name: 'delta' }
 ];
 
-export const testPub: Insightful.Pub = {
+export const testPub: Illuminsight.Pub = {
   authors: 'Jane Austen',
   bookmark: { section: 0, element: 0 },
   id: 1556915133437,
@@ -26,7 +26,7 @@ export const testPub: Insightful.Pub = {
   words: '123'
 };
 
-export const testAST: Insightful.AST[] = [
+export const testAST: Illuminsight.AST[] = [
   {
     n: 'h1',
     c: ['Heading 1']
@@ -107,7 +107,7 @@ export const testAST: Insightful.AST[] = [
   }
 ];
 
-export const alternateTestAST: Insightful.AST[] = [
+export const alternateTestAST: Illuminsight.AST[] = [
   { n: 'h1', c: ['Lorem Ipsum ...'] },
   {
     n: 'p',

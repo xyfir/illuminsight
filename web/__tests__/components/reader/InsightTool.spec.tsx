@@ -1,13 +1,13 @@
 import { fireEvent, render, wait } from '@testing-library/react';
 import { InsightTool } from 'components/reader/InsightTool';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import * as wtf from 'wtf_wikipedia';
 
 test('<InsightTool>', async () => {
   // Mock final element that insight tool will zero in on
   const mockElement = {
-    innerText: 'My name is Insightful.',
+    innerText: 'My name is Illuminsight.',
     getAttribute: jest.fn()
   };
   mockElement.getAttribute.mockReturnValueOnce(2);
@@ -59,7 +59,7 @@ test('<InsightTool>', async () => {
   }
 
   // Wrap <InsightTool>
-  let _insightsIndex: Insightful.InsightsIndex = {};
+  let _insightsIndex: Illuminsight.InsightsIndex = {};
   function InsightToolConsumer() {
     const [insightsIndex, setInsightsIndex] = React.useState(_insightsIndex);
     _insightsIndex = insightsIndex;
@@ -93,7 +93,7 @@ test('<InsightTool>', async () => {
 
   // Insights were generated and set to correct AST element index
   await wait(() => expect(mockFetch).toHaveBeenCalled());
-  expect(_insightsIndex).toMatchObject({ 2: [{ text: 'Insightful' }] });
+  expect(_insightsIndex).toMatchObject({ 2: [{ text: 'Illuminsight' }] });
 
   // Click insight tool again to disable insights
   setMockReturns();

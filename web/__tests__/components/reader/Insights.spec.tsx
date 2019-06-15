@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import { testWikitext } from 'lib/test/data';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { Insights } from 'components/reader/Insights';
 import * as React from 'react';
 import * as wtf from 'wtf_wikipedia';
@@ -10,7 +10,7 @@ test('<Insights>', async () => {
   const mockOpen = ((window as any).open = jest.fn());
 
   // Render insights
-  const insights: Insightful.Insight[] = [
+  const insights: Illuminsight.Insight[] = [
     { text: 'Cormac McCarthy' },
     { text: 'Blood Meridian', wiki: wtf(testWikitext) }
   ];

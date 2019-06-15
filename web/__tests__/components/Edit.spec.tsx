@@ -3,7 +3,7 @@ import { fireEvent, render, wait } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
 import { readFileSync } from 'fs';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { testTags } from 'lib/test/data';
 import { resolve } from 'path';
 import * as React from 'react';
@@ -23,7 +23,7 @@ test('<Edit>', async () => {
   let zip = await JSZip.loadAsync(
     readFileSync(resolve(process.enve.FILES_DIRECTORY, 'ebook.astpub'))
   );
-  let pub: Insightful.Pub = JSON.parse(
+  let pub: Illuminsight.Pub = JSON.parse(
     await zip.file('meta.json').async('text')
   );
 
@@ -121,7 +121,7 @@ test('<Edit>', async () => {
   pub = JSON.parse(await zip.file('meta.json').async('text'));
 
   // Validate meta.json
-  const _pub: Insightful.Pub = {
+  const _pub: Illuminsight.Pub = {
     ...pub,
     name: 'Name',
     link: 'https://example.com',
@@ -150,7 +150,7 @@ test('<Edit>', async () => {
   // Validate tag-list was updated
   // charlie deleted (orphaned), echo added
   expect(mockSetItem.mock.calls[3][0]).toBe('tag-list');
-  const newTags: Insightful.Tag[] = mockSetItem.mock.calls[3][1];
+  const newTags: Illuminsight.Tag[] = mockSetItem.mock.calls[3][1];
   expect(newTags).toBeArrayOfSize(3);
   expect(newTags[0]).toMatchObject(testTags[0]); // alpha
   expect(newTags[1]).toMatchObject(testTags[1]); // bravo

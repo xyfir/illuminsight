@@ -1,7 +1,7 @@
 import { SnackbarProvider } from 'notistack';
 import * as localForage from 'localforage';
 import { MemoryRouter } from 'react-router';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { testPub } from 'lib/test/data';
 import { Import } from 'components/Import';
 import * as JSZip from 'jszip';
@@ -50,7 +50,7 @@ test('<Import>', async () => {
 
     // Mock getting tag-list
     // Contains one so we can test linking existing tags
-    const tags: Insightful.Tag[] = [{ id: Date.now(), name: 'jane-austen' }];
+    const tags: Illuminsight.Tag[] = [{ id: Date.now(), name: 'jane-austen' }];
     mockGetItem.mockResolvedValueOnce(tags);
 
     // Mock API to convert content
@@ -71,7 +71,7 @@ test('<Import>', async () => {
     // Must have been edited (new tags added) before save
     expect(mockSetItem.mock.calls[1][0]).toBe(`pub-${testPub.id}`);
     const _zip = await JSZip.loadAsync(mockSetItem.mock.calls[1][1]);
-    const _pub: Insightful.Pub = JSON.parse(
+    const _pub: Illuminsight.Pub = JSON.parse(
       await _zip.file('meta.json').async('text')
     );
     expect(testPub.tags).not.toMatchObject(_pub.tags);

@@ -1,7 +1,7 @@
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import * as localForage from 'localforage';
 import { useSnackbar } from 'notistack';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { getYear } from 'date-fns';
 import * as JSZip from 'jszip';
 import * as React from 'react';
@@ -112,7 +112,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     const zip = await JSZip.loadAsync(file);
 
     // Extract meta.json
-    const pub: Insightful.Pub = JSON.parse(
+    const pub: Illuminsight.Pub = JSON.parse(
       await zip.file('meta.json').async('text')
     );
 
@@ -129,9 +129,9 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     }
 
     // Get indexes from local storage which we'll use and update
-    const pubs: Insightful.Pub[] =
+    const pubs: Illuminsight.Pub[] =
       (await localForage.getItem('pub-list')) || [];
-    const tags: Insightful.Tag[] =
+    const tags: Illuminsight.Tag[] =
       (await localForage.getItem('tag-list')) || [];
 
     // Automatically infer tags from meta.json
@@ -184,7 +184,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
       }
       // Create and link new tag
       else {
-        const tag: Insightful.Tag = { name: inferredTag, id: id++ };
+        const tag: Illuminsight.Tag = { name: inferredTag, id: id++ };
         pub.tags.push(tag.id);
         tags.push(tag);
       }

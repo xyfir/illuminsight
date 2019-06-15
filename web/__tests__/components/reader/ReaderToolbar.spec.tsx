@@ -1,13 +1,13 @@
 import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
 import { MemoryRouter } from 'react-router-dom';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { testPub } from 'lib/test/data';
 import * as React from 'react';
 
 test('<ReaderToolbar>', async () => {
   // Wrap <ReaderToolbar>
-  const history: Insightful.Marker[] = [];
+  const history: Illuminsight.Marker[] = [];
   function ReaderToolbarConsumer() {
     const [pub, setPub] = React.useState(testPub);
     return (

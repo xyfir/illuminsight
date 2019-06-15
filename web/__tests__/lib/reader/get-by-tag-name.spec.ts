@@ -1,8 +1,8 @@
 import { getByTagName } from 'lib/reader/get-by-tag-name';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 
 test('getByTagName()', () => {
-  const ast: Insightful.AST[] = [
+  const ast: Illuminsight.AST[] = [
     {
       n: 'div',
       c: [

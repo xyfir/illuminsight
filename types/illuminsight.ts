@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Document } from 'wtf_wikipedia';
 
-export namespace Insightful {
+export namespace Illuminsight {
   export interface Tag {
     id: number;
     name: string;
@@ -87,19 +87,19 @@ export namespace Insightful {
        */
       NODE_ENV: 'development' | 'production';
       /**
-       * Version of ASTPUB format this instance of Insightful supports.
+       * Version of ASTPUB format this instance of Illuminsight supports.
        */
       ASTPUB_VERSION: 1;
       /**
-       * Absolute path for insightful files.
-       * @example "/path/to/insightful/files"
+       * Absolute path for illuminsight files.
+       * @example "/path/to/illuminsight/files"
        */
       FILES_DIRECTORY: string;
     }
 
-    export interface Server extends Insightful.Env.Common {
+    export interface Server extends Illuminsight.Env.Common {
       /**
-       * Path to directory which Insightful will use for file uploads,
+       * Path to directory which Illuminsight will use for file uploads,
        *  conversions, and downloads.
        */
       TEMP_DIR: string;
@@ -114,13 +114,13 @@ export namespace Insightful {
        */
       WEB_URL: string;
       /**
-       * Absolute path for insightful-web.
-       * @example "/path/to/insightful/web"
+       * Absolute path for illuminsight-web.
+       * @example "/path/to/illuminsight/web"
        */
       WEB_DIRECTORY: string;
     }
 
-    export interface Web extends Insightful.Env.Common {
+    export interface Web extends Illuminsight.Env.Common {
       /**
        * The app's root API URL.
        * @example "https://example.com/api/0"

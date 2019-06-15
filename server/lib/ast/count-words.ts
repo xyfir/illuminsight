@@ -1,9 +1,9 @@
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 
 /**
  * Count words in AST node.
  */
-export function countWords(node: Insightful.AST): number {
+export function countWords(node: Illuminsight.AST): number {
   // Count words in string
   if (typeof node == 'string') {
     const text = node.trim();

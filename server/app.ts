@@ -4,7 +4,7 @@ config();
 import 'enve';
 
 import * as bodyParser from 'body-parser';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import * as Express from 'express';
 import { router } from 'api/router';
 import * as path from 'path';
@@ -12,7 +12,7 @@ import * as path from 'path';
 declare global {
   namespace NodeJS {
     interface Process {
-      enve: Insightful.Env.Server;
+      enve: Illuminsight.Env.Server;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import {
   ListItemAvatar,
@@ -28,10 +28,10 @@ function _Tags({
   matches,
   tags
 }: {
-  setSelectedTags: React.Dispatch<React.SetStateAction<Insightful.Tag['id'][]>>;
-  selectedTags: Insightful.Tag['id'][];
-  matches: Insightful.Pub[];
-  tags: Insightful.Tag[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<Illuminsight.Tag['id'][]>>;
+  selectedTags: Illuminsight.Tag['id'][];
+  matches: Illuminsight.Pub[];
+  tags: Illuminsight.Tag[];
 } & WithStyles<typeof styles>) {
   // Unselected tags linked to matching pubs
   const availableTags = Array.from(
@@ -62,7 +62,7 @@ function _Tags({
                 <Avatar className={classes.selectedTagAvatar}>#</Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
+                primary={(tags.find(t => t.id == tag) as Illuminsight.Tag).name}
               />
             </ListItem>
           ))}
@@ -83,7 +83,7 @@ function _Tags({
                 <Avatar>#</Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={(tags.find(t => t.id == tag) as Insightful.Tag).name}
+                primary={(tags.find(t => t.id == tag) as Illuminsight.Tag).name}
               />
             </ListItem>
           ))}

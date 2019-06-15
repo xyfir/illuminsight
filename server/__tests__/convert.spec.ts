@@ -1,4 +1,4 @@
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import { nodeToAST } from 'lib/ast/node-to-ast';
 import { convert } from 'lib/convert';
 import { Extract } from 'unzipper';
@@ -63,8 +63,8 @@ test('convert({text})', async () => {
   );
 
   // Validate meta.json
-  const pub: Insightful.Pub = await readJSON(astpubMetaFile);
-  const _pub: Insightful.Pub = {
+  const pub: Illuminsight.Pub = await readJSON(astpubMetaFile);
+  const _pub: Illuminsight.Pub = {
     authors: 'Unknown',
     bookmark: { section: 0, element: 0 },
     cover: 'res/0.jpg',
@@ -83,10 +83,10 @@ test('convert({text})', async () => {
   await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);
 
   // Validate AST
-  const ast: Insightful.AST[] = await readJSON(
+  const ast: Illuminsight.AST[] = await readJSON(
     resolve(astpubDirectory, 'ast/1.json')
   );
-  const _ast: Insightful.AST[] = [
+  const _ast: Illuminsight.AST[] = [
     { n: 'p', c: ['Hello'] },
     { n: 'p', c: ['World! How are you?'] }
   ];
@@ -106,8 +106,8 @@ test(
     );
 
     // Validate meta.json
-    const pub: Insightful.Pub = await readJSON(astpubMetaFile);
-    const _pub: Insightful.Pub = {
+    const pub: Illuminsight.Pub = await readJSON(astpubMetaFile);
+    const _pub: Illuminsight.Pub = {
       ...pub,
       authors: 'Unknown',
       bookmark: { section: 0, element: 0 },
@@ -136,7 +136,7 @@ test(
     await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);
 
     // Validate AST
-    const ast: Insightful.AST[] = await readJSON(
+    const ast: Illuminsight.AST[] = await readJSON(
       resolve(astpubDirectory, 'ast/3.json')
     );
     expect(ast).toMatchSnapshot();
@@ -158,8 +158,8 @@ test(
     );
 
     // Validate meta.json
-    const pub: Insightful.Pub = await readJSON(astpubMetaFile);
-    const _pub: Insightful.Pub = {
+    const pub: Illuminsight.Pub = await readJSON(astpubMetaFile);
+    const _pub: Illuminsight.Pub = {
       ...pub,
       authors: 'Charles Dickens',
       bookmark: { section: 0, element: 0 },
@@ -178,13 +178,13 @@ test(
     expect(pub.toc.slice(0, 2)).toMatchObject([
       { element: 'pgepubid00000', section: 1, title: 'A TALE OF TWO CITIES' },
       { element: 0, section: 2, title: 'A STORY OF THE FRENCH REVOLUTION' }
-    ] as Insightful.Pub['toc']);
+    ] as Illuminsight.Pub['toc']);
 
     // Validate cover
     await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);
 
     // Validate AST
-    const ast: Insightful.AST[] = await readJSON(
+    const ast: Illuminsight.AST[] = await readJSON(
       resolve(astpubDirectory, 'ast/5.json')
     );
     expect(ast).toMatchSnapshot();

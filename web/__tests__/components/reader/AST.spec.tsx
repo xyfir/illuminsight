@@ -11,7 +11,7 @@ test('<AST>', async () => {
         <AST
           ast={node}
           key={i}
-          insightsIndex={{ 2: [{ text: 'Insightful' }] }}
+          insightsIndex={{ 2: [{ text: 'Illuminsight' }] }}
         />
       ))}
     </div>
@@ -27,8 +27,8 @@ test('<AST>', async () => {
   expect(el.tagName).toBe('P');
 
   // Insight rendered after p
-  getByText('Insightful');
-  expect(el.nextElementSibling!.textContent).toBe('Insightful');
+  getByText('Illuminsight');
+  expect(el.nextElementSibling!.textContent).toBe('Illuminsight');
 
   // p > a
   el = getByText('with a link');

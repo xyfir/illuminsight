@@ -1,4 +1,4 @@
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import * as wtf from 'wtf_wikipedia';
 import {
@@ -46,7 +46,7 @@ type SectionKey = 'all' | 'toc' | 'main' | 'main+stats' | number;
 export function WikiInsight({
   insight
 }: {
-  insight: Required<Insightful.Insight>;
+  insight: Required<Illuminsight.Insight>;
 }) {
   const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
   const [articleKey, setArticleKey] = React.useState(0);

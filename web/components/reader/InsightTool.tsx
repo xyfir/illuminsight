@@ -1,6 +1,6 @@
 import { RemoveRedEye as Eyecon } from '@material-ui/icons';
 import { getInsights } from 'lib/reader/get-insights';
-import { Insightful } from 'types/insightful';
+import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import {
   CircularProgress,
@@ -23,8 +23,8 @@ export function InsightTool({
   insightsIndex,
   onChange
 }: {
-  onChange: (insights: Insightful.InsightsIndex) => void;
-  insightsIndex: Insightful.InsightsIndex;
+  onChange: (insights: Illuminsight.InsightsIndex) => void;
+  insightsIndex: Illuminsight.InsightsIndex;
 }) {
   const [active, setActive] = React.useState(false);
   const classes = useStyles();
