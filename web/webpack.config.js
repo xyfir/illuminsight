@@ -120,7 +120,8 @@ module.exports = {
       }, {})
     }),
     new CleanWebpackPlugin({
-      cleanAfterEveryBuildPatterns: ['**/*', '!manifest.json']
+      cleanAfterEveryBuildPatterns: ['**/*', '!manifest.json'],
+      cleanOnceBeforeBuildPatterns: ['**/*', '!manifest.json']
     }),
     new HtmlWebpackPlugin({
       excludeChunks: ['sw'],
