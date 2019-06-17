@@ -29,7 +29,9 @@ const styles = (theme: Theme) =>
       margin: '1em auto !important',
       color: theme.palette.getContrastText(theme.palette.background.default),
       '& img': {
-        maxWidth: '100%'
+        maxWidth: '100%',
+        display: 'block',
+        margin: 'auto'
       },
       '& a': {
         textDecoration: 'none',
