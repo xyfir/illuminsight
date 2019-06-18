@@ -3,9 +3,9 @@ import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
+import { Illuminsight } from 'types/illuminsight';
 import * as localForage from 'localforage';
 import { InsightTool } from 'components/reader/InsightTool';
-import { Illuminsight } from 'types/illuminsight';
 import { Indexer } from 'lib/reader/Indexer';
 import * as React from 'react';
 import * as JSZip from 'jszip';
@@ -286,7 +286,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         onScroll={e => this.onScroll(e)}
       >
         <ReaderToolbar
-          onChange={this.loadSection}
+          onNavigate={this.loadSection}
           history={this.history}
           pub={pub}
         />

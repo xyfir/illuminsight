@@ -45,11 +45,11 @@ const useStyles = makeStyles(theme =>
 type DialogView = false | 'toc' | 'font-size';
 
 export function ReaderToolbar({
-  onChange,
+  onNavigate,
   history,
   pub
 }: {
-  onChange: (pub: Illuminsight.Pub) => void;
+  onNavigate: (pub: Illuminsight.Pub) => void;
   history: Illuminsight.Marker[];
   pub?: Illuminsight.Pub;
 }) {
@@ -72,19 +72,19 @@ export function ReaderToolbar({
     document.getElementById('ast')!.style.fontSize = `${fontSize}%`;
   }
 
-  /** Navigate by updating pub bookmark */
-  function onNavigate(marker: Illuminsight.Marker) {
-    const _pub: Illuminsight.Pub = Object.assign({}, pub);
-    _pub.bookmark = marker;
-    onChange(_pub);
-  }
-
   /** Navigate to Table of Contents selection */
   function onSelect(tocMarker: Illuminsight.Pub['toc'][0]) {
     if (!pub) return;
     history.push(pub.bookmark);
-    onNavigate(tocMarker);
+    navigate(tocMarker);
     setDialog(false);
+  }
+
+  /** Navigate by updating pub bookmark */
+  function navigate(marker: Illuminsight.Marker) {
+    const _pub: Illuminsight.Pub = Object.assign({}, pub);
+    _pub.bookmark = marker;
+    onNavigate(_pub);
   }
 
   return (
@@ -104,7 +104,7 @@ export function ReaderToolbar({
           <IconButton
             disabled={pub.bookmark.section == 0}
             onClick={() =>
-              onNavigate({ section: pub.bookmark.section - 1, element: 0 })
+              navigate({ section: pub.bookmark.section - 1, element: 0 })
             }
           >
             <PreviousIcon />
@@ -119,7 +119,7 @@ export function ReaderToolbar({
       {/* Back (history) */}
       {history.length ? (
         <Tooltip title="Go back">
-          <IconButton onClick={() => onNavigate(history.pop()!)}>
+          <IconButton onClick={() => navigate(history.pop()!)}>
             <BackIcon />
           </IconButton>
         </Tooltip>
@@ -134,7 +134,7 @@ export function ReaderToolbar({
         <Tooltip title="Go to next section">
           <IconButton
             onClick={() =>
-              onNavigate({ section: pub.bookmark.section + 1, element: 0 })
+              navigate({ section: pub.bookmark.section + 1, element: 0 })
             }
           >
             <NextIcon />
