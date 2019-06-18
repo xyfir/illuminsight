@@ -12,7 +12,13 @@ test('<ReaderToolbar>', async () => {
     const [pub, setPub] = React.useState(testPub);
     return (
       <MemoryRouter>
-        <ReaderToolbar onNavigate={setPub} history={history} pub={pub} />
+        <ReaderToolbar
+          insightsIndex={{}}
+          onNavigate={setPub}
+          onInsight={() => 1}
+          history={history}
+          pub={pub}
+        />
       </MemoryRouter>
     );
   }

@@ -1,3 +1,4 @@
+import { InsightToolProps, InsightTool } from 'components/reader/InsightTool';
 import { ToggleThemeContext } from 'lib/app/theme';
 import { Illuminsight } from 'types/illuminsight';
 import { Toolbar } from 'components/app/Toolbar';
@@ -45,14 +46,16 @@ const useStyles = makeStyles(theme =>
 type DialogView = false | 'toc' | 'font-size';
 
 export function ReaderToolbar({
+  insightsIndex,
   onNavigate,
+  onInsight,
   history,
   pub
 }: {
   onNavigate: (pub: Illuminsight.Pub) => void;
   history: Illuminsight.Marker[];
   pub?: Illuminsight.Pub;
-}) {
+} & InsightToolProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [dialog, setDialog] = React.useState<DialogView>(false);
   const toggleTheme = React.useContext(ToggleThemeContext);
@@ -98,7 +101,7 @@ export function ReaderToolbar({
         </Link>
       </Tooltip>
 
-      {/* Previous Section */}
+      {/* Previous section */}
       {pub.bookmark.section > 0 ? (
         <Tooltip title="Go to previous section">
           <IconButton
@@ -129,7 +132,10 @@ export function ReaderToolbar({
         </IconButton>
       )}
 
-      {/* Next Section */}
+      {/* Insight tool */}
+      <InsightTool insightsIndex={insightsIndex} onInsight={onInsight} />
+
+      {/* Next section */}
       {pub.sections - 1 > pub.bookmark.section ? (
         <Tooltip title="Go to next section">
           <IconButton

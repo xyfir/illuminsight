@@ -5,7 +5,6 @@ import { ReaderToolbar } from 'components/reader/ReaderToolbar';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
 import { Illuminsight } from 'types/illuminsight';
 import * as localForage from 'localforage';
-import { InsightTool } from 'components/reader/InsightTool';
 import { Indexer } from 'lib/reader/Indexer';
 import * as React from 'react';
 import * as JSZip from 'jszip';
@@ -286,14 +285,11 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         onScroll={e => this.onScroll(e)}
       >
         <ReaderToolbar
+          insightsIndex={insightsIndex}
           onNavigate={this.loadSection}
+          onInsight={i => this.setState({ insightsIndex: i })}
           history={this.history}
           pub={pub}
-        />
-
-        <InsightTool
-          insightsIndex={insightsIndex}
-          onChange={i => this.setState({ insightsIndex: i })}
         />
 
         <div
