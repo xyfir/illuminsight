@@ -13,6 +13,7 @@ import { AST } from 'components/reader/AST';
 const styles = (theme: Theme) =>
   createStyles({
     root: {
+      '-webkit-overflow-scrolling': 'touch',
       overflowY: 'auto',
       padding: '1em',
       ' & > div': {
