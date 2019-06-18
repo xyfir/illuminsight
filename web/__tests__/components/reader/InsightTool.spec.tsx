@@ -8,14 +8,14 @@ test('<InsightTool>', async () => {
   // Mock final element that insight tool will zero in on
   const mockElement = {
     innerText: 'My name is Illuminsight.',
-    getAttribute: jest.fn()
+    getAttribute: jest.fn(() => '2')
   };
-  mockElement.getAttribute.mockReturnValueOnce(2);
 
   // Add mocks
   const mockGetBoundingClientRect = (HTMLButtonElement.prototype.getBoundingClientRect = jest.fn());
   const mockElementsFromPoint = ((document as any).elementsFromPoint = jest.fn());
   const mockGetComputedStyle = ((window as any).getComputedStyle = jest.fn());
+  const mockGetAttribute = jest.fn(() => '0');
 
   // Mock fetching Wikipedia article
   const mockFetch = ((wtf as any).fetch = jest.fn());
@@ -35,7 +35,11 @@ test('<InsightTool>', async () => {
     // detected as a container element and so not return
     // [div (container), div#ast, ancestors that don't matter]
     mockElementsFromPoint.mockReturnValueOnce([
-      { tagName: 'DIV', innerText: ' '.repeat(10001) },
+      {
+        tagName: 'DIV',
+        innerText: ' '.repeat(10001),
+        getAttribute: mockGetAttribute
+      },
       { id: 'ast' },
       {},
       {}
@@ -44,10 +48,11 @@ test('<InsightTool>', async () => {
 
     // Configure mock so an element should be found
     mockElementsFromPoint.mockReturnValueOnce([
-      { innerText: ' ' }, // inline
+      { innerText: ' ', getAttribute: mockGetAttribute }, // inline
+      { innerText: ' ', getAttribute: jest.fn(() => null) }, // non-ast filtered out
       mockElement, // block (last)
-      { innerText: ' ' }, // block
-      { innerText: ' ' }, // inline
+      { innerText: ' ', getAttribute: mockGetAttribute }, // block
+      { innerText: ' ', getAttribute: mockGetAttribute }, // inline
       { id: 'ast' }
     ]);
     mockGetComputedStyle.mockReturnValueOnce({ display: 'inline' });
@@ -75,8 +80,11 @@ test('<InsightTool>', async () => {
 
   // Ensure insight tool click handler works
   expect(mockGetElementById).toHaveBeenCalledTimes(1);
-  // Remember: we mock two different getBoundingClientRect methods!
   await wait(() => expect(mockGetBoundingClientRect).toHaveBeenCalledTimes(1));
+
+  // Validate that all #ast children were checked for ast attribute
+  expect(mockGetAttribute).toHaveBeenCalledTimes(4);
+  expect(mockGetAttribute).toHaveBeenCalledWith('ast');
 
   // First call to getElement() failed because it got the container element
   // On second try it found our mockElement
@@ -86,8 +94,10 @@ test('<InsightTool>', async () => {
   expect(mockGetComputedStyle).toHaveBeenCalledTimes(6);
 
   // Validate the ast attribute was retrieved from our mock element
-  expect(mockElement.getAttribute).toHaveBeenCalledTimes(1);
-  expect(mockElement.getAttribute).toHaveBeenCalledWith('ast');
+  // First time to filter out non-ast elements and second for final selection
+  expect(mockElement.getAttribute).toHaveBeenCalledTimes(2);
+  expect(mockElement.getAttribute).toHaveBeenNthCalledWith(1, 'ast');
+  expect(mockElement.getAttribute).toHaveBeenNthCalledWith(2, 'ast');
 
   // Insights were generated and set to correct AST element index
   await wait(() => expect(mockFetch).toHaveBeenCalled());

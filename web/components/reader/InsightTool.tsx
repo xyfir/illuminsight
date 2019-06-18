@@ -36,6 +36,9 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     // Remove #ast and any ancestors
     elements.splice(elements.findIndex(el => el.id == 'ast'), elements.length);
 
+    // Remove non-ast elements
+    elements = elements.filter(el => el.getAttribute('ast') !== null);
+
     // Reverse list so it's [parent,child]
     elements.reverse();
 
@@ -83,7 +86,7 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
       element = getElement(x + 1, y + 50 + i * lineHeight);
       if (element) break;
     }
-    if (!element) return;
+    if (!element) return setActive(false);
 
     // Get index of AST element
     const index = +element.getAttribute('ast')!;
