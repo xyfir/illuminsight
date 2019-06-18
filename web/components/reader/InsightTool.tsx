@@ -1,20 +1,18 @@
-import { RemoveRedEye as Eyecon } from '@material-ui/icons';
+import { Highlight as InsightIcon } from '@material-ui/icons';
 import { Illuminsight } from 'types/illuminsight';
 import { getInsights } from 'lib/reader/get-insights';
 import * as React from 'react';
 import {
-  CircularProgress,
   createStyles,
   IconButton,
-  makeStyles
+  makeStyles,
+  Tooltip
 } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    tool: {
-      position: 'absolute',
-      left: '-15px',
-      top: '50%'
+    button: {
+      transform: 'rotate(180deg)'
     }
   })
 );
@@ -73,10 +71,8 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     const tool = event.target as HTMLButtonElement;
     const ast = document.getElementById('ast')!;
 
-    // Get needed x/y coordinates
-    // Need x from #ast because of its dynamic width/margin
-    const { x } = ast.getBoundingClientRect() as DOMRect;
-    const { y } = tool.getBoundingClientRect() as DOMRect;
+    // Get needed coordinates
+    const { x, y } = tool.getBoundingClientRect() as DOMRect;
 
     // Get line height of AST container
     const lineHeight = +getComputedStyle(ast)!.lineHeight!.split('px')[0];
@@ -84,7 +80,7 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     // Find adjacent element with a bit of guesswork
     let element: HTMLElement | undefined = undefined;
     for (let i = 0; i < 3; i++) {
-      element = getElement(x + 1, y + i * lineHeight);
+      element = getElement(x + 1, y + 50 + i * lineHeight);
       if (element) break;
     }
     if (!element) return;
@@ -102,18 +98,19 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     setActive(false);
   }
 
-  return (
-    <React.Fragment>
-      {active ? <CircularProgress className={classes.tool} size={30} /> : null}
+  return active ? (
+    <IconButton className={classes.button} disabled={active}>
+      <InsightIcon />
+    </IconButton>
+  ) : (
+    <Tooltip title="Toggle insights for text block below">
       <IconButton
-        className={classes.tool}
+        className={classes.button}
         disabled={active}
         onClick={onClick}
-        title="Insight tool"
-        size="small"
       >
-        <Eyecon />
+        <InsightIcon />
       </IconButton>
-    </React.Fragment>
+    </Tooltip>
   );
 }
