@@ -13,7 +13,8 @@ import {
 const useStyles = makeStyles(() =>
   createStyles({
     chip: {
-      margin: '0 0.3em'
+      marginBottom: '0.3em',
+      marginRight: '0.3em'
     }
   })
 );
