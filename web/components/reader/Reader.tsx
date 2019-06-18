@@ -101,25 +101,34 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       this.onLinkClick(e);
       return;
     }
+    e.preventDefault();
 
     // Empty link, do nothing
     if (!a.href) return;
 
     // External link, open in new tab
-    if (a.origin != location.origin) {
-      e.preventDefault();
-      return window.open(a.href);
-    }
+    if (a.origin != location.origin) return window.open(a.href);
 
-    // Hash link for current section, allow normal behavior
-    if (a.pathname == location.pathname && a.hash.length > 1) return;
+    const pub = { ...this.state.pub! };
+
+    // Hash link for current section, focus #hash
+    if (a.pathname == location.pathname && a.hash.length > 1) {
+      // Get element by hash
+      const el = document.getElementById(a.hash.substr(1));
+      if (!el) return;
+
+      // Save current location to history
+      this.history.push({ ...pub.bookmark });
+
+      // Set location as bookmark and navigate to it
+      pub.bookmark = { ...pub.bookmark, element: a.hash.substr(1) };
+      this.loadSection(pub);
+      return;
+    }
 
     // Link for another section, change and optionally focus #hash
     const match = a.href.match(/\/ast\/(\d+)\.json(?:#(.*))?$/);
-    e.preventDefault();
     if (match) {
-      const pub = this.state.pub!;
-
       // Save current location to history
       this.history.push(pub.bookmark);
 
@@ -198,6 +207,15 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
    * Load section from zip file by bookmark.
    */
   async loadSection(pub: Illuminsight.Pub) {
+    const { pub: oldPub } = this.state;
+
+    // Catch unexpected issues
+    if (pub === oldPub) throw 'loadSection() received same pub from state!';
+
+    // Section hasn't changed so all we need to do is scroll to bookmark
+    if (oldPub && oldPub.bookmark.section == pub.bookmark.section)
+      return this.scrollToBookmark(pub);
+
     const { enqueueSnackbar, history } = this.props;
     const zip = this.zip as JSZip;
 
@@ -215,7 +233,6 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       const imgNodes = getByTagName('img', ast).concat(
         getByTagName('image', ast)
       );
-
       for (let node of imgNodes) {
         if (typeof node == 'string' || !node.a) continue;
 
