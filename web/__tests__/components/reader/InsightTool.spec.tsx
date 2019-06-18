@@ -1,6 +1,6 @@
 import { fireEvent, render, wait } from '@testing-library/react';
-import { InsightTool } from 'components/reader/InsightTool';
 import { Illuminsight } from 'types/illuminsight';
+import { InsightTool } from 'components/reader/InsightTool';
 import * as React from 'react';
 import * as wtf from 'wtf_wikipedia';
 
@@ -21,10 +21,8 @@ test('<InsightTool>', async () => {
   const mockFetch = ((wtf as any).fetch = jest.fn());
   mockFetch.mockResolvedValueOnce(null);
 
-  // Mock getting #ast and its rect
-  const mockGetElementById = ((document as any).getElementById = jest.fn(
-    () => ({ getBoundingClientRect: jest.fn(() => ({ x: 150 })) })
-  ));
+  // Mock getting #ast
+  const mockGetElementById = ((document as any).getElementById = jest.fn());
 
   function setMockReturns() {
     // Mock position of insight tool
@@ -64,7 +62,7 @@ test('<InsightTool>', async () => {
     const [insightsIndex, setInsightsIndex] = React.useState(_insightsIndex);
     _insightsIndex = insightsIndex;
     return (
-      <InsightTool onChange={setInsightsIndex} insightsIndex={insightsIndex} />
+      <InsightTool onInsight={setInsightsIndex} insightsIndex={insightsIndex} />
     );
   }
 
@@ -73,7 +71,7 @@ test('<InsightTool>', async () => {
 
   // Click insight tool to generate insights
   setMockReturns();
-  fireEvent.click(getByTitle('Insight tool'));
+  fireEvent.click(getByTitle('Toggle insights for text block below'));
 
   // Ensure insight tool click handler works
   expect(mockGetElementById).toHaveBeenCalledTimes(1);
@@ -97,7 +95,7 @@ test('<InsightTool>', async () => {
 
   // Click insight tool again to disable insights
   setMockReturns();
-  fireEvent.click(getByTitle('Insight tool'));
+  fireEvent.click(getByTitle('Toggle insights for text block below'));
 
   // Validate insights were toggled off for AST element index
   expect(_insightsIndex).toMatchObject({});
