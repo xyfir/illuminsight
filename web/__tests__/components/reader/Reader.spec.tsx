@@ -15,9 +15,10 @@ import {
 } from '@testing-library/react';
 
 test('<Reader>', async () => {
-  // Mock scrolling to bookmarked element
+  // Mock scrolling to elements
   // jsdom does not implement scrollIntoView()
   HTMLHeadingElement.prototype.scrollIntoView = jest.fn();
+  HTMLAnchorElement.prototype.scrollIntoView = jest.fn();
   HTMLDivElement.prototype.scrollIntoView = jest.fn();
   const mockSVGElementScrollIntoView = (SVGElement.prototype.scrollIntoView = jest.fn());
 
