@@ -85,7 +85,7 @@ export function ReaderToolbar({
 
   /** Navigate by updating pub bookmark */
   function navigate(marker: Illuminsight.Marker) {
-    const _pub: Illuminsight.Pub = Object.assign({}, pub);
+    const _pub = { ...pub! };
     _pub.bookmark = marker;
     onNavigate(_pub);
   }
