@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "allowJs": true,
     "baseUrl": "./",
