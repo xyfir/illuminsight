@@ -1,27 +1,45 @@
+import pkg from '../../package.json';
+
+const CACHE = `illuminsight-${pkg.version}`;
+let assets: string[] = [];
+
 self.addEventListener('install', event => {
   const evt = event as any;
   console.log('SW: install', evt);
 
-  evt.waitUntil(async () => {
-    // Download webpack assets manifest
-    const manifest: { [x: string]: string } = await fetch(
-      '/static/webpack.json'
-    ).then(res => res.json());
-    const assets = Object.values(manifest).filter(e => e != '/static/sw.js');
-    console.log('assets', assets);
+  evt.waitUntil(
+    (async () => {
+      // Download webpack assets manifest
+      const manifest: { [x: string]: string } = await fetch(
+        '/static/webpack.json'
+      ).then(res => res.json());
+      assets = Object.values(manifest).filter(e => e != '/static/sw.js');
 
-    // Cache the homepage
-    assets.push('/');
+      // Cache the homepage
+      assets.push('/');
 
-    // Cache all assets
-    const cache = await caches.open('illuminsight');
-    await cache.addAll(assets);
-    console.log('cached');
-    return;
-  });
+      // Cache all assets
+      const cache = await caches.open(CACHE);
+      await cache.addAll(assets);
+      return;
+    })()
+  );
 });
 
-self.addEventListener('activate', () => console.log('SW: activate'));
+self.addEventListener('activate', event => {
+  const evt = event as any;
+  console.log('SW: activate', evt);
+
+  // Delete old cache entries not in current version's asset list
+  evt.waitUntil(
+    (async () => {
+      let keys = await caches.keys();
+      keys = keys.filter(key => key != CACHE);
+      await Promise.all(keys.map(key => caches.delete(key)));
+      console.log(`SW: clearing ${keys.length} entries from cache`);
+    })()
+  );
+});
 
 self.addEventListener('fetch', event => {
   const evt = event as any;
