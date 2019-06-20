@@ -1,7 +1,7 @@
 {
   "name": "illuminsight-web",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Read smarter",
   "main": "index.js",
   "scripts": {
     "watch-coverage": "npm run coverage -- --watch",
