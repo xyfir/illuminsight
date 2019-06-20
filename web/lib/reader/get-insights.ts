@@ -1,13 +1,28 @@
 import { Illuminsight } from 'types/illuminsight';
 import { stopwords } from 'lib/reader/stopwords';
-import * as wtf from 'wtf_wikipedia';
+import wtf from 'wtf_wikipedia';
 
 const regex = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[^.\s!?])\s+([A-Z][-A-Za-z']*)/gm;
 
 /**
+ * @todo Manual parsing?
+ * - Split by space
+ * - Loop through, building phrases
+ * - `-` is connector
+ * - ` of ` and similar are connectors
+ * - `!` and `?` are hard separators
+ * - `.` is hard separator unless previous word was single cap letter
+ * - Throw out first cap word after hard separator if it's a stopword
+ * - Generated nested insights where we're unsure which words to include
+ * @todo Use full content to guide parser for paragraph
+ */
+
+/**
  * Generate insights from provided text content.
  */
-export async function getInsights(text: string): Promise<Illuminsight.Insight[]> {
+export async function getInsights(
+  text: string
+): Promise<Illuminsight.Insight[]> {
   const insights: Illuminsight.Insight[] = Array.from(
     // Removes duplicates
     new Set(
