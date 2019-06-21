@@ -1,13 +1,13 @@
-import * as InfiniteScroll from 'react-infinite-scroller';
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { formatRelative } from 'date-fns';
 import * as localForage from 'localforage';
 import { Illuminsight } from 'types/illuminsight';
+import InfiniteScroll from 'react-infinite-scroller';
 import * as React from 'react';
 import { Cover } from 'components/library/Cover';
-import * as Fuse from 'fuse.js';
 import { Link } from 'react-router-dom';
 import { Tags } from 'components/library/Tags';
+import Fuse from 'fuse.js';
 import {
   FilterList as FilterIcon,
   Search as SearchIcon,
@@ -239,8 +239,9 @@ function _Library({ classes }: WithStyles<typeof styles>) {
                           .map(
                             tag =>
                               `#${
-                                (tags.find(t => t.id == tag) as Illuminsight.Tag)
-                                  .name
+                                (tags.find(
+                                  t => t.id == tag
+                                ) as Illuminsight.Tag).name
                               }`
                           )
                           .join(' ')}

@@ -3,7 +3,7 @@ import { testWikitext } from 'lib/test/data';
 import { Illuminsight } from 'types/illuminsight';
 import { Insights } from 'components/reader/Insights';
 import * as React from 'react';
-import * as wtf from 'wtf_wikipedia';
+import wtf from 'wtf_wikipedia';
 
 test('<Insights>', async () => {
   // Mock window.open

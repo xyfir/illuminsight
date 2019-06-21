@@ -4,7 +4,7 @@ import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import * as localForage from 'localforage';
 import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
-import * as JSZip from 'jszip';
+import JSZip from 'jszip';
 import {
   InputAdornment,
   createStyles,

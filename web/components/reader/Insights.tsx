@@ -1,6 +1,6 @@
 import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
-import { WikiInsight } from 'components/reader/WikiInsight';
 import { Illuminsight } from 'types/illuminsight';
+import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
 import {
   CloseOutlined as CloseIcon,

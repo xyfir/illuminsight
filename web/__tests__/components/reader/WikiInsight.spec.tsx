@@ -2,7 +2,7 @@ import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { alternateTestWikitext, testWikitext } from 'lib/test/data';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
-import * as wtf from 'wtf_wikipedia';
+import wtf from 'wtf_wikipedia';
 
 test('<WikiInsight>', async () => {
   const { getByLabelText, getAllByText, getByText } = render(

@@ -1,6 +1,6 @@
 import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
-import * as wtf from 'wtf_wikipedia';
+import wtf from 'wtf_wikipedia';
 import {
   ChevronLeft as BackIcon,
   ExpandMore as ExpandMoreIcon,

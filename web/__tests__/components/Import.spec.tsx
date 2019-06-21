@@ -1,12 +1,12 @@
 import { SnackbarProvider } from 'notistack';
+import { Illuminsight } from 'types/illuminsight';
 import * as localForage from 'localforage';
 import { MemoryRouter } from 'react-router';
-import { Illuminsight } from 'types/illuminsight';
 import { testPub } from 'lib/test/data';
 import { Import } from 'components/Import';
-import * as JSZip from 'jszip';
 import * as React from 'react';
 import { api } from 'lib/app/api';
+import JSZip from 'jszip';
 import {
   waitForElementToBeRemoved,
   waitForElement,

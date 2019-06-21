@@ -1,11 +1,11 @@
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
+import { Illuminsight } from 'types/illuminsight';
 import * as localForage from 'localforage';
 import { useSnackbar } from 'notistack';
-import { Illuminsight } from 'types/illuminsight';
 import { getYear } from 'date-fns';
-import * as JSZip from 'jszip';
 import * as React from 'react';
 import { api } from 'lib/app/api';
+import JSZip from 'jszip';
 import {
   LinearProgress,
   InputAdornment,
