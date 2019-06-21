@@ -7,13 +7,14 @@ import { Illuminsight } from 'types/illuminsight';
 import * as localForage from 'localforage';
 import { Indexer } from 'lib/reader/Indexer';
 import * as React from 'react';
-import * as JSZip from 'jszip';
 import { AST } from 'components/reader/AST';
+import JSZip from 'jszip';
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
       '-webkit-overflow-scrolling': 'touch',
+      paddingBottom: '80vh',
       overflowY: 'auto',
       padding: '1em',
       ' & > div': {
