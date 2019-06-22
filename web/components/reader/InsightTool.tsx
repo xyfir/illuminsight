@@ -70,31 +70,50 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     if (active) return;
     setActive(true);
 
-    // Get elements
-    const tool = event.target as HTMLButtonElement;
-    const ast = document.getElementById('ast')!;
+    const selection = window.getSelection()!;
 
-    // Get needed coordinates
-    const { x, y } = tool.getBoundingClientRect() as DOMRect;
+    // Generate insights from selected text
+    if (selection.type == 'Range') {
+      const rect = selection.focusNode!.parentElement!.getBoundingClientRect() as DOMRect;
+      const element = getElement(rect.x, rect.y) as HTMLElement;
 
-    // Get line height of AST container
-    const lineHeight = +getComputedStyle(ast)!.lineHeight!.split('px')[0];
+      // Get index of AST element
+      const index = +element.getAttribute('ast')!;
 
-    // Find adjacent element with a bit of guesswork
-    let element: HTMLElement | undefined = undefined;
-    for (let i = 0; i < 3; i++) {
-      element = getElement(x + 1, y + 50 + i * lineHeight);
-      if (element) break;
+      // Generate insights for AST block
+      const insights = await getInsights(selection.toString().trim(), true);
+      insightsIndex[index] = insightsIndex[index]
+        ? insightsIndex[index].concat(insights)
+        : insights;
     }
-    if (!element) return setActive(false);
+    // Generate insights from element's text
+    else {
+      // Get elements
+      const tool = event.target as HTMLButtonElement;
+      const ast = document.getElementById('ast')!;
 
-    // Get index of AST element
-    const index = +element.getAttribute('ast')!;
+      // Get needed coordinates
+      const { x, y } = tool.getBoundingClientRect() as DOMRect;
 
-    // // Remove insights
-    if (insightsIndex[index]) delete insightsIndex[index];
-    // Parse insights from element's text
-    else insightsIndex[index] = await getInsights(element.innerText);
+      // Get line height of AST container
+      const lineHeight = +getComputedStyle(ast)!.lineHeight!.split('px')[0];
+
+      // Find adjacent element with a bit of guesswork
+      let element: HTMLElement | undefined = undefined;
+      for (let i = 0; i < 3; i++) {
+        element = getElement(x + 1, y + 50 + i * lineHeight);
+        if (element) break;
+      }
+      if (!element) return setActive(false);
+
+      // Get index of AST element
+      const index = +element.getAttribute('ast')!;
+
+      // Remove insights
+      if (insightsIndex[index]) delete insightsIndex[index];
+      // Parse insights from element's text
+      else insightsIndex[index] = await getInsights(element.innerText);
+    }
 
     // Send modified insights back to Reader
     onInsight(insightsIndex);
