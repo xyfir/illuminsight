@@ -1,5 +1,4 @@
 import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
-import { FreestyleInsights } from 'components/reader/FreestyleInsights';
 import { Illuminsight } from 'types/illuminsight';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
@@ -7,7 +6,6 @@ import {
   CloseOutlined as CloseIcon,
   ChevronLeft as BackIcon,
   ExpandMore as ExpandMoreIcon,
-  CropFree as FreestyleIcon,
   Search as SearchIcon,
   Info as InfoIcon
 } from '@material-ui/icons';
@@ -21,27 +19,10 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export function Insights({
-  onDisableFreestyle,
-  insights,
-  index
-}: {
-  onDisableFreestyle?: () => void;
-  insights: Illuminsight.Insight[];
-  index: number;
-}) {
-  const [freestyle, setFreestyle] = React.useState(false);
+export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
   const [showWiki, setShowWiki] = React.useState(-1);
   const [expand, setExpand] = React.useState(-1);
   const classes = useStyles();
-
-  /** Toggle freestyle mode */
-  function onToggleFreestyle() {
-    // Freestyle enabled and <Insights> is a child of <FreestyleInsights>
-    if (onDisableFreestyle) onDisableFreestyle();
-    // <Insights> is a parent of <FreestyleInsights>
-    else setFreestyle(!freestyle);
-  }
 
   /** Handle an insight chip being clicked */
   function onClick(i: number, type: 'search' | 'wiki') {
@@ -56,52 +37,38 @@ export function Insights({
       );
   }
 
-  return freestyle ? (
-    // Render <FreestyleInsights> from top level <Insights>
-    <FreestyleInsights onDisable={onToggleFreestyle} index={index} />
-  ) : (
-    // Render normal insights or any generated from parent <FreestyleInsights>
+  return (
     <div>
       {/* Insight list (top level | expanded) */}
       {expand == -1 ? (
-        insights
-          .map((insight, i) => (
-            <Chip
-              key={insight.text}
-              icon={
-                showWiki == i ? (
-                  <CloseIcon />
-                ) : insight.wiki ? (
-                  <InfoIcon />
-                ) : (
-                  <SearchIcon />
-                )
-              }
-              label={insight.text}
-              onClick={() => onClick(i, insight.wiki ? 'wiki' : 'search')}
-              // onDelete/deleteIcon are repurposed for expanding insights
-              onDelete={insight.wiki ? () => setExpand(i) : undefined}
-              className={classes.chip}
-              deleteIcon={
-                insight.wiki ? (
-                  <ExpandMoreIcon
-                    aria-label={`View all insights for "${insight.text}"`}
-                  />
-                ) : (
-                  undefined
-                )
-              }
-            />
-          ))
-          .concat(
-            <Chip
-              key="freestyle"
-              icon={onDisableFreestyle ? <CloseIcon /> : <FreestyleIcon />}
-              label="Freestyle"
-              onClick={onToggleFreestyle}
-              className={classes.chip}
-            />
-          )
+        insights.map((insight, i) => (
+          <Chip
+            key={insight.text}
+            icon={
+              showWiki == i ? (
+                <CloseIcon />
+              ) : insight.wiki ? (
+                <InfoIcon />
+              ) : (
+                <SearchIcon />
+              )
+            }
+            label={insight.text}
+            onClick={() => onClick(i, insight.wiki ? 'wiki' : 'search')}
+            // onDelete / deleteIcon are repurposed for expanding insights
+            onDelete={insight.wiki ? () => setExpand(i) : undefined}
+            className={classes.chip}
+            deleteIcon={
+              insight.wiki ? (
+                <ExpandMoreIcon
+                  aria-label={`View all insights for "${insight.text}"`}
+                />
+              ) : (
+                undefined
+              )
+            }
+          />
+        ))
       ) : (
         <React.Fragment>
           <IconButton
