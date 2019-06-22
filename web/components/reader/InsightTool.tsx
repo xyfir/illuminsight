@@ -127,6 +127,8 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
   ) : (
     <Tooltip title="Toggle insights for text block below">
       <IconButton
+        // prevent selected text (if any) from being deselected
+        onMouseDown={e => e.preventDefault()}
         className={classes.button}
         disabled={active}
         onClick={onClick}
