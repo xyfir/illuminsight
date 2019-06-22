@@ -25,9 +25,9 @@ test('<InsightTool>', async () => {
   // Mock getting #ast
   const mockGetElementById = ((document as any).getElementById = jest.fn());
 
-  function setMockReturns() {
+  function setMockReturnsForBlock() {
     // Mock position of insight tool
-    mockGetBoundingClientRect.mockReturnValueOnce({ y: 0 });
+    mockGetBoundingClientRect.mockReturnValueOnce({ x: 0, y: 0 });
 
     // Mock getting lineHeight of #ast
     mockGetComputedStyle.mockReturnValueOnce({ lineHeight: '15.05px' });
@@ -76,7 +76,7 @@ test('<InsightTool>', async () => {
   const { getByTitle } = render(<InsightToolConsumer />);
 
   // Click insight tool to generate insights
-  setMockReturns();
+  setMockReturnsForBlock();
   fireEvent.click(getByTitle('Toggle insights for text block below'));
 
   // Ensure insight tool click handler works
@@ -104,8 +104,33 @@ test('<InsightTool>', async () => {
   await wait(() => expect(mockFetch).toHaveBeenCalled());
   expect(_insightsIndex).toMatchObject({ 2: [{ text: 'Illuminsight' }] });
 
+  // Mock getSelection() to return selection
+  mockGetSelection.mockReturnValueOnce({
+    type: 'Range',
+    toString: () => 'hello world',
+    focusNode: {
+      parentElement: { getBoundingClientRect: () => ({ x: 0, y: 0 }) }
+    }
+  });
+
+  // Mock functions for getting text block from selection node
+  mockElementsFromPoint.mockReturnValueOnce([
+    { getAttribute: jest.fn(() => '3'), innerText: ' ' },
+    { id: 'ast' }
+  ]);
+  mockGetComputedStyle.mockReturnValueOnce({ display: 'block' });
+
+  // Click insight tool with highlighted text
+  fireEvent.click(getByTitle('Toggle insights for text block below'));
+
+  // Validate insight was generated from selection and added to previous
+  await wait(() => expect(Object.keys(_insightsIndex)).toBeArrayOfSize(2));
+  expect(_insightsIndex[3]).toMatchObject([
+    { text: 'hello world', wiki: undefined }
+  ]);
+
   // Click insight tool again to disable insights
-  setMockReturns();
+  setMockReturnsForBlock();
   fireEvent.click(getByTitle('Toggle insights for text block below'));
 
   // Validate insights were toggled off for AST element index
