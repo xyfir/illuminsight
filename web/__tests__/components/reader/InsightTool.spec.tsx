@@ -2,7 +2,7 @@ import { fireEvent, render, wait } from '@testing-library/react';
 import { Illuminsight } from 'types/illuminsight';
 import { InsightTool } from 'components/reader/InsightTool';
 import * as React from 'react';
-import * as wtf from 'wtf_wikipedia';
+import wtf from 'wtf_wikipedia';
 
 test('<InsightTool>', async () => {
   // Mock final element that insight tool will zero in on
@@ -15,6 +15,7 @@ test('<InsightTool>', async () => {
   const mockGetBoundingClientRect = (HTMLButtonElement.prototype.getBoundingClientRect = jest.fn());
   const mockElementsFromPoint = ((document as any).elementsFromPoint = jest.fn());
   const mockGetComputedStyle = ((window as any).getComputedStyle = jest.fn());
+  const mockGetSelection = ((window as any).getSelection = jest.fn(() => ({})));
   const mockGetAttribute = jest.fn(() => '0');
 
   // Mock fetching Wikipedia article
