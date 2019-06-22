@@ -25,7 +25,7 @@ export function AST({
           )
         : ast}
       {insightsIndex[index] ? (
-        <Insights insights={insightsIndex[index]} />
+        <Insights insights={insightsIndex[index]} index={index} />
       ) : null}
     </React.Fragment>
   );
