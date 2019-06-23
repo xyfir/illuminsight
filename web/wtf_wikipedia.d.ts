@@ -26,13 +26,6 @@ declare module wtf {
     cb?: any
   ): Promise<null | Document>;
 
-  export function fetch(
-    titles: string[],
-    lang?: string,
-    options?: any,
-    cb?: any
-  ): Promise<Document[]>;
-
   export function random(
     lang: string,
     options: object,
