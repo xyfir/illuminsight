@@ -1,8 +1,8 @@
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { formatRelative } from 'date-fns';
-import * as localForage from 'localforage';
 import { Illuminsight } from 'types/illuminsight';
 import InfiniteScroll from 'react-infinite-scroller';
+import localForage from 'localforage';
 import * as React from 'react';
 import { Cover } from 'components/library/Cover';
 import { Link } from 'react-router-dom';
@@ -43,8 +43,12 @@ const styles = (theme: Theme) =>
       zIndex: theme.zIndex.appBar - 1,
       width: 240
     },
-    pubName: {
+    pubAuthors: {
       marginBottom: '0.3em',
+      fontSize: '110%',
+      color: theme.palette.getContrastText(theme.palette.background.default)
+    },
+    pubName: {
       fontSize: '150%',
       display: 'flex',
       color: theme.palette.getContrastText(theme.palette.background.default)
@@ -82,10 +86,10 @@ function _Library({ classes }: WithStyles<typeof styles>) {
     Illuminsight.Tag['id'][]
   >([]);
   const [showDrawer, setShowDrawer] = React.useState(false);
-  const [pubs, setPubs] = React.useState<Illuminsight.Pub[]>([]);
   const [search, setSearch] = React.useState('');
-  const [page, setPage] = React.useState(0);
+  const [pubs, setPubs] = React.useState<Illuminsight.Pub[]>([]);
   const [tags, setTags] = React.useState<Illuminsight.Tag[]>([]);
+  const [page, setPage] = React.useState(0);
   const now = new Date();
 
   // Load pubs and tags from local storage on mount
@@ -97,7 +101,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
         return localForage.getItem('pub-list');
       })
       .then(pubs => setPubs((pubs as Illuminsight.Pub[]) || []))
-      .catch(() => undefined);
+      .catch(err => console.error(err));
   }, []);
 
   // Filter by tags
@@ -155,7 +159,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
         </Hidden>
 
         {/* Permanent drawer for wide screens */}
-        <Hidden xsDown>
+        <Hidden xsDown implementation="css">
           <Drawer
             classes={{ paper: classes.drawerPaper }}
             variant="permanent"
@@ -192,8 +196,9 @@ function _Library({ classes }: WithStyles<typeof styles>) {
               <Hidden smUp>
                 <InputAdornment position="end">
                   <IconButton
-                    color="secondary"
+                    aria-label="Show filters"
                     onClick={() => setShowDrawer(true)}
+                    color="secondary"
                   >
                     <FilterIcon />
                   </IconButton>
@@ -226,8 +231,12 @@ function _Library({ classes }: WithStyles<typeof styles>) {
                       <Typography className={classes.pubName} variant="h2">
                         {match.starred ? <StarIcon color="primary" /> : null}
                         {match.name}
-                        {match.authors ? ` — ${match.authors}` : null}
                       </Typography>
+                      {match.authors ? (
+                        <Typography className={classes.pubAuthors}>
+                          {match.authors}
+                        </Typography>
+                      ) : null}
                       <Typography className={classes.pubInfo}>
                         Added {formatRelative(match.id, now)}
                       </Typography>
