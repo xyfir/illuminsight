@@ -2,7 +2,7 @@ import { Illuminsight } from 'types/illuminsight';
 import { stopwords } from 'lib/reader/stopwords';
 import wtf from 'wtf_wikipedia';
 
-const regex = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[^.\s!?])\s+([A-Z][-A-Za-z']*)/gm;
+const REGEX = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[^.\s!?])\s+([A-Z][-A-Za-z']*)/gm;
 
 /**
  * @todo Manual parsing?
@@ -33,7 +33,7 @@ export async function generateInsights(
         // Removes duplicates
         new Set(
           // Grab anything that looks like a proper noun (English mainly)
-          (text.match(regex) || [])
+          (text.match(REGEX) || [])
             .map(item => item.substr(2))
             // Remove any items that are contained in stopwords array
             .filter(item => !stopwords.includes(item.toLowerCase()))
@@ -44,6 +44,25 @@ export async function generateInsights(
       );
 
   for (let insight of insights) {
+    // Get definition from English Wiktionary
+    insight.definition =
+      (await wtf.fetch(
+        insight.text,
+        undefined,
+        (() => {
+          let runs = 0;
+          const opt = {
+            get wikiUrl() {
+              // @ts-ignore oh yes I can, TypeScript
+              if (++runs == 2) delete opt.wikiUrl;
+              return 'https://en.wiktionary.org/w/api.php';
+            }
+          };
+          return opt;
+        })()
+      )) || undefined;
+
+    // Get definition from English Wikipedia
     insight.wiki = (await wtf.fetch(insight.text)) || undefined;
   }
 
