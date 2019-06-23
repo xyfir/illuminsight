@@ -20,7 +20,7 @@ const regex = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[
 /**
  * Generate insights from provided text content.
  */
-export async function getInsights(
+export async function generateInsights(
   text: string,
   /**
    * Was `text` sourced from a user highlight?

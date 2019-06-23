@@ -1,13 +1,13 @@
-import { getInsights } from 'lib/reader/get-insights';
+import { generateInsights } from 'lib/reader/generate-insights';
 import wtf from 'wtf_wikipedia';
 
-test('getInsights()', async () => {
+test('generateInsights()', async () => {
   // Mock wtf_wikipedia
   const mockFetch = ((wtf as any).fetch = jest.fn());
   mockFetch.mockResolvedValue(null);
 
   // Generate insights from text block
-  let insights = await getInsights(
+  let insights = await generateInsights(
     'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.'
   );
   const items = [
@@ -28,7 +28,7 @@ test('getInsights()', async () => {
   }
 
   // Generate insights from highlighted text
-  insights = await getInsights('hello world', true);
+  insights = await generateInsights('hello world', true);
 
   /// Validate insights from highlight
   expect(mockFetch).toHaveBeenCalledTimes(7);

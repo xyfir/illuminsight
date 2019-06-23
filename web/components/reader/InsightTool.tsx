@@ -1,6 +1,6 @@
 import { Highlight as InsightIcon } from '@material-ui/icons';
+import { generateInsights } from 'lib/reader/generate-insights';
 import { Illuminsight } from 'types/illuminsight';
-import { getInsights } from 'lib/reader/get-insights';
 import * as React from 'react';
 import {
   createStyles,
@@ -81,7 +81,10 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
       const index = +element.getAttribute('ast')!;
 
       // Generate insights for AST block
-      const insights = await getInsights(selection.toString().trim(), true);
+      const insights = await generateInsights(
+        selection.toString().trim(),
+        true
+      );
       insightsIndex[index] = insightsIndex[index]
         ? insightsIndex[index].concat(insights)
         : insights;
@@ -112,7 +115,7 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
       // Remove insights
       if (insightsIndex[index]) delete insightsIndex[index];
       // Parse insights from element's text
-      else insightsIndex[index] = await getInsights(element.innerText);
+      else insightsIndex[index] = await generateInsights(element.innerText);
     }
 
     // Send modified insights back to Reader
