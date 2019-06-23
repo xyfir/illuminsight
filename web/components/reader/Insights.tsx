@@ -142,16 +142,10 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
 
       {expand.type == 'wiki' ? (
         // Selected Wikipedia insight
-        <WikiInsight
-          insight={expanded as Required<Illuminsight.Insight>}
-          key={expand.index}
-        />
+        <WikiInsight doc={expanded.wiki!} key={expand.index} />
       ) : expand.type == 'definition' ? (
         // Selected Wiktionary insight
-        <DefinitionInsight
-          definition={expanded.definition!}
-          key={expand.index}
-        />
+        <DefinitionInsight doc={expanded.definition!} key={expand.index} />
       ) : null}
     </div>
   );

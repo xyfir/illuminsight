@@ -6,12 +6,7 @@ import wtf from 'wtf_wikipedia';
 
 test('<WikiInsight>', async () => {
   const { getByLabelText, getAllByText, getByText } = render(
-    <WikiInsight
-      insight={{
-        text: 'Blood Meridian',
-        wiki: wtf(testWikitext)
-      }}
-    />
+    <WikiInsight doc={wtf(testWikitext)} />
   );
 
   // Validate only main section was rendered

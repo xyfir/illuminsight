@@ -39,14 +39,14 @@ const useStyles = makeStyles(() =>
 );
 
 export function DefinitionInsight({
-  definition
+  doc
 }: {
-  definition: Exclude<Illuminsight.Insight['definition'], undefined>;
+  doc: Exclude<Illuminsight.Insight['definition'], undefined>;
 }) {
   const classes = useStyles();
 
   function generateHTML() {
-    return definition
+    return doc
       .sections()
       .filter(
         // Allow top-level language sections and parts of speech sections

@@ -44,13 +44,13 @@ const useStyles = makeStyles(() =>
 type SectionKey = 'all' | 'toc' | 'main' | 'main+stats' | number;
 
 export function WikiInsight({
-  insight
+  doc
 }: {
-  insight: Required<Illuminsight.Insight>;
+  doc: Exclude<Illuminsight.Insight['wiki'], undefined>;
 }) {
   const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
   const [articleKey, setArticleKey] = React.useState(0);
-  const [articles, setArticles] = React.useState([insight.wiki]);
+  const [articles, setArticles] = React.useState([doc]);
   const article = articles[articleKey];
   const classes = useStyles();
 
