@@ -1,11 +1,13 @@
 import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
+import { DefinitionInsight } from 'components/reader/DefinitionInsight';
 import { Illuminsight } from 'types/illuminsight';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
 import {
   CloseOutlined as CloseIcon,
+  ChevronRight as ExpandMoreIcon,
   ChevronLeft as BackIcon,
-  ExpandMore as ExpandMoreIcon,
+  TextFormat as DefinitionIcon,
   Search as SearchIcon,
   Info as InfoIcon
 } from '@material-ui/icons';
@@ -19,47 +21,82 @@ const useStyles = makeStyles(() =>
   })
 );
 
+type InsightType = 'definition' | 'search' | 'wiki';
+type ExpandedInsight = { index: number; type?: InsightType };
+
 export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
-  const [showWiki, setShowWiki] = React.useState(-1);
-  const [expand, setExpand] = React.useState(-1);
+  const [expand, setExpand] = React.useState<ExpandedInsight>({ index: -1 });
+  const expanded = insights[expand.index];
   const classes = useStyles();
 
   /** Handle an insight chip being clicked */
-  function onClick(i: number, type: 'search' | 'wiki') {
+  function onClick(i: number, type: InsightType) {
     const { [i]: insight } = insights;
 
-    // Open or close wiki article
-    if (type == 'wiki') setShowWiki(showWiki == i ? -1 : i);
-    // Search Google
-    else if (type == 'search')
-      window.open(
-        `https://www.google.com/search?q=${encodeURIComponent(insight.text)}`
-      );
+    switch (type) {
+      // Open or close definition
+      case 'definition':
+        setExpand(
+          expand.index == i && expand.type == 'definition'
+            ? { index: -1 }
+            : { index: i, type: 'definition' }
+        );
+        break;
+      // Search Google
+      case 'search':
+        window.open(
+          `https://www.google.com/search?q=${encodeURIComponent(insight.text)}`
+        );
+        break;
+      // Open or close wiki article
+      case 'wiki':
+        setExpand(
+          expand.index == i && expand.type == 'wiki'
+            ? { index: -1 }
+            : { index: i, type: 'wiki' }
+        );
+        break;
+    }
   }
 
   return (
     <div>
-      {/* Insight list (top level | expanded) */}
-      {expand == -1 ? (
+      {/* Insight list (top level | all subinsights) */}
+      {expand.index == -1 || expand.type ? (
         insights.map((insight, i) => (
           <Chip
             key={insight.text}
             icon={
-              showWiki == i ? (
+              expand.index == i ? (
                 <CloseIcon />
               ) : insight.wiki ? (
                 <InfoIcon />
+              ) : insight.definition ? (
+                <DefinitionIcon />
               ) : (
                 <SearchIcon />
               )
             }
             label={insight.text}
-            onClick={() => onClick(i, insight.wiki ? 'wiki' : 'search')}
-            // onDelete / deleteIcon are repurposed for expanding insights
-            onDelete={insight.wiki ? () => setExpand(i) : undefined}
+            onClick={() =>
+              onClick(
+                i,
+                insight.wiki
+                  ? 'wiki'
+                  : insight.definition
+                  ? 'definition'
+                  : 'search'
+              )
+            }
+            // onDelete/deleteIcon are repurposed for expanding insights
+            onDelete={
+              insight.wiki || insight.definition
+                ? () => setExpand({ index: i })
+                : undefined
+            }
             className={classes.chip}
             deleteIcon={
-              insight.wiki ? (
+              insight.wiki || insight.definition ? (
                 <ExpandMoreIcon
                   aria-label={`View all insights for "${insight.text}"`}
                 />
@@ -73,31 +110,47 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
         <React.Fragment>
           <IconButton
             aria-label="Back to previous insights"
-            onClick={() => setExpand(-1)}
+            onClick={() => setExpand({ index: -1 })}
           >
             <BackIcon />
           </IconButton>
 
-          <Chip
-            icon={<InfoIcon />}
-            label="Wikipedia"
-            onClick={() => onClick(expand, 'wiki')}
-            className={classes.chip}
-          />
+          {expanded.wiki ? (
+            <Chip
+              icon={<InfoIcon />}
+              label="Wikipedia"
+              onClick={() => onClick(expand.index, 'wiki')}
+              className={classes.chip}
+            />
+          ) : null}
+          {expanded.definition ? (
+            <Chip
+              icon={<DefinitionIcon />}
+              label="Definition"
+              onClick={() => onClick(expand.index, 'definition')}
+              className={classes.chip}
+            />
+          ) : null}
           <Chip
             icon={<SearchIcon />}
             label="Google"
-            onClick={() => onClick(expand, 'search')}
+            onClick={() => onClick(expand.index, 'search')}
             className={classes.chip}
           />
         </React.Fragment>
       )}
 
-      {/* Selected Wikipedia insight */}
-      {insights[showWiki] ? (
+      {expand.type == 'wiki' ? (
+        // Selected Wikipedia insight
         <WikiInsight
-          insight={insights[showWiki] as Required<Illuminsight.Insight>}
-          key={showWiki}
+          insight={expanded as Required<Illuminsight.Insight>}
+          key={expand.index}
+        />
+      ) : expand.type == 'definition' ? (
+        // Selected Wiktionary insight
+        <DefinitionInsight
+          definition={expanded.definition!}
+          key={expand.index}
         />
       ) : null}
     </div>

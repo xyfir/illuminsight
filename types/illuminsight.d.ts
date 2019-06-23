@@ -72,6 +72,7 @@ export namespace Illuminsight {
     | string;
 
   export interface Insight {
+    definition?: Document;
     wiki?: Document;
     text: string;
   }
