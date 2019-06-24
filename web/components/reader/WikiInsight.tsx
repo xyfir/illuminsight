@@ -92,12 +92,12 @@ export function WikiInsight({
     if (wiktionary) {
       // Get from text (case-sensitive, and probably lowercase!)
       newArticle = await getWiktionary(a.innerText);
+
       // Get from href (always capitalized)
       if (!newArticle && a.innerText != href)
         newArticle = await getWiktionary(href);
       // Force lowercase (probably a non-proper noun at start of sentence)
-      else if (!newArticle)
-        newArticle = await getWiktionary(href.toLowerCase());
+      if (!newArticle) newArticle = await getWiktionary(href.toLowerCase());
     }
     // Wikipedia
     else {
