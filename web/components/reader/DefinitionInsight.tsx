@@ -49,7 +49,9 @@ export function DefinitionInsight({
   const classes = useStyles();
 
   function generateHTML() {
-    return doc
+    // We'll use this unattached container for manipulating HTML
+    const div = document.createElement('div');
+    div.innerHTML = doc
       .sections()
       .filter(
         // Allow top-level language sections and parts of speech sections
@@ -57,6 +59,21 @@ export function DefinitionInsight({
       )
       .map(s => s.html())
       .join('\n');
+
+    // Remove "English" heading if it's the first one in the document
+    // User should already assume definition is in English by default
+    const [h1] = div.getElementsByTagName('h1');
+    if (h1 && h1.innerText == 'English') h1.remove();
+
+    // Remove links (Array.from() required!)
+    const links = Array.from(div.getElementsByTagName('a'));
+    for (let a of links) {
+      const span = document.createElement('span');
+      span.innerHTML = a.innerHTML;
+      a.replaceWith(span);
+    }
+
+    return div.innerHTML;
   }
 
   return wikiView ? (
