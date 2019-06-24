@@ -60,7 +60,7 @@ export function DefinitionInsight({
   }
 
   return wikiView ? (
-    <WikiInsight doc={doc} />
+    <WikiInsight wiktionary doc={doc} />
   ) : (
     <Paper className={classes.paper} elevation={2}>
       <div dangerouslySetInnerHTML={{ __html: generateHTML() }} />

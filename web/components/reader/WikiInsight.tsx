@@ -1,3 +1,4 @@
+import { getWiktionary } from 'lib/reader/get-wiktionary';
 import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import wtf from 'wtf_wikipedia';
@@ -44,8 +45,10 @@ const useStyles = makeStyles(() =>
 type SectionKey = 'all' | 'toc' | 'main' | 'main+stats' | number;
 
 export function WikiInsight({
+  wiktionary,
   doc
 }: {
+  wiktionary?: boolean;
   doc: Exclude<Illuminsight.Insight['wiki'], undefined>;
 }) {
   const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
@@ -75,16 +78,34 @@ export function WikiInsight({
     }
     if (!a.href) return;
 
-    // If not a link to another wikipedia article, let Reader handler it
+    // If not a link to another article in same wiki, let Reader handler it
     if (a.classList.contains('external')) return;
 
     event.preventDefault();
     event.stopPropagation();
 
+    // Download article
+    let newArticle: wtf.Document | null;
+    const href = a.getAttribute('href')!.substr(2);
+    // Wiktionary
+    if (wiktionary) {
+      // Get from text (case-sensitive, and probably lowercase!)
+      newArticle = await getWiktionary(a.innerText);
+      // Get from href (always capitalized)
+      if (!newArticle && a.innerText != href)
+        newArticle = await getWiktionary(href);
+      // Force lowercase (probably a non-proper noun at start of sentence)
+      else if (!newArticle)
+        newArticle = await getWiktionary(href.toLowerCase());
+    }
+    // Wikipedia
+    else {
+      newArticle = await wtf.fetch(href);
+    }
+
     // Load wiki article into viewer
-    const article = await wtf.fetch(a.getAttribute('href')!.substr(2));
-    if (article) {
-      setArticles(articles.slice(0, articleKey + 1).concat(article));
+    if (newArticle) {
+      setArticles(articles.slice(0, articleKey + 1).concat(newArticle));
       setSectionKey('main');
       setArticleKey(articleKey + 1);
     }
@@ -216,8 +237,12 @@ export function WikiInsight({
           </Breadcrumbs>
         ) : (
           <Typography variant="caption">
-            Source: (English) Wikipedia.org:{' '}
-            <a href={`https://en.wikipedia.org/wiki/${article.title()}`}>
+            Source: (English) {wiktionary ? 'Wiktionary' : 'Wikipedia'}.org:{' '}
+            <a
+              href={`https://en.${
+                wiktionary ? 'wiktionary' : 'wikipedia'
+              }.org/wiki/${article.title()}`}
+            >
               {article.title()}
             </a>
           </Typography>
