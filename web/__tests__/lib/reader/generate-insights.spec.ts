@@ -20,18 +20,25 @@ test('generateInsights()', async () => {
   ];
 
   // Validate insights from text block
-  expect(mockFetch).toHaveBeenCalledTimes(6);
+  expect(mockFetch).toHaveBeenCalledTimes(12);
   expect(insights).toBeArrayOfSize;
   for (let i = 0; i < 6; i++) {
-    expect(mockFetch).toHaveBeenNthCalledWith(i + 1, items[i]);
-    expect(insights[i]).toMatchObject({ text: items[i], wiki: undefined });
+    expect(insights[i]).toMatchObject({
+      definition: undefined,
+      text: items[i],
+      wiki: undefined
+    });
   }
 
   // Generate insights from highlighted text
   insights = await generateInsights('hello world', true);
 
   /// Validate insights from highlight
-  expect(mockFetch).toHaveBeenCalledTimes(7);
-  expect(mockFetch).toHaveBeenNthCalledWith(7, 'hello world');
-  expect(insights[0]).toMatchObject({ text: 'hello world', wiki: undefined });
+  expect(mockFetch).toHaveBeenCalledTimes(14);
+  expect(mockFetch).toHaveBeenNthCalledWith(14, 'hello world');
+  expect(insights[0]).toMatchObject({
+    definition: undefined,
+    text: 'hello world',
+    wiki: undefined
+  });
 });
