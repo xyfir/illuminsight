@@ -51,7 +51,8 @@ export function WikiInsight({
   wiktionary?: boolean;
   doc: Exclude<Illuminsight.Insight['wiki'], undefined>;
 }) {
-  const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
+  const startSection = wiktionary ? 'all' : 'main';
+  const [sectionKey, setSectionKey] = React.useState<SectionKey>(startSection);
   const [articleKey, setArticleKey] = React.useState(0);
   const [articles, setArticles] = React.useState([doc]);
   const article = articles[articleKey];
@@ -59,7 +60,7 @@ export function WikiInsight({
 
   /** Go back to previous article in history */
   function onPreviousArticle() {
-    setSectionKey('main');
+    setSectionKey(startSection);
     setArticleKey(articleKey - 1);
   }
 
@@ -106,7 +107,7 @@ export function WikiInsight({
     // Load wiki article into viewer
     if (newArticle) {
       setArticles(articles.slice(0, articleKey + 1).concat(newArticle));
-      setSectionKey('main');
+      setSectionKey(startSection);
       setArticleKey(articleKey + 1);
     }
   }
@@ -208,7 +209,7 @@ export function WikiInsight({
           <Breadcrumbs aria-label="Breadcrumb" maxItems={4}>
             {/* Root section */}
             <Chip
-              onClick={() => setSectionKey('main')}
+              onClick={() => setSectionKey(startSection)}
               variant="outlined"
               label={article.title()}
               icon={<HomeIcon />}
