@@ -1,3 +1,4 @@
+import { getWiktionary } from 'lib/reader/get-wiktionary';
 import { Illuminsight } from 'types/illuminsight';
 import { stopwords } from 'lib/reader/stopwords';
 import wtf from 'wtf_wikipedia';
@@ -45,22 +46,7 @@ export async function generateInsights(
 
   for (let insight of insights) {
     // Get definition from English Wiktionary
-    insight.definition =
-      (await wtf.fetch(
-        insight.text,
-        undefined,
-        (() => {
-          let runs = 0;
-          const opt = {
-            get wikiUrl() {
-              // @ts-ignore oh yes I can, TypeScript
-              if (++runs == 2) delete opt.wikiUrl;
-              return 'https://en.wiktionary.org/w/api.php';
-            }
-          };
-          return opt;
-        })()
-      )) || undefined;
+    insight.definition = (await getWiktionary(insight.text)) || undefined;
 
     // Get definition from English Wikipedia
     insight.wiki = (await wtf.fetch(insight.text)) || undefined;
