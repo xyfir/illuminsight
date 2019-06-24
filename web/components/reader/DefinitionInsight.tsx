@@ -1,8 +1,10 @@
-import { createStyles, makeStyles, Paper } from '@material-ui/core';
+import { createStyles, makeStyles, Button, Paper } from '@material-ui/core';
+import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 import { Illuminsight } from 'types/illuminsight';
+import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
 
-// Source: https://github.com/Suyash458/WiktionaryParser/blob/master/wiktionaryparser.py
+// http://github.com/Suyash458/WiktionaryParser/blob/master/wiktionaryparser.py
 const SECTIONS = [
   'noun',
   'verb',
@@ -43,6 +45,7 @@ export function DefinitionInsight({
 }: {
   doc: Exclude<Illuminsight.Insight['definition'], undefined>;
 }) {
+  const [wikiView, setWikiView] = React.useState(false);
   const classes = useStyles();
 
   function generateHTML() {
@@ -56,9 +59,16 @@ export function DefinitionInsight({
       .join('\n');
   }
 
-  return (
+  return wikiView ? (
+    <WikiInsight doc={doc} />
+  ) : (
     <Paper className={classes.paper} elevation={2}>
       <div dangerouslySetInnerHTML={{ __html: generateHTML() }} />
+
+      <Button onClick={() => setWikiView(true)} variant="text">
+        <ExpandMoreIcon />
+        Full Definition
+      </Button>
     </Paper>
   );
 }
