@@ -36,11 +36,7 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
     switch (type) {
       // Open or close definition
       case 'definition':
-        setExpand(
-          expand.index == i && expand.type == 'definition'
-            ? { index: -1 }
-            : { index: i, type: 'definition' }
-        );
+        setExpand({ index: i, type: 'definition' });
         break;
       // Search Google
       case 'search':
@@ -50,11 +46,7 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
         break;
       // Open or close wiki article
       case 'wiki':
-        setExpand(
-          expand.index == i && expand.type == 'wiki'
-            ? { index: -1 }
-            : { index: i, type: 'wiki' }
-        );
+        setExpand({ index: i, type: 'wiki' });
         break;
     }
   }
@@ -79,14 +71,16 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
             }
             label={insight.text}
             onClick={() =>
-              onClick(
-                i,
-                insight.wiki
-                  ? 'wiki'
-                  : insight.definition
-                  ? 'definition'
-                  : 'search'
-              )
+              expand.index == i
+                ? setExpand({ index: -1 })
+                : onClick(
+                    i,
+                    insight.wiki
+                      ? 'wiki'
+                      : insight.definition
+                      ? 'definition'
+                      : 'search'
+                  )
             }
             // onDelete/deleteIcon are repurposed for expanding insights
             onDelete={
