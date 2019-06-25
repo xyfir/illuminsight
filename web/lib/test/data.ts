@@ -528,3 +528,620 @@ In the late 1990s, McCarthy moved to the [[Tesuque, New Mexico]] area, north of 
 [[Category:Novelists from Texas]]
 [[Category:Novelists from Tennessee]]
 [[Category:People from Tesuque, New Mexico]]`;
+
+export const testWiktionaryWikitext = `==English==
+{{wikipedia|dab=world (disambiguation)|world}}
+
+===Etymology===
+From {{inh|en|enm|world}}, {{m|enm|weoreld}}, from {{inh|en|ang|world}}, {{m|ang|worold}}, {{m|ang|woruld}}, {{m|ang|weorold|t=world, age, men, humanity, life, way of life, long period of time, cycle, eternity}}, from {{inh|en|gem-pro|*weraldiz|t=lifetime, worldly existence, mankind, age of man, world}}, equivalent to {{compound|en|wer|t1=man|eld|t2=age}}. Cognate with {{cog|sco|warld|t=world}}, {{cog|stq|Waareld|t=world}}, {{cog|fy|wrâld|t=world}}, {{cog|nl|wereld|t=world}}, {{cog|nds|Werld|t=world}}, {{cog|de|Welt|t=world}}, {{cog|nb|verden|t=world}}, {{cog|nn|verd|t=world}}, {{cog|sv|värld|t=world}}, {{cog|is|veröld|t=the world}}.
+
+===Pronunciation===
+* {{a|RP}} {{IPA|/wɜːld/|lang=en}}
+* {{a|GenAm|Canada}} {{enPR|wûrld}}, {{IPA|/wɝːld/|lang=en}}
+* {{a|NZ}} {{enPR|wûrld}}, {{IPA|/wɵːld/|[wɵːɯ̯d̥]|lang=en}}
+* {{audio|en-ca-world.ogg|Audio (CA)|lang=en}}
+* {{audio|en-us-world.oga|Audio (US)|lang=en}}
+* {{audio|LL-Q1860 (eng)-Nattes à chat-world.wav|Audio|lang=en}}
+* {{rhymes|ɜː(ɹ)ld|lang=en}}
+* {{homophones|lang=en|whirled|whorled}} {{qualifier|both only in accents with the wine-whine merger and the fern-fir-fur merger}}
+
+===Noun===
+{{wikipedia}}
+{{en-noun|~}}
+
+# {{lb|en|with "the"}} Human collective existence; [[existence]] in general.
+#: {{ux|en|There will always be lovers, till the '''world'''’s end.}}
+#* {{quote-book|lang=en|year=1922|author={{w|Michael Arlen}}|title=[http://openlibrary.org/works/OL1519647W “Piracy”: A Romantic Chronicle of These Days]|chapter=Ep./4/2
+|passage=The '''world''' was awake to the 2nd of May, but Mayfair is not the '''world''', and even the menials of Mayfair lie long abed. As they turned into Hertford Street they startled a robin from the poet's head on a barren fountain, and he fled away with a cameo note.}}
+#* {{quote-book|lang=en|year=1963|author={{w|Margery Allingham}}|title={{w|The China Governess}}
+|chapter=9|url=http://openlibrary.org/works/OL2004261W
+|passage=Eustace gaped at him in amazement. When his urbanity dropped away from him, as now, he had an innocence of expression which was almost infantile. It was as if the '''world''' had never touched him at all.}}
+#* {{quote-journal|lang=en|date=2013-06-01|volume=407|issue=8838|page=11|magazine={{w|The Economist}}
+|title=[http://www.economist.com/news/leaders/21578665-nearly-1-billion-people-have-been-taken-out-extreme-poverty-20-years-world-should-aim Towards the end of poverty]
+|passage=America’s poverty line is $63 a day for a family of four. In the richer parts of the emerging '''world''' $4 a day is the poverty barrier. But poverty’s scourge is fiercest below $1.25 ([&hellip;]): people below that level live lives that are poor, nasty, brutish and short.}}
+# The {{l|en|Universe}}.
+# {{lb|en|uncountable|with "the"}} The {{l|en|Earth}}.
+#: {{ux|en|People are dying of starvation all over the '''world'''.}}
+#* {{RQ:EHough PrqsPrc|I|0045}}
+#*: Serene, smiling, enigmatic, she faced him with no fear whatever showing in her dark eyes.{{...}}She put back a truant curl from her forehead where it had sought egress to the '''world''', and looked him full in the face now, drawing a deep breath which caused the round of her bosom to lift the lace at her throat.
+#* {{quote-journal|lang=en|year=2013|month=May-June|author=[http://www.americanscientist.org/authors/detail/william-e-conner-1 William E. Conner]
+|title=[http://www.americanscientist.org/issues/feature/2013/3/an-acoustic-arms-race An Acoustic Arms Race]
+|volume=101|issue=3|page=206-7|magazine={{w|American Scientist}}
+|passage=Earless ghost swift moths become “invisible” to echolocating bats by forming mating clusters close{{...}}above vegetation and effectively blending into the clutter of echoes that the bat receives from the leaves and stems around them. Many insects probably use this strategy, which is a close analogy to crypsis in the visible '''world'''—camouflage and other methods for blending into one’s visual background.}}
+#* 2018, [https://learningenglish.voanews.com/a/china-s-melting-glacier-brings-visitors-concern-over-climate-change/4627742.html VOA Learning English > China's Melting Glacier Brings Visitors, Adds to Climate Concerns]
+#*: She says the Third Pole is one of the '''world'''’s largest sources of fresh drinking water. [[File:She says the Third Pole is one of the world’s largest sources of fresh drinking water.ogg]]
+# {{lb|en|countable}} A {{l|en|planet}}, especially one which is {{l|en|inhabited}} or {{l|en|inhabitable}}.
+#: {{ux|en|Our mission is to travel the galaxy and find new '''worlds'''.}}
+#* {{quote-book|lang=en|year=1970|author={{w|Larry Niven}}|title={{w|Ringworld}}|page=118|passage=Yet every '''world''' should have at least one unclimbable mountain.}}
+#* '''2007''' September 27, Marc Rayman (interviewee), “[http://www.npr.org/templates/story/story.php?storyId=14776628 NASA's Ion-Drive Asteroid Hunter Lifts Off]”, ''National Public Radio'':
+#*: I think many people think of asteroids as kind of little chips of rock. But the places that Dawn is going to really are more like '''worlds'''.
+## {{lb|en|by extension}} Any other {{l|en|body|astronomical body}} which many be inhabitable, such as a {{l|en|satellite|natural satellite}}.
+# A very large extent of country.
+#: ''the [[New World]]''
+# {{lb|en|fiction|speculation}} A {{l|en|realm}}, such as {{l|en|planet}}, containing one or multiple {{l|en|society|societies}} of {{l|en|being|beings}}, specially intelligent ones.
+#: ''the '''world''' of Narnia''; ''the Wizarding '''World''' of Harry Potter''; ''a zombie '''world'''''
+# An individual or group {{l|en|perspective}} or {{l|en|social}} setting.
+#: {{ux|en|In the '''world''' of boxing, good diet is all-important.}}
+#: ''Welcome to my '''world'''.''
+#* {{quote-journal|lang=en|date=2013-06-08|volume=407|issue=8839|page=55|magazine={{w|The Economist}}
+|title=[http://www.economist.com/news/business/21579011-president-proposes-new-round-intellectual-property-reform-obama-goes-troll-hunting Obama goes troll-hunting]
+|passage=According to this saga of intellectual-property misanthropy, these creatures [patent trolls] roam the business '''world''', buying up patents and then using them to demand extravagant payouts from companies they accuse of infringing them. Often, their victims pay up rather than face the costs of a legal battle.}}
+# {{lb|en|computing}} The part of an [[operating system]] distributed with the [[kernel]], consisting of the [[shell]] and other programs.
+# {{lb|en|video games}} A subdivision of a game, consisting of a series of stages or levels that usually share a similar environment or theme.
+#: ''Have you reached the boss at the end of the ice '''world'''?''
+#: ''There's a hidden warp to the next '''world''' down this pipe.''
+# {{lb|en|tarot}} The twenty-second [[trump]] or [[major arcana]] card of the [[tarot]].
+# {{lb|en|informal}} A great amount.
+#: ''Taking a break from work seems to have done her a '''world''' of good.''
+#: ''You're going to be in a '''world''' of trouble when your family finds out.''
+#: {{ux|en|a '''world''' of difference; a '''world''' of embarrassment}}
+# {{lb|en|archaic}} Age, era
+#* {{quote-book|lang=en|year=1635|author=Fr. {{w|Gregory Martin (scholar)}} et al.| publisher=John Cousturier| title={{w|The Holy Bible}} ({{w|Douay-Rheims Bible}})| chapter=Psalme CXLIIII| passage=Thy kingdom is a kingdom of al '''worlds''': and thy dominion in al generation and generation.}}
+
+====Synonyms====
+* {{sense|the earth}} the earth, {{l|en|Earth}}, the {{l|en|globe}}, {{l|en|Sol III}}
+* {{sense|a planet}} {{l|en|planet}}
+* {{sense|individual or group perspective or social setting}} {{l|en|circle}}
+
+====Hyponyms====
+{{col4|en
+|First World
+|Fourth World
+|free world
+|Majority World
+|New World
+|Old World
+|post-Cold War world
+|Second World
+|Third World
+|umbworld
+|underworld
+}}
+
+====Derived terms====
+{{der3|en
+|dead to the world
+|end of the world
+|fast-paced world
+|have the world by the tail
+|Light of the World
+|lost to the world
+|make the world go around
+|mean the world to
+|netherworld
+|not the end of the world
+|offworld
+|out of this world
+|phenomenal world
+|real-world
+|think the world of
+|the hand that rocks the cradle rules the world
+|the world is one's oyster
+|umbworld
+|underworld
+|{{l|en|way of the world|way of the world/ways of the world}}
+|weight of the world
+|window on the world
+|world-class
+|world language
+|world leader
+|worldly
+|world peace
+|world power
+|world record
+|World Series
+|world soul
+|world war
+|World War I
+|World War II
+|world-weary
+|worldwide
+|World Wide Web
+}}
+
+====Translations====
+{{trans-top|human collective existence}}
+* Afrikaans: {{t+|af|wêreld}}
+* Albanian: {{t+|sq|botë|f}}
+* Amharic: {{t|am|ዓለም|sc=Ethi}}
+* Arabic: {{t+|ar|عَالَم|m}}, {{t+|ar|دُنْيَا|f}}
+* Aragonese: {{t|an|mundo|m}}
+* Armenian: {{t+|hy|աշխարհ}}
+* Aromanian: {{t|rup|lume}}, {{t|rup|lumi}}
+* Assamese: {{t|as|বিশ্ব}}, {{t|as|জগত}}, {{t|as|পৃথিৱী}}, {{t|as|দুনীয়া}}
+* Asturian: {{t+|ast|mundu|m}}
+* Azerbaijani: {{t+|az|dünya}}, {{t+|az|aləm}}
+* Bashkir: {{t|ba|донъя}}
+* Basque: {{t|eu|mundu}}
+* Bavarian: {{t|bar|Wöd}}
+* Belarusian: {{t|be|свет|m|sc=Cyrl}}, {{qualifier|Taraškievica orthography}} {{t|be|сьвет|m|sc=Cyrl}}
+* Bengali: {{t+|bn|বিশ্ব|sc=Beng}}, {{t|bn|দুনিয়া|sc=Beng}}, {{t|bn|জগত|sc=Beng}}
+* Breton: {{t+|br|bed|m}}
+* Bulgarian: {{t+|bg|свят|m|sc=Cyrl}}
+* Burmese: {{t+|my|လောက|sc=Mymr}}, {{t+|my|ကမ္ဘာ|sc=Mymr}}
+* Catalan: {{t+|ca|món|m}}
+* Cebuano: {{t|ceb|kalibutan}}
+* Central Atlas Tamazight: {{t|tzm|ⴰⵎⴰⴹⴰⵍ}}
+* Cherokee: {{t+|chr|ᎡᎶᎯ}}
+* Chinese:
+*: Cantonese: {{t+|yue|世界|tr=sai3 gaai3|sc=Hani}}
+*: Dungan: {{t|dng|шыҗе}}, {{t|dng|дун-я}}
+*: Hakka: {{t|hak|世界|tr=sṳ-kie|sc=Hani}}
+*: Mandarin: {{t+|cmn|世界|tr=shìjiè|sc=Hani}}
+*: Min Dong: {{t|cdo|世界|tr=sié-gái|sc=Hani}}
+*: Min Nan: {{t+|nan|世界|tr=sè-kài|sc=Hani}}
+*: Wu: {{t|wuu|世界|tr=sr jia|sc=Hani}}
+* Coptic: {{t|cop|ⲧⲏⲣⲙⲁ}}, {{t|cop|ⲕⲟⲥⲙⲟⲥ}}
+* Cornish: {{t|kw|bys|m}}, {{t|kw|bes|m}}
+* Czech: {{t+|cs|svět|m}}
+* Danish: {{t|da|menneskehed|c}}, {{t+|da|verden|c}}
+* Dhivehi: {{t|dv|ދުނިޔެ|sc=Thaa}}
+* Dutch: {{t+|nl|wereld|f|m}}
+* Esperanto: {{t+|eo|mondo}}
+* Estonian: {{t+|et|maailm}}
+* Extremaduran: {{t|ext|mundu|m}}
+* Faroese: {{t|fo|verøld}}, {{t|fo|heimur|m}}, {{t|fo|verð|f}}
+* Finnish: {{t+|fi|maailma}}
+* French: {{t+|fr|monde|m}}
+*: Old French: {{t|fro|monde|m}}
+* Friulian: {{t|fur|mond|m}}
+* Galician: {{t+|gl|mundo|m}}
+* Georgian: {{t|ka|სამყარო}}, {{t|ka|მსოფლიო|sc=Geor}}
+* German: {{t+|de|Welt|f}}
+* Gothic: {{t|got|𐍆𐌰𐌹𐍂𐍈𐌿𐍃|m}}, {{t|got|𐌼𐌰𐌽𐌰𐍃𐌴𐌸𐍃|f}}
+* Greek: {{t+|el|κόσμος|m}}
+*: Ancient: {{t|grc|κόσμος|m}}, {{t|grc|οἰκουμένη|f}}
+* Gujarati: {{t|gu|વિશ્વ|m}}
+* Hawaiian: {{t|haw|honua}}
+* Hebrew: {{t+|he|עוֹלָם|m|tr=olám}}
+* Hindi: {{t+|hi|दुनिया|f}}, {{t+|hi|लोक|m}}, {{t+|hi|विश्व|m}}, {{t+|hi|संसार|m|sc=Deva}}
+* Hungarian: {{t+|hu|világ}}
+* Icelandic: {{t+|is|veröld|f}}, {{t+|is|heimur|m}}
+* Ido: {{t+|io|mondo}}
+* Indonesian: {{t+|id|dunia}}
+* Interlingua: {{t|ia|mundo}}
+* Interlingue: {{t|ie|munde}}
+* Irish: {{t|ga|saol|m}}, {{t+|ga|bith|m}}
+*: Old Irish: {{t|sga|domun|m}}
+* Isan: {{t-needed|tts}}
+* Istriot: {{t|ist|mondo|m}}
+* Italian: {{t+|it|mondo|m}}
+* Japanese: {{t+|ja|世界|tr=せかい, sekai}}, {{t+|ja|世|tr=よ, yo|sc=Jpan}}
+* Kalmyk: {{t|xal|делкә}}
+* Kannada: {{t+|kn|ವಿಶ್ವ|sc=Knda}}
+* Kashubian: {{t|csb|swiat|m}}
+* Kazakh: {{t+|kk|әлем}}, {{t+|kk|дүние}}
+* Khmer: {{t+|km|លោក}}, {{t+|km|ពិភពលោក}}
+* Korean: {{t+|ko|세계}} ({{t+|ko|世界}}))
+* Kurdish:
+*: Kurmanji: {{t+|ku|dinya}}
+*: Sorani: {{t|ckb|دنیا|tr=dinya}}
+* Kyrgyz: {{t+|ky|аалам}}, {{t+|ky|дүйнө}}
+* Lao: {{t+|lo|ໂລກ}}
+* Latgalian: {{t|ltg|pasauļs|m}}
+* Latin: {{t|la|mundus|m}}
+* Latvian: {{t|lv|pasaule|f}}
+* Lithuanian: {{t+|lt|pasaulis|m}}
+{{trans-mid}}
+* Low German: {{t|nds|Werld|f}}
+* Luxembourgish: {{t|lb|Welt|f}}
+* Macedonian: {{t|mk|свет|m}}
+* Malay: {{t+|ms|alam}}, {{t+|ms|dunia}}, {{t|ms|jagat}}, {{t|ms|loka}}, {{t|ms|buana}}, {{t|ms|buana}}
+* Malayalam: {{t+|ml|ലോകം|sc=Mlym}}
+* Maltese: {{t+|mt|dinja|f}}
+* Maori: {{t|mi|aotūroa}}, {{t+|mi|ao}}
+* Maranao: {{t|mrw|doniya}}
+* Marathi: {{t|mr|जग|sc=Deva}}
+* Megleno-Romanian: {{t|ruq|lumi|f}}
+* Middle English: {{t|enm|world}}
+* Mirandese: {{t|mwl|mundo|m}}
+* Mongolian: {{t+|mn|дэлхий}}
+* Neapolitan: {{t|nap|munno|m}}
+* Nepali: {{t|ne|संसार|tr=sansār|sc=Deva}}
+* Norwegian:
+*: Bokmål: {{t+|nb|verden|m}}, {{t+|nb|verd|m|f}}
+*: Nynorsk: {{t|nn|verd|f}}
+* Occitan: {{t+|oc|mond|m}}
+* Old Church Slavonic:
+*: Cyrillic: {{t|cu|свѣтъ|m|sc=Cyrs}}
+* Old East Slavic: {{t|orv|свѣтъ|m|sc=Cyrs}}
+* Old English: {{t|ang|woruld|f}}
+* Old French: {{t|fro|mund|m}}
+* Old Norse: {{t|non|heimr}}
+* Old Saxon: {{t|osx|werold|f}}
+* Oriya: {{t+|or|ଦୁନିଆ}}
+* Pashto: {{t+|ps|نړۍ|f|tr=naṛᶕy}}, {{t+|ps|عالم|m|tr=ālám}}
+* Persian: {{t+|fa|جهان|tr=jahân}}, {{t+|fa|دنیا|tr=donyâ}}, {{t+|fa|عالم|tr='âlam}}
+* Polish: {{t+|pl|świat|m-in}}
+* Portuguese: {{t+|pt|mundo|m}}
+* Punjabi: {{t|pa|ਦੁਨੀਆ|sc=Guru}}
+* Rajasthani: {{t|raj|दुनियांण|tr=duniyā̃ṇ}}
+* Romanian: {{t+|ro|lume}}
+* Romansch: {{t|rm|mund|m}}, {{t|rm|mond|m}}, {{t|rm|muond|m}}
+* Russian: {{t+|ru|мир|m}}, {{t+|ru|свет|m}}
+* Sanskrit: {{t+|sa|शब्द|m}}, {{t+|sa|जगत्|n}}
+* Sardinian: {{t|sc|mundhu|m}}, {{t|sc|mundu|m}}, {{t|sc|munnu|m}}
+* Scots: {{t|sco|warld}}
+* Scottish Gaelic: {{t|gd|saoghal|m}}, {{t|gd|domhan|m}}
+* Serbo-Croatian:
+*: Cyrillic: {{t|sh|свет|m}}, {{t|sh|свијет|m}}
+*: Roman: {{t+|sh|svet|m}}, {{t+|sh|svijet|m}}
+* Sicilian: {{t+|scn|munnu|m}}
+* Sindhi: {{t|sd|دنيا}}
+* Sinhalese: {{t|si|ලෝකය|sc=Sinh}}
+* Slovak: {{t+|sk|svet|m}}
+* Slovene: {{t+|sl|svet|m}}
+* Sorbian:
+*: Lower Sorbian: {{t|dsb|swět|m}}
+*: Upper Sorbian: {{t|hsb|swět|m}}
+* Spanish: {{t+|es|mundo|m}}
+* Swedish: {{t+|sv|värld|c}}
+* Sylheti: {{t|syl|ꠖꠥꠘꠤꠀꠁ}}
+* Tagalog: {{t+|tl|mundo}}
+* Tajik: {{t+|tg|ҷаҳон}}, {{t+|tg|дунё}}, {{t|tg|олам}}
+* Tamil: {{t+|ta|செகம்}}, {{t+|ta|ஞாலம்}}, {{t+|ta|பார்}}, {{t+|ta|உலகம்}}
+* Tashelhit: {{t|shi|tilit|f}}
+* Tatar: {{t|tt|дөнья}}
+* Telugu: {{t+|te|ప్రపంచము}}
+* Tetum: {{t|tet|mundu}}
+* Thai: {{t+|th|โลก}}
+* Tibetan: {{t|bo|འཛམ་གླིང|sc=Tibt}}
+* Tocharian A: {{t|xto|ārkiśoṣi}}
+* Turkish: {{t+|tr|dünya}}, {{t+|tr|alem}}
+* Turkmen: {{t|tk|dünýä}}, {{t|tk|älem}}
+* Ukrainian: {{t+|uk|світ|m}}
+* Urdu: {{t+|ur|دنیا|f|tr=duniyā}}, {{t|ur|سنسار|tr=sansār|sc=ur-Arab}}
+* Uyghur: {{t|ug|ئالەم|sc=ug-Arab}}, {{t|ug|دۇنيا|sc=ug-Arab}}, {{t|ug|جاھان|sc=ug-Arab}}, {{t|ug|زامان|sc=ug-Arab}}
+* Uzbek: {{t+|uz|dunyo}}, {{t+|uz|jahon}}, {{t+|uz|olam}}
+* Venetian: {{t|vec|móndo|m}}
+* Vietnamese: {{t+|vi|thế giới}} ({{t+|vi|世界|sc=Hani}})
+* Volapük: {{t-needed|vo}}
+* Walloon: {{t+|wa|monde|m}}
+* Welsh: {{t+|cy|byd|m}}
+* West Frisian: {{t|fy|wrâld}}
+* Yagnobi: {{t|yai|дунё}}
+* Yiddish: {{t+|yi|וועלט|f}}
+* Zazaki: {{t|zza|dinya}}
+* Zhuang: {{t|za|lajmbwn}}
+{{trans-bottom}}
+
+{{trans-top|the universe}}
+* Bashkir: {{t|ba|ғәләм}}
+* Bavarian: {{t|bar|Wöd}}
+* Bulgarian: {{t+|bg|вселѐна|m|sc=Cyrl}}
+* Catalan: {{t+|ca|món|m}}
+* Danish: {{t+|da|verden|c}}
+* Dutch: {{t+|nl|wereld|m|f}}
+* Finnish: {{t+|fi|maailma}}, {{t+|fi|maailmankaikkeus}}
+* French: {{t+|fr|univers|m}}, {{t+|fr|monde|m}}
+* German: {{t+|de|Welt|f}}
+* Greek:
+*: Ancient: {{t|grc|κόσμος|m}}
+{{trans-mid}}
+* Indonesian: {{t+|id|alam}}
+* Khmer: {{t+|km|លោក}}
+* Latin: {{t|la|mundus|m}}
+* Middle English: {{t|enm|world}}
+* Plautdietsch: {{t|pdt|Welt|f}}
+* Russian: {{t+|ru|вселе́нная|f}}
+* Saanich: {{t|str|ŚELEJ}}
+* Spanish: {{t+|es|mundo|m}}, {{t+|es|universo|m}}
+* Swahili: {{t+|sw|ulimwengu|c11}}
+* Walloon: {{t|wa|univier|m}}, {{t+|wa|monde|m}}
+{{trans-bottom}}
+
+{{trans-top|the Earth}}
+* Afrikaans: {{t+|af|aarde}}
+* Alabama: {{t|akz|ihaani onaami}}
+* Arabic: {{t+|ar|عَالَم|m}}, {{t+|ar|دُنْيَا}}
+* Aragonese: {{t|an|mundo|m}}
+* Armenian: {{t+|hy|աշխարհ}}
+* Asturian: {{t+|ast|mundu|m}}, {{t+|ast|tierra|f}}
+* Bashkir: {{t|ba|Ер}}, {{t|ba|Ер шары}}
+* Basque: {{t|eu|mundu}}, {{t|eu|lur}}
+* Bavarian: {{t|bar|Wöd}}
+* Bengali: {{t|bn|দুনিয়া}}
+* Breton: {{t+|br|bed|m}}
+* Bulgarian: {{t+|bg|свят|m|sc=Cyrl}}, {{t+|bg|вселѐна|m|sc=Cyrl}}
+* Burmese: {{t+|my|ကမ္ဘာ|sc=Mymr}}, {{t+|my|ကမ္ဘာဂြိုဟ်|sc=Mymr}}
+* Catalan: {{t+|ca|terra|f}}, {{t+|ca|món|m}}
+* Chinese:
+*: Cantonese: {{t+|yue|世界|tr=sai3 kaai3|sc=Hani}}
+*: Dungan: {{t|dng|шицзе|sc=Cyrl}}
+*: Hakka: {{t|hak|世界|tr=sṳ-kie|sc=Hani}}
+*: Mandarin: {{t+|cmn|世界|tr=shìjiè|sc=Hani}}
+*: Min Nan: {{t+|nan|世界|tr=[[sè-kài]]}}
+* Cornish: {{t|kw|bys|m}}, {{t|kw|bes|m}}
+* Czech: {{t+|cs|svět|m}}
+* Danish: {{t+|da|verden|c}}
+* Dutch: {{t+|nl|aarde|f|m}}, {{t+|nl|wereld|m|f}}
+* Esperanto: {{t+|eo|mondo}}
+* Estonian: {{t+|et|maakera}}
+* Ewe: {{t|ee|xexeme}}
+* Finnish: {{t+|fi|maailma}}, {{t+|fi|maapallo}}, {{t+|fi|maa}}
+* French: La {{t+|fr|Terre|f}}, {{t+|fr|terre|f}}
+* Friulian: {{t|fur|mond|m}}
+* Galician: {{t+|gl|mundo|m}}
+* Georgian: {{t|ka|მსოფლიო|sc=Geor}}, {{t|ka|დედამიწა|sc=Geor}}
+* German: {{t+|de|Welt|f}}, {{t+|de|Erde|f}}
+*: Alemannic German: {{t|gsw|Wält|f}}
+* Gothic: {{t|got|𐌼𐌹𐌳𐌾𐌿𐌽𐌲𐌰𐍂𐌳𐍃|m}}
+* Greek: {{t+|el|κόσμος|m}}
+*: Ancient: {{t|grc|κόσμος|m}}, {{t|grc|γῆ|f}}
+* Hausa: {{t+|ha|duniya}}
+* Hebrew: {{t+|he|עוֹלָם|m|tr=olám}}
+* Hindi: {{t+|hi|दुनिया|f}}, {{t+|hi|संसार|m}}
+* Hungarian: {{t+|hu|világ}}
+* Ido: {{t+|io|mondo}}
+* Indonesian: {{t+|id|Dunia}}
+* Interlingua: {{t|ia|mundo}}
+* Irish: {{t+|ga|domhan|m}}
+*: Old Irish: {{t|sga|domun|m}}
+* Italian: {{t+|it|mondo|m}}
+* Japanese: {{t+|ja|世界|tr=せかい, sekai}}, {{t+|ja|ワールド|tr=warudo}} {{qualifier|slang}}
+* Kannada: {{t-needed|kn}}
+* Khmer: {{t+|km|ពិភពលោក}}
+* Korean: {{t+|ko|세계}}
+{{trans-mid}}
+* Kurdish:
+*: Kurmanji: {{t+|ku|dinya}}
+*: Sorani: {{t|ckb|دنیا|tr=dinya}}
+* Lao: {{t+|lo|ໂລກ}}
+* Latin: {{t|la|mundus|m}}
+* Latvian: {{t|lv|pasaule|f}}
+* Lithuanian: {{t+|lt|pasaulis|m}}
+* Low German: {{t|nds|Werld|f}}
+* Macedonian: {{t|mk|свет|m}}
+* Malay: {{t+|ms|dunia}}
+* Malayalam: {{t-needed|ml}}
+* Maori: {{t+|mi|ao}}
+* Middle English: {{t|enm|world}}, {{t|enm|erthe}}
+* Ngazidja Comorian: {{t|zdj|ulemengu|c11}}
+* Norwegian:
+*: Bokmål: {{t+|nb|verden|m}}, {{t+|nb|verd|m|f}}, {{t|nb|klode|m}}
+*: Nynorsk: {{t|nn|verd|f}}, {{t|nn|klode|m}}
+* Occitan: {{t+|oc|tèrra|f}}, {{t+|oc|mond|m}}
+* Old Frisian: {{t|ofs|wrald}}
+* Persian: {{t+|fa|گیتی|tr=giti}}, {{t+|fa|جهان|tr=jahân}}
+* Polish: {{t+|pl|świat|m-in}}
+* Portuguese: {{t+|pt|mundo|m}}
+* Quechua: {{t|qu|paca}}, {{t|qu|paza}}
+* Romanian: {{t+|ro|lume}}, {{t+|ro|pământ}}
+* Romansch: {{t|rm|mund|m}}
+* Russian: {{t+|ru|мир|m}}, {{t+|ru|свет|m}}, {{t|ru|земно́й шар|m}}
+* Scots: {{t|sco|warld}}
+* Scottish Gaelic: {{t|gd|saoghal|m}}, {{t|gd|cruinne-cè|m|f}}
+* Serbo-Croatian:
+*: Cyrillic: {{t|sh|свије̑т|m|sc=Cyrl}} ([[Ijekavian]]), {{t|sh|све̑т|m|sc=Cyrl}} ([[Ekavian]])
+*: Roman: {{t+|sh|svijȇt|m}} ([[Ijekavian]]), {{t+|sh|svȇt|m}} ([[Ekavian]])
+* Sicilian: {{t+|scn|munnu|m}}, {{t+|scn|terra|f}}
+* Sinhalese: {{t|si|ලෝකය}}
+* Sorbian:
+*: Lower Sorbian: {{t|dsb|swět|m}}
+* Spanish: {{t+|es|mundo|m}}, {{t+|es|globo|m}}, {{t+|es|tierra|f}}
+* Swedish: {{t+|sv|värld|c}}
+* Tagalog: {{t|tl|sandaigdigan}}
+* Tamil: {{t+|ta|உலகம்}}, {{t+|ta|ஞாலம்}}, {{t+|ta|பார்}}, {{t+|ta|புவி}}, {{t+|ta|பூமி}}
+* Tashelhit: {{t|shi|akal|m}}
+* Telugu: {{t+|te|భూగోళము|sc=Telu}}, {{t+|te|భూమి|sc=Telu}}
+* Thai: {{t+|th|โลก}}
+* Turkish: {{t+|tr|Dünya}}, {{t+|tr|acun}}, {{t+|tr|yüre}}
+* Ukrainian: {{t+|uk|світ|m}}
+* Urdu: {{t+|ur|دنیا|f}}
+* Vietnamese: {{t+|vi|trái đất}}
+* Walloon: {{t|wa|Tere|f}}, {{t+|wa|Daegne|f}}, {{t+|wa|monde|m}}
+* Welsh: {{t+|cy|byd|m}}
+* West Frisian: {{t|fy|wrâld}}, {{t+|fy|ierde}}
+* Yiddish: {{t+|yi|וועלט|f}}
+* Zulu: {{t+|zu|umhlaba|c3|c4}}
+{{trans-bottom}}
+
+{{trans-top|inhabited planet}}
+* Alabama: {{t|akz|ihaani onaami}}
+* Arabic: {{t+|ar|عَالَم|m}}, {{t+|ar|دُنْيَا}}
+* Armenian: {{t+|hy|աշխարհ}}
+* Basque: {{t|eu|mundu}}
+* Bavarian: {{t|bar|Wöd}}
+* Bulgarian: {{t+|bg|свят|m|sc=Cyrl}}
+* Catalan: {{t+|ca|món|m}}
+* Chinese:
+*: Cantonese: {{t+|yue|世界|tr=sai3 kaai3|sc=Hani}}
+*: Hakka: {{t|hak|世界|tr=sṳ-kie|sc=Hani}}
+*: Mandarin: {{t+|cmn|世界|tr=shìjiè|sc=Hani}}
+*: Min Nan: {{t+|nan|世界|tr=[[sè-kài]]}}
+* Cornish: {{t|kw|bys|m}}, {{t|kw|bes|m}}
+* Czech: {{t+|cs|svět|m}}
+* Danish: {{t+|da|verden|c}}
+* Dutch: {{t+|nl|wereld|f|m}}
+* Ewe: {{t|ee|xexeme}}
+* Finnish: {{t+|fi|maailma}}
+* Greek: {{t+|el|κόσμος|m}}
+*: Ancient: {{t|grc|κόσμος}}
+* Hebrew: {{t+|he|עוֹלָם|m|tr=olám}}
+* Hindi: {{t+|hi|दुनिया|f}}, {{t+|hi|लोक|m|tr=lok}}
+* Hungarian: {{t+|hu|világ}}
+* Indonesian: {{t+|id|dunia}}
+* Italian: {{t+|it|mondo|m}}
+* Khmer: {{t|km|ភពផែនដី}}
+* Korean: {{t+|ko|세계}}
+* Lao: {{t+|lo|ໂລກ|tr=lōk}}
+* Latin: {{t|la|mundus|m}}
+{{trans-mid}}
+* Latvian: {{t|lv|pasaule|f}}
+* Lithuanian: {{t+|lt|pasaulis|m}}
+* Low German: {{t|nds|Werld|f}}
+* Macedonian: {{t|mk|свет|m}}
+* Middle English: {{t|enm|world}}
+* Norwegian: {{t+|no|verden|m}}
+* Polish: {{t+|pl|świat|m-in}}
+* Portuguese: {{t+|pt|mundo|m}}
+* Romanian: {{t+|ro|lume}}
+* Russian: {{t+|ru|мир|m}}
+* Scots: {{t|sco|warld}}
+* Scottish Gaelic: {{t|gd|saoghal|m}}, {{t|gd|cruinne-cè|m|f}}
+* Serbo-Croatian:
+*: Cyrillic: {{t|sh|свије̑т|m|sc=Cyrl}} ([[Ijekavian]]), {{t|sh|све̑т|m|sc=Cyrl}} ([[Ekavian]])
+*: Roman: {{t+|sh|svijȇt|m}} ([[Ijekavian]]), {{t+|sh|svȇt|m}} ([[Ekavian]])
+* Sorbian:
+*: Lower Sorbian: {{t|dsb|swět|m}}
+* Spanish: {{t+|es|mundo|m}}
+* Swedish: {{t+|sv|värld|c}}
+* Tagalog: {{t+|tl|Daigdig}}
+* Tamil: {{t+|ta|உலகம்}}, {{t+|ta|ஞாலம்}}, {{t+|ta|பார்}}
+* Tashelhit: {{qualifier|neol}} {{t|shi|asudr|m}}
+* Thai: {{t+|th|โลก|tr=lôok}}
+* Turkish: {{t+|tr|dünya}}
+* Ukrainian: {{t+|uk|світ|m}}
+* Urdu: {{t+|ur|دنیا|f}}
+* Welsh: {{t+|cy|byd|m}}
+* West Frisian: {{t|fy|wrâld}}
+{{trans-bottom}}
+
+{{trans-top|individual or group perspective or social setting}}
+* Arabic: {{t+|ar|عَالَم|m}}, {{t+|ar|دُنْيَا}}
+* Armenian: {{t+|hy|աշխարհ}}
+* Basque: {{t|eu|mundu}}
+* Bavarian: {{t|bar|Wöd}}
+* Bulgarian: {{t+|bg|свят|m|sc=Cyrl}}
+* Catalan: {{t+|ca|món|m}}
+* Chinese:
+*: Cantonese: {{t+|yue|世界|tr=sai3 gaai3|sc=Hani}}
+*: Dungan: {{t|dng|шицзе|sc=Cyrl}}
+*: Hakka: {{t|hak|世界|tr=sṳ-kie|sc=Hani}}
+*: Mandarin: {{t+|cmn|世界|tr=shìjiè|sc=Hani}}
+*: Min Nan: {{t+|nan|世界|tr=[[sè-kài]]}}
+* Czech: {{t+|cs|svět|m}}
+* Danish: {{t+|da|verden|c}}
+* Finnish: {{t+|fi|maailma}}
+* Greek: {{t+|el|κόσμος|m}}
+* Hebrew: {{t+|he|עוֹלָם|m|tr=olám}}
+* Hungarian: {{t+|hu|világ}}
+* Indonesian: {{t+|id|dunia}}
+* Italian: {{t+|it|mondo|m}}
+* Japanese: {{t+|ja|界|alt=-界|tr=-かい, -kai}}
+{{trans-mid}}
+* Khmer: {{t+|km|លោក|tr=lok|sc=Khmr}}
+* Korean: {{t+|ko|세계}}
+* Latvian: {{t|lv|pasaule|f}}
+* Macedonian: {{t|mk|свет|m}}
+* Malay: {{t+|ms|dunia}}
+* Norwegian: {{t+|no|verden|m}}
+* Polish: {{t+|pl|świat|m-in}}
+* Portuguese: {{t+|pt|mundo|m}}
+* Russian: {{t+|ru|мир|m}}
+* Scots: {{t|sco|warld}}
+* Scottish Gaelic: {{t|gd|saoghal|m}}
+* Sorbian:
+*: Lower Sorbian: {{t|dsb|swět|m}}
+* Spanish: {{t+|es|mundo|m}}
+* Swedish: {{t+|sv|värld|c}}
+* Turkish: {{t+|tr|dünya}}, {{t+|tr|âlem}}
+* Ukrainian: {{t+|uk|світ|m}}
+* Walloon: {{t+|wa|monde|m}}, {{t+|wa|djins|f-p}}
+* Welsh: {{t+|cy|byd|m}}
+* West Frisian: {{t|fy|wrâldsje}}
+{{trans-bottom}}
+
+{{checktrans-top}}
+* Albanian: {{t+check|sq|botë|f}}
+* Bengali: {{t+check|bn|সংসার|sc=Beng}}
+* Icelandic: {{t+check|is|heimur|m}}, {{t+check|is|veröld|f}}
+* Indonesian: {{t+check|id|dunia}}
+* Korean: {{t+check|ko|누리|tr=nuri|sc=Kore}}, {{t+check|ko|세계|tr=[[世界]], segye|sc=Kore}}
+* Kurdish:
+*: Kurmanji: {{t+check|ku|cîhan}}
+* Lithuanian: {{t+check|lt|pasaulis|m}}
+* Maltese: {{t+check|mt|dinja}}
+* Mongolian: {{t+check|mn|дэлхий}}
+{{trans-mid}}
+* Old English: {{t|ang|woruld}}, {{t|ang|middanġeard}}
+* Persian: {{t+check|fa|جَهان|tr=jæhān}}
+* Punjabi: {{t+check|pa|ਸੰਸਾਰ}}, {{t-check|pa|ਦੁਨੀਆ}}, {{t-check|pa|ਜਗਤ}}
+* Romanian: {{t+check|ro|lume|f}}
+* Slovak: {{t+check|sk|svet|m}}
+* Slovene: {{t+check|sl|svet|m}}
+* Tagalog: {{t+check|tl|Daigdig}}, {{qualifier|one round place}} {{t-check|tl|sanlibutan}}, {{qualifier|spanish origin}} {{t+check|tl|mundo}}
+* Telugu: {{t+check|te|ప్రపంచము}}, {{t+check|te|లోకము}}
+* Vietnamese: {{t+check|vi|thế giới}}
+{{trans-bottom}}
+
+===Verb===
+{{en-verb}}
+
+# To consider or cause to be considered from a global perspective; to consider as a global whole, rather than making or focussing on national or other distinctions; compare [[globalise]].
+#* '''1996''', Jan Jindy Pettman, ''Worlding Women: A feminist international politics'', pages ix-x:
+#*: There are by now many feminisms (Tong, 1989; Humm, 1992). [...] They are in shifting alliance or contest with postmodern critiques, which at times seem to threaten the very category 'women' and its possibilities for a feminist politics. These debates inform this attempt at '''worlding''' women&mdash;moving beyond white western power centres and their dominant knowledges (compare Spivak, 1985), while recognising that I, as a white settler-state woman, need to attend to differences between women, too.
+#* '''2005''', James Phillips, ''Heidegger's Volk: Between National Socialism and Poetry'', published by Stanford University Press, {{ISBN|978-0804750714}}:
+#*: In a sense, the dictatorship was a failure of failure and, on that account, it was perhaps the exemplary system of control. Having in 1933 wagered on the '''worlding''' of the world in the regime's failure, Heidegger after the war can only rue his opportunistic hopes for an exposure of the ontological foundations of control.
+# To make [[real]]; to make [[worldly]]. <!--
+# {{context|obsolete|lang=en}} to introduce into the world; to [[bear]] (eg a child) -->
+
+===See also===
+* {{l|en|global}}
+* {{l|en|globalisation}}, {{l|en|globalization}}
+
+===Anagrams===
+* {{anagrams|en|a=dlorw|l-word}}
+
+[[Category:English basic words]]
+[[Category:en:Collectives]]
+
+----
+
+==Middle English==
+<!--this Middle English entry was created using Template:new enm entry-->
+
+===Alternative forms===
+* {{alter|enm|worild|wordle|werld|woreld|worlde|woruld|weoreld}}
+
+===Etymology===
+From {{inh|enm|ang|woruld}}, {{m|ang|worold}}, from {{inh|enm|gem-pro|*weraldiz}}.
+
+===Pronunciation===
+* {{IPA|lang=enm|/wurld/|/wɛrld/}}
+
+===Noun===
+{{enm-noun|pl=worldes}}
+
+# {{l|en|world}}, [[planet]] (i.e. [[Earth]])
+#*:{{quote-book|year=a.1382|author=John Wycliffe|title={{w|Wycliffe's Bible}} |chapter=John 1:10 |passage= He was in the '''world''', and the '''world''' was maad bi hym, and the '''world''' knew hym not.|translation=He was in the '''world''', and the '''world''' was made by him, and the '''world''' didn't know about him.|lang=enm}}
+# A dimension, realm, or existence, especially human existence.
+# The trappings and features of human life.
+# The political entities of the world.
+# The people of the world, especially when judging someone.
+# An age, era or epoch.
+# The [[universe]], the totality of [[existence]].
+
+====Descendants====
+* {{desc|en|world}}
+* {{desc|sco|warld}}
+
+====References====
+* {{R:MED Online|entry=world (n.)|id=MED53430 |accessdate=2018-03-20}}
+
+[[Category:Middle English terms with quotations]]
+[[Category:enm:Collectives]]
+[[Category:enm:Earth]]
+[[Category:enm:Government]]
+[[Category:enm:Space]]
+[[Category:enm:Time]]`;
