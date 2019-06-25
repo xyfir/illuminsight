@@ -1,6 +1,6 @@
-# Self-Host Illuminsight
+# Self-Host illuminsight
 
-This tutorial will outline how to get Illuminsight running on your own server.
+This tutorial will outline how to get illuminsight running on your own server.
 
 # Requisites
 
@@ -11,7 +11,7 @@ This tutorial will outline how to get Illuminsight running on your own server.
 
 # Step 0: Clone the Repo
 
-First change to the directory where you wish to keep Illuminsight.
+First change to the directory where you wish to keep illuminsight.
 
 ```bash
 git clone --recurse-submodules https://github.com/MrXyfir/illuminsight.git
@@ -62,7 +62,7 @@ sudo rm pandoc-X.X.X-1-amd64.deb
 
 # Step 2: Create Temp Directory
 
-Now we need to create the temp directory where Illuminsight will write temporary data to the disk. You can put it wherever and name it whatever you'd like, but for now we'll make it `temp/` alongside `illuminsight/`.
+Now we need to create the temp directory where illuminsight will write temporary data to the disk. You can put it wherever and name it whatever you'd like, but for now we'll make it `temp/` alongside `illuminsight/`.
 
 ```bash
 mkdir ../temp
@@ -70,7 +70,7 @@ mkdir ../temp
 
 # Step 3: Set Environment Variables
 
-Illuminsight is configured via environment variables which are loaded via `.env` files located in each subdirectory.
+illuminsight is configured via environment variables which are loaded via `.env` files located in each subdirectory.
 
 To understand the syntax of the `.env` files, know that they are first loaded via [dotenv](https://www.npmjs.com/package/dotenv) and then the string values provided by dotenv are parsed by [enve](https://www.npmjs.com/package/enve).
 
@@ -84,7 +84,7 @@ touch server/.env web/.env
 
 ## Step 3b: Configure
 
-You can find the available environment variables in [types/illuminsight.d.ts](https://github.com/MrXyfir/illuminsight/blob/master/types/illuminsight.d.ts) under the `Illuminsight.Env` namespace.
+You can find the available environment variables in [types/illuminsight.d.ts](https://github.com/MrXyfir/illuminsight/blob/master/types/illuminsight.d.ts) under the `illuminsight.Env` namespace.
 
 # Step 4: Build From Source
 
@@ -107,11 +107,11 @@ cd ../
 pm2 startup # then follow instructions
 ```
 
-# Upgrading Illuminsight
+# Upgrading illuminsight
 
-This is a general guide for upgrading from one version of Illuminsight to another. It's possible there are more specific steps you'll have to follow based on your current version and that of which you wish to upgrade to, but these steps should typically get you at least 90% of the way there.
+This is a general guide for upgrading from one version of illuminsight to another. It's possible there are more specific steps you'll have to follow based on your current version and that of which you wish to upgrade to, but these steps should typically get you at least 90% of the way there.
 
-To begin the process of upgrading Illuminsight, let's first reset the repo and pull in changes:
+To begin the process of upgrading illuminsight, let's first reset the repo and pull in changes:
 
 ```bash
 git reset --hard origin/master
@@ -124,8 +124,8 @@ Now we'll once again run through some of the steps above:
 - Go to [Step 3](#step-3-set-environment-variables) to update any `.env` files that may require changes.
 - Go to [Step 4](#step-4-build-from-source) to rebuild the apps.
 
-Finally, restart the servers:
+Finally, restart the server:
 
 ```bash
-pm2 restart all
+pm2 restart illuminsight
 ```
