@@ -63,7 +63,7 @@ export function DefinitionInsight({
     // Remove "English" heading if it's the first one in the document
     // User should already assume definition is in English by default
     const [h1] = div.getElementsByTagName('h1');
-    if (h1 && h1.innerText == 'English') h1.remove();
+    if (h1 && h1.textContent == 'English') h1.remove();
 
     // Remove links (Array.from() required!)
     const links = Array.from(div.getElementsByTagName('a'));
