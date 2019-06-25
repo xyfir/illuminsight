@@ -1,5 +1,5 @@
+import { testWiktionaryWikitext, testWikitext } from 'lib/test/data';
 import { fireEvent, render } from '@testing-library/react';
-import { testWikitext } from 'lib/test/data';
 import { Illuminsight } from 'types/illuminsight';
 import { Insights } from 'components/reader/Insights';
 import * as React from 'react';
@@ -12,7 +12,11 @@ test('<Insights>', async () => {
   // Render insights
   const insights: Illuminsight.Insight[] = [
     { text: 'Cormac McCarthy' },
-    { text: 'Blood Meridian', wiki: wtf(testWikitext) }
+    {
+      definition: wtf(testWiktionaryWikitext),
+      text: 'Blood Meridian',
+      wiki: wtf(testWikitext)
+    }
   ];
   const { getByLabelText, getAllByText, getByText } = render(
     <Insights insights={insights} />
@@ -62,11 +66,23 @@ test('<Insights>', async () => {
   // Expect "Wikipedia" insight to have opened wiki article
   getByText('novel by American author', { exact: false });
 
-  // Click back to previous insights
-  fireEvent.click(getByLabelText('Back to previous insights'));
-
   // Expect only top-level insights to be rendered
   // Expect wiki to remain rendered
   expect(getAllByText('Cormac McCarthy')).toBeArrayOfSize(2);
   expect(() => getByText('Wikipedia')).toThrow();
+
+  // Click secondary action to view all insights of text
+  fireEvent.click(getByLabelText('View all insights for "Blood Meridian"'));
+
+  // Click back to previous insights
+  fireEvent.click(getByLabelText('Back to previous insights'));
+
+  // Click secondary action to view all insights of text
+  fireEvent.click(getByLabelText('View all insights for "Blood Meridian"'));
+
+  // Click "Definiton" insight
+  fireEvent.click(getByText('Definition'));
+
+  // Validate definition has loaded
+  getAllByText('Noun');
 });
