@@ -1,4 +1,4 @@
-# [illuminsight](https://app.illuminsight.com)
+# [illuminsight](https://app.illuminsight.com) — read smarter
 
 💡 **[illuminsight](https://app.illuminsight.com)** 👀 effortlessly extracts insights from books, news articles, and textual content to provide context and relevant data.
 
@@ -6,7 +6,7 @@
 
 You can import content from just about anywhere: ebooks, the web, or plain text.
 
-Once you're reading, tap the insight tool icon 🔦 and **illuminsight will automatically find notable items within the text, providing you with quick access to web searches or Wikipedia articles** inserted into the content.
+Once you're reading, tap the insight tool icon 🔦 and **illuminsight will automatically find notable items within the text, providing you with quick access to Wikipedia articles, web searches, and definitions** inserted into the content.
 
 All data is stored solely on your device.
 
