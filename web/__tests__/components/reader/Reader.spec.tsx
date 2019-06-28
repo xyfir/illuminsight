@@ -1,12 +1,12 @@
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
-import * as localForage from 'localforage';
 import { readFileSync } from 'fs';
 import { Illuminsight } from 'types/illuminsight';
+import localForage from 'localforage';
 import { resolve } from 'path';
 import { Reader } from 'components/reader/Reader';
 import * as React from 'react';
-import * as JSZip from 'jszip';
+import JSZip from 'jszip';
 import {
   waitForDomChange,
   fireEvent,

@@ -1,8 +1,8 @@
 import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
-import * as localForage from 'localforage';
 import { Illuminsight } from 'types/illuminsight';
+import localForage from 'localforage';
 import * as React from 'react';
 import JSZip from 'jszip';
 import {

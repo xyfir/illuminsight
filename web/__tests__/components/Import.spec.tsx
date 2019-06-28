@@ -1,8 +1,8 @@
 import { SnackbarProvider } from 'notistack';
 import { Illuminsight } from 'types/illuminsight';
-import * as localForage from 'localforage';
 import { MemoryRouter } from 'react-router';
 import { testPub } from 'lib/test/data';
+import localForage from 'localforage';
 import { Import } from 'components/Import';
 import * as React from 'react';
 import { api } from 'lib/app/api';

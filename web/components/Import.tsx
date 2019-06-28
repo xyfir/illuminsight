@@ -1,7 +1,7 @@
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { Illuminsight } from 'types/illuminsight';
-import * as localForage from 'localforage';
 import { useSnackbar } from 'notistack';
+import localForage from 'localforage';
 import { getYear } from 'date-fns';
 import * as React from 'react';
 import { api } from 'lib/app/api';

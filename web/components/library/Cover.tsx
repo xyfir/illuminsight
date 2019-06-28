@@ -1,6 +1,6 @@
 import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
 import { CropSquare as SquareIcon } from '@material-ui/icons';
-import * as localForage from 'localforage';
+import localForage from 'localforage';
 import * as React from 'react';
 
 const styles = (theme: Theme) =>

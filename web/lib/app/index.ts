@@ -1,11 +1,11 @@
-import * as localForage from 'localforage';
 import { Illuminsight } from 'types/illuminsight';
 import { setConfig } from 'react-hot-loader';
+import localForage from 'localforage';
 import { render } from 'react-dom';
 import * as React from 'react';
-import * as wtf from 'wtf_wikipedia';
 import { hot } from 'react-hot-loader/root';
 import { App } from 'components/app/App';
+import wtf from 'wtf_wikipedia';
 import 'typeface-roboto';
 
 // Expose globals for debugging/testing purposes

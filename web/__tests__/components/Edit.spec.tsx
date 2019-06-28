@@ -1,14 +1,14 @@
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { fireEvent, render, wait } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
-import * as localForage from 'localforage';
 import { readFileSync } from 'fs';
 import { Illuminsight } from 'types/illuminsight';
 import { testTags } from 'lib/test/data';
+import localForage from 'localforage';
 import { resolve } from 'path';
 import * as React from 'react';
-import * as JSZip from 'jszip';
 import { Edit } from 'components/Edit';
+import JSZip from 'jszip';
 
 test('<Edit>', async () => {
   // Mock localForage and URL
