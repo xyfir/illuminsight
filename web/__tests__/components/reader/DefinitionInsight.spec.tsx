@@ -1,30 +1,27 @@
-import { testWiktionaryWikitext } from 'lib/test/data';
 import { DefinitionInsight } from 'components/reader/DefinitionInsight';
-import { fireEvent, render } from '@testing-library/react';
+import { testDefinitions } from 'lib/test/data';
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import wtf from 'wtf_wikipedia';
 
 test('<DefinitionInsight>', async () => {
-  const { getByText, container } = render(
-    <DefinitionInsight doc={wtf(testWiktionaryWikitext)} />
+  const { getAllByText, getByText, container } = render(
+    <DefinitionInsight definitions={testDefinitions} />
   );
 
   // Validate there's no links
   expect(Array.from(container.getElementsByTagName('a'))).toBeArrayOfSize(0);
 
-  // Validate top "English" header has been removed
-  expect(container.getElementsByTagName('h1')[0]!.textContent).not.toBe(
-    'English'
-  );
+  // Validate there's no images
+  expect(Array.from(container.getElementsByTagName('img'))).toBeArrayOfSize(0);
 
-  // Validate no non-language or non-POS sections
-  expect(() => getByText('Etymology')).toThrow();
-  expect(() => getByText('Synonyms')).toThrow();
+  // Validate parts of speech headings
+  getAllByText('noun');
+  getAllByText('verb');
 
-  // Render full article
-  fireEvent.click(getByText('Full Definition'));
+  // Validate definitions
+  getByText('trial');
+  getByText('refine');
 
-  // Validate full article was loaded into <WikiInsights>
-  getByText('Wiktionary.org', { exact: false });
-  getByText('Synonyms');
+  // Validate example
+  getByText('Two sea urchin tests');
 });

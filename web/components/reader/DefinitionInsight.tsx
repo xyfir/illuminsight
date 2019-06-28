@@ -1,69 +1,36 @@
-import { createStyles, makeStyles, Button, Paper } from '@material-ui/core';
-import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import { createStyles, makeStyles, Typography, Paper } from '@material-ui/core';
 import { Illuminsight } from 'types/illuminsight';
-import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
-
-// http://github.com/Suyash458/WiktionaryParser/blob/master/wiktionaryparser.py
-const SECTIONS = [
-  'noun',
-  'verb',
-  'adjective',
-  'adverb',
-  'determiner',
-  'article',
-  'preposition',
-  'conjunction',
-  'proper noun',
-  'letter',
-  'character',
-  'phrase',
-  'proverb',
-  'idiom',
-  'symbol',
-  'syllable',
-  'numeral',
-  'initialism',
-  'interjection',
-  'definitions',
-  'pronoun'
-];
 
 const useStyles = makeStyles(() =>
   createStyles({
-    paper: {
-      maxHeight: '60vh',
+    partOfSpeech: {
+      fontSize: '100%'
+    },
+    root: {
+      maxHeight: '40vh',
       overflow: 'auto',
-      padding: '0.3em',
+      padding: '0.5em',
       margin: '1em 0.3em'
     }
   })
 );
 
 export function DefinitionInsight({
-  doc
+  definitions
 }: {
-  doc: Exclude<Illuminsight.Insight['definition'], undefined>;
+  definitions: Illuminsight.Definitions;
 }) {
-  const [wikiView, setWikiView] = React.useState(false);
   const classes = useStyles();
 
-  function generateHTML() {
+  function cleanHTML(html: string): string {
     // We'll use this unattached container for manipulating HTML
     const div = document.createElement('div');
-    div.innerHTML = doc
-      .sections()
-      .filter(
-        // Allow top-level language sections and parts of speech sections
-        s => !s.indentation() || SECTIONS.includes(s.title().toLowerCase())
-      )
-      .map(s => s.html())
-      .join('\n');
+    div.innerHTML = html;
 
-    // Remove "English" heading if it's the first one in the document
-    // User should already assume definition is in English by default
-    const [h1] = div.getElementsByTagName('h1');
-    if (h1 && h1.textContent == 'English') h1.remove();
+    // Remove images (Array.from() required!)
+    const imgs = Array.from(div.getElementsByTagName('img'));
+    for (let img of imgs) img.remove();
 
     // Remove links (Array.from() required!)
     const links = Array.from(div.getElementsByTagName('a'));
@@ -76,16 +43,34 @@ export function DefinitionInsight({
     return div.innerHTML;
   }
 
-  return wikiView ? (
-    <WikiInsight wiktionary doc={doc} />
-  ) : (
-    <Paper className={classes.paper} elevation={2}>
-      <div dangerouslySetInnerHTML={{ __html: generateHTML() }} />
-
-      <Button onClick={() => setWikiView(true)} variant="text">
-        <ExpandMoreIcon />
-        Full Definition
-      </Button>
+  return (
+    // Part of speech -> definition -> example
+    <Paper className={classes.root} elevation={2}>
+      {definitions.en.map((d, i) => (
+        <div key={i}>
+          <Typography variant="h2" className={classes.partOfSpeech}>
+            {d.partOfSpeech.toLowerCase()}
+          </Typography>
+          <ul>
+            {d.definitions.map((dd, j) => (
+              <li key={j}>
+                <Typography
+                  dangerouslySetInnerHTML={{ __html: cleanHTML(dd.definition) }}
+                />
+                <ul>
+                  {dd.examples &&
+                    dd.examples.map((e, k) => (
+                      <Typography
+                        key={k}
+                        dangerouslySetInnerHTML={{ __html: cleanHTML(e) }}
+                      />
+                    ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </Paper>
   );
 }

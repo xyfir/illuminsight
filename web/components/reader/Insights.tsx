@@ -63,7 +63,7 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
                 <CloseIcon />
               ) : insight.wiki ? (
                 <InfoIcon />
-              ) : insight.definition ? (
+              ) : insight.definitions ? (
                 <DefinitionIcon />
               ) : (
                 <SearchIcon />
@@ -77,20 +77,20 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
                     i,
                     insight.wiki
                       ? 'wiki'
-                      : insight.definition
+                      : insight.definitions
                       ? 'definition'
                       : 'search'
                   )
             }
             // onDelete/deleteIcon are repurposed for expanding insights
             onDelete={
-              insight.wiki || insight.definition
+              insight.wiki || insight.definitions
                 ? () => setExpand({ index: i })
                 : undefined
             }
             className={classes.chip}
             deleteIcon={
-              insight.wiki || insight.definition ? (
+              insight.wiki || insight.definitions ? (
                 <ExpandMoreIcon
                   aria-label={`View all insights for "${insight.text}"`}
                 />
@@ -117,7 +117,7 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
               className={classes.chip}
             />
           ) : null}
-          {expanded.definition ? (
+          {expanded.definitions ? (
             <Chip
               icon={<DefinitionIcon />}
               label="Definition"
@@ -139,7 +139,10 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
         <WikiInsight doc={expanded.wiki!} key={expand.index} />
       ) : expand.type == 'definition' ? (
         // Selected Wiktionary insight
-        <DefinitionInsight doc={expanded.definition!} key={expand.index} />
+        <DefinitionInsight
+          definitions={expanded.definitions!}
+          key={expand.index}
+        />
       ) : null}
     </div>
   );

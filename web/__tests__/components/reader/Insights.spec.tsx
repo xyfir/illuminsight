@@ -1,4 +1,4 @@
-import { testWiktionaryWikitext, testWikitext } from 'lib/test/data';
+import { testDefinitions, testWikitext } from 'lib/test/data';
 import { fireEvent, render } from '@testing-library/react';
 import { Illuminsight } from 'types/illuminsight';
 import { Insights } from 'components/reader/Insights';
@@ -13,7 +13,7 @@ test('<Insights>', async () => {
   const insights: Illuminsight.Insight[] = [
     { text: 'Cormac McCarthy' },
     {
-      definition: wtf(testWiktionaryWikitext),
+      definitions: testDefinitions,
       text: 'Blood Meridian',
       wiki: wtf(testWikitext)
     }
@@ -84,5 +84,5 @@ test('<Insights>', async () => {
   fireEvent.click(getByText('Definition'));
 
   // Validate definition has loaded
-  getAllByText('Noun');
+  getAllByText('noun');
 });
