@@ -71,8 +71,42 @@ export namespace Illuminsight {
       }
     | string;
 
+  export interface Definitions {
+    [language: string]: {
+      language: string;
+      definitions: {
+        examples?: string[];
+        definition: string;
+        parsedExamples?: { example: string }[];
+      }[];
+      partOfSpeech:
+        | 'Noun'
+        | 'Verb'
+        | 'Adjective'
+        | 'Adverb'
+        | 'Determiner'
+        | 'Article'
+        | 'Preposition'
+        | 'Conjunction'
+        | 'Proper noun'
+        | 'Letter'
+        | 'Character'
+        | 'Phrase'
+        | 'Proverb'
+        | 'Idiom'
+        | 'Symbol'
+        | 'Syllable'
+        | 'Numeral'
+        | 'Initialism'
+        | 'Interjection'
+        | 'Definitions'
+        | 'Pronoun'
+        | 'Romanization';
+    }[];
+  }
+
   export interface Insight {
-    definition?: Document;
+    definitions?: Definitions;
     wiki?: Document;
     text: string;
   }
