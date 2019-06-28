@@ -23,6 +23,11 @@ export type InsightToolProps = {
 };
 
 export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
+  // Capture Selection properties on mobile before tap deselects the text
+  // Cannot just save Selection object because it's mutated in place
+  let selectionText: string;
+  let selectionNode: Node;
+
   const [active, setActive] = React.useState(false);
   const classes = useStyles();
 
@@ -70,21 +75,18 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     if (active) return;
     setActive(true);
 
-    const selection = window.getSelection()!;
+    if (selectionText === undefined) saveSelection();
 
     // Generate insights from selected text
-    if (selection.type == 'Range') {
-      const rect = selection.focusNode!.parentElement!.getBoundingClientRect() as DOMRect;
+    if (selectionText) {
+      const rect = selectionNode.parentElement!.getBoundingClientRect() as DOMRect;
       const element = getElement(rect.x, rect.y) as HTMLElement;
 
       // Get index of AST element
       const index = +element.getAttribute('ast')!;
 
       // Generate insights for AST block
-      const insights = await generateInsights(
-        selection.toString().trim(),
-        true
-      );
+      const insights = await generateInsights(selectionText.trim(), true);
       insightsIndex[index] = insightsIndex[index]
         ? insightsIndex[index].concat(insights)
         : insights;
@@ -123,6 +125,12 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     setActive(false);
   }
 
+  function saveSelection() {
+    const selection = window.getSelection()!;
+    selectionText = selection.toString();
+    selectionNode = selection.focusNode!;
+  }
+
   return active ? (
     <IconButton className={classes.button} disabled={active}>
       <InsightIcon />
@@ -130,8 +138,7 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
   ) : (
     <Tooltip title="Toggle insights for text block below">
       <IconButton
-        // prevent selected text (if any) from being deselected
-        onMouseDown={e => e.preventDefault()}
+        onTouchStart={saveSelection}
         className={classes.button}
         disabled={active}
         onClick={onClick}
