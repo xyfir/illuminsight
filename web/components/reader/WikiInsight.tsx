@@ -1,4 +1,3 @@
-import { getWiktionary } from 'lib/reader/get-wiktionary';
 import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import wtf from 'wtf_wikipedia';
@@ -45,14 +44,11 @@ const useStyles = makeStyles(() =>
 type SectionKey = 'all' | 'toc' | 'main' | 'main+stats' | number;
 
 export function WikiInsight({
-  wiktionary,
   doc
 }: {
-  wiktionary?: boolean;
   doc: Exclude<Illuminsight.Insight['wiki'], undefined>;
 }) {
-  const startSection = wiktionary ? 'all' : 'main';
-  const [sectionKey, setSectionKey] = React.useState<SectionKey>(startSection);
+  const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
   const [articleKey, setArticleKey] = React.useState(0);
   const [articles, setArticles] = React.useState([doc]);
   const article = articles[articleKey];
@@ -60,7 +56,7 @@ export function WikiInsight({
 
   /** Go back to previous article in history */
   function onPreviousArticle() {
-    setSectionKey(startSection);
+    setSectionKey('main');
     setArticleKey(articleKey - 1);
   }
 
@@ -85,29 +81,11 @@ export function WikiInsight({
     event.preventDefault();
     event.stopPropagation();
 
-    // Download article
-    let newArticle: wtf.Document | null;
-    const href = a.getAttribute('href')!.substr(2);
-    // Wiktionary
-    if (wiktionary) {
-      // Get from text (case-sensitive, and probably lowercase!)
-      newArticle = await getWiktionary(a.innerText);
-
-      // Get from href (always capitalized)
-      if (!newArticle && a.innerText != href)
-        newArticle = await getWiktionary(href);
-      // Force lowercase (probably a non-proper noun at start of sentence)
-      if (!newArticle) newArticle = await getWiktionary(href.toLowerCase());
-    }
-    // Wikipedia
-    else {
-      newArticle = await wtf.fetch(href);
-    }
-
-    // Load wiki article into viewer
+    // Load article
+    const newArticle = await wtf.fetch(a.getAttribute('href')!.substr(2));
     if (newArticle) {
       setArticles(articles.slice(0, articleKey + 1).concat(newArticle));
-      setSectionKey(startSection);
+      setSectionKey('main');
       setArticleKey(articleKey + 1);
     }
   }
@@ -209,7 +187,7 @@ export function WikiInsight({
           <Breadcrumbs aria-label="Breadcrumb" maxItems={4}>
             {/* Root section */}
             <Chip
-              onClick={() => setSectionKey(startSection)}
+              onClick={() => setSectionKey('main')}
               variant="outlined"
               label={article.title()}
               icon={<HomeIcon />}
@@ -238,12 +216,8 @@ export function WikiInsight({
           </Breadcrumbs>
         ) : (
           <Typography variant="caption">
-            Source: (English) {wiktionary ? 'Wiktionary' : 'Wikipedia'}.org:{' '}
-            <a
-              href={`https://en.${
-                wiktionary ? 'wiktionary' : 'wikipedia'
-              }.org/wiki/${article.title()}`}
-            >
+            Source: (English) Wikipedia.org:{' '}
+            <a href={`https://en.wikipedia.org/wiki/${article.title()}`}>
               {article.title()}
             </a>
           </Typography>
