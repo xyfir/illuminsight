@@ -1,4 +1,4 @@
-import { getWiktionary } from 'lib/reader/get-wiktionary';
+import { getDefinitions } from 'lib/reader/get-definitions';
 import { Illuminsight } from 'types/illuminsight';
 import { stopwords } from 'lib/reader/stopwords';
 import wtf from 'wtf_wikipedia';
@@ -45,10 +45,12 @@ export async function generateInsights(
       );
 
   for (let insight of insights) {
-    // Get definition from English Wiktionary
-    insight.definition = (await getWiktionary(insight.text)) || undefined;
+    // Get definitions from English Wiktionary
+    try {
+      insight.definitions = await getDefinitions(insight.text);
+    } catch (err) {}
 
-    // Get definition from English Wikipedia
+    // Get wiki article from English Wikipedia
     insight.wiki = (await wtf.fetch(insight.text)) || undefined;
   }
 
