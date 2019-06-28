@@ -2,6 +2,7 @@ import { fireEvent, render, wait } from '@testing-library/react';
 import { Illuminsight } from 'types/illuminsight';
 import { InsightTool } from 'components/reader/InsightTool';
 import * as React from 'react';
+import axios from 'axios';
 import wtf from 'wtf_wikipedia';
 
 test('<InsightTool>', async () => {
@@ -15,12 +16,19 @@ test('<InsightTool>', async () => {
   const mockGetBoundingClientRect = (HTMLButtonElement.prototype.getBoundingClientRect = jest.fn());
   const mockElementsFromPoint = ((document as any).elementsFromPoint = jest.fn());
   const mockGetComputedStyle = ((window as any).getComputedStyle = jest.fn());
-  const mockGetSelection = ((window as any).getSelection = jest.fn(() => ({})));
+  const mockGetSelection = ((window as any).getSelection = jest.fn());
   const mockGetAttribute = jest.fn(() => '0');
 
   // Mock fetching Wikipedia article
   const mockFetch = ((wtf as any).fetch = jest.fn());
   mockFetch.mockResolvedValueOnce(null);
+
+  // Mock fetching Wiktionary article
+  const mockGet = ((axios as any).get = jest.fn());
+  mockGet.mockResolvedValueOnce({ data: undefined });
+
+  // Mock first time getting selection
+  mockGetSelection.mockReturnValue({ toString: () => '' });
 
   // Mock getting #ast
   const mockGetElementById = ((document as any).getElementById = jest.fn());
@@ -106,7 +114,6 @@ test('<InsightTool>', async () => {
 
   // Mock getSelection() to return selection
   mockGetSelection.mockReturnValueOnce({
-    type: 'Range',
     toString: () => 'hello world',
     focusNode: {
       parentElement: { getBoundingClientRect: () => ({ x: 0, y: 0 }) }
