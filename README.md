@@ -2,11 +2,13 @@
 
 💡 **[illuminsight](https://app.illuminsight.com)** 👀 effortlessly extracts insights from books, news articles, and textual content to provide context and relevant data.
 
-<img src="https://i.imgur.com/vsGmlOg.png" width="128" height="128" />
+<img src="https://i.imgur.com/LhFvyz9.jpg" />
 
 You can import content from just about anywhere: ebooks, the web, or plain text.
 
 Once you're reading, tap the insight tool icon 🔦 and **illuminsight will automatically find notable items within the text, providing you with quick access to Wikipedia articles, web searches, and definitions** inserted into the content.
+
+You can optionally highlight text before tapping the insight tool icon 🔦 to help illuminsight know exactly what you'd like to generate insights for.
 
 All data is stored solely on your device.
 
