@@ -1,6 +1,6 @@
 import { DefinitionInsight } from 'components/reader/DefinitionInsight';
+import { fireEvent, render } from '@testing-library/react';
 import { testDefinitions } from 'lib/test/data';
-import { render } from '@testing-library/react';
 import * as React from 'react';
 
 test('<DefinitionInsight>', async () => {
@@ -24,4 +24,12 @@ test('<DefinitionInsight>', async () => {
 
   // Validate example
   getByText('Two sea urchin tests');
+
+  // Validate "English" heading not rendered
+  expect(() => getByText('English')).toThrow();
+
+  // Render all definitions
+  fireEvent.click(getByText('All Definitions'));
+  getByText('English');
+  getByText('French');
 });
