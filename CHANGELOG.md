@@ -6,6 +6,20 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.2.1] - 2019-06-29
+
+### Added
+
+- Screenshots to README
+
+### Changed
+
+- Vastly improve definitions
+
+### Fixed
+
+- Generating insights from highlighted text on mobile
+
 ## [0.2.0] - 2019-06-25
 
 ### Added
