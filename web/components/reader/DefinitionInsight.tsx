@@ -1,11 +1,22 @@
-import { createStyles, makeStyles, Typography, Paper } from '@material-ui/core';
+import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
+import {
+  createStyles,
+  makeStyles,
+  Typography,
+  Button,
+  Paper
+} from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
     partOfSpeech: {
       fontSize: '100%'
+    },
+    language: {
+      marginBottom: '1em',
+      fontSize: '120%'
     },
     root: {
       maxHeight: '40vh',
@@ -21,6 +32,7 @@ export function DefinitionInsight({
 }: {
   definitions: Illuminsight.Definitions;
 }) {
+  const [expand, setExpand] = React.useState(!definitions.en);
   const classes = useStyles();
 
   function cleanHTML(html: string): string {
@@ -44,33 +56,62 @@ export function DefinitionInsight({
   }
 
   return (
-    // Part of speech -> definition -> example
     <Paper className={classes.root} elevation={2}>
-      {definitions.en.map((d, i) => (
-        <div key={i}>
-          <Typography variant="h2" className={classes.partOfSpeech}>
-            {d.partOfSpeech.toLowerCase()}
-          </Typography>
-          <ul>
-            {d.definitions.map((dd, j) => (
-              <li key={j}>
-                <Typography
-                  dangerouslySetInnerHTML={{ __html: cleanHTML(dd.definition) }}
-                />
+      {/* Languages */}
+      {Object.keys(definitions)
+        .filter(lang => (expand ? true : lang == 'en'))
+        .map(lang => (
+          <div key={lang}>
+            {/* Language */}
+            {expand || lang != 'en' ? (
+              <Typography variant="h1" className={classes.language}>
+                {definitions[lang][0].language}
+              </Typography>
+            ) : null}
+
+            {/* Per-language definitions */}
+            {definitions.en.map((d, i) => (
+              <div key={i}>
+                {/* Part of speech */}
+                <Typography variant="h2" className={classes.partOfSpeech}>
+                  {d.partOfSpeech.toLowerCase()}
+                </Typography>
+
+                {/* Definitions */}
                 <ul>
-                  {dd.examples &&
-                    dd.examples.map((e, k) => (
+                  {d.definitions.map((dd, j) => (
+                    <li key={j}>
                       <Typography
-                        key={k}
-                        dangerouslySetInnerHTML={{ __html: cleanHTML(e) }}
+                        dangerouslySetInnerHTML={{
+                          __html: cleanHTML(dd.definition)
+                        }}
                       />
-                    ))}
+
+                      {/* Examples */}
+                      <ul>
+                        {dd.examples &&
+                          dd.examples.map((e, k) => (
+                            <Typography
+                              key={k}
+                              dangerouslySetInnerHTML={{ __html: cleanHTML(e) }}
+                            />
+                          ))}
+                      </ul>
+                    </li>
+                  ))}
                 </ul>
-              </li>
+              </div>
             ))}
-          </ul>
-        </div>
-      ))}
+          </div>
+        ))}
+
+      {/* Expand all definitions */}
+      {expand || Object.keys(definitions).length == 1 ? null : (
+        <Button variant="text" onClick={() => setExpand(true)}>
+          <ExpandMoreIcon />
+          All Definitions
+        </Button>
+      )}
     </Paper>
   );
 }
