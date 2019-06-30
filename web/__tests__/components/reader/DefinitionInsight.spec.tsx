@@ -5,7 +5,7 @@ import * as React from 'react';
 
 test('<DefinitionInsight>', async () => {
   const { getAllByText, getByText, container } = render(
-    <DefinitionInsight definitions={testDefinitions} />
+    <DefinitionInsight definitions={testDefinitions} language="en" />
   );
 
   // Validate there's no links
@@ -30,6 +30,17 @@ test('<DefinitionInsight>', async () => {
 
   // Render all definitions
   fireEvent.click(getByText('All Definitions'));
+  getByText('English');
+  getByText('French');
+});
+
+test('<DefinitionInsight language="none">', async () => {
+  const { getByText } = render(
+    <DefinitionInsight definitions={testDefinitions} language="none" />
+  );
+
+  // Validate all definitions rendered because none could be found for language
+  expect(() => getByText('All Definitions')).toThrow();
   getByText('English');
   getByText('French');
 });

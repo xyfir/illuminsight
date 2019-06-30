@@ -28,11 +28,13 @@ const useStyles = makeStyles(() =>
 );
 
 export function DefinitionInsight({
-  definitions
+  definitions,
+  language
 }: {
   definitions: Illuminsight.Definitions;
+  language: string;
 }) {
-  const [expand, setExpand] = React.useState(!definitions.en);
+  const [expand, setExpand] = React.useState(!definitions[language]);
   const classes = useStyles();
 
   function cleanHTML(html: string): string {
@@ -59,18 +61,18 @@ export function DefinitionInsight({
     <Paper className={classes.root} elevation={2}>
       {/* Languages */}
       {Object.keys(definitions)
-        .filter(lang => (expand ? true : lang == 'en'))
+        .filter(lang => (expand ? true : lang == language))
         .map(lang => (
           <div key={lang}>
             {/* Language */}
-            {expand || lang != 'en' ? (
+            {expand || lang != language ? (
               <Typography variant="h1" className={classes.language}>
                 {definitions[lang][0].language}
               </Typography>
             ) : null}
 
             {/* Per-language definitions */}
-            {definitions.en.map((d, i) => (
+            {definitions[lang].map((d, i) => (
               <div key={i}>
                 {/* Part of speech */}
                 <Typography variant="h2" className={classes.partOfSpeech}>
