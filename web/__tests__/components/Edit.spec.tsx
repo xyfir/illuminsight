@@ -109,6 +109,17 @@ test('<Edit>', async () => {
     )[1]
   );
 
+  // Add new language: French
+  fireEvent.change(getByLabelText('Language'), { target: { value: 'french' } });
+  fireEvent.click(getByLabelText('Add language'));
+
+  // Delete language: English
+  fireEvent.click(
+    container.querySelectorAll(
+      'div[role="button"] > svg[role="presentation"]'
+    )[3]
+  );
+
   // Click save
   fireEvent.click(getByText('Update'));
 
@@ -126,6 +137,7 @@ test('<Edit>', async () => {
     name: 'Name',
     link: 'https://example.com',
     authors: 'Some Author',
+    languages: ['fr'],
     // published: 1595203200000,
     publisher: 'Publisher',
     cover: 'res/cover.png',

@@ -4,6 +4,7 @@ import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { Illuminsight } from 'types/illuminsight';
 import localForage from 'localforage';
 import * as React from 'react';
+import ISO6391 from 'iso-639-1';
 import JSZip from 'jszip';
 import {
   InputAdornment,
@@ -46,7 +47,7 @@ const styles = (theme: Theme) =>
         margin: '0.5em'
       }
     },
-    addTag: {
+    add: {
       alignItems: 'center',
       display: 'flex',
       '& > button': {
@@ -67,9 +68,10 @@ const styles = (theme: Theme) =>
   });
 
 interface EditState {
-  pub?: Illuminsight.Pub;
+  language: Illuminsight.Pub['languages'][0];
   cover?: string;
   tags: Illuminsight.Tag[];
+  pub?: Illuminsight.Pub;
   tag: string;
 }
 type EditProps = WithStyles<typeof styles> &
@@ -77,7 +79,7 @@ type EditProps = WithStyles<typeof styles> &
   WithSnackbarProps;
 
 class _Edit extends React.Component<EditProps, EditState> {
-  state: EditState = { tags: [], tag: '' };
+  state: EditState = { language: '', tags: [], tag: '' };
   zip?: JSZip;
 
   constructor(props: EditProps) {
@@ -147,6 +149,17 @@ class _Edit extends React.Component<EditProps, EditState> {
 
     // Generate cover url
     this.setState({ pub, cover: URL.createObjectURL(file) });
+  }
+
+  onAddLanguage() {
+    const { language, pub } = this.state;
+    const code = ISO6391.getCode(language);
+    if (!code) return;
+
+    // Add language to pub
+    if (!pub!.languages.includes(code)) pub!.languages.push(code);
+
+    this.setState({ pub });
   }
 
   onAddTag() {
@@ -238,7 +251,7 @@ class _Edit extends React.Component<EditProps, EditState> {
   }
 
   render() {
-    const { pub, cover, tags, tag } = this.state;
+    const { language, cover, tags, tag, pub } = this.state;
     const { classes } = this.props;
     if (!pub) return null;
 
@@ -335,7 +348,7 @@ class _Edit extends React.Component<EditProps, EditState> {
           </label>
         </div>
 
-        <div className={classes.addTag}>
+        <div className={classes.add}>
           <TextField
             id="tag"
             label="Tag"
@@ -363,6 +376,38 @@ class _Edit extends React.Component<EditProps, EditState> {
                 this.onChange('tags', pub.tags.filter(t => t != tag))
               }
               label={`#${tags.find(t => t.id == tag)!.name}`}
+            />
+          ))}
+        </div>
+
+        <div className={classes.add}>
+          <TextField
+            id="languages"
+            label="Language"
+            value={language}
+            margin="normal"
+            variant="outlined"
+            onChange={e => this.setState({ language: e.target.value })}
+            fullWidth
+            placeholder="Language"
+          />
+          <IconButton
+            aria-label="Add language"
+            onClick={() => this.onAddLanguage()}
+            color="primary"
+          >
+            <AddIcon />
+          </IconButton>
+        </div>
+
+        <div>
+          {pub.languages.map(lang => (
+            <Chip
+              className={classes.chip}
+              onDelete={() =>
+                this.onChange('languages', pub.languages.filter(l => l != lang))
+              }
+              label={ISO6391.getName(lang)}
             />
           ))}
         </div>
