@@ -29,12 +29,21 @@ const useStyles = makeStyles(() =>
 
 export function DefinitionInsight({
   definitions,
-  language
+  languages
 }: {
   definitions: Illuminsight.Definitions;
-  language: string;
+  languages: Illuminsight.Pub['languages'];
 }) {
-  const [expand, setExpand] = React.useState(!definitions[language]);
+  // Find highest priority language with available definitions
+  let language = '';
+  for (let lang of languages) {
+    if (definitions[lang]) {
+      language = lang;
+      break;
+    }
+  }
+
+  const [expand, setExpand] = React.useState(!language);
   const classes = useStyles();
 
   function cleanHTML(html: string): string {

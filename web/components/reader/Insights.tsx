@@ -141,7 +141,7 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
         // Selected Wiktionary insight
         <DefinitionInsight
           definitions={expanded.definitions!}
-          language="en"
+          languages={['en']}
           key={expand.index}
         />
       ) : null}
