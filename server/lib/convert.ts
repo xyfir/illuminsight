@@ -286,6 +286,9 @@ export async function convert({
       })(),
       toc,
       sections,
+      languages: Array.from(opfDoc.getElementsByTagName('dc:language'))
+        .map(lang => lang.textContent!.trim().split('-')[0])
+        .filter(lang => lang != 'und'),
       starred: false,
       tags: [],
       version: process.enve.ASTPUB_VERSION,
@@ -296,6 +299,7 @@ export async function convert({
           ? `${Math.round(words / 1000)}k`
           : words.toString()
     };
+    pub.languages = pub.languages.length ? pub.languages : ['en'];
 
     // Write meta.json
     await writeJSON(resolve(astpubDirectory, 'meta.json'), pub);

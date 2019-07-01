@@ -68,6 +68,7 @@ test('convert({text})', async () => {
     authors: 'Unknown',
     bookmark: { section: 0, element: 0 },
     cover: 'res/0.jpg',
+    languages: ['en'],
     id: pub.id,
     name: 'Hello...',
     toc: [{ section: 0, element: 0, title: 'Start' }],
@@ -112,6 +113,7 @@ test(
       authors: 'Unknown',
       bookmark: { section: 0, element: 0 },
       cover: 'res/0.jpg',
+      languages: ['en'],
       link:
         'https://www.nytimes.com/2019/05/01/magazine/ehren-tool-war-cups-smithsonian.html',
       name:
@@ -166,6 +168,7 @@ test(
       cover: 'res/0.jpg',
       name: 'A Tale of Two Cities',
       published: 757411200000,
+      languages: ['en'],
       sections: 54,
       starred: false,
       tags: [],

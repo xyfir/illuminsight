@@ -13,6 +13,7 @@ export const testPub: Illuminsight.Pub = {
   id: 1556915133437,
   name: 'Pride and Prejudice',
   cover: 'images/cover.jpg',
+  languages: ['en'],
   published: -4952074022000,
   toc: [
     { section: 0, element: 0, title: 'Title' },

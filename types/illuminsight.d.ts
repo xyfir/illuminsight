@@ -48,6 +48,11 @@ export namespace Illuminsight {
     starred: boolean;
     authors?: string;
     bookmark: Marker;
+    /**
+     * ISO 639-1 codes ranked from highest to lowest priority.
+     * @example ["en", "de", "fr"]
+     */
+    languages: string[];
     published?: number;
     publisher?: string;
   }
