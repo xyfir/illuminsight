@@ -3,13 +3,7 @@ import { Insights } from 'components/reader/Insights';
 import { Indexer } from 'lib/reader/Indexer';
 import * as React from 'react';
 
-export function AST({
-  insightsIndex,
-  ast
-}: {
-  insightsIndex: Illuminsight.InsightsIndex;
-  ast: Illuminsight.AST;
-}) {
+export function AST({ ast }: { ast: Illuminsight.AST }) {
   const index = Indexer.index;
 
   return (
@@ -18,15 +12,11 @@ export function AST({
         ? React.createElement(
             ast.n,
             { ...(ast.a || {}), ast: index },
-            ast.c &&
-              ast.c.map((child, i) => (
-                <AST key={i} ast={child} insightsIndex={insightsIndex} />
-              ))
+            ast.c && ast.c.map((child, i) => <AST key={i} ast={child} />)
           )
         : ast}
-      {insightsIndex[index] ? (
-        <Insights insights={insightsIndex[index]} />
-      ) : null}
+
+      <Insights index={index} />
     </React.Fragment>
   );
 }

@@ -1,6 +1,6 @@
 import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
 import { DefinitionInsight } from 'components/reader/DefinitionInsight';
-import { Illuminsight } from 'types/illuminsight';
+import { ReaderContext } from 'components/reader/Reader';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
 import {
@@ -24,10 +24,14 @@ const useStyles = makeStyles(() =>
 type InsightType = 'definition' | 'search' | 'wiki';
 type ExpandedInsight = { index: number; type?: InsightType };
 
-export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
+export function Insights({ index }: { index: number }) {
+  const { insightsIndex, pub } = React.useContext(ReaderContext);
   const [expand, setExpand] = React.useState<ExpandedInsight>({ index: -1 });
-  const expanded = insights[expand.index];
   const classes = useStyles();
+
+  const insights = insightsIndex[index];
+  if (!insights) return null;
+  const expanded = insights[expand.index];
 
   /** Handle an insight chip being clicked */
   function onClick(i: number, type: InsightType) {
@@ -141,7 +145,7 @@ export function Insights({ insights }: { insights: Illuminsight.Insight[] }) {
         // Selected Wiktionary insight
         <DefinitionInsight
           definitions={expanded.definitions!}
-          languages={['en']}
+          languages={pub!.languages}
           key={expand.index}
         />
       ) : null}

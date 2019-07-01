@@ -1,5 +1,6 @@
 import { InsightToolProps, InsightTool } from 'components/reader/InsightTool';
 import { ToggleThemeContext } from 'lib/app/theme';
+import { ReaderContext } from 'components/reader/Reader';
 import { Illuminsight } from 'types/illuminsight';
 import { Toolbar } from 'components/app/Toolbar';
 import * as React from 'react';
@@ -46,17 +47,16 @@ const useStyles = makeStyles(theme =>
 type DialogView = false | 'toc' | 'font-size';
 
 export function ReaderToolbar({
-  insightsIndex,
   onNavigate,
   onInsight,
-  history,
-  pub
+  history
 }: {
   onNavigate: (pub: Illuminsight.Pub) => void;
+  onInsight: InsightToolProps['onInsight'];
   history: Illuminsight.Marker[];
-  pub?: Illuminsight.Pub;
-} & InsightToolProps) {
+}) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { insightsIndex, pub } = React.useContext(ReaderContext);
   const [dialog, setDialog] = React.useState<DialogView>(false);
   const toggleTheme = React.useContext(ToggleThemeContext);
   const classes = useStyles();

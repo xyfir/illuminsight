@@ -52,6 +52,11 @@ type ReaderProps = WithStyles<typeof styles> &
   RouteComponentProps &
   WithSnackbarProps;
 
+export const ReaderContext = React.createContext<ReaderState>({
+  insightsIndex: {},
+  ast: []
+});
+
 class _Reader extends React.Component<ReaderProps, ReaderState> {
   lastScrollSave: number = 0;
   lastScroll: number = 0;
@@ -291,35 +296,35 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   }
 
   render() {
-    const { insightsIndex, pub, ast } = this.state;
     const { classes } = this.props;
+    const { ast } = this.state;
 
     Indexer.reset();
 
     return (
-      <div
-        data-testid="reader"
-        className={classes.root}
-        onScroll={e => this.onScroll(e)}
-      >
-        <ReaderToolbar
-          insightsIndex={insightsIndex}
-          onNavigate={this.loadSection}
-          onInsight={i => this.setState({ insightsIndex: i })}
-          history={this.history}
-          pub={pub}
-        />
-
+      <ReaderContext.Provider value={this.state}>
         <div
-          className={classes.ast}
-          onClick={e => this.onLinkClick(e)}
-          id="ast"
+          data-testid="reader"
+          className={classes.root}
+          onScroll={e => this.onScroll(e)}
         >
-          {ast.map((node, i) => (
-            <AST key={i} ast={node} insightsIndex={insightsIndex} />
-          ))}
+          <ReaderToolbar
+            onNavigate={this.loadSection}
+            onInsight={i => this.setState({ insightsIndex: i })}
+            history={this.history}
+          />
+
+          <div
+            className={classes.ast}
+            onClick={e => this.onLinkClick(e)}
+            id="ast"
+          >
+            {ast.map((node, i) => (
+              <AST key={i} ast={node} />
+            ))}
+          </div>
         </div>
-      </div>
+      </ReaderContext.Provider>
     );
   }
 }
