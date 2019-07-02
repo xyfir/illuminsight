@@ -1,3 +1,4 @@
+import { ReaderContext, ReaderState } from 'components/reader/Reader';
 import { testAST } from 'lib/test/data';
 import { render } from '@testing-library/react';
 import * as React from 'react';
@@ -5,16 +6,18 @@ import { AST } from 'components/reader/AST';
 
 test('<AST>', async () => {
   // Render AST
+  const state: ReaderState = {
+    insightsIndex: { 2: [{ text: 'Illuminsight' }] },
+    ast: []
+  };
   const { getByAltText, getByText, container } = render(
-    <div>
-      {testAST.map((node, i) => (
-        <AST
-          ast={node}
-          key={i}
-          insightsIndex={{ 2: [{ text: 'Illuminsight' }] }}
-        />
-      ))}
-    </div>
+    <ReaderContext.Provider value={state}>
+      <div>
+        {testAST.map((node, i) => (
+          <AST ast={node} key={i} />
+        ))}
+      </div>
+    </ReaderContext.Provider>
   );
   let el: HTMLElement;
 

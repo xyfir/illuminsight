@@ -1,6 +1,6 @@
-import { testDefinitions, testWikitext } from 'lib/test/data';
+import { testDefinitions, testWikitext, testPub } from 'lib/test/data';
+import { ReaderContext, ReaderState } from 'components/reader/Reader';
 import { fireEvent, render } from '@testing-library/react';
-import { Illuminsight } from 'types/illuminsight';
 import { Insights } from 'components/reader/Insights';
 import * as React from 'react';
 import wtf from 'wtf_wikipedia';
@@ -10,16 +10,24 @@ test('<Insights>', async () => {
   const mockOpen = ((window as any).open = jest.fn());
 
   // Render insights
-  const insights: Illuminsight.Insight[] = [
-    { text: 'Cormac McCarthy' },
-    {
-      definitions: testDefinitions,
-      text: 'Blood Meridian',
-      wiki: wtf(testWikitext)
-    }
-  ];
+  const state: ReaderState = {
+    insightsIndex: {
+      0: [
+        { text: 'Cormac McCarthy' },
+        {
+          definitions: testDefinitions,
+          text: 'Blood Meridian',
+          wiki: wtf(testWikitext)
+        }
+      ]
+    },
+    pub: testPub,
+    ast: []
+  };
   const { getByLabelText, getAllByText, getByText } = render(
-    <Insights insights={insights} />
+    <ReaderContext.Provider value={state}>
+      <Insights index={0} />
+    </ReaderContext.Provider>
   );
 
   // Click "Cormac McCarthy" insight

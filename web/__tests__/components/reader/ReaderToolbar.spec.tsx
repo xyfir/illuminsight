@@ -1,4 +1,5 @@
 import { waitForDomChange, fireEvent, render } from '@testing-library/react';
+import { ReaderContext, ReaderState } from 'components/reader/Reader';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
 import { MemoryRouter } from 'react-router-dom';
 import { Illuminsight } from 'types/illuminsight';
@@ -8,20 +9,22 @@ import * as React from 'react';
 test('<ReaderToolbar>', async () => {
   // Wrap <ReaderToolbar>
   const history: Illuminsight.Marker[] = [];
-  function ReaderToolbarConsumer() {
+  const state: ReaderState = { insightsIndex: {}, pub: testPub, ast: [] };
+  const ReaderToolbarConsumer = () => {
     const [pub, setPub] = React.useState(testPub);
+    state.pub = pub;
     return (
       <MemoryRouter>
-        <ReaderToolbar
-          insightsIndex={{}}
-          onNavigate={setPub}
-          onInsight={() => 1}
-          history={history}
-          pub={pub}
-        />
+        <ReaderContext.Provider value={state}>
+          <ReaderToolbar
+            onNavigate={setPub}
+            onInsight={() => 1}
+            history={history}
+          />
+        </ReaderContext.Provider>
       </MemoryRouter>
     );
-  }
+  };
 
   // Render <ReaderToolbar> inside <ReaderToolbarConsumer>
   const { getByLabelText, getByTitle, getByText } = render(

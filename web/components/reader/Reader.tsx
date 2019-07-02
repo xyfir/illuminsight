@@ -43,14 +43,15 @@ const styles = (theme: Theme) =>
     }
   });
 
-interface ReaderState {
+type ReaderProps = WithStyles<typeof styles> &
+  RouteComponentProps &
+  WithSnackbarProps;
+
+export interface ReaderState {
   insightsIndex: Illuminsight.InsightsIndex;
   pub?: Illuminsight.Pub;
   ast: Illuminsight.AST[];
 }
-type ReaderProps = WithStyles<typeof styles> &
-  RouteComponentProps &
-  WithSnackbarProps;
 
 export const ReaderContext = React.createContext<ReaderState>({
   insightsIndex: {},
