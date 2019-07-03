@@ -257,7 +257,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       if (this.state.pub) await this.saveFile(pub);
 
       // Update state
-      this.setState({ pub, ast });
+      this.setState({ insightsIndex: {}, pub, ast });
     } catch (err) {
       // Notify user of error and send them back
       console.error(err);
