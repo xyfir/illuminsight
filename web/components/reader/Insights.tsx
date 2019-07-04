@@ -21,11 +21,11 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type InsightType = 'definition' | 'search' | 'wiki';
+type InsightType = 'definition' | 'search+' | 'search' | 'wiki';
 type ExpandedInsight = { index: number; type?: InsightType };
 
 export function Insights({ index }: { index: number }) {
-  const { insightsIndex, pub } = React.useContext(ReaderContext);
+  const { insightsIndex, recipe, pub } = React.useContext(ReaderContext);
   const [expand, setExpand] = React.useState<ExpandedInsight>({ index: -1 });
   const classes = useStyles();
 
@@ -42,11 +42,16 @@ export function Insights({ index }: { index: number }) {
       case 'definition':
         setExpand({ index: i, type: 'definition' });
         break;
-      // Search Google
-      case 'search':
+      // Web search with context
+      case 'search+':
         window.open(
-          `https://www.google.com/search?q=${encodeURIComponent(insight.text)}`
+          recipe.search.url +
+            encodeURIComponent(`${recipe.search.context} ${insight.text}`)
         );
+        break;
+      // Web search
+      case 'search':
+        window.open(recipe.search.url + encodeURIComponent(insight.text));
         break;
       // Open or close wiki article
       case 'wiki':
@@ -83,24 +88,18 @@ export function Insights({ index }: { index: number }) {
                       ? 'wiki'
                       : insight.definitions
                       ? 'definition'
+                      : recipe.search.context
+                      ? 'search+'
                       : 'search'
                   )
             }
             // onDelete/deleteIcon are repurposed for expanding insights
-            onDelete={
-              insight.wiki || insight.definitions
-                ? () => setExpand({ index: i })
-                : undefined
-            }
+            onDelete={() => setExpand({ index: i })}
             className={classes.chip}
             deleteIcon={
-              insight.wiki || insight.definitions ? (
-                <ExpandMoreIcon
-                  aria-label={`View all insights for "${insight.text}"`}
-                />
-              ) : (
-                undefined
-              )
+              <ExpandMoreIcon
+                aria-label={`View all insights for "${insight.text}"`}
+              />
             }
           />
         ))
@@ -121,6 +120,7 @@ export function Insights({ index }: { index: number }) {
               className={classes.chip}
             />
           ) : null}
+
           {expanded.definitions ? (
             <Chip
               icon={<DefinitionIcon />}
@@ -129,18 +129,28 @@ export function Insights({ index }: { index: number }) {
               className={classes.chip}
             />
           ) : null}
+
           <Chip
             icon={<SearchIcon />}
-            label="Google"
+            label="Search"
             onClick={() => onClick(expand.index, 'search')}
             className={classes.chip}
           />
+
+          {recipe.search.context ? (
+            <Chip
+              icon={<SearchIcon />}
+              label="Search + Context"
+              onClick={() => onClick(expand.index, 'search+')}
+              className={classes.chip}
+            />
+          ) : null}
         </React.Fragment>
       )}
 
       {expand.type == 'wiki' ? (
         // Selected Wikipedia insight
-        <WikiInsight doc={expanded.wiki!} key={expand.index} />
+        <WikiInsight recipe={recipe} doc={expanded.wiki!} key={expand.index} />
       ) : expand.type == 'definition' ? (
         // Selected Wiktionary insight
         <DefinitionInsight

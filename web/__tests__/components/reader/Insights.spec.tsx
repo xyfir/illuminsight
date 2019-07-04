@@ -1,6 +1,7 @@
 import { testDefinitions, testWikitext, testPub } from 'lib/test/data';
 import { ReaderContext, ReaderState } from 'components/reader/Reader';
 import { fireEvent, render } from '@testing-library/react';
+import { defaultRecipe } from 'lib/reader/recipes';
 import { Insights } from 'components/reader/Insights';
 import * as React from 'react';
 import wtf from 'wtf_wikipedia';
@@ -21,6 +22,7 @@ test('<Insights>', async () => {
         }
       ]
     },
+    recipe: defaultRecipe,
     pub: testPub,
     ast: []
   };
@@ -33,7 +35,7 @@ test('<Insights>', async () => {
   // Click "Cormac McCarthy" insight
   fireEvent.click(getByText('Cormac McCarthy'));
 
-  // Expect "Cormac McCarthy" insight to have opened Google search
+  // Expect "Cormac McCarthy" insight to have opened search
   expect(mockOpen).toHaveBeenCalledTimes(1);
   expect(mockOpen).toHaveBeenCalledWith(
     'https://www.google.com/search?q=Cormac%20McCarthy'
@@ -59,10 +61,10 @@ test('<Insights>', async () => {
   // Expect other insights to be gone
   expect(() => getByText('Cormac McCarthy')).toThrow();
 
-  // Click "Google" insight
-  fireEvent.click(getByText('Google'));
+  // Click "Search" insight
+  fireEvent.click(getByText('Search'));
 
-  // Expect "Google" insight to have opened Google search
+  // Expect "Search" insight to have opened Google search
   expect(mockOpen).toHaveBeenCalledTimes(2);
   expect(mockOpen).toHaveBeenCalledWith(
     'https://www.google.com/search?q=Blood%20Meridian'
