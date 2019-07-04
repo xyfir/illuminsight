@@ -2,6 +2,7 @@ import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
 import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
+import { defaultRecipe } from 'lib/reader/recipes';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
 import { Illuminsight } from 'types/illuminsight';
 import { Indexer } from 'lib/reader/Indexer';
@@ -49,12 +50,14 @@ type ReaderProps = WithStyles<typeof styles> &
 
 export interface ReaderState {
   insightsIndex: Illuminsight.InsightsIndex;
+  recipe: Illuminsight.Recipe;
   pub?: Illuminsight.Pub;
   ast: Illuminsight.AST[];
 }
 
 export const ReaderContext = React.createContext<ReaderState>({
   insightsIndex: {},
+  recipe: defaultRecipe,
   ast: []
 });
 
@@ -63,8 +66,13 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   lastScroll: number = 0;
   history: Illuminsight.Marker[] = [];
   imgURLs: string[] = [];
-  state: ReaderState = { insightsIndex: {}, ast: [] };
   zip?: JSZip;
+
+  state: ReaderState = {
+    insightsIndex: {},
+    recipe: defaultRecipe,
+    ast: []
+  };
 
   constructor(props: ReaderProps) {
     super(props);

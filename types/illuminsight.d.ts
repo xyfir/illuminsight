@@ -120,6 +120,18 @@ export namespace Illuminsight {
     [element: number]: Insight[];
   }
 
+  export interface Recipe {
+    wiki: {
+      name: string;
+      url: string;
+      api: string;
+    };
+    search: {
+      context?: string;
+      url: string;
+    };
+  }
+
   export namespace Env {
     export interface Common {
       /**

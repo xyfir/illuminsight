@@ -1,6 +1,7 @@
 import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { ReaderContext, ReaderState } from 'components/reader/Reader';
 import { ReaderToolbar } from 'components/reader/ReaderToolbar';
+import { defaultRecipe } from 'lib/reader/recipes';
 import { MemoryRouter } from 'react-router-dom';
 import { Illuminsight } from 'types/illuminsight';
 import { testPub } from 'lib/test/data';
@@ -9,7 +10,12 @@ import * as React from 'react';
 test('<ReaderToolbar>', async () => {
   // Wrap <ReaderToolbar>
   const history: Illuminsight.Marker[] = [];
-  const state: ReaderState = { insightsIndex: {}, pub: testPub, ast: [] };
+  const state: ReaderState = {
+    insightsIndex: {},
+    recipe: defaultRecipe,
+    pub: testPub,
+    ast: []
+  };
   const ReaderToolbarConsumer = () => {
     const [pub, setPub] = React.useState(testPub);
     state.pub = pub;

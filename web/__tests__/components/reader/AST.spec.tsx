@@ -1,4 +1,5 @@
 import { ReaderContext, ReaderState } from 'components/reader/Reader';
+import { defaultRecipe } from 'lib/reader/recipes';
 import { testAST } from 'lib/test/data';
 import { render } from '@testing-library/react';
 import * as React from 'react';
@@ -8,6 +9,7 @@ test('<AST>', async () => {
   // Render AST
   const state: ReaderState = {
     insightsIndex: { 2: [{ text: 'Illuminsight' }] },
+    recipe: defaultRecipe,
     ast: []
   };
   const { getByAltText, getByText, container } = render(
