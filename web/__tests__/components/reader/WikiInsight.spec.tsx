@@ -1,12 +1,13 @@
 import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { alternateTestWikitext, testWikitext } from 'lib/test/data';
+import { defaultRecipe } from 'lib/reader/recipes';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
 import wtf from 'wtf_wikipedia';
 
 test('<WikiInsight>', async () => {
   const { getByLabelText, getAllByText, getByText } = render(
-    <WikiInsight doc={wtf(testWikitext)} />
+    <WikiInsight recipe={defaultRecipe} doc={wtf(testWikitext)} />
   );
 
   // Validate only main section was rendered
@@ -102,7 +103,8 @@ test('<WikiInsight>', async () => {
   fireEvent.click(getByText('Cormac McCarthy'));
 
   // Validate new article was loaded
-  expect(mockFetch).toHaveBeenCalledWith('Cormac_McCarthy');
+  expect(mockFetch).toHaveBeenCalledTimes(1);
+  expect(mockFetch.mock.calls[0][0]).toBe('Cormac_McCarthy');
   await waitForDomChange();
   getByText('American novelist, playwright, and', { exact: false });
 

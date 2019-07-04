@@ -6,23 +6,11 @@ import wtf from 'wtf_wikipedia';
 const REGEX = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[^.\s!?])\s+([A-Z][-A-Za-z']*)/gm;
 
 /**
- * @todo Manual parsing?
- * - Split by space
- * - Loop through, building phrases
- * - `-` is connector
- * - ` of ` and similar are connectors
- * - `!` and `?` are hard separators
- * - `.` is hard separator unless previous word was single cap letter
- * - Throw out first cap word after hard separator if it's a stopword
- * - Generated nested insights where we're unsure which words to include
- * @todo Use full content to guide parser for paragraph
- */
-
-/**
  * Generate insights from provided text content.
  */
 export async function generateInsights(
   text: string,
+  recipe: Illuminsight.Recipe,
   /**
    * Was `text` sourced from a user highlight?
    */
@@ -51,7 +39,10 @@ export async function generateInsights(
     } catch (err) {}
 
     // Get wiki article from English Wikipedia
-    insight.wiki = (await wtf.fetch(insight.text)) || undefined;
+    insight.wiki =
+      (await wtf.fetch(insight.text, undefined, {
+        wikiUrl: recipe.wiki.api
+      })) || undefined;
   }
 
   return insights;

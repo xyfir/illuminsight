@@ -1,4 +1,5 @@
 import { generateInsights } from 'lib/reader/generate-insights';
+import { defaultRecipe } from 'lib/reader/recipes';
 import wtf from 'wtf_wikipedia';
 
 test('generateInsights()', async () => {
@@ -8,7 +9,8 @@ test('generateInsights()', async () => {
 
   // Generate insights from text block
   let insights = await generateInsights(
-    'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.'
+    'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.',
+    defaultRecipe
   );
   const items = [
     'Illuminsight',
@@ -27,10 +29,12 @@ test('generateInsights()', async () => {
   }
 
   // Generate insights from highlighted text
-  insights = await generateInsights('hello world', true);
+  insights = await generateInsights('hello world', defaultRecipe, true);
 
   /// Validate insights from highlight
   expect(mockFetch).toHaveBeenCalledTimes(7);
-  expect(mockFetch).toHaveBeenNthCalledWith(7, 'hello world');
+  expect(mockFetch).toHaveBeenNthCalledWith(7, 'hello world', undefined, {
+    wikiUrl: 'https://en.wikipedia.org/w/api.php'
+  });
   expect(insights[0]).toMatchObject({ text: 'hello world' });
 });

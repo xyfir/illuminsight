@@ -44,8 +44,10 @@ const useStyles = makeStyles(() =>
 type SectionKey = 'all' | 'toc' | 'main' | 'main+stats' | number;
 
 export function WikiInsight({
+  recipe,
   doc
 }: {
+  recipe: Illuminsight.Recipe;
   doc: Exclude<Illuminsight.Insight['wiki'], undefined>;
 }) {
   const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
@@ -82,7 +84,11 @@ export function WikiInsight({
     event.stopPropagation();
 
     // Load article
-    const newArticle = await wtf.fetch(a.getAttribute('href')!.substr(2));
+    const newArticle = await wtf.fetch(
+      a.getAttribute('href')!.substr(2),
+      undefined,
+      { wikiUrl: recipe.wiki.api }
+    );
     if (newArticle) {
       setArticles(articles.slice(0, articleKey + 1).concat(newArticle));
       setSectionKey('main');
@@ -216,10 +222,8 @@ export function WikiInsight({
           </Breadcrumbs>
         ) : (
           <Typography variant="caption">
-            Source: (English) Wikipedia.org:{' '}
-            <a href={`https://en.wikipedia.org/wiki/${article.title()}`}>
-              {article.title()}
-            </a>
+            Source: {recipe.wiki.name}:{' '}
+            <a href={recipe.wiki.url + article.title()}>{article.title()}</a>
           </Typography>
         )}
       </header>
