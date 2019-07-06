@@ -120,16 +120,31 @@ export namespace Illuminsight {
     [element: number]: Insight[];
   }
 
+  export type RecipeIndex = {
+    id: string;
+    books?: string;
+    series?: string;
+    authors?: string;
+  }[];
+
+  export type MinifiedRecipeIndex = {
+    i: RecipeIndex[0]['id'];
+    b?: RecipeIndex[0]['books'];
+    s?: RecipeIndex[0]['series'];
+    a?: RecipeIndex[0]['authors'];
+  }[];
+
   export interface Recipe {
+    search: {
+      context?: string;
+      url: string;
+    };
     wiki: {
       name: string;
       url: string;
       api: string;
     };
-    search: {
-      context?: string;
-      url: string;
-    };
+    id?: RecipeIndex[0]['id'];
   }
 
   export namespace Env {
