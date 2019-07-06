@@ -1,5 +1,6 @@
 import { InsightToolProps, InsightTool } from 'components/reader/InsightTool';
 import { ToggleThemeContext } from 'lib/app/theme';
+import { RecipeManager } from 'components/reader/RecipeManager';
 import { ReaderContext } from 'components/reader/Reader';
 import { Illuminsight } from 'types/illuminsight';
 import { Toolbar } from 'components/app/Toolbar';
@@ -12,6 +13,7 @@ import {
   NavigateNext as NextIcon,
   Brightness2 as MoonIcon,
   FormatSize as FontSizeIcon,
+  Restaurant as RecipeIcon,
   MoreVert as MoreIcon,
   WbSunny as SunIcon,
   Replay as BackIcon,
@@ -44,7 +46,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-type DialogView = false | 'toc' | 'font-size';
+type DialogView = false | 'toc' | 'recipes' | 'font-size';
 
 export function ReaderToolbar({
   onNavigate,
@@ -73,6 +75,12 @@ export function ReaderToolbar({
     fontSize = action == '+' ? fontSize + 5 : fontSize - 5;
     localStorage.setItem('fontSize', fontSize.toString());
     document.getElementById('ast')!.style.fontSize = `${fontSize}%`;
+  }
+
+  /** Handle menu item click */
+  function onMenuItemClick(view: DialogView) {
+    setDialog(view);
+    setAnchorEl(null);
   }
 
   /** Navigate to Table of Contents selection */
@@ -165,7 +173,7 @@ export function ReaderToolbar({
         onClose={() => setAnchorEl(null)}
         anchorEl={anchorEl}
       >
-        <MenuItem onClick={() => (setDialog('toc'), setAnchorEl(null))}>
+        <MenuItem onClick={() => onMenuItemClick('toc')}>
           <ListItemIcon>
             <TOCIcon />
           </ListItemIcon>
@@ -179,7 +187,7 @@ export function ReaderToolbar({
             Edit Metadata
           </MenuItem>
         </Link>
-        <MenuItem onClick={() => (setDialog('font-size'), setAnchorEl(null))}>
+        <MenuItem onClick={() => onMenuItemClick('font-size')}>
           <ListItemIcon>
             <FontSizeIcon />
           </ListItemIcon>
@@ -190,6 +198,12 @@ export function ReaderToolbar({
             {localStorage.theme == 'dark' ? <SunIcon /> : <MoonIcon />}
           </ListItemIcon>
           Toggle Theme
+        </MenuItem>
+        <MenuItem onClick={() => onMenuItemClick('recipes')}>
+          <ListItemIcon>
+            <RecipeIcon />
+          </ListItemIcon>
+          Recipes
         </MenuItem>
       </Menu>
 
@@ -216,6 +230,8 @@ export function ReaderToolbar({
                 <IncreaseIcon />
               </IconButton>
             </React.Fragment>
+          ) : dialog == 'recipes' ? (
+            <RecipeManager />
           ) : dialog == 'toc' ? (
             <List>
               <ListSubheader disableSticky={true}>
