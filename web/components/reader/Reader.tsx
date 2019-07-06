@@ -50,6 +50,7 @@ type ReaderProps = WithStyles<typeof styles> &
 
 export interface ReaderState {
   insightsIndex: Illuminsight.InsightsIndex;
+  dispatch: (state: Partial<ReaderState>) => void;
   recipe: Illuminsight.Recipe;
   pub?: Illuminsight.Pub;
   ast: Illuminsight.AST[];
@@ -57,6 +58,7 @@ export interface ReaderState {
 
 export const ReaderContext = React.createContext<ReaderState>({
   insightsIndex: {},
+  dispatch: () => undefined,
   recipe: defaultRecipe,
   ast: []
 });
@@ -70,6 +72,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
   state: ReaderState = {
     insightsIndex: {},
+    dispatch: state => this.setState(state as ReaderState),
     recipe: defaultRecipe,
     ast: []
   };
@@ -80,6 +83,12 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
   }
 
   componentDidMount() {
+    const { pubId } = this.props.match.params as { pubId: number };
+    localForage
+      .getItem(`pub-recipe-${pubId}`)
+      .then(res => res && this.setState({ recipe: res as Illuminsight.Recipe }))
+      .catch(err => undefined);
+
     this.loadZip();
   }
 
