@@ -61,9 +61,12 @@ test('<ReaderToolbar>', async () => {
   expect(() => getByText('Table of Contents')).toThrow();
   expect(() => getByText('Title')).toThrow();
 
-  // Open More, TOC, and change section (middle)
+  // Open More and validate items
   fireEvent.click(getByTitle('View more menu items'));
   getByText('Toggle Theme');
+  getByText('Recipes');
+
+  // TOC, and change section (middle)
   fireEvent.click(getByText('Table of Contents'));
   fireEvent.click(getByText('Pride and Prejudice'));
   await waitForDomChange();
