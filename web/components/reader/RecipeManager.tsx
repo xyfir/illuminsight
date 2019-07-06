@@ -32,9 +32,9 @@ const useStyles = makeStyles(() =>
 
 function _RecipeManager({ match }: RouteComponentProps) {
   const [recipes, setRecipes] = React.useState<Illuminsight.RecipeIndex>([]);
+  const { dispatch, recipe } = React.useContext(ReaderContext);
   const [active, setActive] = React.useState<Illuminsight.Recipe | null>(null);
   const [search, setSearch] = React.useState('');
-  const { dispatch } = React.useContext(ReaderContext);
   const { pubId } = match.params as { pubId: number };
   const classes = useStyles();
   let matches: Illuminsight.RecipeIndex = recipes.slice();
@@ -58,11 +58,10 @@ function _RecipeManager({ match }: RouteComponentProps) {
           }))
         );
 
-        // Get active recipe for pub
-        return localForage.getItem(`pub-recipe-${pubId}`);
+        // Set active recipe if it's not the default recipe
+        if (defaultRecipe !== recipe) setActive(recipe);
       })
-      .then(recipe => recipe && setActive(recipe as Illuminsight.Recipe))
-      .catch(err => undefined);
+      .catch(console.error);
   }, []);
 
   /** Remove active recipe */
