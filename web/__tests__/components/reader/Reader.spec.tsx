@@ -41,6 +41,9 @@ test('<Reader>', async () => {
   pub.bookmark.element = 1;
   zip.file('meta.json', JSON.stringify(pub));
 
+  // Mock loading recipe from localForage
+  mockGetItem.mockResolvedValueOnce(null);
+
   // Mock loading file from localForage
   mockGetItem.mockResolvedValueOnce(await zip.generateAsync({ type: 'blob' }));
 
@@ -67,7 +70,8 @@ test('<Reader>', async () => {
   );
 
   // Validate mock loading file from localForage
-  await wait(() => expect(mockGetItem).toHaveBeenCalledTimes(1));
+  await wait(() => expect(mockGetItem).toHaveBeenCalledTimes(2));
+  expect(mockGetItem).toHaveBeenCalledWith(`pub-recipe-${pub.id}`);
   expect(mockGetItem).toHaveBeenCalledWith(`pub-${pub.id}`);
 
   // Validate mock creating image blob url
