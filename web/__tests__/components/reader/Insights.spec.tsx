@@ -22,6 +22,7 @@ test('<Insights>', async () => {
         }
       ]
     },
+    dispatch: () => undefined,
     recipe: defaultRecipe,
     pub: testPub,
     ast: []

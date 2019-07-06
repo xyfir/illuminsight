@@ -12,6 +12,7 @@ test('<ReaderToolbar>', async () => {
   const history: Illuminsight.Marker[] = [];
   const state: ReaderState = {
     insightsIndex: {},
+    dispatch: () => undefined,
     recipe: defaultRecipe,
     pub: testPub,
     ast: []

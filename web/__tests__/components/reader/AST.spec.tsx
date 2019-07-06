@@ -9,6 +9,7 @@ test('<AST>', async () => {
   // Render AST
   const state: ReaderState = {
     insightsIndex: { 2: [{ text: 'Illuminsight' }] },
+    dispatch: () => undefined,
     recipe: defaultRecipe,
     ast: []
   };
