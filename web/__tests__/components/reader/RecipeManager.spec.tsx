@@ -1,13 +1,9 @@
-import {
-  waitForDomChange,
-  fireEvent,
-  render,
-  wait
-} from '@testing-library/react';
+import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { ReaderContext, ReaderState } from 'components/reader/Reader';
 import { RecipeManager } from 'components/reader/RecipeManager';
 import { defaultRecipe } from 'lib/reader/recipes';
+import { Illuminsight } from 'types/illuminsight';
 import localForage from 'localforage';
 import * as React from 'react';
 import axios from 'axios';
@@ -61,7 +57,7 @@ test('<RecipeManager>', async () => {
   expect(() => getByText('foo bar')).toThrow();
 
   // Mock downloading and saving recipe
-  const recipe = {};
+  const recipe: Illuminsight.Recipe = { id: 'lorem', wikis: [], searches: [] };
   mockGet.mockResolvedValueOnce({ data: recipe });
   const mockSetItem = ((localForage as any).setItem = jest.fn());
   mockSetItem.mockResolvedValueOnce(undefined);
