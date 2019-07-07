@@ -75,13 +75,12 @@ function _RecipeManager({ match }: RouteComponentProps) {
   }
 
   /** Download and set recipe */
-  async function onSet(id: Illuminsight.RecipeIndex[0]['id']) {
+  async function onSet(id: Illuminsight.Recipe['id']) {
     // Download recipe
     const res = await axios.get(
       `https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/recipes/${id}.json`
     );
     const _recipe: Illuminsight.Recipe = res.data;
-    _recipe.id = id;
 
     // Save to storage
     await localForage.setItem(`pub-recipe-${pubId}`, _recipe);
@@ -92,7 +91,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
   }
 
   /** Convert recipe id to text to display to user */
-  function displayId(id: Illuminsight.RecipeIndex[0]['id']) {
+  function displayId(id: Illuminsight.Recipe['id']) {
     return id.replace(/-/g, ' ');
   }
 

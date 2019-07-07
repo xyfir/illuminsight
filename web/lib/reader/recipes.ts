@@ -7,9 +7,12 @@ export const defaultRecipe: Illuminsight.Recipe = {
       url: 'https://www.google.com/search?q='
     }
   ],
-  wiki: {
-    name: '(English) Wikipedia.org',
-    api: 'https://en.wikipedia.org/w/api.php',
-    url: 'https://en.wikipedia.org/wiki/'
-  }
+  wikis: [
+    {
+      name: 'Wikipedia',
+      api: 'https://en.wikipedia.org/w/api.php',
+      url: 'https://en.wikipedia.org/wiki/'
+    }
+  ],
+  id: 'illuminsight-default'
 };
