@@ -4,6 +4,7 @@ import { ReaderContext } from 'components/reader/Reader';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
 import {
+  YoutubeSearchedFor as SearchContextIcon,
   CloseOutlined as CloseIcon,
   ChevronRight as ExpandMoreIcon,
   ChevronLeft as BackIcon,
@@ -34,28 +35,36 @@ export function Insights({ index }: { index: number }) {
   const expanded = insights[expand.index];
 
   /** Handle an insight chip being clicked */
-  function onClick(i: number, type: InsightType) {
-    const { [i]: insight } = insights;
+  function onClick(
+    insightIndex: number,
+    type: InsightType,
+    recipeIndex: number = 0
+  ) {
+    const { [insightIndex]: insight } = insights;
 
     switch (type) {
       // Open or close definition
       case 'definition':
-        setExpand({ index: i, type: 'definition' });
+        setExpand({ index: insightIndex, type: 'definition' });
         break;
       // Web search with context
       case 'search+':
         window.open(
-          recipe.search.url +
-            encodeURIComponent(`${recipe.search.context} ${insight.text}`)
+          recipe.searches[recipeIndex].url +
+            encodeURIComponent(
+              `${recipe.searches[recipeIndex].context} ${insight.text}`
+            )
         );
         break;
       // Web search
       case 'search':
-        window.open(recipe.search.url + encodeURIComponent(insight.text));
+        window.open(
+          recipe.searches[recipeIndex].url + encodeURIComponent(insight.text)
+        );
         break;
       // Open or close wiki article
       case 'wiki':
-        setExpand({ index: i, type: 'wiki' });
+        setExpand({ index: insightIndex, type: 'wiki' });
         break;
     }
   }
@@ -88,7 +97,7 @@ export function Insights({ index }: { index: number }) {
                       ? 'wiki'
                       : insight.definitions
                       ? 'definition'
-                      : recipe.search.context
+                      : recipe.searches[0].context
                       ? 'search+'
                       : 'search'
                   )
@@ -130,21 +139,25 @@ export function Insights({ index }: { index: number }) {
             />
           ) : null}
 
-          <Chip
-            icon={<SearchIcon />}
-            label="Search"
-            onClick={() => onClick(expand.index, 'search')}
-            className={classes.chip}
-          />
+          {recipe.searches.map((search, i) => (
+            <React.Fragment>
+              <Chip
+                icon={<SearchIcon />}
+                label={search.name}
+                onClick={() => onClick(expand.index, 'search', i)}
+                className={classes.chip}
+              />
 
-          {recipe.search.context ? (
-            <Chip
-              icon={<SearchIcon />}
-              label="Search + Context"
-              onClick={() => onClick(expand.index, 'search+')}
-              className={classes.chip}
-            />
-          ) : null}
+              {search.context ? (
+                <Chip
+                  icon={<SearchContextIcon />}
+                  label={`${search.name} + Context`}
+                  onClick={() => onClick(expand.index, 'search+', i)}
+                  className={classes.chip}
+                />
+              ) : null}
+            </React.Fragment>
+          ))}
         </React.Fragment>
       )}
 

@@ -62,8 +62,8 @@ test('<Insights>', async () => {
   // Expect other insights to be gone
   expect(() => getByText('Cormac McCarthy')).toThrow();
 
-  // Click "Search" insight
-  fireEvent.click(getByText('Search'));
+  // Click "Google" insight
+  fireEvent.click(getByText('Google'));
 
   // Expect "Search" insight to have opened Google search
   expect(mockOpen).toHaveBeenCalledTimes(2);

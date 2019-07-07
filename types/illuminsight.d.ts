@@ -135,10 +135,11 @@ export namespace Illuminsight {
   }[];
 
   export interface Recipe {
-    search: {
+    searches: {
       context?: string;
+      name: string;
       url: string;
-    };
+    }[];
     wiki: {
       name: string;
       url: string;
