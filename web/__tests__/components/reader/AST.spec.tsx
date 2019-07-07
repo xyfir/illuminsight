@@ -8,7 +8,7 @@ import { AST } from 'components/reader/AST';
 test('<AST>', async () => {
   // Render AST
   const state: ReaderState = {
-    insightsIndex: { 2: [{ text: 'Illuminsight' }] },
+    insightsIndex: { 2: [{ wikis: [], text: 'Illuminsight' }] },
     dispatch: () => undefined,
     recipe: defaultRecipe,
     ast: []

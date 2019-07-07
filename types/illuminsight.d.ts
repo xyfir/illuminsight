@@ -110,9 +110,14 @@ export namespace Illuminsight {
     }[];
   }
 
+  export interface WikiInsight {
+    recipe: WikiRecipe;
+    doc: Document;
+  }
+
   export interface Insight {
     definitions?: Definitions;
-    wiki?: Document;
+    wikis: WikiInsight[];
     text: string;
   }
 
@@ -121,31 +126,35 @@ export namespace Illuminsight {
   }
 
   export type RecipeIndex = {
-    id: string;
+    id: Recipe['id'];
     books?: string;
     series?: string;
     authors?: string;
   }[];
 
   export type MinifiedRecipeIndex = {
-    i: RecipeIndex[0]['id'];
+    i: Recipe['id'];
     b?: RecipeIndex[0]['books'];
     s?: RecipeIndex[0]['series'];
     a?: RecipeIndex[0]['authors'];
   }[];
 
+  export interface SearchRecipe {
+    context?: string;
+    name: string;
+    url: string;
+  }
+
+  export interface WikiRecipe {
+    name: string;
+    url: string;
+    api: string;
+  }
+
   export interface Recipe {
-    searches: {
-      context?: string;
-      name: string;
-      url: string;
-    }[];
-    wiki: {
-      name: string;
-      url: string;
-      api: string;
-    };
-    id?: RecipeIndex[0]['id'];
+    searches: SearchRecipe[];
+    wikis: WikiRecipe[];
+    id: string;
   }
 
   export namespace Env {

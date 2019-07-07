@@ -44,15 +44,13 @@ const useStyles = makeStyles(() =>
 type SectionKey = 'all' | 'toc' | 'main' | 'main+stats' | number;
 
 export function WikiInsight({
-  recipe,
-  doc
+  insight
 }: {
-  recipe: Illuminsight.Recipe;
-  doc: Exclude<Illuminsight.Insight['wiki'], undefined>;
+  insight: Illuminsight.WikiInsight;
 }) {
   const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
   const [articleKey, setArticleKey] = React.useState(0);
-  const [articles, setArticles] = React.useState([doc]);
+  const [articles, setArticles] = React.useState([insight.doc]);
   const article = articles[articleKey];
   const classes = useStyles();
 
@@ -87,7 +85,7 @@ export function WikiInsight({
     const newArticle = await wtf.fetch(
       a.getAttribute('href')!.substr(2),
       undefined,
-      { wikiUrl: recipe.wiki.api }
+      { wikiUrl: insight.recipe.api }
     );
     if (newArticle) {
       setArticles(articles.slice(0, articleKey + 1).concat(newArticle));
@@ -222,8 +220,8 @@ export function WikiInsight({
           </Breadcrumbs>
         ) : (
           <Typography variant="caption">
-            Source: {recipe.wiki.name}:{' '}
-            <a href={recipe.wiki.url + article.title()}>{article.title()}</a>
+            Source: {insight.recipe.name}:{' '}
+            <a href={insight.recipe.url + article.title()}>{article.title()}</a>
           </Typography>
         )}
       </header>

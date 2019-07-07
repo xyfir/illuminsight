@@ -7,7 +7,9 @@ import wtf from 'wtf_wikipedia';
 
 test('<WikiInsight>', async () => {
   const { getByLabelText, getAllByText, getByText } = render(
-    <WikiInsight recipe={defaultRecipe} doc={wtf(testWikitext)} />
+    <WikiInsight
+      insight={{ recipe: defaultRecipe.wikis[0], doc: wtf(testWikitext) }}
+    />
   );
 
   // Validate only main section was rendered
@@ -20,7 +22,7 @@ test('<WikiInsight>', async () => {
   expect(() => getByText('historical novel')).toThrow();
 
   // Validate attribution
-  let el = getByText('Source: (English) Wikipedia.org:');
+  let el = getByText('Source: Wikipedia:');
   el = el.querySelector('a')!;
   expect(el.textContent).toBe(
     'Blood Meridian or The Evening Redness in the West'
@@ -72,7 +74,7 @@ test('<WikiInsight>', async () => {
   getByText('Captain White, or "the captain"');
 
   // Validate attribution not rendered
-  expect(() => getByText('Source: (English) Wikipedia.org:')).toThrow();
+  expect(() => getByText('Source: Wikipedia:')).toThrow();
 
   // Trigger section change from breadcrumbs to "Characters"
   fireEvent.click(getByText('Characters'));
@@ -90,7 +92,7 @@ test('<WikiInsight>', async () => {
   );
 
   // Validate we're back to main section
-  getByText('Source: (English) Wikipedia.org:');
+  getByText('Source: Wikipedia:');
   getByText("McCarthy's fifth book", { exact: false });
   getByText('Continue Reading');
   getByText('Show Statistics');

@@ -17,7 +17,7 @@ export async function generateInsights(
   highlight: boolean = false
 ): Promise<Illuminsight.Insight[]> {
   const insights: Illuminsight.Insight[] = highlight
-    ? [{ text }]
+    ? [{ wikis: [], text }]
     : Array.from(
         // Removes duplicates
         new Set(
@@ -29,7 +29,7 @@ export async function generateInsights(
             // Trim whitespace
             .map(item => item.trim())
         ),
-        insight => ({ text: insight })
+        insight => ({ wikis: [], text: insight })
       );
 
   for (let insight of insights) {
@@ -38,11 +38,13 @@ export async function generateInsights(
       insight.definitions = await getDefinitions(insight.text);
     } catch (err) {}
 
-    // Get wiki article from English Wikipedia
-    insight.wiki =
-      (await wtf.fetch(insight.text, undefined, {
-        wikiUrl: recipe.wiki.api
-      })) || undefined;
+    // Get wiki articles
+    for (let wikiRecipe of recipe.wikis) {
+      const doc = await wtf.fetch(insight.text, undefined, {
+        wikiUrl: wikiRecipe.api
+      });
+      if (doc) insight.wikis.push({ recipe: wikiRecipe, doc });
+    }
   }
 
   return insights;

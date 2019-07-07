@@ -10,7 +10,7 @@ import {
   ChevronLeft as BackIcon,
   TextFormat as DefinitionIcon,
   Search as SearchIcon,
-  Info as InfoIcon
+  Info as WikiIcon
 } from '@material-ui/icons';
 
 const useStyles = makeStyles(() =>
@@ -23,16 +23,16 @@ const useStyles = makeStyles(() =>
 );
 
 type InsightType = 'definition' | 'search+' | 'search' | 'wiki';
-type ExpandedInsight = { index: number; type?: InsightType };
+type ExpandedInsight = { insight: number; recipe?: number; type?: InsightType };
 
 export function Insights({ index }: { index: number }) {
   const { insightsIndex, recipe, pub } = React.useContext(ReaderContext);
-  const [expand, setExpand] = React.useState<ExpandedInsight>({ index: -1 });
+  const [expand, setExpand] = React.useState<ExpandedInsight>({ insight: -1 });
   const classes = useStyles();
 
   const insights = insightsIndex[index];
   if (!insights) return null;
-  const expanded = insights[expand.index];
+  const expanded = insights[expand.insight];
 
   /** Handle an insight chip being clicked */
   function onClick(
@@ -45,7 +45,7 @@ export function Insights({ index }: { index: number }) {
     switch (type) {
       // Open or close definition
       case 'definition':
-        setExpand({ index: insightIndex, type: 'definition' });
+        setExpand({ insight: insightIndex, type: 'definition' });
         break;
       // Web search with context
       case 'search+':
@@ -64,23 +64,23 @@ export function Insights({ index }: { index: number }) {
         break;
       // Open or close wiki article
       case 'wiki':
-        setExpand({ index: insightIndex, type: 'wiki' });
+        setExpand({ insight: insightIndex, recipe: recipeIndex, type: 'wiki' });
         break;
     }
   }
 
   return (
     <div>
-      {/* Insight list (top level | all subinsights) */}
-      {expand.index == -1 || expand.type ? (
+      {/* Insight list (suggested | expanded) */}
+      {expand.insight == -1 || expand.type ? (
         insights.map((insight, i) => (
           <Chip
             key={insight.text}
             icon={
-              expand.index == i ? (
+              expand.insight == i ? (
                 <CloseIcon />
-              ) : insight.wiki ? (
-                <InfoIcon />
+              ) : insight.wikis.length ? (
+                <WikiIcon />
               ) : insight.definitions ? (
                 <DefinitionIcon />
               ) : (
@@ -89,11 +89,11 @@ export function Insights({ index }: { index: number }) {
             }
             label={insight.text}
             onClick={() =>
-              expand.index == i
-                ? setExpand({ index: -1 })
+              expand.insight == i
+                ? setExpand({ insight: -1 })
                 : onClick(
                     i,
-                    insight.wiki
+                    insight.wikis.length
                       ? 'wiki'
                       : insight.definitions
                       ? 'definition'
@@ -103,7 +103,7 @@ export function Insights({ index }: { index: number }) {
                   )
             }
             // onDelete/deleteIcon are repurposed for expanding insights
-            onDelete={() => setExpand({ index: i })}
+            onDelete={() => setExpand({ insight: i })}
             className={classes.chip}
             deleteIcon={
               <ExpandMoreIcon
@@ -116,25 +116,25 @@ export function Insights({ index }: { index: number }) {
         <React.Fragment>
           <IconButton
             aria-label="Back to previous insights"
-            onClick={() => setExpand({ index: -1 })}
+            onClick={() => setExpand({ insight: -1 })}
           >
             <BackIcon />
           </IconButton>
 
-          {expanded.wiki ? (
+          {expanded.wikis.map((wiki, i) => (
             <Chip
-              icon={<InfoIcon />}
-              label="Wikipedia"
-              onClick={() => onClick(expand.index, 'wiki')}
+              icon={<WikiIcon />}
+              label={wiki.recipe.name}
+              onClick={() => onClick(expand.insight, 'wiki', i)}
               className={classes.chip}
             />
-          ) : null}
+          ))}
 
           {expanded.definitions ? (
             <Chip
               icon={<DefinitionIcon />}
               label="Definition"
-              onClick={() => onClick(expand.index, 'definition')}
+              onClick={() => onClick(expand.insight, 'definition')}
               className={classes.chip}
             />
           ) : null}
@@ -144,7 +144,7 @@ export function Insights({ index }: { index: number }) {
               <Chip
                 icon={<SearchIcon />}
                 label={search.name}
-                onClick={() => onClick(expand.index, 'search', i)}
+                onClick={() => onClick(expand.insight, 'search', i)}
                 className={classes.chip}
               />
 
@@ -152,7 +152,7 @@ export function Insights({ index }: { index: number }) {
                 <Chip
                   icon={<SearchContextIcon />}
                   label={`${search.name} + Context`}
-                  onClick={() => onClick(expand.index, 'search+', i)}
+                  onClick={() => onClick(expand.insight, 'search+', i)}
                   className={classes.chip}
                 />
               ) : null}
@@ -163,13 +163,16 @@ export function Insights({ index }: { index: number }) {
 
       {expand.type == 'wiki' ? (
         // Selected Wikipedia insight
-        <WikiInsight recipe={recipe} doc={expanded.wiki!} key={expand.index} />
+        <WikiInsight
+          insight={expanded.wikis[expand.recipe!]}
+          key={expand.insight}
+        />
       ) : expand.type == 'definition' ? (
         // Selected Wiktionary insight
         <DefinitionInsight
           definitions={expanded.definitions!}
           languages={pub!.languages}
-          key={expand.index}
+          key={expand.insight}
         />
       ) : null}
     </div>

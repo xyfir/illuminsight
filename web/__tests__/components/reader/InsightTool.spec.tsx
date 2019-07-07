@@ -132,9 +132,7 @@ test('<InsightTool>', async () => {
 
   // Validate insight was generated from selection and added to previous
   await wait(() => expect(Object.keys(_insightsIndex)).toBeArrayOfSize(2));
-  expect(_insightsIndex[3]).toMatchObject([
-    { text: 'hello world', wiki: undefined }
-  ]);
+  expect(_insightsIndex[3]).toMatchObject([{ wikis: [], text: 'hello world' }]);
 
   // Click insight tool again to disable insights
   setMockReturnsForBlock();

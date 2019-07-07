@@ -14,11 +14,11 @@ test('<Insights>', async () => {
   const state: ReaderState = {
     insightsIndex: {
       0: [
-        { text: 'Cormac McCarthy' },
+        { wikis: [], text: 'Cormac McCarthy' },
         {
           definitions: testDefinitions,
-          text: 'Blood Meridian',
-          wiki: wtf(testWikitext)
+          wikis: [{ recipe: defaultRecipe.wikis[0], doc: wtf(testWikitext) }],
+          text: 'Blood Meridian'
         }
       ]
     },
