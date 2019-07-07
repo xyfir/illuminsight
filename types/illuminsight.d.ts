@@ -76,7 +76,7 @@ export namespace Illuminsight {
       }
     | string;
 
-  export interface Definitions {
+  export interface DefinitionInsight {
     [language: string]: {
       language: string;
       definitions: {
@@ -116,7 +116,7 @@ export namespace Illuminsight {
   }
 
   export interface Insight {
-    definitions?: Definitions;
+    definitions?: DefinitionInsight;
     wikis: WikiInsight[];
     text: string;
   }

@@ -31,7 +31,7 @@ export function DefinitionInsight({
   definitions,
   languages
 }: {
-  definitions: Illuminsight.Definitions;
+  definitions: Illuminsight.DefinitionInsight;
   languages: Illuminsight.Pub['languages'];
 }) {
   // Find highest priority language with available definitions

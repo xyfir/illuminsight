@@ -142,7 +142,7 @@ export const alternateTestAST: Illuminsight.AST[] = [
   }
 ];
 
-export const testDefinitions: Illuminsight.Definitions = {
+export const testDefinitions: Illuminsight.DefinitionInsight = {
   en: [
     {
       partOfSpeech: 'Noun',
