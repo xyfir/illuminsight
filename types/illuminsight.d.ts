@@ -151,6 +151,7 @@ export namespace Illuminsight {
     api: string;
   }
 
+  // Remember to update the cookbook
   export interface Recipe {
     searches: SearchRecipe[];
     wikis: WikiRecipe[];

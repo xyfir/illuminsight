@@ -71,7 +71,7 @@ test('<RecipeManager>', async () => {
 
   // Validate recipe was downloaded and saved
   expect(mockGet).toHaveBeenCalledTimes(2);
-  expect(mockGet.mock.calls[1][0]).toInclude('recipes/lorem.json');
+  expect(mockGet.mock.calls[1][0]).toInclude('dist/recipes/lorem.min.json');
   expect(mockSetItem).toHaveBeenCalledTimes(1);
   expect(mockSetItem).toHaveBeenCalledWith('pub-recipe-1234', recipe);
   expect(mockDispatch).toHaveBeenCalledTimes(1);

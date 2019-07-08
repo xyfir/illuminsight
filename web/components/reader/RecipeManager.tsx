@@ -44,7 +44,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
     // Load recipes
     axios
       .get(
-        'https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/recipes.min.json'
+        'https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/dist/recipes/.index.min.json'
       )
       .then(res => {
         // Expand minified recipes
@@ -78,7 +78,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
   async function onSet(id: Illuminsight.Recipe['id']) {
     // Download recipe
     const res = await axios.get(
-      `https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/recipes/${id}.json`
+      `https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/dist/recipes/${id}.min.json`
     );
     const _recipe: Illuminsight.Recipe = res.data;
 
