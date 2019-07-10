@@ -146,6 +146,7 @@ export namespace Illuminsight {
   }
 
   export interface WikiRecipe {
+    proxy?: boolean;
     name: string;
     url: string;
     api: string;
@@ -182,15 +183,20 @@ export namespace Illuminsight {
        */
       TEMP_DIR: string;
       /**
+       * The app's root web client URL.
+       * @example "https://example.com"
+       */
+      WEB_URL: string;
+      /**
        * The port to host the API server on.
        * @example 2700
        */
       API_PORT: number;
       /**
-       * The app's root web client URL.
-       * @example "https://example.com"
+       * The port to host the proxy server on.
+       * @example 2702
        */
-      WEB_URL: string;
+      PROXY_PORT: number;
       /**
        * Absolute path for illuminsight-web.
        * @example "/path/to/illuminsight/web"
@@ -204,6 +210,11 @@ export namespace Illuminsight {
        * @example "https://example.com/api/0"
        */
       API_URL: string;
+      /**
+       * The app's root proxy URL.
+       * @example "https://example.com/proxy"
+       */
+      PROXY_URL: string;
       /**
        * Port for the Webpack dev server. Only needed for developers.
        * @example 2701
