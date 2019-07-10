@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "incremental": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "sourceMap": true,
+    "allowJs": true,
     "baseUrl": "./",
     "rootDir": "./",
     "newLine": "LF",
