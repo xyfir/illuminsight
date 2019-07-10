@@ -3,11 +3,12 @@ import { config } from 'dotenv';
 config();
 import 'enve';
 
-import * as bodyParser from 'body-parser';
 import { Illuminsight } from 'types/illuminsight';
-import * as Express from 'express';
+import bodyParser from 'body-parser';
 import { router } from 'api/router';
 import * as path from 'path';
+import Express from 'express';
+const proxy = require('cors-anywhere');
 
 declare global {
   namespace NodeJS {
@@ -64,3 +65,10 @@ app.use(
 app.listen(process.enve.API_PORT, () =>
   console.log('Listening on', process.enve.API_PORT)
 );
+
+proxy
+  .createServer({
+    originWhitelist: [process.enve.WEB_URL],
+    requireHeader: ['origin', 'x-requested-with']
+  })
+  .listen(process.enve.PROXY_PORT, '127.0.0.1');
