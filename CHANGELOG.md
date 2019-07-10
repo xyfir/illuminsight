@@ -6,6 +6,22 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.4.0] - 2019-07-10
+
+### Added
+
+- Recipes to improve and expand generated insights
+- Contextual search insights
+- `languages` property to ASTPub's `meta.json`
+
+### Changed
+
+- Improve definition translations from other languages to English
+
+### Fixed
+
+- Insights not clearing on section change.
+
 ## [0.2.1] - 2019-06-29
 
 ### Added
@@ -37,6 +53,8 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 - Everything
 
-[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.2.0...HEAD
+[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.2.1...0.4.0
+[0.2.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.2.0...0.2.1
 [0.2.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.1.0...0.2.0
 [0.1.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.1.0
