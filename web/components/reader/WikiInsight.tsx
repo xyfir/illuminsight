@@ -1,3 +1,4 @@
+import { getWikiArticle } from 'lib/reader/get-wiki-article';
 import { Illuminsight } from 'types/illuminsight';
 import * as React from 'react';
 import wtf from 'wtf_wikipedia';
@@ -82,10 +83,9 @@ export function WikiInsight({
     event.stopPropagation();
 
     // Load article
-    const newArticle = await wtf.fetch(
+    const newArticle = await getWikiArticle(
       a.getAttribute('href')!.substr(2),
-      undefined,
-      { wikiUrl: insight.recipe.api }
+      insight.recipe
     );
     if (newArticle) {
       setArticles(articles.slice(0, articleKey + 1).concat(newArticle));

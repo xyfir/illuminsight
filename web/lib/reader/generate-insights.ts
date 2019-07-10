@@ -1,3 +1,4 @@
+import { getWikiArticle } from 'lib/reader//get-wiki-article';
 import { getDefinitions } from 'lib/reader/get-definitions';
 import { Illuminsight } from 'types/illuminsight';
 import { stopwords } from 'lib/reader/stopwords';
@@ -40,9 +41,7 @@ export async function generateInsights(
 
     // Get wiki articles
     for (let wikiRecipe of recipe.wikis) {
-      const doc = await wtf.fetch(insight.text, undefined, {
-        wikiUrl: wikiRecipe.api
-      });
+      const doc = await getWikiArticle(insight.text, wikiRecipe);
       if (doc) insight.wikis.push({ recipe: wikiRecipe, doc });
     }
   }
