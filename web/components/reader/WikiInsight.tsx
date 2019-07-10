@@ -96,23 +96,31 @@ export function WikiInsight({
 
   /** Build HTML to display for section */
   function getSectionHTML() {
-    let html = '';
+    // Container for manipulating HTML
+    const div = document.createElement('div');
 
     // Get html for main section, full article, or specified section
     if (typeof sectionKey == 'number')
-      html = article.sections()[sectionKey].html();
-    else if (sectionKey == 'all') html = article.html();
-    else html = article.sections()[0].html();
+      div.innerHTML = article.sections()[sectionKey].html();
+    else if (sectionKey == 'all') div.innerHTML = article.html();
+    else div.innerHTML = article.sections()[0].html();
 
     // Get infobox HTML
     if (sectionKey == 'main+stats') {
-      html += article
+      div.innerHTML += article
         .infoboxes()
         .map(i => i.html())
         .join('\n');
     }
 
-    return html;
+    // Remove images if not Wikipedia
+    if (!insight.recipe.api.includes('wikipedia.org/w/api')) {
+      // (Array.from() required!)
+      const imgs = Array.from(div.getElementsByTagName('img'));
+      for (let img of imgs) img.remove();
+    }
+
+    return div.innerHTML;
   }
 
   /** Get all ancestors of wiki section */
