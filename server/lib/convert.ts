@@ -3,11 +3,11 @@ import { getByAttributeName } from 'lib/ast/get-by-attribute-name';
 import { Illuminsight } from 'types/illuminsight';
 import { countWords } from 'lib/ast/count-words';
 import { nodeToAST } from 'lib/ast/node-to-ast';
-import * as archiver from 'archiver';
 import { Calibre } from 'node-calibre';
 import { Extract } from 'unzipper';
 import { pandoc } from 'lib/pandoc';
 import { JSDOM } from 'jsdom';
+import archiver from 'archiver';
 import {
   createWriteStream,
   createReadStream,

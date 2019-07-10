@@ -1,6 +1,6 @@
-import * as Express from 'express';
-import * as multer from 'multer';
 import { extname } from 'path';
+import Express from 'express';
+import multer from 'multer';
 import * as c from './controllers';
 
 export const router = Express.Router();
