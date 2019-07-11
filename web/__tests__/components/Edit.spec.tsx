@@ -78,8 +78,16 @@ test('<Edit>', async () => {
     target: { value: 'Publisher' }
   });
 
-  // Reset bookmark
-  fireEvent.click(getByText('Reset Bookmark'));
+  // Validate bookmark
+  getByText('bookmark at section', { exact: false });
+  getByText('#1');
+  getByText('#990');
+
+  // Remove bookmark
+  fireEvent.click(getByText('Remove'));
+
+  // Validate bookmark gone
+  expect(() => getByText('Remove')).toThrow();
 
   // Set cover
   expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);

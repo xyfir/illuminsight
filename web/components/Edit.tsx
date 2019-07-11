@@ -15,7 +15,8 @@ import {
   TextField,
   Button,
   Theme,
-  Chip
+  Chip,
+  Typography
 } from '@material-ui/core';
 import {
   BookmarkBorder as BookmarkIcon,
@@ -39,6 +40,11 @@ const styles = (theme: Theme) =>
     },
     coverInput: {
       display: 'none'
+    },
+    bookmark: {
+      alignItems: 'center',
+      display: 'flex',
+      margin: '2em 0'
     },
     buttons: {
       justifyContent: 'center',
@@ -412,6 +418,19 @@ class _Edit extends React.Component<EditProps, EditState> {
           ))}
         </div>
 
+        {pub.bookmark.section != 0 || pub.bookmark.element != 0 ? (
+          <div className={classes.bookmark}>
+            <Button onClick={() => this.onResetBookmark()} variant="text">
+              <BookmarkIcon />
+              Remove
+            </Button>
+            <Typography>
+              bookmark at section <strong>#{pub.bookmark.section + 1}</strong>,
+              element <strong>#{pub.bookmark.element}</strong>.
+            </Typography>
+          </div>
+        ) : null}
+
         <div className={classes.buttons}>
           <Button
             onClick={() => this.onSave()}
@@ -420,11 +439,6 @@ class _Edit extends React.Component<EditProps, EditState> {
           >
             <SaveIcon />
             Update
-          </Button>
-
-          <Button onClick={() => this.onResetBookmark()} variant="contained">
-            <BookmarkIcon />
-            Reset Bookmark
           </Button>
 
           <Button
