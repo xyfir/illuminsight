@@ -110,6 +110,12 @@ export namespace Illuminsight {
     }[];
   }
 
+  export interface SearchInsight {
+    context?: boolean;
+    name: string;
+    url: string;
+  }
+
   export interface WikiInsight {
     recipe: WikiRecipe;
     doc: Document;
@@ -117,6 +123,7 @@ export namespace Illuminsight {
 
   export interface Insight {
     definitions?: DefinitionInsight;
+    searches: SearchInsight[];
     wikis: WikiInsight[];
     text: string;
   }

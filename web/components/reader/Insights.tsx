@@ -22,62 +22,29 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type InsightType = 'definition' | 'search+' | 'search' | 'wiki';
-type ExpandedInsight = { insight: number; recipe?: number; type?: InsightType };
+type InsightType = 'definition' | 'search' | 'wiki';
+type ExpandedInsight = { subIndex: number; index: number; type?: InsightType };
+
+const resetExpanded = (): ExpandedInsight => ({ subIndex: -1, index: -1 });
 
 export function Insights({ index }: { index: number }) {
-  const { insightsIndex, recipe, pub } = React.useContext(ReaderContext);
-  const [expand, setExpand] = React.useState<ExpandedInsight>({ insight: -1 });
+  const { insightsIndex, pub } = React.useContext(ReaderContext);
+  const [expand, setExpand] = React.useState(resetExpanded());
   const classes = useStyles();
 
   const insights = insightsIndex[index];
   if (!insights) return null;
-  const expanded = insights[expand.insight];
-
-  /** Handle an insight chip being clicked */
-  function onClick(
-    insightIndex: number,
-    type: InsightType,
-    recipeIndex: number = 0
-  ) {
-    const { [insightIndex]: insight } = insights;
-
-    switch (type) {
-      // Open or close definition
-      case 'definition':
-        setExpand({ insight: insightIndex, type: 'definition' });
-        break;
-      // Web search with context
-      case 'search+':
-        window.open(
-          recipe.searches[recipeIndex].url +
-            encodeURIComponent(
-              `${recipe.searches[recipeIndex].context} ${insight.text}`
-            )
-        );
-        break;
-      // Web search
-      case 'search':
-        window.open(
-          recipe.searches[recipeIndex].url + encodeURIComponent(insight.text)
-        );
-        break;
-      // Open or close wiki article
-      case 'wiki':
-        setExpand({ insight: insightIndex, recipe: recipeIndex, type: 'wiki' });
-        break;
-    }
-  }
+  const expanded = insights[expand.index];
 
   return (
     <div>
       {/* Insight list (suggested | expanded) */}
-      {expand.insight == -1 || expand.type ? (
+      {expand.index == -1 || expand.type ? (
         insights.map((insight, i) => (
           <Chip
             key={insight.text}
             icon={
-              expand.insight == i ? (
+              expand.index == i ? (
                 <CloseIcon />
               ) : insight.wikis.length ? (
                 <WikiIcon />
@@ -89,21 +56,18 @@ export function Insights({ index }: { index: number }) {
             }
             label={insight.text}
             onClick={() =>
-              expand.insight == i
-                ? setExpand({ insight: -1 })
-                : onClick(
-                    i,
-                    insight.wikis.length
-                      ? 'wiki'
-                      : insight.definitions
-                      ? 'definition'
-                      : recipe.searches[0].context
-                      ? 'search+'
-                      : 'search'
-                  )
+              expand.index == i
+                ? setExpand(resetExpanded())
+                : insight.wikis.length || insight.definitions
+                ? setExpand({
+                    subIndex: 0,
+                    index: i,
+                    type: insight.wikis.length ? 'wiki' : 'definition'
+                  })
+                : window.open(insight.searches[0].url)
             }
             // onDelete/deleteIcon are repurposed for expanding insights
-            onDelete={() => setExpand({ insight: i })}
+            onDelete={() => setExpand({ subIndex: -1, index: i })}
             className={classes.chip}
             deleteIcon={
               <ExpandMoreIcon
@@ -114,49 +78,44 @@ export function Insights({ index }: { index: number }) {
         ))
       ) : (
         <React.Fragment>
+          {/* Collapse insights */}
           <IconButton
             aria-label="Back to previous insights"
-            onClick={() => setExpand({ insight: -1 })}
+            onClick={() => setExpand(resetExpanded())}
           >
             <BackIcon />
           </IconButton>
 
+          {/* Wiki insights */}
           {expanded.wikis.map((wiki, i) => (
             <Chip
               icon={<WikiIcon />}
               label={wiki.recipe.name}
-              onClick={() => onClick(expand.insight, 'wiki', i)}
+              onClick={() =>
+                setExpand({ ...expand, type: 'wiki', subIndex: i })
+              }
               className={classes.chip}
             />
           ))}
 
+          {/* Definition */}
           {expanded.definitions ? (
             <Chip
               icon={<DefinitionIcon />}
               label="Definition"
-              onClick={() => onClick(expand.insight, 'definition')}
+              onClick={() => setExpand({ ...expand, type: 'definition' })}
               className={classes.chip}
             />
           ) : null}
 
-          {recipe.searches.map((search, i) => (
-            <React.Fragment>
-              <Chip
-                icon={<SearchIcon />}
-                label={search.name}
-                onClick={() => onClick(expand.insight, 'search', i)}
-                className={classes.chip}
-              />
-
-              {search.context ? (
-                <Chip
-                  icon={<SearchContextIcon />}
-                  label={`${search.name} + Context`}
-                  onClick={() => onClick(expand.insight, 'search+', i)}
-                  className={classes.chip}
-                />
-              ) : null}
-            </React.Fragment>
+          {/* Search insights */}
+          {expanded.searches.map(search => (
+            <Chip
+              icon={search.context ? <SearchContextIcon /> : <SearchIcon />}
+              label={search.name}
+              onClick={() => window.open(search.url)}
+              className={classes.chip}
+            />
           ))}
         </React.Fragment>
       )}
@@ -164,15 +123,15 @@ export function Insights({ index }: { index: number }) {
       {expand.type == 'wiki' ? (
         // Selected Wikipedia insight
         <WikiInsight
-          insight={expanded.wikis[expand.recipe!]}
-          key={expand.insight}
+          insight={expanded.wikis[expand.subIndex!]}
+          key={expand.index}
         />
       ) : expand.type == 'definition' ? (
         // Selected Wiktionary insight
         <DefinitionInsight
           definitions={expanded.definitions!}
           languages={pub!.languages}
-          key={expand.insight}
+          key={expand.index}
         />
       ) : null}
     </div>

@@ -34,6 +34,12 @@ test('generateInsights()', async () => {
   for (let i = 0; i < 6; i++) {
     const insight: Illuminsight.Insight = {
       definitions: {},
+      searches: [
+        {
+          name: 'Google',
+          url: `https://www.google.com/search?q=${encodeURIComponent(items[i])}`
+        }
+      ],
       wikis: [],
       text: items[i]
     };
@@ -48,9 +54,16 @@ test('generateInsights()', async () => {
   expect(mockFetch).toHaveBeenNthCalledWith(7, 'hello world', undefined, {
     wikiUrl: 'https://en.wikipedia.org/w/api.php'
   });
-  expect(insights[0]).toMatchObject({
+  const _insight: Illuminsight.Insight = {
     definitions: {},
+    searches: [
+      {
+        name: 'Google',
+        url: 'https://www.google.com/search?q=hello%20world'
+      }
+    ],
     wikis: [],
     text: 'hello world'
-  });
+  };
+  expect(insights[0]).toMatchObject(_insight);
 });

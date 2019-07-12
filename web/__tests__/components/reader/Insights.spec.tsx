@@ -14,9 +14,24 @@ test('<Insights>', async () => {
   const state: ReaderState = {
     insightsIndex: {
       0: [
-        { wikis: [], text: 'Cormac McCarthy' },
+        {
+          searches: [
+            {
+              name: 'Google',
+              url: 'https://www.google.com/search?q=Cormac%20McCarthy'
+            }
+          ],
+          wikis: [],
+          text: 'Cormac McCarthy'
+        },
         {
           definitions: testDefinitions,
+          searches: [
+            {
+              name: 'Google',
+              url: 'https://www.google.com/search?q=Blood%20Meridian'
+            }
+          ],
           wikis: [{ recipe: defaultRecipe.wikis[0], doc: wtf(testWikitext) }],
           text: 'Blood Meridian'
         }
