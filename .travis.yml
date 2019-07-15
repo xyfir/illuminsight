@@ -1,7 +1,7 @@
 language: node_js
 node_js: node
 script:
-- cd "~/$PACKAGE"
+- cd "~/xyfir/illuminsight/$PACKAGE"
 - cp example.env .env
 - npm t
 - npm run build
