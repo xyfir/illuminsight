@@ -167,7 +167,6 @@ test(
       bookmark: { section: 0, element: 0 },
       cover: 'res/0.jpg',
       name: 'A Tale of Two Cities',
-      published: 757411200000,
       languages: ['en'],
       sections: 54,
       starred: false,
