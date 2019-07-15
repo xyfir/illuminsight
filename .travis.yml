@@ -1,0 +1,25 @@
+language: node_js
+node_js: node
+script:
+- cd "~/$PACKAGE"
+- cp example.env .env
+- npm t
+- npm run build
+env:
+- PACKAGE="server"
+- PACKAGE="web"
+- PACKAGE=""
+deploy:
+  - provider: npm
+    email: contact@xyfir.com
+    api_key:
+      secure: CuYCcGSLsbljsb0W2QsYJl0nGXqBGO08/bfjt6NjdJs4KuSYmWH5fmRUfvLX5oSzfgr/05rnJS9rw2zttQ96HfE9E2tFPXS2QOZuT6jAtmkFY/n4YjYRILeucxIAJaoc49Jk9Rq5/1EsMemuaSwATGg2t8zclcuYNtemrOFiTCdNKkNf+WkKQxx+mkqkL/umyyuij25MB+mN6aSiX7d9FL2+l1fv3LbSfSbzRZ0NbMfhhPkK0ul9yC4MK6gOZyXK8tEr4PX7kRvwTknogF3K+p7v3+LnfNTM8LpYguIC1QhOCozU46KrbLQSDbUHIkLgpOag2uPsK7KM8YhMCmii+4ZcoOOEWW0jgf26xLSA0iMHbrK4fm10/wVN/tX2nA97PTQD/9YG0lxzWA/Nbb5kvKJUa+dq5y6gadeKuNPhIOfXAj6LWngIN9IVFSj6F4bBA+AX1zTq0cNBmfyuDVWIQt8uTaGDeGRvwKT643fNtdMt8sPqoJC8XV23ntPp1aelEZ6ww/PixgIqadFlEYn0tk6TyFNki+finUb3vlHOUqPN7WaBlWo1Y4tc/s+2DkZXYCr08SQ5K08ZMb+rNBJYhl/8OdlyZk4a7m8n2pDANNPy5nlnkq0pkCS2Bo9gjuyzcPtPtDu32BBtg0MLa/ruTr8NeYHk3xAqE+mxKciJxE0=
+    on:
+      repo: xyfir/illuminsight
+      tags: true
+  - provider: releases
+    api_key:
+      secure: IqHZ7SxS6I9Gx1agH1L7kt9oLq7ZDiFRDKSrIXisAjRs8IShYyFna8VCSg43qNhzczCx+JBAmoQb4OQZCiuOh1mNRdB3YER9nn+SQhPi9l4lG+wXAWk+84N4lQBHNKq/PnfD3VUI2zRDpDFnq15iqtcaUxtUtxU8OE7tMks1ugMI/UAFeBal3RZnJoiFLBzRv6wrr1Ix6mN8j5gSuhtnECcgGTMEITYtc1Fe6H4eX/7KwPQc4tzL9Bvkgo7otzfDOoWAWmdhxpPZaGEKUixIc86qSS49LCIzkefbrQZDAretoRtTBu4apzI6lIHMeHbOhA4GncxT4QGMN+TJwl3YHihk1cn3ZFgTbhufUx60g8LeVA7Wu07wbb3v755tWcHt03D82OJ3+WsfwMIsoPAL3UqGEGFi5GrVl/iCQR9vENUZG8Q+dZ8Ihx3EIymepmlKCNi/W9djLVdoSRp2Cq0sSEvgDb3N7WRASDto0peg1xHbv18cCf3w5Br0lrVY+sSOcUbUKMdwfsBjTEb0KbNr7nCwaZsF3Lw50OJ+BpYyF/c6uGfN8V+m5Z+4SheQntPfk45D4nh0dYaFfAGLDXWesK6eOKLrApNbJT1yR+blVvKAP6j7xaohafAZjT7FB/HvxiSW5195J00arHR+F81v6c5n3eKlh+mQgcmOwi4IXTA=
+    on:
+      repo: xyfir/illuminsight
+      tags: true
