@@ -1,7 +1,8 @@
 language: node_js
 node_js: node
-script:
+before_install:
 - cd "$TRAVIS_BUILD_DIR/$PACKAGE"
+script:
 - "cp example.env .env || :"
 - ls -lah
 - npm t
