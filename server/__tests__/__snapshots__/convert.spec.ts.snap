@@ -172,19 +172,6 @@ Array [
     ],
     "n": "nav",
   },
-  Object {
-    "a": Object {
-      "epub:type": "landmarks",
-      "hidden": "hidden",
-      "id": "landmarks",
-    },
-    "c": Array [
-      Object {
-        "n": "ol",
-      },
-    ],
-    "n": "nav",
-  },
 ]
 `;
 
