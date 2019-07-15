@@ -2,7 +2,8 @@ language: node_js
 node_js: node
 script:
 - cd "$TRAVIS_BUILD_DIR/$PACKAGE"
-- cp example.env .env
+- "cp example.env .env || :"
+- ls -lah
 - npm t
 - npm run build
 env:
