@@ -76,10 +76,11 @@ To understand the syntax of the `.env` files, know that they are first loaded vi
 
 ## Step 3a: Create `.env` Files
 
-First we'll create each file and then we'll work our way through populating them with values.
+First we'll copy each example file and then we'll update their values.
 
 ```bash
-touch server/.env web/.env
+cp server/example.env server/.env
+cp web/example.env web/.env
 ```
 
 ## Step 3b: Configure
