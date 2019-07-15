@@ -1,16 +1,14 @@
 language: node_js
 node_js: node
 before_install:
-- cd "$TRAVIS_BUILD_DIR/$PACKAGE"
+- cd "/home/travis/build/xyfir/illuminsight/$PACKAGE"
 script:
-- "cp example.env .env || :"
-- ls -lah
+- cp example.env .env
 - npm t
 - npm run build
 env:
 - PACKAGE="server"
 - PACKAGE="web"
-- PACKAGE=""
 deploy:
   - provider: npm
     email: contact@xyfir.com
