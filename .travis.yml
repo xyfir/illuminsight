@@ -1,7 +1,7 @@
 language: node_js
 node_js: node
 script:
-- cd "~/xyfir/illuminsight/$PACKAGE"
+- cd "$TRAVIS_BUILD_DIR/$PACKAGE"
 - cp example.env .env
 - npm t
 - npm run build
