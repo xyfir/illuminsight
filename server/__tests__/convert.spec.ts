@@ -17,7 +17,7 @@ import {
 import 'jest-extended';
 
 // Extract environment variables
-const { FILES_DIRECTORY, TEMP_DIR } = process.enve;
+const { FILES_DIRECTORY, ASTPUB_VERSION, TEMP_DIR } = process.enve;
 
 // Set paths used in tests
 const convertDirectory = resolve(TEMP_DIR, 'convert-test');
@@ -75,7 +75,7 @@ test('convert({text})', async () => {
     sections: 2,
     starred: false,
     tags: [],
-    version: 1,
+    version: ASTPUB_VERSION,
     words: '5'
   };
   expect(pub).toMatchObject(_pub);
@@ -129,7 +129,7 @@ test(
       sections: 4,
       starred: false,
       tags: [],
-      version: 1,
+      version: ASTPUB_VERSION,
       words: '3k'
     };
     expect(pub).toMatchObject(_pub);
@@ -172,7 +172,7 @@ test(
       sections: 54,
       starred: false,
       tags: [],
-      version: 1,
+      version: ASTPUB_VERSION,
       words: '140k'
     };
     expect(pub).toMatchObject(_pub);
