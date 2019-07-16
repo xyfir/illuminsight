@@ -23,6 +23,7 @@ import {
   DeleteForever as DeleteIcon,
   // DateRange as PublishedIcon,
   People as AuthorsIcon,
+  GroupWork as SeriesIcon,
   Image as ImageIcon,
   Label as NameIcon,
   Home as PublisherIcon,
@@ -299,6 +300,24 @@ class _Edit extends React.Component<EditProps, EditState> {
             )
           }}
           placeholder="Ernest Hemingway"
+        />
+
+        <TextField
+          id="series"
+          label="Series"
+          value={pub.series}
+          margin="normal"
+          variant="outlined"
+          onChange={e => this.onChange('series', e.target.value)}
+          fullWidth
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SeriesIcon />
+              </InputAdornment>
+            )
+          }}
+          placeholder="The Lord of the Rings"
         />
 
         <TextField

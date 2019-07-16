@@ -77,6 +77,9 @@ test('<Edit>', async () => {
   fireEvent.change(getByLabelText('Publisher'), {
     target: { value: 'Publisher' }
   });
+  fireEvent.change(getByLabelText('Series'), {
+    target: { value: 'Some Series' }
+  });
 
   // Validate bookmark
   getByText('bookmark at section', { exact: false });
@@ -144,6 +147,7 @@ test('<Edit>', async () => {
     ...pub,
     name: 'Name',
     link: 'https://example.com',
+    series: 'Some Series',
     authors: 'Some Author',
     languages: ['fr'],
     // published: 1595203200000,
