@@ -6,10 +6,11 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
-<!-- ## [0.4.1] - 2019-07- -->
+## [0.4.1] - 2019-07-16
 
 ### Added
 
+- Travis CI support
 - `example.env` files for self-hosters and developers
 
 ### Changed
