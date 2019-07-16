@@ -1,7 +1,7 @@
 language: node_js
 node_js: node
 before_install: cd "/home/travis/build/xyfir/illuminsight/$PACKAGE"
-script: bash .travis.sh
+script: bash /home/travis/build/xyfir/illuminsight/.travis.sh
 env:
 - PACKAGE="server"
 - PACKAGE="web"
