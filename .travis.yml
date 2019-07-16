@@ -1,11 +1,24 @@
 language: node_js
 node_js: node
 before_install: cd "/home/travis/build/xyfir/illuminsight/$PACKAGE"
-script: bash /home/travis/build/xyfir/illuminsight/.travis.sh
-env:
-- PACKAGE="server"
-- PACKAGE="web"
-- PACKAGE="."
+jobs:
+  include:
+    - stage: server
+      script: bash ../.travis.sh
+      env:
+        - PACKAGE="server"
+    - stage: web
+      script: bash ../.travis.sh
+      env:
+        - PACKAGE="web"
+    - stage: root
+      script: bash .travis.sh
+      env:
+        - PACKAGE="root"
+stages:
+  - server
+  - web
+  - root
 deploy:
   - provider: npm
     email: contact@xyfir.com
