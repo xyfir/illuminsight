@@ -267,15 +267,30 @@ export async function convert({
 
     // Populate pub object which will be used for meta.json
     const pub: Illuminsight.Pub = {
+      id: Date.now(),
+      toc,
+      link,
+      tags: [],
+      name: opfDoc.getElementsByTagName('dc:title')[0].textContent || '',
+      cover,
+      words:
+        words > 999999
+          ? `${(words / 1000000).toFixed(2)}m`
+          : words > 999
+          ? `${Math.round(words / 1000)}k`
+          : words.toString(),
+      series: (() => {
+        const series = opfDoc.querySelector('meta[name="calibre:series"]');
+        if (series) return series.getAttribute('content') as string;
+      })(),
+      starred: false,
+      version: process.enve.ASTPUB_VERSION,
       authors:
         Array.from(opfDoc.getElementsByTagName('dc:creator'))
           .map(creator => creator.textContent)
           .join(', ') || undefined,
+      sections,
       bookmark: { section: 0, element: 0 },
-      cover,
-      id: Date.now(),
-      link,
-      name: opfDoc.getElementsByTagName('dc:title')[0].textContent || '',
       published: (() => {
         const date = opfDoc.getElementsByTagName('dc:date')[0];
         if (date) return new Date(date.textContent as string).getTime();
@@ -284,20 +299,9 @@ export async function convert({
         const pub = opfDoc.getElementsByTagName('dc:publisher')[0];
         if (pub) return pub.textContent as string;
       })(),
-      toc,
-      sections,
       languages: Array.from(opfDoc.getElementsByTagName('dc:language'))
         .map(lang => lang.textContent!.trim().split('-')[0])
-        .filter(lang => lang != 'und'),
-      starred: false,
-      tags: [],
-      version: process.enve.ASTPUB_VERSION,
-      words:
-        words > 999999
-          ? `${(words / 1000000).toFixed(2)}m`
-          : words > 999
-          ? `${Math.round(words / 1000)}k`
-          : words.toString()
+        .filter(lang => lang != 'und')
     };
     pub.languages = pub.languages.length ? pub.languages : ['en'];
 

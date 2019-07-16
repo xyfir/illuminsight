@@ -165,6 +165,7 @@ test(
       ...pub,
       authors: 'Charles Dickens',
       bookmark: { section: 0, element: 0 },
+      series: 'Test Series',
       cover: 'res/0.jpg',
       name: 'A Tale of Two Cities',
       languages: ['en'],

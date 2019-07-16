@@ -24,26 +24,21 @@ export namespace Illuminsight {
    */
   export interface Pub {
     id: number;
+    toc: Array<Marker & { title: string }>;
     name: string;
     tags: Tag['id'][];
     link?: string;
-    /**
-     * Path/name to the cover file relative to zip's root.
-     */
-    cover?: string;
     /**
      * How many words the pub contains.
      * @example "920" | "20k" | "1.25m"
      */
     words: string;
-    toc: Array<Marker & { title: string }>;
-    /**
-     * Number of sections.
-     */
+    /** Path/name to the cover file relative to zip's root. */
+    cover?: string;
+    series?: string;
+    /** Number of sections. */
     sections: number;
-    /**
-     * Schema version
-     */
+    /** Schema version */
     version: number;
     starred: boolean;
     authors?: string;
@@ -175,7 +170,7 @@ export namespace Illuminsight {
       /**
        * Version of ASTPUB format this instance of Illuminsight supports.
        */
-      ASTPUB_VERSION: 2;
+      ASTPUB_VERSION: 4;
       /**
        * Absolute path for illuminsight files.
        * @example "/path/to/illuminsight/files"
