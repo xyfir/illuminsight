@@ -14,7 +14,7 @@ jobs:
     - stage: root
       script: bash .travis.sh
       env:
-        - PACKAGE="root"
+        - PACKAGE="."
 stages:
   - server
   - web
