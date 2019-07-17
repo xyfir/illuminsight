@@ -1,11 +1,14 @@
+import { getRecipes, downloadRecipe, getRecipeName } from 'lib/reader/recipes';
 import { InsightToolProps, InsightTool } from 'components/reader/InsightTool';
 import { ToggleThemeContext } from 'lib/app/theme';
 import { RecipeManager } from 'components/reader/RecipeManager';
 import { ReaderContext } from 'components/reader/Reader';
 import { Illuminsight } from 'types/illuminsight';
+import { useSnackbar } from 'notistack';
 import { Toolbar } from 'components/app/Toolbar';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import Fuse from 'fuse.js';
 import {
   RemoveCircleOutline as DecreaseIcon,
   AddCircleOutline as IncreaseIcon,
@@ -57,13 +60,12 @@ export function ReaderToolbar({
   onInsight: InsightToolProps['onInsight'];
   history: Illuminsight.Marker[];
 }) {
+  const { insightsIndex, dispatch, pub } = React.useContext(ReaderContext);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { insightsIndex, pub } = React.useContext(ReaderContext);
   const [dialog, setDialog] = React.useState<DialogView>(false);
+  const { enqueueSnackbar } = useSnackbar();
   const toggleTheme = React.useContext(ToggleThemeContext);
   const classes = useStyles();
-
-  if (!pub) return null;
 
   /** Increase or decrease #ast font size */
   function onChangeFontSize(action: '+' | '-') {
@@ -77,7 +79,67 @@ export function ReaderToolbar({
     document.getElementById('ast')!.style.fontSize = `${fontSize}%`;
   }
 
-  /** Handle menu item click */
+  /** Attempt to match pub to recipe in cookbook */
+  async function findRecipe() {
+    // Load recipes
+    const recipes = await getRecipes();
+
+    // Search by pub title
+    // @ts-ignore Fuse types break with includeScore
+    const matches: {
+      score: number;
+      item: Illuminsight.RecipeIndex[0];
+    }[] = new Fuse(recipes, {
+      includeScore: true,
+      threshold: 0.3,
+      keys: ['id', 'books']
+    }).search(pub!.name);
+
+    // Search by pub series
+    if (pub!.series) {
+      matches.push(
+        // @ts-ignore
+        ...new Fuse(recipes, {
+          includeScore: true,
+          threshold: 0.4,
+          keys: ['id', 'series']
+        }).search(pub!.series)
+      );
+    }
+
+    // Search by pub authors
+    if (pub!.authors) {
+      matches.push(
+        // @ts-ignore
+        ...new Fuse(recipes, {
+          includeScore: true,
+          threshold: 0.4,
+          keys: ['id', 'authors']
+        }).search(pub!.authors)
+      );
+    }
+
+    // Subtract and sort by scores (smaller = better)
+    const [match] = matches
+      .reduce(
+        (reduced, match) => {
+          const _match = reduced.find(m => m.item.id == match.item.id);
+          if (_match) _match.score -= match.score;
+          else reduced.push(match);
+          return reduced;
+        },
+        [] as typeof matches
+      )
+      .sort((a, b) => a.score - b.score);
+
+    // Choose recipe with highest score
+    if (match && match.score <= 0.5) {
+      const recipe = await downloadRecipe(match.item.id, pub!.id);
+      dispatch({ recipe });
+      enqueueSnackbar(`"${getRecipeName(recipe.id)}" recipe loaded`);
+    }
+  }
+
   function onMenuItemClick(view: DialogView) {
     setDialog(view);
     setAnchorEl(null);
@@ -97,6 +159,13 @@ export function ReaderToolbar({
     _pub.bookmark = marker;
     onNavigate(_pub);
   }
+
+  // Attempt to match pub to recipe
+  React.useEffect(() => {
+    if (pub) findRecipe();
+  }, [pub && pub.id]);
+
+  if (!pub) return null;
 
   return (
     <Toolbar>
