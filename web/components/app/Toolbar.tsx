@@ -2,24 +2,24 @@ import { createPortal } from 'react-dom';
 import * as React from 'react';
 import {
   createStyles,
-  WithStyles,
-  withStyles,
+  makeStyles,
   Toolbar as MUIToolbar,
   AppBar
 } from '@material-ui/core';
 
-const styles = createStyles({
-  toolbar: {
-    justifyContent: 'space-between'
-  }
-});
+const useStyles = makeStyles(() =>
+  createStyles({
+    toolbar: {
+      justifyContent: 'space-between'
+    }
+  })
+);
 
 let toolbar: HTMLDivElement;
 
-function _Toolbar({
-  children,
-  classes
-}: WithStyles<typeof styles> & { children: React.ReactNode }) {
+export function Toolbar({ children }: { children: React.ReactNode }) {
+  const classes = useStyles();
+
   if (!toolbar) {
     toolbar = document.createElement('div');
     toolbar.id = 'toolbar';
@@ -33,5 +33,3 @@ function _Toolbar({
     toolbar
   );
 }
-
-export const Toolbar = withStyles(styles)(_Toolbar);
