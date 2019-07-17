@@ -80,17 +80,20 @@ test('<RecipeManager>', async () => {
   // Validate recipe is displayed as active
   expect(getAllByText('lorem')).toBeArrayOfSize(2);
 
-  // Mock deleting recipe
-  const mockRemoveItem = ((localForage as any).removeItem = jest.fn());
-  mockRemoveItem.mockResolvedValueOnce(undefined);
+  // Mock removing recipe (replacing with default)
+  mockSetItem.mockResolvedValueOnce(undefined);
 
   // Remove active recipe
   fireEvent.click(getAllByText('lorem')[0]);
   await waitForDomChange();
 
   // Validate recipe was deleted and state was reset to default
-  expect(mockRemoveItem).toHaveBeenCalledTimes(1);
-  expect(mockRemoveItem).toHaveBeenCalledWith('pub-recipe-1234');
+  expect(mockSetItem).toHaveBeenCalledTimes(2);
+  expect(mockSetItem).toHaveBeenNthCalledWith(
+    2,
+    'pub-recipe-1234',
+    defaultRecipe
+  );
   expect(mockDispatch).toHaveBeenCalledTimes(2);
   expect(mockDispatch.mock.calls[1][0]).toMatchObject({
     recipe: defaultRecipe
