@@ -1,7 +1,7 @@
 import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
 import { WithSnackbarProps, withSnackbar } from 'notistack';
 import { RouteComponentProps } from 'react-router';
-import { ReaderToolbar } from 'components/reader/ReaderToolbar';
+import { ReaderControls } from 'components/reader/ReaderControls';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
 import { Illuminsight } from 'types/illuminsight';
@@ -326,7 +326,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
           className={classes.root}
           onScroll={e => this.onScroll(e)}
         >
-          <ReaderToolbar
+          <ReaderControls
             onNavigate={this.loadSection}
             onInsight={i => this.setState({ insightsIndex: i })}
             history={this.history}

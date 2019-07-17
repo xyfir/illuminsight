@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme =>
 
 type DialogView = false | 'toc' | 'recipes' | 'font-size';
 
-export function ReaderToolbar({
+export function ReaderControls({
   onNavigate,
   onInsight,
   history

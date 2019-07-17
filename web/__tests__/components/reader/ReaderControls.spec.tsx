@@ -1,7 +1,7 @@
 import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { ReaderContext, ReaderState } from 'components/reader/Reader';
 import { SnackbarProvider } from 'notistack';
-import { ReaderToolbar } from 'components/reader/ReaderToolbar';
+import { ReaderControls } from 'components/reader/ReaderControls';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { MemoryRouter } from 'react-router-dom';
 import { Illuminsight } from 'types/illuminsight';
@@ -10,8 +10,8 @@ import localForage from 'localforage';
 import * as React from 'react';
 import axios from 'axios';
 
-test('<ReaderToolbar>', async () => {
-  // Wrap <ReaderToolbar>
+test('<ReaderControls>', async () => {
+  // Wrap <ReaderControls>
   const history: Illuminsight.Marker[] = [];
   const state: ReaderState = {
     insightsIndex: {},
@@ -20,14 +20,14 @@ test('<ReaderToolbar>', async () => {
     pub: testPub,
     ast: []
   };
-  const ReaderToolbarConsumer = () => {
+  const ReaderControlsConsumer = () => {
     const [pub, setPub] = React.useState(testPub);
     state.pub = pub;
     return (
       <SnackbarProvider>
         <MemoryRouter>
           <ReaderContext.Provider value={state}>
-            <ReaderToolbar
+            <ReaderControls
               onNavigate={setPub}
               onInsight={() => 1}
               history={history}
@@ -58,9 +58,9 @@ test('<ReaderToolbar>', async () => {
   // Mock saving downloaded recipe
   mockGetItem.mockResolvedValueOnce(undefined);
 
-  // Render <ReaderToolbar> inside <ReaderToolbarConsumer>
+  // Render <ReaderControls> inside <ReaderControlsConsumer>
   const { getByLabelText, getByTitle, getByText } = render(
-    <ReaderToolbarConsumer />
+    <ReaderControlsConsumer />
   );
   await waitForDomChange();
 
@@ -107,7 +107,7 @@ test('<ReaderToolbar>', async () => {
 
   // !! For some reason the following code will not work when multiple tests run
   // at once thanks to jsdom/jest/mui not working together
-  // !! Uncomment when running a test for <ReaderToolbar> specifically...
+  // !! Uncomment when running a test for <ReaderControls> specifically...
 
   // // Open More and validate items
   // fireEvent.click(getByTitle('View more menu items'));
