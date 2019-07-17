@@ -55,8 +55,9 @@ function _RecipeManager({ match }: RouteComponentProps) {
   }, []);
 
   async function onRemove() {
-    // Delete from storage
-    await localForage.removeItem(`pub-recipe-${pubId}`);
+    // Replace with default recipe
+    // Better than removing it because we know the user has _chosen_ the default
+    await localForage.setItem(`pub-recipe-${pubId}`, defaultRecipe);
 
     // Update state
     setActive(null);
