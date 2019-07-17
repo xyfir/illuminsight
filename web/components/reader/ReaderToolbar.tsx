@@ -6,6 +6,7 @@ import { ReaderContext } from 'components/reader/Reader';
 import { Illuminsight } from 'types/illuminsight';
 import { useSnackbar } from 'notistack';
 import { Toolbar } from 'components/app/Toolbar';
+import localForage from 'localforage';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Fuse from 'fuse.js';
@@ -81,6 +82,10 @@ export function ReaderToolbar({
 
   /** Attempt to match pub to recipe in cookbook */
   async function findRecipe() {
+    // Abort if a recipe is already set
+    const recipe = await localForage.getItem(`pub-recipe-${pub!.id}`);
+    if (recipe) return;
+
     // Load recipes
     const recipes = await getRecipes();
 
@@ -132,7 +137,7 @@ export function ReaderToolbar({
       )
       .sort((a, b) => a.score - b.score);
 
-    // Choose recipe with highest score
+    // Choose recipe with highest score that passes threshold
     if (match && match.score <= 0.5) {
       const recipe = await downloadRecipe(match.item.id, pub!.id);
       dispatch({ recipe });
