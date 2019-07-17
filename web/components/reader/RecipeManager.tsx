@@ -1,11 +1,15 @@
 import { RouteComponentProps, withRouter } from 'react-router';
 import { ReaderContext } from 'components/reader/Reader';
-import { defaultRecipe } from 'lib/reader/recipes';
 import { Illuminsight } from 'types/illuminsight';
 import localForage from 'localforage';
 import * as React from 'react';
-import axios from 'axios';
 import Fuse from 'fuse.js';
+import {
+  downloadRecipe,
+  defaultRecipe,
+  getRecipeName,
+  getRecipes
+} from 'lib/reader/recipes';
 import {
   InputAdornment,
   createStyles,
@@ -41,30 +45,15 @@ function _RecipeManager({ match }: RouteComponentProps) {
 
   // Load data on mount
   React.useEffect(() => {
-    // Load recipes
-    axios
-      .get(
-        'https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/dist/recipes/.index.min.json'
-      )
-      .then(res => {
-        // Expand minified recipes
-        const minified: Illuminsight.MinifiedRecipeIndex = res.data;
-        setRecipes(
-          minified.map(m => ({
-            id: m.i,
-            books: m.b,
-            series: m.s,
-            authors: m.a
-          }))
-        );
+    // Set active recipe if it's not the default recipe
+    if (defaultRecipe !== recipe) setActive(recipe);
 
-        // Set active recipe if it's not the default recipe
-        if (defaultRecipe !== recipe) setActive(recipe);
-      })
+    // Load recipes
+    getRecipes()
+      .then(setRecipes)
       .catch(console.error);
   }, []);
 
-  /** Remove active recipe */
   async function onRemove() {
     // Delete from storage
     await localForage.removeItem(`pub-recipe-${pubId}`);
@@ -74,25 +63,10 @@ function _RecipeManager({ match }: RouteComponentProps) {
     dispatch({ recipe: defaultRecipe });
   }
 
-  /** Download and set recipe */
   async function onSet(id: Illuminsight.Recipe['id']) {
-    // Download recipe
-    const res = await axios.get(
-      `https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/dist/recipes/${id}.min.json`
-    );
-    const _recipe: Illuminsight.Recipe = res.data;
-
-    // Save to storage
-    await localForage.setItem(`pub-recipe-${pubId}`, _recipe);
-
-    // Update state
+    const _recipe = await downloadRecipe(id, pubId);
     setActive(_recipe);
     dispatch({ recipe: _recipe });
-  }
-
-  /** Convert recipe id to text to display to user */
-  function displayId(id: Illuminsight.Recipe['id']) {
-    return id.replace(/-/g, ' ');
   }
 
   // Filter by search
@@ -114,7 +88,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
             <ListItemIcon>
               <RemoveIcon />
             </ListItemIcon>
-            <ListItemText primary={displayId(active.id!)} />
+            <ListItemText primary={getRecipeName(active.id!)} />
           </ListItem>
         </List>
       ) : null}
@@ -145,7 +119,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
-            <ListItemText primary={displayId(r.id)} />
+            <ListItemText primary={getRecipeName(r.id)} />
           </ListItem>
         ))}
       </List>
