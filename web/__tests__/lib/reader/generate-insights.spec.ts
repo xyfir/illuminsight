@@ -7,19 +7,21 @@ import wtf from 'wtf_wikipedia';
 test('generateInsights()', async () => {
   // Mock wtf_wikipedia
   const mockFetch = ((wtf as any).fetch = jest.fn());
+  const mockWiki = {};
+  mockFetch.mockResolvedValueOnce(mockWiki);
   mockFetch.mockResolvedValue(null);
 
   // Mock axios (for getting definition)
-  const mockData = {};
+  const mockDefinition = {};
   const mockGet = ((axios as any).get = jest.fn());
-  mockGet.mockResolvedValue({ data: mockData });
+  mockGet.mockResolvedValueOnce({ data: mockDefinition });
+  mockGet.mockResolvedValue({ data: undefined });
 
-  // Generate insights from text block
+  // Generate suggested insights from text block
   let insights = await generateInsights({
     recipe: defaultRecipe,
     text:
-      'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.',
-    all: true
+      'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.'
   });
   const items = [
     'Illuminsight',
@@ -32,37 +34,53 @@ test('generateInsights()', async () => {
 
   // Validate insights from text block
   expect(mockFetch).toHaveBeenCalledTimes(6);
-  expect(insights).toBeArrayOfSize;
+  expect(mockGet).toHaveBeenCalledTimes(5);
+  expect(insights).toBeArrayOfSize(6);
   for (let i = 0; i < 6; i++) {
-    const insight: Illuminsight.Insight = {
-      definitions: {},
-      searches: [
-        {
-          name: 'Google',
-          url: `https://www.google.com/search?q=${encodeURIComponent(items[i])}`
-        }
-      ],
-      wikis: [],
-      text: items[i]
-    };
-    expect(insights[i]).toMatchObject(insight);
+    expect(insights[i].text).toBe(items[i]);
+
+    switch (i) {
+      // First found a wiki article so didn't generate definitions or searches
+      case 0:
+        expect(insights[i].wikis).toMatchObject([
+          { doc: {}, recipe: defaultRecipe.wikis[0] }
+        ]);
+        expect(insights[i].searches).toBeArrayOfSize(0);
+        expect(insights[i].definitions).toBeUndefined();
+        break;
+      // Second found definition so didn't generate searches
+      case 1:
+        expect(insights[i].definitions).toBe(mockDefinition);
+        expect(insights[i].searches).toBeArrayOfSize(0);
+        expect(insights[i].wikis).toBeArrayOfSize(0);
+        break;
+      // Third+ could only generate searches
+      default:
+        expect(insights[i].searches).toMatchObject([
+          {
+            name: 'Google',
+            url: `https://www.google.com/search?q=${encodeURIComponent(
+              items[i]
+            )}`
+          }
+        ]);
+        expect(insights[i].wikis).toBeArrayOfSize(0);
+        expect(insights[i].definitions).toBeUndefined();
+    }
   }
 
   // Generate insights from highlighted text
-  insights = await generateInsights({
+  const insights2 = await generateInsights({
     highlight: true,
     recipe: defaultRecipe,
-    text: 'hello world',
-    all: true
+    text: 'hello world'
   });
 
   /// Validate insights from highlight
   expect(mockFetch).toHaveBeenCalledTimes(7);
-  expect(mockFetch).toHaveBeenNthCalledWith(7, 'hello world', undefined, {
-    wikiUrl: 'https://en.wikipedia.org/w/api.php'
-  });
+  expect(mockGet).toHaveBeenCalledTimes(6);
   const _insight: Illuminsight.Insight = {
-    definitions: {},
+    definitions: undefined,
     searches: [
       {
         name: 'Google',
@@ -72,5 +90,5 @@ test('generateInsights()', async () => {
     wikis: [],
     text: 'hello world'
   };
-  expect(insights[0]).toMatchObject(_insight);
+  expect(insights2[0]).toMatchObject(_insight);
 });
