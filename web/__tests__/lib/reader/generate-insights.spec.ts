@@ -38,6 +38,7 @@ test('generateInsights()', async () => {
   expect(insights).toBeArrayOfSize(6);
   for (let i = 0; i < 6; i++) {
     expect(insights[i].text).toBe(items[i]);
+    expect(insights[i].all).toBeUndefined();
 
     switch (i) {
       // First found a wiki article so didn't generate definitions or searches
@@ -109,4 +110,5 @@ test('generateInsights()', async () => {
   expect(insights[0].searches).toBeArrayOfSize(1);
   expect(insights[0].wikis).toBeArrayOfSize(1);
   expect(insights[0].text).toBe(items[0]);
+  expect(insights[0].all).toBeTrue();
 });

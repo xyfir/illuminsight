@@ -79,29 +79,7 @@ export namespace Illuminsight {
         definition: string;
         parsedExamples?: { example: string }[];
       }[];
-      partOfSpeech:
-        | 'Noun'
-        | 'Verb'
-        | 'Adjective'
-        | 'Adverb'
-        | 'Determiner'
-        | 'Article'
-        | 'Preposition'
-        | 'Conjunction'
-        | 'Proper noun'
-        | 'Letter'
-        | 'Character'
-        | 'Phrase'
-        | 'Proverb'
-        | 'Idiom'
-        | 'Symbol'
-        | 'Syllable'
-        | 'Numeral'
-        | 'Initialism'
-        | 'Interjection'
-        | 'Definitions'
-        | 'Pronoun'
-        | 'Romanization';
+      partOfSpeech: string;
     }[];
   }
 
@@ -121,6 +99,8 @@ export namespace Illuminsight {
     searches: SearchInsight[];
     wikis: WikiInsight[];
     text: string;
+    /** Does insight contain all possible insights? */
+    all?: boolean;
   }
 
   export interface InsightsIndex {

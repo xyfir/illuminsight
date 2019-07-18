@@ -61,6 +61,9 @@ export async function generateInsights({
 
   if (!insights) return [];
   insightloop: for (let insight of insights) {
+    // Set all
+    insight.all = all;
+
     // Get wiki articles
     for (let wikiRecipe of recipe.wikis) {
       const doc = await getWikiArticle(insight.text, wikiRecipe);
