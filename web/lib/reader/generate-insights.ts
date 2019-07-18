@@ -16,7 +16,8 @@ export async function generateInsights({
   highlight,
   insights,
   recipe,
-  text
+  text,
+  all
 }: {
   /**
    * Was `text` sourced from a user highlight?
@@ -27,6 +28,8 @@ export async function generateInsights({
   recipe: Illuminsight.Recipe;
   /** Text to generate insights from */
   text?: string;
+  /** Should all insights be generated or just the suggested? */
+  all?: boolean;
 }): Promise<Illuminsight.Insight[]> {
   // Convert text to insights array
   if (text) {
@@ -46,13 +49,28 @@ export async function generateInsights({
           insight => textToInsight(insight)
         );
   }
+  // Clean the insights array
+  else if (insights) {
+    insights = insights.map(i => ({
+      definitions: undefined,
+      searches: [],
+      wikis: [],
+      text: i.text
+    }));
+  }
 
   if (!insights) return [];
-  for (let insight of insights) {
+  insightloop: for (let insight of insights) {
+    // Get wiki articles
+    for (let wikiRecipe of recipe.wikis) {
+      const doc = await getWikiArticle(insight.text, wikiRecipe);
+      if (doc) insight.wikis.push({ recipe: wikiRecipe, doc });
+      if (!all) continue insightloop;
+    }
+
     // Get definitions from English Wiktionary
-    try {
-      insight.definitions = await getDefinitions(insight.text);
-    } catch {}
+    insight.definitions = await getDefinitions(insight.text);
+    if (!all) continue;
 
     // Build search insights
     for (let searchRecipe of recipe.searches) {
@@ -72,12 +90,6 @@ export async function generateInsights({
         name: searchRecipe.name,
         url: searchRecipe.url + encodeURIComponent(insight.text)
       });
-    }
-
-    // Get wiki articles
-    for (let wikiRecipe of recipe.wikis) {
-      const doc = await getWikiArticle(insight.text, wikiRecipe);
-      if (doc) insight.wikis.push({ recipe: wikiRecipe, doc });
     }
   }
 
