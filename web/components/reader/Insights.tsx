@@ -1,5 +1,6 @@
 import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
 import { DefinitionInsight } from 'components/reader/DefinitionInsight';
+import { generateInsights } from 'lib/reader/generate-insights';
 import { ReaderContext } from 'components/reader/Reader';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
@@ -28,13 +29,26 @@ type ExpandedInsight = { subIndex: number; index: number; type?: InsightType };
 const resetExpanded = (): ExpandedInsight => ({ subIndex: -1, index: -1 });
 
 export function Insights({ index }: { index: number }) {
-  const { insightsIndex, pub } = React.useContext(ReaderContext);
+  const { insightsIndex, dispatch, recipe, pub } = React.useContext(
+    ReaderContext
+  );
   const [expand, setExpand] = React.useState(resetExpanded());
   const classes = useStyles();
 
   const insights = insightsIndex[index];
   if (!insights) return null;
   const expanded = insights[expand.index];
+
+  /** Generate all insights and expand to show list */
+  async function onExpandAll(i: number) {
+    setExpand({ subIndex: -1, index: i });
+    dispatch({
+      insightsIndex: {
+        ...insightsIndex,
+        [index]: await generateInsights({ insights, recipe, all: true })
+      }
+    });
+  }
 
   return (
     <div>
@@ -66,8 +80,8 @@ export function Insights({ index }: { index: number }) {
                   })
                 : window.open(insight.searches[0].url)
             }
-            // onDelete/deleteIcon are repurposed for expanding insights
-            onDelete={() => setExpand({ subIndex: -1, index: i })}
+            // onDelete/deleteIcon are repurposed for expanding all insights
+            onDelete={() => onExpandAll(i)}
             className={classes.chip}
             deleteIcon={
               <ExpandMoreIcon
