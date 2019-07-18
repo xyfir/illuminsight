@@ -64,13 +64,15 @@ export async function generateInsights({
     // Get wiki articles
     for (let wikiRecipe of recipe.wikis) {
       const doc = await getWikiArticle(insight.text, wikiRecipe);
-      if (doc) insight.wikis.push({ recipe: wikiRecipe, doc });
-      if (!all) continue insightloop;
+      if (doc) {
+        insight.wikis.push({ recipe: wikiRecipe, doc });
+        if (!all) continue insightloop;
+      }
     }
 
     // Get definitions from English Wiktionary
     insight.definitions = await getDefinitions(insight.text);
-    if (!all) continue;
+    if (insight.definitions && !all) continue;
 
     // Build search insights
     for (let searchRecipe of recipe.searches) {
