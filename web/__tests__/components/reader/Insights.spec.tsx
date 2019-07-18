@@ -13,9 +13,9 @@ test('<Insights>', async () => {
   const mockOpen = ((window as any).open = jest.fn());
   const mockGet = ((axios as any).get = jest.fn());
 
-  // Render insights
   // !! Due to dispatch being a mock, this state is static
-  // !! insightsIndex already has all and won't be modified when expanded
+  // !! Though insights lack 'all' key, insightsIndex already has all insights
+  //    and won't be modified when component attempts to generate all
   const state: ReaderState = {
     insightsIndex: {
       0: [
@@ -109,19 +109,11 @@ test('<Insights>', async () => {
   // Click secondary action to view all insights of text
   fireEvent.click(getByLabelText('View all insights for "Blood Meridian"'));
 
-  // Wait for all insights to load
-  await wait(() => expect(mockFetch).toHaveBeenCalledTimes(4));
-  expect(mockGet).toHaveBeenCalledTimes(4);
-
   // Click back to previous insights
   fireEvent.click(getByLabelText('Back to previous insights'));
 
   // Click secondary action to view all insights of text
   fireEvent.click(getByLabelText('View all insights for "Blood Meridian"'));
-
-  // Wait for all insights to load
-  await wait(() => expect(mockFetch).toHaveBeenCalledTimes(6));
-  expect(mockGet).toHaveBeenCalledTimes(6);
 
   // Click "Definiton" insight
   fireEvent.click(getByText('Definition'));

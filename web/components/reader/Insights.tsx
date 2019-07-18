@@ -42,12 +42,16 @@ export function Insights({ index }: { index: number }) {
   /** Generate all insights and expand to show list */
   async function onExpandAll(i: number) {
     setExpand({ subIndex: -1, index: i });
-    dispatch({
-      insightsIndex: {
-        ...insightsIndex,
-        [index]: await generateInsights({ insights, recipe, all: true })
-      }
-    });
+
+    // Generate all insights
+    if (!insights[0].all) {
+      dispatch({
+        insightsIndex: {
+          ...insightsIndex,
+          [index]: await generateInsights({ insights, recipe, all: true })
+        }
+      });
+    }
   }
 
   return (
