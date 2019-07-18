@@ -88,11 +88,11 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
       const index = +element.getAttribute('ast')!;
 
       // Generate insights for AST block
-      const insights = await generateInsights(
-        selectionText.trim(),
+      const insights = await generateInsights({
+        text: selectionText.trim(),
         recipe,
-        true
-      );
+        highlight: true
+      });
       insightsIndex[index] = insightsIndex[index]
         ? insightsIndex[index].concat(insights)
         : insights;
@@ -126,10 +126,10 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
       }
       // Parse insights from element's text
       else {
-        insightsIndex[index] = await generateInsights(
-          element.innerText,
+        insightsIndex[index] = await generateInsights({
+          text: element.innerText,
           recipe
-        );
+        });
       }
     }
 

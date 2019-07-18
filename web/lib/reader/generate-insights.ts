@@ -5,38 +5,49 @@ import { stopwords } from 'lib/reader/stopwords';
 
 const REGEX = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[^.\s!?])\s+([A-Z][-A-Za-z']*)/gm;
 
-/**
- * Generate insights from provided text content.
- */
-export async function generateInsights(
-  text: string,
-  recipe: Illuminsight.Recipe,
+const textToInsight = (text: string): Illuminsight.Insight => ({
+  searches: [],
+  wikis: [],
+  text
+});
+
+/** Generate insights from provided data. */
+export async function generateInsights({
+  highlight,
+  insights,
+  recipe,
+  text
+}: {
   /**
    * Was `text` sourced from a user highlight?
    */
-  highlight: boolean = false
-): Promise<Illuminsight.Insight[]> {
-  const insightGenerator = (text: string): Illuminsight.Insight => ({
-    searches: [],
-    wikis: [],
-    text
-  });
-  const insights: Illuminsight.Insight[] = highlight
-    ? [insightGenerator(text)]
-    : Array.from(
-        // Removes duplicates
-        new Set(
-          // Grab anything that looks like a proper noun (English mainly)
-          (text.match(REGEX) || [])
-            .map(item => item.substr(2))
-            // Remove any items that are contained in stopwords array
-            .filter(item => !stopwords.includes(item.toLowerCase()))
-            // Trim whitespace
-            .map(item => item.trim())
-        ),
-        insight => insightGenerator(insight)
-      );
+  highlight?: boolean;
+  /** Partial insights to fill */
+  insights?: Illuminsight.Insight[];
+  recipe: Illuminsight.Recipe;
+  /** Text to generate insights from */
+  text?: string;
+}): Promise<Illuminsight.Insight[]> {
+  // Convert text to insights array
+  if (text) {
+    insights = highlight
+      ? [textToInsight(text)]
+      : Array.from(
+          // Removes duplicates
+          new Set(
+            // Grab anything that looks like a proper noun (English mainly)
+            (text.match(REGEX) || [])
+              .map(item => item.substr(2))
+              // Remove any items that are contained in stopwords array
+              .filter(item => !stopwords.includes(item.toLowerCase()))
+              // Trim whitespace
+              .map(item => item.trim())
+          ),
+          insight => textToInsight(insight)
+        );
+  }
 
+  if (!insights) return [];
   for (let insight of insights) {
     // Get definitions from English Wiktionary
     try {

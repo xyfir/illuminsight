@@ -15,10 +15,11 @@ test('generateInsights()', async () => {
   mockGet.mockResolvedValue({ data: mockData });
 
   // Generate insights from text block
-  let insights = await generateInsights(
-    'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.',
-    defaultRecipe
-  );
+  let insights = await generateInsights({
+    text:
+      'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.',
+    recipe: defaultRecipe
+  });
   const items = [
     'Illuminsight',
     'California',
@@ -47,7 +48,11 @@ test('generateInsights()', async () => {
   }
 
   // Generate insights from highlighted text
-  insights = await generateInsights('hello world', defaultRecipe, true);
+  insights = await generateInsights({
+    text: 'hello world',
+    recipe: defaultRecipe,
+    highlight: true
+  });
 
   /// Validate insights from highlight
   expect(mockFetch).toHaveBeenCalledTimes(7);
