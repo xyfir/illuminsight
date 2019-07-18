@@ -16,9 +16,10 @@ test('generateInsights()', async () => {
 
   // Generate insights from text block
   let insights = await generateInsights({
+    recipe: defaultRecipe,
     text:
       'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.',
-    recipe: defaultRecipe
+    all: true
   });
   const items = [
     'Illuminsight',
@@ -49,9 +50,10 @@ test('generateInsights()', async () => {
 
   // Generate insights from highlighted text
   insights = await generateInsights({
-    text: 'hello world',
+    highlight: true,
     recipe: defaultRecipe,
-    highlight: true
+    text: 'hello world',
+    all: true
   });
 
   /// Validate insights from highlight
