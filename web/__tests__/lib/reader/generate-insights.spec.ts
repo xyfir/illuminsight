@@ -91,4 +91,22 @@ test('generateInsights()', async () => {
     text: 'hello world'
   };
   expect(insights2[0]).toMatchObject(_insight);
+
+  // Mock wiki / definition match for testing {all}
+  mockFetch.mockResolvedValueOnce(mockWiki);
+  mockGet.mockResolvedValueOnce({ data: mockDefinition });
+
+  // Generate all insights
+  insights = await generateInsights({
+    recipe: defaultRecipe,
+    text:
+      'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.',
+    all: true
+  });
+
+  // Validate first insight has all possible insights
+  expect(insights[0].definitions).toBe(mockDefinition);
+  expect(insights[0].searches).toBeArrayOfSize(1);
+  expect(insights[0].wikis).toBeArrayOfSize(1);
+  expect(insights[0].text).toBe(items[0]);
 });
