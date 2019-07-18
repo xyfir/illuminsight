@@ -1,16 +1,21 @@
 import { testDefinitions, testWikitext, testPub } from 'lib/test/data';
 import { ReaderContext, ReaderState } from 'components/reader/Reader';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, wait } from '@testing-library/react';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { Insights } from 'components/reader/Insights';
 import * as React from 'react';
+import axios from 'axios';
 import wtf from 'wtf_wikipedia';
 
 test('<Insights>', async () => {
-  // Mock window.open
+  // Mocks
+  const mockFetch = ((wtf as any).fetch = jest.fn());
   const mockOpen = ((window as any).open = jest.fn());
+  const mockGet = ((axios as any).get = jest.fn());
 
   // Render insights
+  // !! Due to dispatch being a mock, this state is static
+  // !! insightsIndex already has all and won't be modified when expanded
   const state: ReaderState = {
     insightsIndex: {
       0: [
@@ -37,7 +42,7 @@ test('<Insights>', async () => {
         }
       ]
     },
-    dispatch: () => undefined,
+    dispatch: jest.fn(),
     recipe: defaultRecipe,
     pub: testPub,
     ast: []
@@ -74,6 +79,10 @@ test('<Insights>', async () => {
   // Click secondary action to view all insights of text
   fireEvent.click(getByLabelText('View all insights for "Blood Meridian"'));
 
+  // Wait for all insights to load
+  await wait(() => expect(mockFetch).toHaveBeenCalledTimes(2));
+  expect(mockGet).toHaveBeenCalledTimes(2);
+
   // Expect other insights to be gone
   expect(() => getByText('Cormac McCarthy')).toThrow();
 
@@ -100,11 +109,19 @@ test('<Insights>', async () => {
   // Click secondary action to view all insights of text
   fireEvent.click(getByLabelText('View all insights for "Blood Meridian"'));
 
+  // Wait for all insights to load
+  await wait(() => expect(mockFetch).toHaveBeenCalledTimes(4));
+  expect(mockGet).toHaveBeenCalledTimes(4);
+
   // Click back to previous insights
   fireEvent.click(getByLabelText('Back to previous insights'));
 
   // Click secondary action to view all insights of text
   fireEvent.click(getByLabelText('View all insights for "Blood Meridian"'));
+
+  // Wait for all insights to load
+  await wait(() => expect(mockFetch).toHaveBeenCalledTimes(6));
+  expect(mockGet).toHaveBeenCalledTimes(6);
 
   // Click "Definiton" insight
   fireEvent.click(getByText('Definition'));
