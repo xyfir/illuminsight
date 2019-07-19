@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.5.0] - 2019-07-18
+
+### Added
+
+- Automatic recipe matching
+- `series` property to ASTPub's `meta.json`
+
+### Changed
+
+- Increase speed and decrease resource usage when generating insights
+- Improve wiki insights
+
 ## [0.4.1] - 2019-07-16
 
 ### Added
@@ -68,7 +80,9 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 - Everything
 
-[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.4.0...HEAD
+[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.5.0
+[0.4.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.4.1
 [0.4.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.4.0
 [0.2.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.2.1
 [0.2.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.2.0
