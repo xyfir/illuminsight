@@ -33,9 +33,16 @@ const useStyles = makeStyles(() =>
     tocLink: {
       cursor: 'pointer'
     },
+    article: {
+      overflowX: 'hidden',
+      fontSize: 'initial',
+      '& > .section': {
+        overflowX: 'auto'
+      }
+    },
     paper: {
+      overflowY: 'auto',
       maxHeight: '60vh',
-      overflow: 'auto',
       padding: '0.3em',
       margin: '1em 0.3em'
     }
@@ -241,6 +248,7 @@ export function WikiInsight({
         <React.Fragment>
           <div
             dangerouslySetInnerHTML={{ __html: getSectionHTML() }}
+            className={classes.article}
             onClick={onLinkClick}
           />
 
