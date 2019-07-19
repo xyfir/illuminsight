@@ -1,6 +1,6 @@
 {
   "name": "illuminsight",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Read smarter",
   "main": "",
   "scripts": {
@@ -12,8 +12,8 @@
     "singleQuote": true
   },
   "dependencies": {
-    "illuminsight-server": "^0.4.0",
-    "illuminsight-web": "^0.4.0"
+    "illuminsight-server": "^0.5.0",
+    "illuminsight-web": "^0.5.0"
   },
   "keywords": [
     "annotations",
