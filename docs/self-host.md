@@ -85,7 +85,7 @@ cp web/example.env web/.env
 
 ## Step 3b: Configure
 
-You can find the available environment variables in [types/illuminsight.d.ts](https://github.com/MrXyfir/illuminsight/blob/master/types/illuminsight.d.ts) under the `illuminsight.Env` namespace.
+You can find the available environment variables in [types.d.ts](https://github.com/MrXyfir/illuminsight/blob/master/types.d.ts) under the `illuminsight.Env` namespace.
 
 # Step 4: Build From Source
 

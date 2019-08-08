@@ -1,5 +1,5 @@
 CHANGELOG.md
+coverage/
 .vscode/
-server/
+dist/
 .env
-web/
