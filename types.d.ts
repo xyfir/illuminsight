@@ -146,6 +146,11 @@ export namespace Illuminsight {
      */
     NODE_ENV: 'development' | 'production';
     /**
+     * The port to host the server on.
+     * @example 2700
+     */
+    SERVER_PORT: number;
+    /**
      * Version of ASTPUB format this instance of Illuminsight supports.
      */
     ASTPUB_VERSION: 4;
@@ -164,11 +169,6 @@ export namespace Illuminsight {
      * @example 2702
      */
     PROXY_PORT: number;
-    /**
-     * Absolute path for illuminsight-web.
-     * @example "/path/to/illuminsight/web"
-     */
-    WEB_DIRECTORY: string;
     /**
      * The app's root proxy URL.
      * @example "https://example.com/proxy"

@@ -22,14 +22,14 @@ if (process.enve.NODE_ENV == 'development') {
   });
 }
 app.use('/sw.js', (req, res) =>
-  res.sendFile(path.resolve(process.enve.WEB_DIRECTORY, 'dist', 'sw.js'))
+  res.sendFile(path.resolve(__dirname, 'dist', 'sw.js'))
 );
-app.use(
-  '/static',
-  Express.static(path.resolve(process.enve.WEB_DIRECTORY, 'dist'))
-);
+app.use('/static', Express.static(path.resolve(__dirname, 'dist')));
 app.get('/*', (req, res) =>
-  res.sendFile(path.resolve(process.enve.WEB_DIRECTORY, 'dist', 'index.html'))
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+);
+app.listen(process.enve.SERVER_PORT, () =>
+  console.log('Listening on', process.enve.SERVER_PORT)
 );
 
 proxy
