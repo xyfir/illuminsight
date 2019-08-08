@@ -1,24 +1,9 @@
 language: node_js
 node_js: node
-before_install: cd "/home/travis/build/xyfir/illuminsight/$PACKAGE"
-jobs:
-  include:
-    - stage: server
-      script: bash ../.travis.sh
-      env:
-        - PACKAGE="server"
-    - stage: web
-      script: bash ../.travis.sh
-      env:
-        - PACKAGE="web"
-    - stage: root
-      script: bash .travis.sh
-      env:
-        - PACKAGE="."
-stages:
-  - server
-  - web
-  - root
+script:
+- cp example.env .env
+- npm t
+- npm run build
 deploy:
   - provider: npm
     email: contact@xyfir.com
@@ -31,6 +16,5 @@ deploy:
     api_key:
       secure: IqHZ7SxS6I9Gx1agH1L7kt9oLq7ZDiFRDKSrIXisAjRs8IShYyFna8VCSg43qNhzczCx+JBAmoQb4OQZCiuOh1mNRdB3YER9nn+SQhPi9l4lG+wXAWk+84N4lQBHNKq/PnfD3VUI2zRDpDFnq15iqtcaUxtUtxU8OE7tMks1ugMI/UAFeBal3RZnJoiFLBzRv6wrr1Ix6mN8j5gSuhtnECcgGTMEITYtc1Fe6H4eX/7KwPQc4tzL9Bvkgo7otzfDOoWAWmdhxpPZaGEKUixIc86qSS49LCIzkefbrQZDAretoRtTBu4apzI6lIHMeHbOhA4GncxT4QGMN+TJwl3YHihk1cn3ZFgTbhufUx60g8LeVA7Wu07wbb3v755tWcHt03D82OJ3+WsfwMIsoPAL3UqGEGFi5GrVl/iCQR9vENUZG8Q+dZ8Ihx3EIymepmlKCNi/W9djLVdoSRp2Cq0sSEvgDb3N7WRASDto0peg1xHbv18cCf3w5Br0lrVY+sSOcUbUKMdwfsBjTEb0KbNr7nCwaZsF3Lw50OJ+BpYyF/c6uGfN8V+m5Z+4SheQntPfk45D4nh0dYaFfAGLDXWesK6eOKLrApNbJT1yR+blVvKAP6j7xaohafAZjT7FB/HvxiSW5195J00arHR+F81v6c5n3eKlh+mQgcmOwi4IXTA=
     on:
-      condition: $PACKAGE = .
       repo: xyfir/illuminsight
       tags: true
