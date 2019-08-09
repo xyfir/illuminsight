@@ -6,16 +6,15 @@ import JSZip from 'jszip';
 
 const LINK_ATTRIBUTES = ['href', 'src'];
 
-export async function convert(File: File): Promise<Blob> {
-  // Create empty zip for ASTPUB
-  // Unzip EPUB
+export async function convert(file: Blob): Promise<Blob> {
+  // Prepare zip files
+  const astpub = new JSZip();
+  const epub = await JSZip.loadAsync(file);
 
-  // Parse OPF with jsdom
-  const opfDom = new JSDOM(
-    await readFile(resolve(epubDirectory, 'content.opf')),
-    { contentType: 'text/xml' }
-  );
-  const opfDoc = opfDom.window.document;
+  // Parse OPF
+  const [opfFile] = epub.file(/\bcontent\.opf$/);
+  const opfDoc = document.implementation.createDocument('', '', null);
+  opfDoc.write(await opfFile.async('text'));
 
   // Hash map for old section and resource links to new
   const linkMap: { [href: string]: string } = {};
@@ -43,13 +42,12 @@ export async function convert(File: File): Promise<Blob> {
     // Move images from EPUB directory to astpub res/ directory
     if (mediaType.startsWith('image/')) {
       // Give resource a numeric name and map from original
-      const resource = `res/${resources++}${extname(href)}`;
+      const resource = `res/${resources++}.${href.split('.').slice(-1)}`;
       linkMap[href] = resource;
 
-      await move(
-        resolve(epubDirectory, href),
-        resolve(astpubDirectory, resource)
-      );
+      // Cut href from EPUB to resource in ASTPUB
+      astpub.file(resource, await epub.file(href).async('text'));
+      epub.remove(href);
 
       // Search for href of cover image
       if (!cover) {
@@ -65,10 +63,9 @@ export async function convert(File: File): Promise<Blob> {
     // Convert XHTML to our JSON via jsdom
     if (/xhtml|html|xml/.test(mediaType)) {
       // Read file
-      const xhtmlDom = new JSDOM(await readFile(resolve(epubDirectory, href)), {
-        contentType: 'text/xml'
-      });
-      const xhtmlDoc = xhtmlDom.window.document;
+      const xhtmlFile = epub.file(href);
+      const xhtmlDoc = document.implementation.createDocument('', '', null);
+      xhtmlDoc.write(await xhtmlFile.async('text'));
 
       // Check for body element since document could be XML (like toc.ncx)
       if (!xhtmlDoc.body) continue;
@@ -84,16 +81,18 @@ export async function convert(File: File): Promise<Blob> {
       // Count words in AST nodes
       for (let node of ast.c) words += countWords(node);
 
-      // Write AST of <body>'s children to file
-      await writeJSON(resolve(astpubDirectory, section), ast.c);
+      // Write AST of <body>'s children to file and delete original
+      astpub.file(section, JSON.stringify(ast.c));
+      epub.remove(href);
     }
   }
 
   // Loop through sections updating image and section links
   for (let sectionIndex = 0; sectionIndex < sections; sectionIndex++) {
+    // Read section's AST
     const section = `ast/${sectionIndex}.json`;
-    const ast: Illuminsight.AST[] = await readJSON(
-      resolve(astpubDirectory, section)
+    const ast: Illuminsight.AST[] = JSON.parse(
+      await astpub.file(section).async('text')
     );
 
     // Loop through all attributes we need to convert
@@ -127,18 +126,17 @@ export async function convert(File: File): Promise<Blob> {
       }
     }
 
-    // Write modified file
-    await writeJSON(resolve(astpubDirectory, section), ast);
+    // Write modified section
+    astpub.file(section, JSON.stringify(ast));
   }
 
   // Use fallbacks for cover image if available
   if (!cover) cover = covers.id1 || covers.id2 || covers.href;
 
   // Load toc.ncx
-  const tocDom = new JSDOM(await readFile(resolve(epubDirectory, 'toc.ncx')), {
-    contentType: 'text/xml'
-  });
-  const tocDoc = tocDom.window.document;
+  const [tocFile] = epub.file(/\btoc\.ncx$/);
+  const tocDoc = document.implementation.createDocument('', '', null);
+  tocDoc.write(await tocFile.async('text'));
 
   // Load elements from Table of Contents
   let navPoints = Array.from(tocDoc.querySelectorAll('navMap > navPoint'));
@@ -208,5 +206,11 @@ export async function convert(File: File): Promise<Blob> {
   pub.languages = pub.languages.length ? pub.languages : ['en'];
 
   // Write meta.json
-  await writeJSON(resolve(astpubDirectory, 'meta.json'), pub);
+  astpub.file('meta.json', JSON.stringify(pub));
+
+  // Return compressed blob
+  return await astpub.generateAsync({
+    compressionOptions: { level: 9 },
+    type: 'blob'
+  });
 }

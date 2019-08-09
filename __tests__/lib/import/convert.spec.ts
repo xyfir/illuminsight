@@ -1,29 +1,32 @@
 import { Illuminsight } from 'types';
+import { readFileSync } from 'fs';
 import { nodeToAST } from 'lib/import/node-to-ast';
 import { convert } from 'lib/import/convert';
+import { resolve } from 'path';
+import JSZip from 'jszip';
 
 // Extract environment variables
 const { FILES_DIRECTORY, ASTPUB_VERSION } = process.enve;
 
-test('nodeToAST()', async () => {
-  const loremHtmlFile = resolve(FILES_DIRECTORY, 'lorem.html');
-  const dom = new JSDOM(await readFile(loremHtmlFile));
-  expect(nodeToAST(dom.window.document.body)).toMatchSnapshot();
+test('nodeToAST()', () => {
+  const dom = document.implementation.createDocument('', '', null);
+  dom.write(readFileSync(resolve(FILES_DIRECTORY, 'lorem.html'), 'utf8'));
+  expect(nodeToAST(dom.body)).toMatchSnapshot();
 });
 
 test('convert({file})', async () => {
-  // Move test ebook to temp_dir
-  const file = resolve(TEMP_DIR, `${Date.now()}.epub`);
-  await copy(resolve(FILES_DIRECTORY, 'ebook.epub'), file);
-
-  // Convert content to astpub format then extract
-  const readStream = await convert({ file });
-  await new Promise(resolve =>
-    readStream.pipe(Extract({ path: astpubDirectory }).on('close', resolve))
+  // Convert content to ASTPUB
+  const epub = await JSZip.loadAsync(
+    readFileSync(resolve(FILES_DIRECTORY, 'ebook.epub'))
   );
+  const epubBlob = await epub.generateAsync({ type: 'blob' });
+  const astpubBlob = await convert(epubBlob);
+  const astpub = await JSZip.loadAsync(astpubBlob);
 
   // Validate meta.json
-  const pub: Illuminsight.Pub = await readJSON(astpubMetaFile);
+  const pub: Illuminsight.Pub = JSON.parse(
+    await astpub.file('meta.json').async('text')
+  );
   const _pub: Illuminsight.Pub = {
     ...pub,
     authors: 'Charles Dickens',
@@ -47,11 +50,11 @@ test('convert({file})', async () => {
   ] as Illuminsight.Pub['toc']);
 
   // Validate cover
-  await access(resolve(astpubDirectory, 'res/0.jpg'), FS.F_OK);
+  expect(astpub.file('res/0.jpg')).not.toBeNull();
 
   // Validate AST
-  const ast: Illuminsight.AST[] = await readJSON(
-    resolve(astpubDirectory, 'ast/5.json')
+  const ast: Illuminsight.AST[] = JSON.parse(
+    await astpub.file('ast/5.json').async('text')
   );
   expect(ast).toMatchSnapshot();
 });
