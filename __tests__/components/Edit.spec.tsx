@@ -65,9 +65,6 @@ test('<Edit>', async () => {
 
   // Set new data
   fireEvent.change(getByLabelText('Name'), { target: { value: 'Name' } });
-  fireEvent.change(getByLabelText('Link'), {
-    target: { value: 'https://example.com' }
-  });
   fireEvent.change(getByLabelText('Author(s)'), {
     target: { value: 'Some Author' }
   });
@@ -146,7 +143,6 @@ test('<Edit>', async () => {
   const _pub: Illuminsight.Pub = {
     ...pub,
     name: 'Name',
-    link: 'https://example.com',
     series: 'Some Series',
     authors: 'Some Author',
     languages: ['fr'],

@@ -57,24 +57,20 @@ export function Import() {
   async function onImportFiles() {
     setBusy(true);
     for (let file of files) {
-      await onImportFile(file);
+      const data = new FormData();
+      data.append('file', file);
+
+      await api
+        .post('/convert', data, { responseType: 'arraybuffer' })
+        .then(res => {
+          saveFile(res.data);
+          setFiles(files.filter(_f => _f.name != file.name));
+        })
+        .catch(err => {
+          err.response && enqueueSnackbar(err.response.data.error);
+        });
     }
     setBusy(false);
-  }
-
-  async function onImportFile(file: File) {
-    const data = new FormData();
-    data.append('file', file);
-
-    return api
-      .post('/convert', data, { responseType: 'arraybuffer' })
-      .then(res => {
-        saveFile(res.data);
-        setFiles(files.filter(_f => _f.name != file.name));
-      })
-      .catch(err => {
-        err.response && enqueueSnackbar(err.response.data.error);
-      });
   }
 
   async function saveFile(file: Blob) {
@@ -122,13 +118,6 @@ export function Import() {
 
     // Create tag from published date (year)
     if (pub.published) inferredTags.push(getYear(pub.published).toString());
-
-    // Create tag from link (domain)
-    if (pub.link) {
-      const a = document.createElement('a');
-      a.href = pub.link;
-      inferredTags.push(a.hostname);
-    }
 
     // Force lowercase
     // Replace spaces with hyphens

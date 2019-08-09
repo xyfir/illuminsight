@@ -26,7 +26,6 @@ export namespace Illuminsight {
     toc: Array<Marker & { title: string }>;
     name: string;
     tags: Tag['id'][];
-    link?: string;
     /**
      * How many words the pub contains.
      * @example "920" | "20k" | "1.25m"

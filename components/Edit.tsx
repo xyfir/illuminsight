@@ -27,7 +27,6 @@ import {
   Image as ImageIcon,
   Label as NameIcon,
   Home as PublisherIcon,
-  Link as LinkIcon,
   Save as SaveIcon,
   Add as AddIcon
 } from '@material-ui/icons';
@@ -336,24 +335,6 @@ class _Edit extends React.Component<EditProps, EditState> {
             )
           }}
           placeholder="Penguin Random House"
-        />
-
-        <TextField
-          id="link"
-          label="Link"
-          value={pub.link}
-          margin="normal"
-          variant="outlined"
-          onChange={e => this.onChange('link', e.target.value)}
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <LinkIcon />
-              </InputAdornment>
-            )
-          }}
-          placeholder="https://example.com/article-123"
         />
 
         <div className={classes.coverContainer}>
