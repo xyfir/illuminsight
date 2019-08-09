@@ -17,12 +17,7 @@ import {
 
 test('<Import>', async () => {
   // Render <Import>
-  const {
-    getByPlaceholderText,
-    getAllByLabelText,
-    getByLabelText,
-    getByText
-  } = render(
+  const { getAllByLabelText, getByLabelText, getByText } = render(
     <SnackbarProvider>
       <MemoryRouter>
         <Import />
@@ -85,42 +80,6 @@ test('<Import>', async () => {
     expect(mockSetItem.mock.calls[3][0]).toBe('pub-list');
     expect(mockSetItem.mock.calls[3][1]).toMatchObject([_pub]);
   }
-
-  await testImport(async mockPost => {
-    // Import from text
-    fireEvent.change(getByPlaceholderText('Paste content here...'), {
-      target: { value: 'Hello, world.' }
-    });
-    fireEvent.click(getByText('Import from Text'));
-    await waitForElementToBeRemoved(() =>
-      getByText('Importing content. This may take a while...')
-    );
-
-    // Validate API call
-    expect(mockPost).toHaveBeenCalledWith(
-      '/convert',
-      { text: 'Hello, world.' },
-      { responseType: 'arraybuffer' }
-    );
-  });
-
-  await testImport(async mockPost => {
-    // Import from link
-    fireEvent.change(getByPlaceholderText('https://example.com/article-123'), {
-      target: { value: 'https://example.com/article-123' }
-    });
-    fireEvent.click(getByText('Import from Link'));
-    await waitForElementToBeRemoved(() =>
-      getByText('Importing content. This may take a while...')
-    );
-
-    // Validate API call
-    expect(mockPost).toHaveBeenCalledWith(
-      '/convert',
-      { link: 'https://example.com/article-123' },
-      { responseType: 'arraybuffer' }
-    );
-  });
 
   // Add files
   fireEvent.change(getByLabelText('Upload File'), {

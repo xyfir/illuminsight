@@ -8,28 +8,22 @@ import { api } from 'lib/app/api';
 import JSZip from 'jszip';
 import {
   LinearProgress,
-  InputAdornment,
   ListItemText,
   createStyles,
   IconButton,
   Typography,
-  WithStyles,
-  withStyles,
-  TextField,
+  makeStyles,
   ListItem,
   Button,
-  Theme,
   List
 } from '@material-ui/core';
 import {
   InsertDriveFile as FileIcon,
   RemoveCircle as RemoveIcon,
-  TextFields as TextIcon,
-  Link as LinkIcon,
   Add as AddIcon
 } from '@material-ui/icons';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles(theme =>
   createStyles({
     root: {
       padding: theme.spacing(3)
@@ -51,14 +45,14 @@ const styles = (theme: Theme) =>
     importingContainer: {
       marginBottom: '2em'
     }
-  });
+  })
+);
 
-function _Import({ classes }: WithStyles<typeof styles>) {
+export function Import() {
   const { enqueueSnackbar } = useSnackbar();
   const [files, setFiles] = React.useState<File[]>([]);
-  const [link, setLink] = React.useState('');
-  const [text, setText] = React.useState('');
   const [busy, setBusy] = React.useState(false);
+  const classes = useStyles();
 
   async function onImportFiles() {
     setBusy(true);
@@ -81,30 +75,6 @@ function _Import({ classes }: WithStyles<typeof styles>) {
       .catch(err => {
         err.response && enqueueSnackbar(err.response.data.error);
       });
-  }
-
-  async function onImportLink() {
-    setBusy(true);
-    await api
-      .post('/convert', { link }, { responseType: 'arraybuffer' })
-      .then(res => {
-        saveFile(res.data);
-        setLink('');
-      })
-      .catch(err => err.response && enqueueSnackbar(err.response.data.error));
-    setBusy(false);
-  }
-
-  async function onImportText() {
-    setBusy(true);
-    await api
-      .post('/convert', { text }, { responseType: 'arraybuffer' })
-      .then(res => {
-        saveFile(res.data);
-        setText('');
-      })
-      .catch(err => err.response && enqueueSnackbar(err.response.data.error));
-    setBusy(false);
   }
 
   async function saveFile(file: Blob) {
@@ -200,7 +170,7 @@ function _Import({ classes }: WithStyles<typeof styles>) {
     await localForage.setItem('tag-list', tags);
     await localForage.setItem('pub-list', pubs);
 
-    // enqueueSnackbar(`${pub.name} added to library`);
+    enqueueSnackbar(`${pub.name} added to library`);
   }
 
   return (
@@ -267,72 +237,6 @@ function _Import({ classes }: WithStyles<typeof styles>) {
           Import from Files
         </Button>
       </fieldset>
-
-      <fieldset className={classes.fieldset}>
-        <TextField
-          id="link"
-          label="Link"
-          value={link}
-          margin="normal"
-          variant="outlined"
-          onChange={e => setLink(e.target.value)}
-          fullWidth
-          onKeyDown={e => (e.key == 'Enter' ? onImportLink() : null)}
-          helperText="Import article content from a web page"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <LinkIcon />
-              </InputAdornment>
-            )
-          }}
-          placeholder="https://example.com/article-123"
-        />
-        <Button
-          disabled={!link || busy}
-          onClick={onImportLink}
-          variant="text"
-          color="primary"
-        >
-          <AddIcon />
-          Import from Link
-        </Button>
-      </fieldset>
-
-      <fieldset className={classes.fieldset}>
-        <TextField
-          id="text"
-          label="Text"
-          value={text}
-          margin="normal"
-          rowsMax={5}
-          variant="outlined"
-          onChange={e => setText(e.target.value)}
-          fullWidth
-          multiline
-          onKeyDown={e => (e.key == 'Enter' ? onImportText() : null)}
-          helperText="Paste text content"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <TextIcon />
-              </InputAdornment>
-            )
-          }}
-          placeholder="Paste content here..."
-        />
-        <Button
-          disabled={!text || busy}
-          onClick={onImportText}
-          variant="text"
-          color="primary"
-        >
-          <AddIcon />
-          Import from Text
-        </Button>
-      </fieldset>
     </form>
   );
 }
-
-export const Import = withStyles(styles)(_Import);
