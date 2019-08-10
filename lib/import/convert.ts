@@ -19,6 +19,29 @@ export async function convert(file: Blob): Promise<Blob> {
     'application/xhtml+xml'
   );
 
+  // Change root dir of EPUB zip to be OPF's containing folder
+  if (opfFile.name.includes('/')) {
+    const rootDir = opfFile.name
+      .split('/')
+      .slice(0, -1)
+      .join('/');
+
+    for (let file of Object.keys(epub.files)) {
+      // Remove those not in rootDir
+      if (!file.startsWith(rootDir)) {
+        epub.remove(file);
+      }
+      // Update names of those in rootDir
+      else {
+        epub.file(
+          file.substr(rootDir.length + 1),
+          await epub.file(file).async('blob')
+        );
+        epub.remove(file);
+      }
+    }
+  }
+
   // Hash map for old section and resource links to new
   const linkMap: { [href: string]: string } = {};
 
@@ -63,7 +86,7 @@ export async function convert(file: Blob): Promise<Blob> {
         else if (href.startsWith('cover')) covers.href = resource;
       }
     }
-    // Convert XHTML to our JSON via jsdom
+    // Convert XHTML to AST
     if (/xhtml|html|xml/.test(mediaType)) {
       // Read file
       const xhtmlFile = epub.file(href);
