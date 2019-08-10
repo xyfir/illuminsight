@@ -1,5 +1,1710 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`convert() 1`] = `
+Array [
+  Object {
+    "c": Array [
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+    ],
+    "n": "div",
+  },
+  Object {
+    "a": Object {
+      "id": "pgepubid00019",
+    },
+    "c": Array [
+      "X. Two Promises",
+    ],
+    "n": "h2",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "c": Array [
+          "M",
+        ],
+        "n": "span",
+      },
+      "ore months, to the number of twelve, had come and gone, and Mr. Charles Darnay was established in England as a higher teacher of the French language who was conversant with French literature. In this age, he would have been a Professor; in that age, he was a Tutor. He read with young men who could find any leisure and interest for the study of a living tongue spoken all over the world, and he cultivated a taste for its stores of knowledge and fancy. He could write of them, besides, in sound English, and render them into sound English. Such masters were not at that time easily found; Princes that had been, and Kings that were to be, were not yet of the Teacher class, and no ruined nobility had dropped out of Tellson's ledgers, to turn cooks and carpenters. As a tutor, whose attainments made the student's way unusually pleasant and profitable, and as an elegant translator who brought something to his work besides mere dictionary knowledge, young Mr. Darnay soon became known and encouraged. He was well acquainted, more-over, with the circumstances of his country, and those were of ever-growing interest. So, with great perseverance and untiring industry, he prospered.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "In London, he had expected neither to walk on pavements of gold, nor to lie on beds of roses; if he had had any such exalted expectation, he would not have prospered. He had expected labour, and he found it, and did it and made the best of it. In this, his prosperity consisted.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "A certain portion of his time was passed at Cambridge, where he read with undergraduates as a sort of tolerated smuggler who drove a contraband trade in European languages, instead of conveying Greek and Latin through the Custom-house. The rest of his time he passed in London.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Now, from the days when it was always summer in Eden, to these days when it is mostly winter in fallen latitudes, the world of a man has invariably gone one way—Charles Darnay's way—the way of the love of a woman.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He had loved Lucie Manette from the hour of his danger. He had never heard a sound so sweet and dear as the sound of her compassionate voice; he had never seen a face so tenderly beautiful, as hers when it was confronted with his own on the edge of the grave that had been dug for him. But, he had not yet spoken to her on the subject; the assassination at the deserted chateau far away beyond the heaving water and the long, long, dusty roads—the solid stone chateau which had itself become the mere mist of a dream—had been done a year, and he had never yet, by so much as a single spoken word, disclosed to her the state of his heart.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "That he had his reasons for this, he knew full well. It was again a summer day when, lately arrived in London from his college occupation, he turned into the quiet corner in Soho, bent on seeking an opportunity of opening his mind to Doctor Manette. It was the close of the summer day, and he knew Lucie to be out with Miss Pross.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He found the Doctor reading in his arm-chair at a window. The energy which had at once supported him under his old sufferings and aggravated their sharpness, had been gradually restored to him. He was now a very energetic man indeed, with great firmness of purpose, strength of resolution, and vigour of action. In his recovered energy he was sometimes a little fitful and sudden, as he had at first been in the exercise of his other recovered faculties; but, this had never been frequently observable, and had grown more and more rare.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He studied much, slept little, sustained a great deal of fatigue with ease, and was equably cheerful. To him, now entered Charles Darnay, at sight of whom he laid aside his book and held out his hand.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Charles Darnay! I rejoice to see you. We have been counting on your return these three or four days past. Mr. Stryver and Sydney Carton were both here yesterday, and both made you out to be more than due.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I am obliged to them for their interest in the matter,” he answered, a little coldly as to them, though very warmly as to the Doctor. “Miss Manette—”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Is well,” said the Doctor, as he stopped short, “and your return will delight us all. She has gone out on some household matters, but will soon be home.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Doctor Manette, I knew she was from home. I took the opportunity of her being from home, to beg to speak to you.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "There was a blank silence.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Yes?” said the Doctor, with evident constraint. “Bring your chair here, and speak on.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He complied as to the chair, but appeared to find the speaking on less easy.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I have had the happiness, Doctor Manette, of being so intimate here,” so he at length began, “for some year and a half, that I hope the topic on which I am about to touch may not—”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He was stayed by the Doctor's putting out his hand to stop him. When he had kept it so a little while, he said, drawing it back:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Is Lucie the topic?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“She is.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“It is hard for me to speak of her at any time. It is very hard for me to hear her spoken of in that tone of yours, Charles Darnay.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“It is a tone of fervent admiration, true homage, and deep love, Doctor Manette!” he said deferentially.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "There was another blank silence before her father rejoined:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I believe it. I do you justice; I believe it.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "His constraint was so manifest, and it was so manifest, too, that it originated in an unwillingness to approach the subject, that Charles Darnay hesitated.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Shall I go on, sir?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Another blank.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Yes, go on.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You anticipate what I would say, though you cannot know how earnestly I say it, how earnestly I feel it, without knowing my secret heart, and the hopes and fears and anxieties with which it has long been laden. Dear Doctor Manette, I love your daughter fondly, dearly, disinterestedly, devotedly. If ever there were love in the world, I love her. You have loved yourself; let your old love speak for me!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "The Doctor sat with his face turned away, and his eyes bent on the ground. At the last words, he stretched out his hand again, hurriedly, and cried:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Not that, sir! Let that be! I adjure you, do not recall that!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "His cry was so like a cry of actual pain, that it rang in Charles Darnay's ears long after he had ceased. He motioned with the hand he had extended, and it seemed to be an appeal to Darnay to pause. The latter so received it, and remained silent.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I ask your pardon,” said the Doctor, in a subdued tone, after some moments. “I do not doubt your loving Lucie; you may be satisfied of it.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He turned towards him in his chair, but did not look at him, or raise his eyes. His chin dropped upon his hand, and his white hair overshadowed his face:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Have you spoken to Lucie?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“No.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Nor written?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Never.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“It would be ungenerous to affect not to know that your self-denial is to be referred to your consideration for her father. Her father thanks you.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He offered his hand; but his eyes did not go with it.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I know,” said Darnay, respectfully, “how can I fail to know, Doctor Manette, I who have seen you together from day to day, that between you and Miss Manette there is an affection so unusual, so touching, so belonging to the circumstances in which it has been nurtured, that it can have few parallels, even in the tenderness between a father and child. I know, Doctor Manette—how can I fail to know—that, mingled with the affection and duty of a daughter who has become a woman, there is, in her heart, towards you, all the love and reliance of infancy itself. I know that, as in her childhood she had no parent, so she is now devoted to you with all the constancy and fervour of her present years and character, united to the trustfulness and attachment of the early days in which you were lost to her. I know perfectly well that if you had been restored to her from the world beyond this life, you could hardly be invested, in her sight, with a more sacred character than that in which you are always with her. I know that when she is clinging to you, the hands of baby, girl, and woman, all in one, are round your neck. I know that in loving you she sees and loves her mother at her own age, sees and loves you at my age, loves her mother broken-hearted, loves you through your dreadful trial and in your blessed restoration. I have known this, night and day, since I have known you in your home.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Her father sat silent, with his face bent down. His breathing was a little quickened; but he repressed all other signs of agitation.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Dear Doctor Manette, always knowing this, always seeing her and you with this hallowed light about you, I have forborne, and forborne, as long as it was in the nature of man to do it. I have felt, and do even now feel, that to bring my love—even mine—between you, is to touch your history with something not quite so good as itself. But I love her. Heaven is my witness that I love her!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I believe it,” answered her father, mournfully. “I have thought so before now. I believe it.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“But, do not believe,” said Darnay, upon whose ear the mournful voice struck with a reproachful sound, “that if my fortune were so cast as that, being one day so happy as to make her my wife, I must at any time put any separation between her and you, I could or would breathe a word of what I now say. Besides that I should know it to be hopeless, I should know it to be a baseness. If I had any such possibility, even at a remote distance of years, harboured in my thoughts, and hidden in my heart—if it ever had been there—if it ever could be there—I could not now touch this honoured hand.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He laid his own upon it as he spoke.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“No, dear Doctor Manette. Like you, a voluntary exile from France; like you, driven from it by its distractions, oppressions, and miseries; like you, striving to live away from it by my own exertions, and trusting in a happier future; I look only to sharing your fortunes, sharing your life and home, and being faithful to you to the death. Not to divide with Lucie her privilege as your child, companion, and friend; but to come in aid of it, and bind her closer to you, if such a thing can be.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "His touch still lingered on her father's hand. Answering the touch for a moment, but not coldly, her father rested his hands upon the arms of his chair, and looked up for the first time since the beginning of the conference. A struggle was evidently in his face; a struggle with that occasional look which had a tendency in it to dark doubt and dread.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You speak so feelingly and so manfully, Charles Darnay, that I thank you with all my heart, and will open all my heart—or nearly so. Have you any reason to believe that Lucie loves you?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“None. As yet, none.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Is it the immediate object of this confidence, that you may at once ascertain that, with my knowledge?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Not even so. I might not have the hopefulness to do it for weeks; I might (mistaken or not mistaken) have that hopefulness to-morrow.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Do you seek any guidance from me?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I ask none, sir. But I have thought it possible that you might have it in your power, if you should deem it right, to give me some.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Do you seek any promise from me?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I do seek that.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“What is it?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I well understand that, without you, I could have no hope. I well understand that, even if Miss Manette held me at this moment in her innocent heart—do not think I have the presumption to assume so much—I could retain no place in it against her love for her father.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“If that be so, do you see what, on the other hand, is involved in it?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I understand equally well, that a word from her father in any suitor's favour, would outweigh herself and all the world. For which reason, Doctor Manette,” said Darnay, modestly but firmly, “I would not ask that word, to save my life.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I am sure of it. Charles Darnay, mysteries arise out of close love, as well as out of wide division; in the former case, they are subtle and delicate, and difficult to penetrate. My daughter Lucie is, in this one respect, such a mystery to me; I can make no guess at the state of her heart.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“May I ask, sir, if you think she is—” As he hesitated, her father supplied the rest.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Is sought by any other suitor?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“It is what I meant to say.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Her father considered a little before he answered:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You have seen Mr. Carton here, yourself. Mr. Stryver is here too, occasionally. If it be at all, it can only be by one of these.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Or both,” said Darnay.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I had not thought of both; I should not think either, likely. You want a promise from me. Tell me what it is.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“It is, that if Miss Manette should bring to you at any time, on her own part, such a confidence as I have ventured to lay before you, you will bear testimony to what I have said, and to your belief in it. I hope you may be able to think so well of me, as to urge no influence against me. I say nothing more of my stake in this; this is what I ask. The condition on which I ask it, and which you have an undoubted right to require, I will observe immediately.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I give the promise,” said the Doctor, “without any condition. I believe your object to be, purely and truthfully, as you have stated it. I believe your intention is to perpetuate, and not to weaken, the ties between me and my other and far dearer self. If she should ever tell me that you are essential to her perfect happiness, I will give her to you. If there were—Charles Darnay, if there were—”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "The young man had taken his hand gratefully; their hands were joined as the Doctor spoke:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“—any fancies, any reasons, any apprehensions, anything whatsoever, new or old, against the man she really loved—the direct responsibility thereof not lying on his head—they should all be obliterated for her sake. She is everything to me; more to me than suffering, more to me than wrong, more to me—Well! This is idle talk.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "So strange was the way in which he faded into silence, and so strange his fixed look when he had ceased to speak, that Darnay felt his own hand turn cold in the hand that slowly released and dropped it.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You said something to me,” said Doctor Manette, breaking into a smile. “What was it you said to me?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He was at a loss how to answer, until he remembered having spoken of a condition. Relieved as his mind reverted to that, he answered:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Your confidence in me ought to be returned with full confidence on my part. My present name, though but slightly changed from my mother's, is not, as you will remember, my own. I wish to tell you what that is, and why I am in England.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Stop!” said the Doctor of Beauvais.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I wish it, that I may the better deserve your confidence, and have no secret from you.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Stop!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "For an instant, the Doctor even had his two hands at his ears; for another instant, even had his two hands laid on Darnay's lips.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Tell me when I ask you, not now. If your suit should prosper, if Lucie should love you, you shall tell me on your marriage morning. Do you promise?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Willingly.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Give me your hand. She will be home directly, and it is better she should not see us together to-night. Go! God bless you!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "It was dark when Charles Darnay left him, and it was an hour later and darker when Lucie came home; she hurried into the room alone—for Miss Pross had gone straight up-stairs—and was surprised to find his reading-chair empty.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“My father!” she called to him. “Father dear!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Nothing was said in answer, but she heard a low hammering sound in his bedroom. Passing lightly across the intermediate room, she looked in at his door and came running back frightened, crying to herself, with her blood all chilled, “What shall I do! What shall I do!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Her uncertainty lasted but a moment; she hurried back, and tapped at his door, and softly called to him. The noise ceased at the sound of her voice, and he presently came out to her, and they walked up and down together for a long time.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "She came down from her bed, to look at him in his sleep that night. He slept heavily, and his tray of shoemaking tools, and his old unfinished work, were all as usual.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "a": Object {
+          "id": "link2H_4_0019",
+        },
+        "n": "a",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+    ],
+    "n": "div",
+  },
+  Object {
+    "a": Object {
+      "id": "pgepubid00020",
+    },
+    "c": Array [
+      "XI. A Companion Picture",
+    ],
+    "n": "h2",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "c": Array [
+          "S",
+        ],
+        "n": "span",
+      },
+      "ydney,” said Mr. Stryver, on that self-same night, or morning, to his jackal; “mix another bowl of punch; I have something to say to you.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Sydney had been working double tides that night, and the night before, and the night before that, and a good many nights in succession, making a grand clearance among Mr. Stryver's papers before the setting in of the long vacation. The clearance was effected at last; the Stryver arrears were handsomely fetched up; everything was got rid of until November should come with its fogs atmospheric, and fogs legal, and bring grist to the mill again.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Sydney was none the livelier and none the soberer for so much application. It had taken a deal of extra wet-towelling to pull him through the night; a correspondingly extra quantity of wine had preceded the towelling; and he was in a very damaged condition, as he now pulled his turban off and threw it into the basin in which he had steeped it at intervals for the last six hours.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Are you mixing that other bowl of punch?” said Stryver the portly, with his hands in his waistband, glancing round from the sofa where he lay on his back.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I am.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Now, look here! I am going to tell you something that will rather surprise you, and that perhaps will make you think me not quite as shrewd as you usually do think me. I intend to marry.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“",
+      Object {
+        "c": Array [
+          "Do",
+        ],
+        "n": "i",
+      },
+      " you?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Yes. And not for money. What do you say now?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I don't feel disposed to say much. Who is she?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Guess.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Do I know her?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Guess.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I am not going to guess, at five o'clock in the morning, with my brains frying and sputtering in my head. If you want me to guess, you must ask me to dinner.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Well then, I'll tell you,” said Stryver, coming slowly into a sitting posture. “Sydney, I rather despair of making myself intelligible to you, because you are such an insensible dog.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“And you,” returned Sydney, busy concocting the punch, “are such a sensitive and poetical spirit—”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Come!” rejoined Stryver, laughing boastfully, “though I don't prefer any claim to being the soul of Romance (for I hope I know better), still I am a tenderer sort of fellow than ",
+      Object {
+        "c": Array [
+          "you",
+        ],
+        "n": "i",
+      },
+      ".”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You are a luckier, if you mean that.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I don't mean that. I mean I am a man of more—more—”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Say gallantry, while you are about it,” suggested Carton.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Well! I'll say gallantry. My meaning is that I am a man,” said Stryver, inflating himself at his friend as he made the punch, “who cares more to be agreeable, who takes more pains to be agreeable, who knows better how to be agreeable, in a woman's society, than you do.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Go on,” said Sydney Carton.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“No; but before I go on,” said Stryver, shaking his head in his bullying way, “I'll have this out with you. You've been at Doctor Manette's house as much as I have, or more than I have. Why, I have been ashamed of your moroseness there! Your manners have been of that silent and sullen and hangdog kind, that, upon my life and soul, I have been ashamed of you, Sydney!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“It should be very beneficial to a man in your practice at the bar, to be ashamed of anything,” returned Sydney; “you ought to be much obliged to me.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You shall not get off in that way,” rejoined Stryver, shouldering the rejoinder at him; “no, Sydney, it's my duty to tell you—and I tell you to your face to do you good—that you are a devilish ill-conditioned fellow in that sort of society. You are a disagreeable fellow.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Sydney drank a bumper of the punch he had made, and laughed.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Look at me!” said Stryver, squaring himself; “I have less need to make myself agreeable than you have, being more independent in circumstances. Why do I do it?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I never saw you do it yet,” muttered Carton.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I do it because it's politic; I do it on principle. And look at me! I get on.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You don't get on with your account of your matrimonial intentions,” answered Carton, with a careless air; “I wish you would keep to that. As to me—will you never understand that I am incorrigible?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He asked the question with some appearance of scorn.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You have no business to be incorrigible,” was his friend's answer, delivered in no very soothing tone.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I have no business to be, at all, that I know of,” said Sydney Carton. “Who is the lady?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Now, don't let my announcement of the name make you uncomfortable, Sydney,” said Mr. Stryver, preparing him with ostentatious friendliness for the disclosure he was about to make, “because I know you don't mean half you say; and if you meant it all, it would be of no importance. I make this little preface, because you once mentioned the young lady to me in slighting terms.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I did?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Certainly; and in these chambers.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Sydney Carton looked at his punch and looked at his complacent friend; drank his punch and looked at his complacent friend.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You made mention of the young lady as a golden-haired doll. The young lady is Miss Manette. If you had been a fellow of any sensitiveness or delicacy of feeling in that kind of way, Sydney, I might have been a little resentful of your employing such a designation; but you are not. You want that sense altogether; therefore I am no more annoyed when I think of the expression, than I should be annoyed by a man's opinion of a picture of mine, who had no eye for pictures: or of a piece of music of mine, who had no ear for music.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Sydney Carton drank the punch at a great rate; drank it by bumpers, looking at his friend.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Now you know all about it, Syd,” said Mr. Stryver. “I don't care about fortune: she is a charming creature, and I have made up my mind to please myself: on the whole, I think I can afford to please myself. She will have in me a man already pretty well off, and a rapidly rising man, and a man of some distinction: it is a piece of good fortune for her, but she is worthy of good fortune. Are you astonished?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Carton, still drinking the punch, rejoined, “Why should I be astonished?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“You approve?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Carton, still drinking the punch, rejoined, “Why should I not approve?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Well!” said his friend Stryver, “you take it more easily than I fancied you would, and are less mercenary on my behalf than I thought you would be; though, to be sure, you know well enough by this time that your ancient chum is a man of a pretty strong will. Yes, Sydney, I have had enough of this style of life, with no other as a change from it; I feel that it is a pleasant thing for a man to have a home when he feels inclined to go to it (when he doesn't, he can stay away), and I feel that Miss Manette will tell well in any station, and will always do me credit. So I have made up my mind. And now, Sydney, old boy, I want to say a word to ",
+      Object {
+        "c": Array [
+          "you",
+        ],
+        "n": "i",
+      },
+      " about ",
+      Object {
+        "c": Array [
+          "your",
+        ],
+        "n": "i",
+      },
+      " prospects. You are in a bad way, you know; you really are in a bad way. You don't know the value of money, you live hard, you'll knock up one of these days, and be ill and poor; you really ought to think about a nurse.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "The prosperous patronage with which he said it, made him look twice as big as he was, and four times as offensive.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Now, let me recommend you,” pursued Stryver, “to look it in the face. I have looked it in the face, in my different way; look it in the face, you, in your different way. Marry. Provide somebody to take care of you. Never mind your having no enjoyment of women's society, nor understanding of it, nor tact for it. Find out somebody. Find out some respectable woman with a little property—somebody in the landlady way, or lodging-letting way—and marry her, against a rainy day. That's the kind of thing for ",
+      Object {
+        "c": Array [
+          "you",
+        ],
+        "n": "i",
+      },
+      ". Now think of it, Sydney.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I'll think of it,” said Sydney.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "a": Object {
+          "id": "link2H_4_0020",
+        },
+        "n": "a",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+    ],
+    "n": "div",
+  },
+  Object {
+    "a": Object {
+      "id": "pgepubid00021",
+    },
+    "c": Array [
+      "XII. The Fellow of Delicacy",
+    ],
+    "n": "h2",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "c": Array [
+          "M",
+        ],
+        "n": "span",
+      },
+      "r. Stryver having made up his mind to that magnanimous bestowal of good fortune on the Doctor's daughter, resolved to make her happiness known to her before he left town for the Long Vacation. After some mental debating of the point, he came to the conclusion that it would be as well to get all the preliminaries done with, and they could then arrange at their leisure whether he should give her his hand a week or two before Michaelmas Term, or in the little Christmas vacation between it and Hilary.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "As to the strength of his case, he had not a doubt about it, but clearly saw his way to the verdict. Argued with the jury on substantial worldly grounds—the only grounds ever worth taking into account—it was a plain case, and had not a weak spot in it. He called himself for the plaintiff, there was no getting over his evidence, the counsel for the defendant threw up his brief, and the jury did not even turn to consider. After trying it, Stryver, C. J., was satisfied that no plainer case could be.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Accordingly, Mr. Stryver inaugurated the Long Vacation with a formal proposal to take Miss Manette to Vauxhall Gardens; that failing, to Ranelagh; that unaccountably failing too, it behoved him to present himself in Soho, and there declare his noble mind.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Towards Soho, therefore, Mr. Stryver shouldered his way from the Temple, while the bloom of the Long Vacation's infancy was still upon it. Anybody who had seen him projecting himself into Soho while he was yet on Saint Dunstan's side of Temple Bar, bursting in his full-blown way along the pavement, to the jostlement of all weaker people, might have seen how safe and strong he was.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "His way taking him past Tellson's, and he both banking at Tellson's and knowing Mr. Lorry as the intimate friend of the Manettes, it entered Mr. Stryver's mind to enter the bank, and reveal to Mr. Lorry the brightness of the Soho horizon. So, he pushed open the door with the weak rattle in its throat, stumbled down the two steps, got past the two ancient cashiers, and shouldered himself into the musty back closet where Mr. Lorry sat at great books ruled for figures, with perpendicular iron bars to his window as if that were ruled for figures too, and everything under the clouds were a sum.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Halloa!” said Mr. Stryver. “How do you do? I hope you are well!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "It was Stryver's grand peculiarity that he always seemed too big for any place, or space. He was so much too big for Tellson's, that old clerks in distant corners looked up with looks of remonstrance, as though he squeezed them against the wall. The House itself, magnificently reading the paper quite in the far-off perspective, lowered displeased, as if the Stryver head had been butted into its responsible waistcoat.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "The discreet Mr. Lorry said, in a sample tone of the voice he would recommend under the circumstances, “How do you do, Mr. Stryver? How do you do, sir?” and shook hands. There was a peculiarity in his manner of shaking hands, always to be seen in any clerk at Tellson's who shook hands with a customer when the House pervaded the air. He shook in a self-abnegating way, as one who shook for Tellson and Co.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Can I do anything for you, Mr. Stryver?” asked Mr. Lorry, in his business character.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Why, no, thank you; this is a private visit to yourself, Mr. Lorry; I have come for a private word.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Oh indeed!” said Mr. Lorry, bending down his ear, while his eye strayed to the House afar off.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I am going,” said Mr. Stryver, leaning his arms confidentially on the desk: whereupon, although it was a large double one, there appeared to be not half desk enough for him: “I am going to make an offer of myself in marriage to your agreeable little friend, Miss Manette, Mr. Lorry.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Oh dear me!” cried Mr. Lorry, rubbing his chin, and looking at his visitor dubiously.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Oh dear me, sir?” repeated Stryver, drawing back. “Oh dear you, sir? What may your meaning be, Mr. Lorry?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“My meaning,” answered the man of business, “is, of course, friendly and appreciative, and that it does you the greatest credit, and—in short, my meaning is everything you could desire. But—really, you know, Mr. Stryver—” Mr. Lorry paused, and shook his head at him in the oddest manner, as if he were compelled against his will to add, internally, “you know there really is so much too much of you!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Well!” said Stryver, slapping the desk with his contentious hand, opening his eyes wider, and taking a long breath, “if I understand you, Mr. Lorry, I'll be hanged!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Mr. Lorry adjusted his little wig at both ears as a means towards that end, and bit the feather of a pen.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“D—n it all, sir!” said Stryver, staring at him, “am I not eligible?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Oh dear yes! Yes. Oh yes, you're eligible!” said Mr. Lorry. “If you say eligible, you are eligible.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "0524m ",
+      Object {
+        "n": "br",
+      },
+    ],
+    "n": "div",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "c": Array [
+          "Original",
+        ],
+        "n": "a",
+      },
+    ],
+    "n": "h5",
+  },
+  Object {
+    "c": Array [
+      "“Am I not prosperous?” asked Stryver.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Oh! if you come to prosperous, you are prosperous,” said Mr. Lorry.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“And advancing?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“If you come to advancing you know,” said Mr. Lorry, delighted to be able to make another admission, “nobody can doubt that.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Then what on earth is your meaning, Mr. Lorry?” demanded Stryver, perceptibly crestfallen.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Well! I—Were you going there now?” asked Mr. Lorry.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Straight!” said Stryver, with a plump of his fist on the desk.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Then I think I wouldn't, if I was you.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Why?” said Stryver. “Now, I'll put you in a corner,” forensically shaking a forefinger at him. “You are a man of business and bound to have a reason. State your reason. Why wouldn't you go?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Because,” said Mr. Lorry, “I wouldn't go on such an object without having some cause to believe that I should succeed.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“D—n ",
+      Object {
+        "c": Array [
+          "me",
+        ],
+        "n": "i",
+      },
+      "!” cried Stryver, “but this beats everything.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Mr. Lorry glanced at the distant House, and glanced at the angry Stryver.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Here's a man of business—a man of years—a man of experience—",
+      Object {
+        "c": Array [
+          "in",
+        ],
+        "n": "i",
+      },
+      " a Bank,” said Stryver; “and having summed up three leading reasons for complete success, he says there's no reason at all! Says it with his head on!” Mr. Stryver remarked upon the peculiarity as if it would have been infinitely less remarkable if he had said it with his head off.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“When I speak of success, I speak of success with the young lady; and when I speak of causes and reasons to make success probable, I speak of causes and reasons that will tell as such with the young lady. The young lady, my good sir,” said Mr. Lorry, mildly tapping the Stryver arm, “the young lady. The young lady goes before all.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Then you mean to tell me, Mr. Lorry,” said Stryver, squaring his elbows, “that it is your deliberate opinion that the young lady at present in question is a mincing Fool?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Not exactly so. I mean to tell you, Mr. Stryver,” said Mr. Lorry, reddening, “that I will hear no disrespectful word of that young lady from any lips; and that if I knew any man—which I hope I do not—whose taste was so coarse, and whose temper was so overbearing, that he could not restrain himself from speaking disrespectfully of that young lady at this desk, not even Tellson's should prevent my giving him a piece of my mind.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "The necessity of being angry in a suppressed tone had put Mr. Stryver's blood-vessels into a dangerous state when it was his turn to be angry; Mr. Lorry's veins, methodical as their courses could usually be, were in no better state now it was his turn.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“That is what I mean to tell you, sir,” said Mr. Lorry. “Pray let there be no mistake about it.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Mr. Stryver sucked the end of a ruler for a little while, and then stood hitting a tune out of his teeth with it, which probably gave him the toothache. He broke the awkward silence by saying:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“This is something new to me, Mr. Lorry. You deliberately advise me not to go up to Soho and offer myself—",
+      Object {
+        "c": Array [
+          "my",
+        ],
+        "n": "i",
+      },
+      "self, Stryver of the King's Bench bar?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Do you ask me for my advice, Mr. Stryver?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Yes, I do.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Very good. Then I give it, and you have repeated it correctly.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“And all I can say of it is,” laughed Stryver with a vexed laugh, “that this—ha, ha!—beats everything past, present, and to come.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Now understand me,” pursued Mr. Lorry. “As a man of business, I am not justified in saying anything about this matter, for, as a man of business, I know nothing of it. But, as an old fellow, who has carried Miss Manette in his arms, who is the trusted friend of Miss Manette and of her father too, and who has a great affection for them both, I have spoken. The confidence is not of my seeking, recollect. Now, you think I may not be right?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Not I!” said Stryver, whistling. “I can't undertake to find third parties in common sense; I can only find it for myself. I suppose sense in certain quarters; you suppose mincing bread-and-butter nonsense. It's new to me, but you are right, I dare say.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“What I suppose, Mr. Stryver, I claim to characterise for myself—And understand me, sir,” said Mr. Lorry, quickly flushing again, “I will not—not even at Tellson's—have it characterised for me by any gentleman breathing.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“There! I beg your pardon!” said Stryver.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Granted. Thank you. Well, Mr. Stryver, I was about to say:—it might be painful to you to find yourself mistaken, it might be painful to Doctor Manette to have the task of being explicit with you, it might be very painful to Miss Manette to have the task of being explicit with you. You know the terms upon which I have the honour and happiness to stand with the family. If you please, committing you in no way, representing you in no way, I will undertake to correct my advice by the exercise of a little new observation and judgment expressly brought to bear upon it. If you should then be dissatisfied with it, you can but test its soundness for yourself; if, on the other hand, you should be satisfied with it, and it should be what it now is, it may spare all sides what is best spared. What do you say?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“How long would you keep me in town?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Oh! It is only a question of a few hours. I could go to Soho in the evening, and come to your chambers afterwards.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Then I say yes,” said Stryver: “I won't go up there now, I am not so hot upon it as that comes to; I say yes, and I shall expect you to look in to-night. Good morning.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Then Mr. Stryver turned and burst out of the Bank, causing such a concussion of air on his passage through, that to stand up against it bowing behind the two counters, required the utmost remaining strength of the two ancient clerks. Those venerable and feeble persons were always seen by the public in the act of bowing, and were popularly believed, when they had bowed a customer out, still to keep on bowing in the empty office until they bowed another customer in.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "The barrister was keen enough to divine that the banker would not have gone so far in his expression of opinion on any less solid ground than moral certainty. Unprepared as he was for the large pill he had to swallow, he got it down. “And now,” said Mr. Stryver, shaking his forensic forefinger at the Temple in general, when it was down, “my way out of this, is, to put you all in the wrong.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "It was a bit of the art of an Old Bailey tactician, in which he found great relief. “You shall not put me in the wrong, young lady,” said Mr. Stryver; “I'll do that for you.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Accordingly, when Mr. Lorry called that night as late as ten o'clock, Mr. Stryver, among a quantity of books and papers littered out for the purpose, seemed to have nothing less on his mind than the subject of the morning. He even showed surprise when he saw Mr. Lorry, and was altogether in an absent and preoccupied state.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Well!” said that good-natured emissary, after a full half-hour of bootless attempts to bring him round to the question. “I have been to Soho.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“To Soho?” repeated Mr. Stryver, coldly. “Oh, to be sure! What am I thinking of!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“And I have no doubt,” said Mr. Lorry, “that I was right in the conversation we had. My opinion is confirmed, and I reiterate my advice.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I assure you,” returned Mr. Stryver, in the friendliest way, “that I am sorry for it on your account, and sorry for it on the poor father's account. I know this must always be a sore subject with the family; let us say no more about it.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I don't understand you,” said Mr. Lorry.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I dare say not,” rejoined Stryver, nodding his head in a smoothing and final way; “no matter, no matter.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“But it does matter,” Mr. Lorry urged.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“No it doesn't; I assure you it doesn't. Having supposed that there was sense where there is no sense, and a laudable ambition where there is not a laudable ambition, I am well out of my mistake, and no harm is done. Young women have committed similar follies often before, and have repented them in poverty and obscurity often before. In an unselfish aspect, I am sorry that the thing is dropped, because it would have been a bad thing for me in a worldly point of view; in a selfish aspect, I am glad that the thing has dropped, because it would have been a bad thing for me in a worldly point of view—it is hardly necessary to say I could have gained nothing by it. There is no harm at all done. I have not proposed to the young lady, and, between ourselves, I am by no means certain, on reflection, that I ever should have committed myself to that extent. Mr. Lorry, you cannot control the mincing vanities and giddinesses of empty-headed girls; you must not expect to do it, or you will always be disappointed. Now, pray say no more about it. I tell you, I regret it on account of others, but I am satisfied on my own account. And I am really very much obliged to you for allowing me to sound you, and for giving me your advice; you know the young lady better than I do; you were right, it never would have done.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Mr. Lorry was so taken aback, that he looked quite stupidly at Mr. Stryver shouldering him towards the door, with an appearance of showering generosity, forbearance, and goodwill, on his erring head. “Make the best of it, my dear sir,” said Stryver; “say no more about it; thank you again for allowing me to sound you; good night!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Mr. Lorry was out in the night, before he knew where he was. Mr. Stryver was lying back on his sofa, winking at his ceiling.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "a": Object {
+          "id": "link2H_4_0021",
+        },
+        "n": "a",
+      },
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+      Object {
+        "n": "br",
+      },
+    ],
+    "n": "div",
+  },
+  Object {
+    "a": Object {
+      "id": "pgepubid00022",
+    },
+    "c": Array [
+      "XIII. The Fellow of No Delicacy",
+    ],
+    "n": "h2",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "c": Array [
+          "I",
+        ],
+        "n": "span",
+      },
+      "f Sydney Carton ever shone anywhere, he certainly never shone in the house of Doctor Manette. He had been there often, during a whole year, and had always been the same moody and morose lounger there. When he cared to talk, he talked well; but, the cloud of caring for nothing, which overshadowed him with such a fatal darkness, was very rarely pierced by the light within him.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "And yet he did care something for the streets that environed that house, and for the senseless stones that made their pavements. Many a night he vaguely and unhappily wandered there, when wine had brought no transitory gladness to him; many a dreary daybreak revealed his solitary figure lingering there, and still lingering there when the first beams of the sun brought into strong relief, removed beauties of architecture in spires of churches and lofty buildings, as perhaps the quiet time brought some sense of better things, else forgotten and unattainable, into his mind. Of late, the neglected bed in the Temple Court had known him more scantily than ever; and often when he had thrown himself upon it no longer than a few minutes, he had got up again, and haunted that neighbourhood.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "On a day in August, when Mr. Stryver (after notifying to his jackal that “he had thought better of that marrying matter”) had carried his delicacy into Devonshire, and when the sight and scent of flowers in the City streets had some waifs of goodness in them for the worst, of health for the sickliest, and of youth for the oldest, Sydney's feet still trod those stones. From being irresolute and purposeless, his feet became animated by an intention, and, in the working out of that intention, they took him to the Doctor's door.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He was shown up-stairs, and found Lucie at her work, alone. She had never been quite at her ease with him, and received him with some little embarrassment as he seated himself near her table. But, looking up at his face in the interchange of the first few common-places, she observed a change in it.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I fear you are not well, Mr. Carton!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“No. But the life I lead, Miss Manette, is not conducive to health. What is to be expected of, or by, such profligates?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Is it not—forgive me; I have begun the question on my lips—a pity to live no better life?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“God knows it is a shame!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Then why not change it?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "Looking gently at him again, she was surprised and saddened to see that there were tears in his eyes. There were tears in his voice too, as he answered:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“It is too late for that. I shall never be better than I am. I shall sink lower, and be worse.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He leaned an elbow on her table, and covered his eyes with his hand. The table trembled in the silence that followed.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "She had never seen him softened, and was much distressed. He knew her to be so, without looking at her, and said:",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Pray forgive me, Miss Manette. I break down before the knowledge of what I want to say to you. Will you hear me?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“If it will do you any good, Mr. Carton, if it would make you happier, it would make me very glad!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“God bless you for your sweet compassion!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He unshaded his face after a little while, and spoke steadily.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Don't be afraid to hear me. Don't shrink from anything I say. I am like one who died young. All my life might have been.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“No, Mr. Carton. I am sure that the best part of it might still be; I am sure that you might be much, much worthier of yourself.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Say of you, Miss Manette, and although I know better—although in the mystery of my own wretched heart I know better—I shall never forget it!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "She was pale and trembling. He came to her relief with a fixed despair of himself which made the interview unlike any other that could have been holden.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“If it had been possible, Miss Manette, that you could have returned the love of the man you see before yourself—flung away, wasted, drunken, poor creature of misuse as you know him to be—he would have been conscious this day and hour, in spite of his happiness, that he would bring you to misery, bring you to sorrow and repentance, blight you, disgrace you, pull you down with him. I know very well that you can have no tenderness for me; I ask for none; I am even thankful that it cannot be.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Without it, can I not save you, Mr. Carton? Can I not recall you—forgive me again!—to a better course? Can I in no way repay your confidence? I know this is a confidence,” she modestly said, after a little hesitation, and in earnest tears, “I know you would say this to no one else. Can I turn it to no good account for yourself, Mr. Carton?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He shook his head.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“To none. No, Miss Manette, to none. If you will hear me through a very little more, all you can ever do for me is done. I wish you to know that you have been the last dream of my soul. In my degradation I have not been so degraded but that the sight of you with your father, and of this home made such a home by you, has stirred old shadows that I thought had died out of me. Since I knew you, I have been troubled by a remorse that I thought would never reproach me again, and have heard whispers from old voices impelling me upward, that I thought were silent for ever. I have had unformed ideas of striving afresh, beginning anew, shaking off sloth and sensuality, and fighting out the abandoned fight. A dream, all a dream, that ends in nothing, and leaves the sleeper where he lay down, but I wish you to know that you inspired it.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Will nothing of it remain? O Mr. Carton, think again! Try again!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“No, Miss Manette; all through it, I have known myself to be quite undeserving. And yet I have had the weakness, and have still the weakness, to wish you to know with what a sudden mastery you kindled me, heap of ashes that I am, into fire—a fire, however, inseparable in its nature from myself, quickening nothing, lighting nothing, doing no service, idly burning away.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Since it is my misfortune, Mr. Carton, to have made you more unhappy than you were before you knew me—”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Don't say that, Miss Manette, for you would have reclaimed me, if anything could. You will not be the cause of my becoming worse.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Since the state of your mind that you describe, is, at all events, attributable to some influence of mine—this is what I mean, if I can make it plain—can I use no influence to serve you? Have I no power for good, with you, at all?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“The utmost good that I am capable of now, Miss Manette, I have come here to realise. Let me carry through the rest of my misdirected life, the remembrance that I opened my heart to you, last of all the world; and that there was something left in me at this time which you could deplore and pity.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Which I entreated you to believe, again and again, most fervently, with all my heart, was capable of better things, Mr. Carton!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Entreat me to believe it no more, Miss Manette. I have proved myself, and I know better. I distress you; I draw fast to an end. Will you let me believe, when I recall this day, that the last confidence of my life was reposed in your pure and innocent breast, and that it lies there alone, and will be shared by no one?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“If that will be a consolation to you, yes.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Not even by the dearest one ever to be known to you?”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Mr. Carton,” she answered, after an agitated pause, “the secret is yours, not mine; and I promise to respect it.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Thank you. And again, God bless you.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He put her hand to his lips, and moved towards the door.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Be under no apprehension, Miss Manette, of my ever resuming this conversation by so much as a passing word. I will never refer to it again. If I were dead, that could not be surer than it is henceforth. In the hour of my death, I shall hold sacred the one good remembrance—and shall thank and bless you for it—that my last avowal of myself was made to you, and that my name, and faults, and miseries were gently carried in your heart. May it otherwise be light and happy!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He was so unlike what he had ever shown himself to be, and it was so sad to think how much he had thrown away, and how much he every day kept down and perverted, that Lucie Manette wept mournfully for him as he stood looking back at her.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“Be comforted!” he said, “I am not worth such feeling, Miss Manette. An hour or two hence, and the low companions and low habits that I scorn but yield to, will render me less worth such tears as those, than any wretch who creeps along the streets. Be comforted! But, within myself, I shall always be, towards you, what I am now, though outwardly I shall be what you have heretofore seen me. The last supplication but one I make to you, is, that you will believe this of me.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“I will, Mr. Carton.”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "“My last supplication of all, is this; and with it, I will relieve you of a visitor with whom I well know you have nothing in unison, and between whom and you there is an impassable space. It is useless to say it, I know, but it rises out of my soul. For you, and for any dear to you, I would do anything. If my career were of that better kind that there was any opportunity or capacity of sacrifice in it, I would embrace any sacrifice for you and for those dear to you. Try to hold me in your mind, at some quiet times, as ardent and sincere in this one thing. The time will come, the time will not be long in coming, when new ties will be formed about you—ties that will bind you yet more tenderly and strongly to the home you so adorn—the dearest ties that will ever grace and gladden you. O Miss Manette, when the little picture of a happy father's face looks up in yours, when you see your own bright beauty springing up anew at your feet, think now and then that there is a man who would give his life, to keep a life you love beside you!”",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      "He said, “Farewell!” said a last “God bless you!” and left her.",
+    ],
+    "n": "p",
+  },
+  Object {
+    "c": Array [
+      Object {
+        "a": Object {
+          "id": "link2H_4_0022",
+        },
+        "n": "a",
+      },
+    ],
+    "n": "p",
+  },
+]
+`;
+
 exports[`nodeToAST() 1`] = `
 Object {
   "c": Array [
