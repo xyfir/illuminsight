@@ -5,6 +5,7 @@ import { nodeToAST } from 'lib/import/node-to-ast';
 import JSZip from 'jszip';
 
 const LINK_ATTRIBUTES = ['href', 'src'];
+const parser = new DOMParser();
 
 export async function convert(file: Blob): Promise<Blob> {
   // Prepare zip files
@@ -13,8 +14,10 @@ export async function convert(file: Blob): Promise<Blob> {
 
   // Parse OPF
   const [opfFile] = epub.file(/\bcontent\.opf$/);
-  const opfDoc = document.implementation.createDocument('', '', null);
-  opfDoc.write(await opfFile.async('text'));
+  const opfDoc = parser.parseFromString(
+    await opfFile.async('text'),
+    'application/xhtml+xml'
+  );
 
   // Hash map for old section and resource links to new
   const linkMap: { [href: string]: string } = {};
@@ -64,8 +67,10 @@ export async function convert(file: Blob): Promise<Blob> {
     if (/xhtml|html|xml/.test(mediaType)) {
       // Read file
       const xhtmlFile = epub.file(href);
-      const xhtmlDoc = document.implementation.createDocument('', '', null);
-      xhtmlDoc.write(await xhtmlFile.async('text'));
+      const xhtmlDoc = parser.parseFromString(
+        await xhtmlFile.async('text'),
+        'application/xhtml+xml'
+      );
 
       // Check for body element since document could be XML (like toc.ncx)
       if (!xhtmlDoc.body) continue;
@@ -135,8 +140,10 @@ export async function convert(file: Blob): Promise<Blob> {
 
   // Load toc.ncx
   const [tocFile] = epub.file(/\btoc\.ncx$/);
-  const tocDoc = document.implementation.createDocument('', '', null);
-  tocDoc.write(await tocFile.async('text'));
+  const tocDoc = parser.parseFromString(
+    await tocFile.async('text'),
+    'application/xhtml+xml'
+  );
 
   // Load elements from Table of Contents
   let navPoints = Array.from(tocDoc.querySelectorAll('navMap > navPoint'));

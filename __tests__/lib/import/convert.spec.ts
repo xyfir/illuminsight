@@ -9,12 +9,14 @@ import JSZip from 'jszip';
 const { FILES_DIRECTORY, ASTPUB_VERSION } = process.enve;
 
 test('nodeToAST()', () => {
-  const dom = document.implementation.createDocument('', '', null);
-  dom.write(readFileSync(resolve(FILES_DIRECTORY, 'lorem.html'), 'utf8'));
+  const dom = new DOMParser().parseFromString(
+    readFileSync(resolve(FILES_DIRECTORY, 'lorem.html'), 'utf8'),
+    'text/html'
+  );
   expect(nodeToAST(dom.body)).toMatchSnapshot();
 });
 
-test('convert({file})', async () => {
+test('convert()', async () => {
   // Convert content to ASTPUB
   const epub = await JSZip.loadAsync(
     readFileSync(resolve(FILES_DIRECTORY, 'ebook.epub'))
