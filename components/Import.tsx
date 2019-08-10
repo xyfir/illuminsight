@@ -1,10 +1,10 @@
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { Illuminsight } from 'types';
 import { useSnackbar } from 'notistack';
+import { convert } from 'lib/import/convert';
 import localForage from 'localforage';
 import { getYear } from 'date-fns';
 import * as React from 'react';
-import { api } from 'lib/app/api';
 import JSZip from 'jszip';
 import {
   LinearProgress,
@@ -57,34 +57,21 @@ export function Import() {
   async function onImportFiles() {
     setBusy(true);
     for (let file of files) {
-      const data = new FormData();
-      data.append('file', file);
-
-      await api
-        .post('/convert', data, { responseType: 'arraybuffer' })
-        .then(res => {
-          saveFile(res.data);
-          setFiles(files.filter(_f => _f.name != file.name));
-        })
-        .catch(err => {
-          err.response && enqueueSnackbar(err.response.data.error);
-        });
+      const blob = await convert(file);
+      await saveFile(blob);
+      setFiles(files.filter(_f => _f.name != file.name));
     }
     setBusy(false);
   }
 
-  async function saveFile(file: Blob) {
+  async function saveFile(blob: Blob) {
     // Parse zip file
-    const zip = await JSZip.loadAsync(file);
+    const zip = await JSZip.loadAsync(blob);
 
     // Extract meta.json
     const pub: Illuminsight.Pub = JSON.parse(
       await zip.file('meta.json').async('text')
     );
-
-    // Ensure we can handle the returned file
-    if (pub.version != process.enve.ASTPUB_VERSION)
-      return enqueueSnackbar('Client/server ASTPub version mismatch');
 
     // Extract cover if available and save copy outside of zip
     if (pub.cover) {
@@ -194,7 +181,7 @@ export function Import() {
         <label htmlFor="file-input">
           <Button variant="text" component="span" color="secondary">
             <FileIcon />
-            Upload File
+            Upload EPUB
           </Button>
         </label>
 
