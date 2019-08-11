@@ -152,7 +152,7 @@ export namespace Illuminsight {
     /**
      * Version of ASTPUB format this instance of Illuminsight supports.
      */
-    ASTPUB_VERSION: 4;
+    ASTPUB_VERSION: number;
     /**
      * Absolute path for illuminsight files.
      * @example "/path/to/illuminsight/files"
