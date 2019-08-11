@@ -1,7 +1,7 @@
 import { SnackbarProvider } from 'notistack';
 import { Illuminsight } from 'types';
 import { MemoryRouter } from 'react-router';
-import { convert } from 'lib/import/convert';
+import * as convert from 'lib/import/convert';
 import { testPub } from 'lib/test/data';
 import localForage from 'localforage';
 import { Import } from 'components/Import';
@@ -41,9 +41,13 @@ test('<Import>', async () => {
   fireEvent.click(getAllByLabelText('Remove')[0]);
   expect(() => getByText('book.epub')).toThrow();
 
-  // Mock localForage and axios
+  // Mocks
   const mockSetItem = ((localForage as any).setItem = jest.fn());
   const mockGetItem = ((localForage as any).getItem = jest.fn());
+  const mockConvert = ((convert as any).convert = jest.fn());
+
+  // Mock convert
+  mockConvert.mockResolvedValueOnce(await zip.generateAsync({ type: 'blob' }));
 
   // Mock localForage.setItem()
   mockSetItem.mockResolvedValue(undefined);
