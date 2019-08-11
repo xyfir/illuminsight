@@ -72,7 +72,7 @@ export async function convert(file: Blob): Promise<Blob> {
       linkMap[href] = resource;
 
       // Cut href from EPUB to resource in ASTPUB
-      astpub.file(resource, await epub.file(href).async('text'));
+      astpub.file(resource, await epub.file(href).async('blob'));
       epub.remove(href);
 
       // Search for href of cover image
