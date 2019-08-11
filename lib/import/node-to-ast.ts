@@ -3,7 +3,7 @@ import { Illuminsight } from 'types';
 const REPLACEMENT_ATTRIBUTES: { [attr: string]: string } = {
   'xlink:href': 'href'
 };
-const EXCLUDED_ATTRIBUTES = ['class', 'tag'];
+const EXCLUDED_ATTRIBUTES = ['class', 'style', 'tag'];
 const EXCLUDED_ELEMENTS = ['iframe', 'script', 'style', 'link'];
 
 /**
