@@ -8,9 +8,9 @@
     "start-webpack": "webpack-dev-server",
     "watch-build": "npm run build -- --watch",
     "watch-check": "npm run check -- -w",
+    "start-proxy": "node proxy",
     "watch-test": "npm run test -- --watch",
     "coverage": "npm run test -- --coverage",
-    "start-server": "node server",
     "check": "tsc --noEmit",
     "build": "webpack-cli",
     "test": "jest --detectOpenHandles --runInBand"
