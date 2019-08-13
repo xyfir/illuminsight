@@ -18,3 +18,15 @@ deploy:
     on:
       repo: xyfir/illuminsight
       tags: true
+  - provider: s3
+    access_key_id: AKIAYVYDMDSAO6RMHYUR
+    secret_access_key:
+      secure: mwBwRkvyM2Ka3DfWeJeBAaoawA6dRQhzLc0zygfWvhVjTqyjJbtjmVWlWrlWi9VVFpKPfE4Y+WA889QMPPf/+MXtzKl1t0KmWbe7fpontzixNFadJ0Hwzy7PmyNgsYdswSSs9q23LlOtGPyk4JX06E5db64N+irCjSlULrGcd0/zZqZF5X+0GtNi26vV5AiN1SAa8PkZeu31LQWxVSHZCi9/eHECtBtiOcbhPbDIt7Gu32qkcyOeHAiBKndu33+2p5l7N7xxR9ecQjH9Fllmzh6i+xAv4k0xL5ZB9HvAxdKcWffCn2mq2CSkxG7o8uov0xnxTl3C85l0hKvpXZd1/HE2vFfkEeEBN3qzxpzitI9YSIT3JcH93yHCjWjH63przc4iSk9xgFWb105NC529gZrSXYnRLX0CohUEQlQkSL9RjGCF9cgDStK28xuuwSh5fb+JHNvKIronMc4tcplXAT0qSZ3xPXS/EsCN5UqT4afJwzYp6ZVZYVNJc5x/XTmqliWORk8M2W+hHPAw3CQz0ibGCD7/xHKPjIGJD3girYqJHYBAAjukWWHSyaXQv9EJ3tt6REVr6/qpHMo8KoT4c7XngcPFRn+g9BQPLgpttJg+0Ro1LqLndPwb1aH9iSoMubRpOFn309dCBxmEfClsUkB6Fxze6wFjZuvmB1H95aY=
+    local-dir: dist
+    bucket: app.illuminsight.com
+    skip_cleanup: true
+    region: us-east-1
+    acl: public_read
+    on:
+      repo: xyfir/illuminsight
+      tags: true
