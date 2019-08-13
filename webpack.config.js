@@ -21,7 +21,7 @@ module.exports = {
 
   output: {
     globalObject: 'this',
-    publicPath: '/static/',
+    publicPath: '/',
     filename: chunkData =>
       chunkData.chunk.name === 'sw' ? 'sw.js' : '[name].[hash].js',
     pathinfo: false,
@@ -102,7 +102,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              publicPath: '/static',
+              publicPath: '/',
               name: '[name].[hash].[ext]'
             }
           }

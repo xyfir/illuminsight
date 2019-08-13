@@ -11,9 +11,9 @@ self.addEventListener('install', event => {
     (async () => {
       // Download webpack assets manifest
       const manifest: { [x: string]: string } = await fetch(
-        '/static/webpack.json'
+        '/webpack.json'
       ).then(res => res.json());
-      assets = Object.values(manifest).filter(e => e != '/static/sw.js');
+      assets = Object.values(manifest).filter(e => e != '/sw.js');
 
       // Cache the homepage
       assets.push('/');
