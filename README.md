@@ -20,7 +20,7 @@ All data is stored solely on your device.
 ## Documentation
 
 - [ASTPUB](https://github.com/Xyfir/illuminsight/blob/master/docs/astpub.md) — Learn more about our unique ASTPUB content format.
-- [Self-hosting](https://github.com/Xyfir/illuminsight/blob/master/docs/self-host.md) — Learn how to set up illuminsight on your own server.
+- [Self-hosting](https://github.com/Xyfir/illuminsight/blob/master/docs/self-host.md) — Learn how to set up illuminsight for local development.
 
 ## License
 
