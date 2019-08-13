@@ -145,23 +145,23 @@ export namespace Illuminsight {
      */
     NODE_ENV: 'development' | 'production';
     /**
-     * Version of ASTPUB format this instance of Illuminsight supports.
-     */
-    ASTPUB_VERSION: number;
-    /**
-     * Absolute path for illuminsight files.
-     * @example "/path/to/illuminsight/files"
-     */
-    FILES_DIRECTORY: string;
-    /**
      * The app's root proxy URL.
-     * @example "https://example.com/proxy"
+     * @example "https://example.com/proxy?url="
      */
     PROXY_URL: string;
+    /**
+     * Version of ASTPUB format this instance of illuminsight supports.
+     */
+    ASTPUB_VERSION: number;
     /**
      * Port for the Webpack dev server. Only needed for developers.
      * @example 2700
      */
     DEV_SERVER_PORT: number;
+    /**
+     * Absolute path for illuminsight files.
+     * @example "/path/to/illuminsight/files"
+     */
+    FILES_DIRECTORY: string;
   }
 }
