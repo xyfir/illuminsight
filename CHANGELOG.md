@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
-<!-- ## [0.6.0] - 2019-08-XX -->
+## [0.6.0] - 2019-08-13
 
 ### Changed
 
@@ -93,9 +93,7 @@ This project adheres to [Semantic Versioning](https://semver.org).
 - Everything
 
 [unreleased]: https://github.com/Xyfir/illuminsight/compare/0.6.0...HEAD
-
-<!-- [0.6.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.6.0 -->
-
+[0.6.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.6.0
 [0.5.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.5.1
 [0.4.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.4.1
 [0.4.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.4.0
