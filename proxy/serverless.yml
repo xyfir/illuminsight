@@ -1,0 +1,20 @@
+service: illuminsight-proxy
+app: illuminsight-proxy
+org: xyfir
+provider:
+  name: aws
+  timeout: 10
+  runtime: nodejs10.x
+functions:
+  lambda:
+    name: illuminsight-proxy
+    handler: handler.corsProxy
+    events:
+      - http:
+          path: ''
+          method: get
+          cors: true
+      - http:
+          path: ''
+          method: post
+          cors: true
