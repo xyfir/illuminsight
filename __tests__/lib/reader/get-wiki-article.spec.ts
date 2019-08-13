@@ -25,6 +25,6 @@ test('getWikiArticle()', async () => {
 
   /// Validate request
   expect(mockFetch).toHaveBeenCalledWith('test2', undefined, {
-    wikiUrl: `${process.enve.PROXY_URL}/http://example.com`
+    wikiUrl: process.enve.PROXY_URL + 'http://example.com'
   });
 });

@@ -6,8 +6,6 @@ export function getWikiArticle(
   recipe: Illuminsight.WikiRecipe
 ): Promise<wtf.Document | null> {
   return wtf.fetch(title, undefined, {
-    wikiUrl: recipe.proxy
-      ? `${process.enve.PROXY_URL}/${recipe.api}`
-      : recipe.api
+    wikiUrl: recipe.proxy ? process.enve.PROXY_URL + recipe.api : recipe.api
   });
 }
