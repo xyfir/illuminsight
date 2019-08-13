@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+<!-- ## [0.6.0] - 2019-08-XX -->
+
+### Changed
+
+- Move file conversion (ASTPUB creation) process from server to client
+
+### Removed
+
+- Support for non-EPUB imports
+- `link` property from ASTPub's `meta.json`
+- API server
+
 ## [0.5.1] - 2019-07-18
 
 ### Added
@@ -80,7 +92,10 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 - Everything
 
-[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.5.1...HEAD
+[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.6.0...HEAD
+
+<!-- [0.6.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.6.0 -->
+
 [0.5.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.5.1
 [0.4.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.4.1
 [0.4.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.4.0
