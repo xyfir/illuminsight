@@ -77,64 +77,69 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     if (active) return;
     setActive(true);
 
-    if (selectionText === undefined) saveSelection();
+    try {
+      if (selectionText === undefined) saveSelection();
 
-    // Generate insights from selected text
-    if (selectionText) {
-      const rect = selectionNode.parentElement!.getBoundingClientRect() as DOMRect;
-      const element = getElement(rect.x, rect.y) as HTMLElement;
+      // Generate insights from selected text
+      if (selectionText) {
+        const rect = selectionNode.parentElement!.getBoundingClientRect() as DOMRect;
+        const element = getElement(rect.x, rect.y) as HTMLElement;
 
-      // Get index of AST element
-      const index = +element.getAttribute('ast')!;
+        // Get index of AST element
+        const index = +element.getAttribute('ast')!;
 
-      // Generate insights for AST block
-      const insights = await generateInsights({
-        highlight: true,
-        recipe,
-        text: selectionText.trim()
-      });
-      insightsIndex[index] = insightsIndex[index]
-        ? insightsIndex[index].concat(insights)
-        : insights;
-    }
-    // Generate insights from element's text
-    else {
-      // Get elements
-      const tool = event.target as HTMLButtonElement;
-      const ast = document.getElementById('ast')!;
-
-      // Get needed coordinates
-      const { x, y } = tool.getBoundingClientRect() as DOMRect;
-
-      // Get line height of AST container
-      const lineHeight = +getComputedStyle(ast)!.lineHeight!.split('px')[0];
-
-      // Find adjacent element with a bit of guesswork
-      let element: HTMLElement | undefined = undefined;
-      for (let i = 0; i < 3; i++) {
-        element = getElement(x + 1, y + 50 + i * lineHeight);
-        if (element) break;
-      }
-      if (!element) return setActive(false);
-
-      // Get index of AST element
-      const index = +element.getAttribute('ast')!;
-
-      // Remove insights
-      if (insightsIndex[index]) {
-        delete insightsIndex[index];
-      }
-      // Parse insights from element's text
-      else {
-        insightsIndex[index] = await generateInsights({
+        // Generate insights for AST block
+        const insights = await generateInsights({
+          highlight: true,
           recipe,
-          text: element.innerText
+          text: selectionText.trim()
         });
+        insightsIndex[index] = insightsIndex[index]
+          ? insightsIndex[index].concat(insights)
+          : insights;
       }
+      // Generate insights from element's text
+      else {
+        // Get elements
+        const tool = event.target as HTMLButtonElement;
+        const ast = document.getElementById('ast')!;
+
+        // Get needed coordinates
+        const { x, y } = tool.getBoundingClientRect() as DOMRect;
+
+        // Get line height of AST container
+        const lineHeight = +getComputedStyle(ast)!.lineHeight!.split('px')[0];
+
+        // Find adjacent element with a bit of guesswork
+        let element: HTMLElement | undefined = undefined;
+        for (let i = 0; i < 3; i++) {
+          element = getElement(x + 1, y + 50 + i * lineHeight);
+          if (element) break;
+        }
+        if (!element) return setActive(false);
+
+        // Get index of AST element
+        const index = +element.getAttribute('ast')!;
+
+        // Remove insights
+        if (insightsIndex[index]) {
+          delete insightsIndex[index];
+        }
+        // Parse insights from element's text
+        else {
+          insightsIndex[index] = await generateInsights({
+            recipe,
+            text: element.innerText
+          });
+        }
+      }
+
+      // Send modified insights back to Reader
+      onInsight(insightsIndex);
+    } catch (err) {
+      console.error(err);
     }
 
-    // Send modified insights back to Reader
-    onInsight(insightsIndex);
     setActive(false);
   }
 
