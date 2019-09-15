@@ -9,14 +9,12 @@ import wtf from 'wtf_wikipedia';
 import 'typeface-roboto';
 
 // Expose globals for debugging/testing purposes
+// @ts-ignore
 window.localForage = localForage;
+// @ts-ignore
 window.wtf = wtf;
 
 declare global {
-  interface Window {
-    localForage: LocalForage;
-    wtf: typeof wtf;
-  }
   namespace NodeJS {
     interface Process {
       enve: Illuminsight.Env;
