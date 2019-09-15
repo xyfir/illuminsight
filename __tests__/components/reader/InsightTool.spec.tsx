@@ -16,7 +16,7 @@ test('<InsightTool>', async () => {
   const mockGetBoundingClientRect = (HTMLButtonElement.prototype.getBoundingClientRect = jest.fn());
   const mockElementsFromPoint = ((document as any).elementsFromPoint = jest.fn());
   const mockGetComputedStyle = ((window as any).getComputedStyle = jest.fn());
-  const mockGetSelection = ((window as any).getSelection = jest.fn());
+  const mockGetSelection = ((document as any).getSelection = jest.fn());
   const mockGetAttribute = jest.fn(() => '0');
 
   // Mock fetching Wikipedia article
@@ -112,13 +112,14 @@ test('<InsightTool>', async () => {
   await wait(() => expect(mockFetch).toHaveBeenCalled());
   expect(_insightsIndex).toMatchObject({ 2: [{ text: 'Illuminsight' }] });
 
-  // Mock getSelection() to return selection
+  // Mock selection
   mockGetSelection.mockReturnValueOnce({
     toString: () => 'hello world',
     focusNode: {
       parentElement: { getBoundingClientRect: () => ({ x: 0, y: 0 }) }
     }
   });
+  document.dispatchEvent(new Event('selectionchange'));
 
   // Mock functions for getting text block from selection node
   mockElementsFromPoint.mockReturnValueOnce([
@@ -133,6 +134,10 @@ test('<InsightTool>', async () => {
   // Validate insight was generated from selection and added to previous
   await wait(() => expect(Object.keys(_insightsIndex)).toBeArrayOfSize(2));
   expect(_insightsIndex[3]).toMatchObject([{ wikis: [], text: 'hello world' }]);
+
+  // Mock empty selection
+  mockGetSelection.mockReturnValueOnce({ toString: () => '' });
+  document.dispatchEvent(new Event('selectionchange'));
 
   // Click insight tool again to disable insights
   setMockReturnsForBlock();
