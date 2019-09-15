@@ -10,7 +10,7 @@ import {
   Tooltip
 } from '@material-ui/core';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
   createStyles({
     button: {
       transform: 'rotate(180deg)'
@@ -24,14 +24,29 @@ export type InsightToolProps = {
 };
 
 export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
-  // Capture Selection properties on mobile before tap deselects the text
-  // Cannot just save Selection object because it's mutated in place
-  let selectionText: string;
-  let selectionNode: Node;
-
+  const [selectionText, setSelectionText] = React.useState<string>();
+  const [selectionNode, setSelectionNode] = React.useState<Node>();
   const [active, setActive] = React.useState(false);
   const { recipe } = React.useContext(ReaderContext);
   const classes = useStyles();
+
+  function onSelectionChange() {
+    const selection = document.getSelection()!;
+
+    // Text has been deselected
+    // Delay removal from state by half a second
+    if (!selection.toString() && selectionText) {
+      setTimeout(() => {
+        setSelectionText(undefined);
+        setSelectionNode(undefined);
+      }, 500);
+    }
+    // Update state
+    else {
+      setSelectionText(selection.toString() || undefined);
+      setSelectionNode(selection.focusNode || undefined);
+    }
+  }
 
   /**
    * Get element to parse insights from.
@@ -78,10 +93,8 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     setActive(true);
 
     try {
-      if (selectionText === undefined) saveSelection();
-
       // Generate insights from selected text
-      if (selectionText) {
+      if (selectionText && selectionNode) {
         const rect = selectionNode.parentElement!.getBoundingClientRect() as DOMRect;
         const element = getElement(rect.x, rect.y) as HTMLElement;
 
@@ -143,11 +156,12 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     setActive(false);
   }
 
-  function saveSelection() {
-    const selection = window.getSelection()!;
-    selectionText = selection.toString();
-    selectionNode = selection.focusNode!;
-  }
+  // Listen for selection changes
+  React.useEffect(() => {
+    document.addEventListener('selectionchange', onSelectionChange);
+    return () =>
+      document.removeEventListener('selectionchange', onSelectionChange);
+  }, []);
 
   return active ? (
     <IconButton className={classes.button} disabled={active}>
@@ -156,7 +170,6 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
   ) : (
     <Tooltip title="Toggle insights for text block below">
       <IconButton
-        onTouchStart={saveSelection}
         className={classes.button}
         disabled={active}
         onClick={onClick}
