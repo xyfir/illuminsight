@@ -173,6 +173,7 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
         className={classes.button}
         disabled={active}
         onClick={onClick}
+        color={selectionText ? 'primary' : 'default'}
       >
         <InsightIcon />
       </IconButton>
