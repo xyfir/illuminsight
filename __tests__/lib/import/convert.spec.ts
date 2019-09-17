@@ -19,7 +19,7 @@ test('nodeToAST()', () => {
 test('convert()', async () => {
   // Convert content to ASTPUB
   const epub = await JSZip.loadAsync(
-    readFileSync(resolve(FILES_DIRECTORY, 'ebook.epub'))
+    readFileSync(resolve(FILES_DIRECTORY, 'Tale_of_Two_Cities.epub'))
   );
   const epubBlob = await epub.generateAsync({ type: 'blob' });
   const astpubBlob = await convert(epubBlob);
