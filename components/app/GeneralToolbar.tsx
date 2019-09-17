@@ -54,8 +54,8 @@ export function GeneralToolbar() {
         </Link>
       </Tooltip>
 
-      <Tooltip title="Import content into library">
-        <Link to="/import">
+      <Tooltip title="Import EPUB files into library">
+        <Link to="/import/epub">
           <IconButton>
             <ImportIcon />
           </IconButton>

@@ -44,10 +44,10 @@ export const App = () => {
             <main className={classes.main}>
               <div className={classes.toolbar} />
               <Switch>
+                <Route path="/import/:type" component={Import} />
                 <Route path="/read/:pubId" component={Reader} />
                 <Route path="/edit/:pubId" component={Edit} />
                 <Route path="/library" component={Library} />
-                <Route path="/import" component={Import} />
                 <Redirect exact from="/" to="/library" />
               </Switch>
             </main>
