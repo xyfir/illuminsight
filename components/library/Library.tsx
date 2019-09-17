@@ -22,6 +22,7 @@ import {
   withStyles,
   TextField,
   ListItem,
+  Button,
   Hidden,
   Drawer,
   Theme,
@@ -38,6 +39,9 @@ const styles = (theme: Theme) =>
       overflowY: 'auto',
       height: '100%',
       flex: 1
+    },
+    importSample: {
+      textAlign: 'center'
     },
     drawerPaper: {
       zIndex: theme.zIndex.appBar - 1,
@@ -208,6 +212,14 @@ function _Library({ classes }: WithStyles<typeof styles>) {
           }}
           placeholder="A Tale of Two Cities"
         />
+
+        {/* Import sample library */}
+        {pubs.length ? null : (
+          <p className={classes.importSample}>
+            You don't have any books.
+            <Button href="/import/sample">Import sample library?</Button>
+          </p>
+        )}
 
         {/* Display matching pubs */}
         <div className={classes.infiniteScroll}>
