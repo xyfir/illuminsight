@@ -14,7 +14,7 @@ test('<GeneralToolbar />', async () => {
 
   // Test available controls
   getByTitle('Toggle light/dark theme');
-  getByTitle('Import content into library');
+  getByTitle('Import EPUB files into library');
   getByTitle('Search items in library');
   expect(() => getByTitle('Install Illuminsight to home screen')).toThrow();
 
