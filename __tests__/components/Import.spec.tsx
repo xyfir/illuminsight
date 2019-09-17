@@ -1,12 +1,13 @@
+import { MemoryRouter, Switch, Route } from 'react-router';
 import { SnackbarProvider } from 'notistack';
 import { Illuminsight } from 'types';
-import { MemoryRouter } from 'react-router';
 import * as convert from 'lib/import/convert';
 import { testPub } from 'lib/test/data';
 import localForage from 'localforage';
 import { Import } from 'components/Import';
 import * as React from 'react';
 import JSZip from 'jszip';
+import axios from 'axios';
 import {
   waitForElementToBeRemoved,
   waitForElement,
@@ -15,12 +16,14 @@ import {
   wait
 } from '@testing-library/react';
 
-test('<Import>', async () => {
+test('<Import> epub', async () => {
   // Render <Import>
   const { getAllByLabelText, getByLabelText, getByText } = render(
     <SnackbarProvider>
-      <MemoryRouter>
-        <Import />
+      <MemoryRouter initialEntries={['/import/epub']}>
+        <Switch>
+          <Route path="/import/:type" component={Import} />
+        </Switch>
       </MemoryRouter>
     </SnackbarProvider>,
     { container: document.getElementById('content')! }
@@ -90,4 +93,26 @@ test('<Import>', async () => {
   // Validate pub has been added
   expect(mockSetItem.mock.calls[3][0]).toBe('pub-list');
   expect(mockSetItem.mock.calls[3][1]).toMatchObject([_pub]);
+});
+
+test('<Import> sample', async () => {
+  // Mock downloading
+  const mockGet = ((axios as any).get = jest.fn());
+  mockGet.mockResolvedValue({ data: new Buffer([]) });
+
+  // Render <Import>
+  const { getByText } = render(
+    <SnackbarProvider>
+      <MemoryRouter initialEntries={['/import/sample']}>
+        <Switch>
+          <Route path="/import/:type" component={Import} />
+        </Switch>
+      </MemoryRouter>
+    </SnackbarProvider>,
+    { container: document.getElementById('content')! }
+  );
+
+  // Validate downloads/uploads
+  await wait(() => expect(mockGet).toHaveBeenCalledTimes(4));
+  getByText('Tale_of_Two_Cities.epub');
 });
