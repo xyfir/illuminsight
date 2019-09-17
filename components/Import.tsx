@@ -1,3 +1,4 @@
+import { RouteComponentProps } from 'react-router';
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { Illuminsight } from 'types';
 import { useSnackbar } from 'notistack';
@@ -6,6 +7,7 @@ import localForage from 'localforage';
 import { getYear } from 'date-fns';
 import * as React from 'react';
 import JSZip from 'jszip';
+import axios from 'axios';
 import {
   LinearProgress,
   ListItemText,
@@ -48,7 +50,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-export function Import() {
+export function Import({ match }: RouteComponentProps) {
   const { enqueueSnackbar } = useSnackbar();
   const [files, setFiles] = React.useState<File[]>([]);
   const [busy, setBusy] = React.useState(false);
@@ -148,6 +150,26 @@ export function Import() {
 
     enqueueSnackbar(`${pub.name} added to library`);
   }
+
+  async function downloadSampleBooks() {
+    // Download sample books from Github repo
+    const ids = ['Sherlock_Homes', 'Frankenstein', 'Alice_in_Wonderland'];
+    for (let id of ids) {
+      const res = await axios.get(
+        `https://raw.githubusercontent.com/xyfir/illuminsight/master/files/${id}.epub`,
+        { responseType: 'blob' }
+      );
+
+      // Set file so that user can choose which to import
+      setFiles(files.concat([new File([res.data], `${id}.epub`)]));
+    }
+  }
+
+  // Trigger sample books download if needed on first mount
+  React.useEffect(() => {
+    const { type } = match.params as { type: 'epub' | 'sample' };
+    if (type == 'sample') downloadSampleBooks();
+  }, []);
 
   return (
     <form onSubmit={e => e.preventDefault()} className={classes.root}>
