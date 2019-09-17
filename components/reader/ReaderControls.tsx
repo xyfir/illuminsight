@@ -84,10 +84,19 @@ export function ReaderControls({
         },
         [] as typeof matches
       )
-      .sort((a, b) => a.score - b.score);
+      .sort((a, b) => a.score - b.score)
+      .filter((match, i, arr) => {
+        // Remove if 0.5 or over
+        if (match.score >= 0.5) return false;
 
-    // Choose recipe with highest score that passes threshold
-    if (match && match.score <= 0.5) {
+        // Remove if other have same score
+        if (arr.filter(m => m.score == match.score).length > 1) return false;
+
+        return true;
+      });
+
+    // Choose recipe with lowest (best) score that passes threshold
+    if (match && match.score < 0.5) {
       const recipe = await downloadRecipe(match.item.id, pub!.id);
       dispatch({ recipe });
       enqueueSnackbar(`"${getRecipeName(recipe.id)}" recipe loaded`);
