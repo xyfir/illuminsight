@@ -153,7 +153,12 @@ export function Import({ match }: RouteComponentProps) {
 
   async function downloadSampleBooks() {
     // Download sample books from Github repo
-    const ids = ['Sherlock_Homes', 'Frankenstein', 'Alice_in_Wonderland'];
+    const ids = [
+      'Alice_in_Wonderland',
+      'Frankenstein',
+      'Sherlock_Homes',
+      'Tale_of_Two_Cities'
+    ];
     for (let id of ids) {
       const res = await axios.get(
         `https://raw.githubusercontent.com/xyfir/illuminsight/master/files/${id}.epub`,
