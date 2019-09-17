@@ -6,6 +6,17 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.7.0] - 2019-09-17
+
+### Added
+
+- Ability to import sample library
+
+### Changed
+
+- Improve automatic recipe matching
+- Theme colors
+
 ## [0.6.1] - 2019-09-15
 
 ### Fixed
@@ -98,7 +109,8 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 - Everything
 
-[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.6.1...HEAD
+[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.7.0...HEAD
+[0.7.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.7.0
 [0.6.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.6.1
 [0.6.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.6.0
 [0.5.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.5.1
