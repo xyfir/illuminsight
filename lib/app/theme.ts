@@ -10,14 +10,14 @@ export const themes = {
     palette: {
       type: 'light',
       primary: { main: '#1976d2' },
-      secondary: { main: '#64dd17' }
+      secondary: { main: '#00e5ff' }
     }
   }),
   dark: createMuiTheme({
     palette: {
       type: 'dark',
       primary: { main: '#1976d2' },
-      secondary: { main: '#64dd17' }
+      secondary: { main: '#00e5ff' }
     }
   })
 };
