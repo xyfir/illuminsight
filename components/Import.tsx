@@ -58,11 +58,15 @@ export function Import({ match }: RouteComponentProps) {
 
   async function onImportFiles() {
     setBusy(true);
+    let _files: File[] = files.slice();
     for (let file of files) {
-      const blob = await convert(file);
-      await saveFile(blob);
-      setFiles(files.filter(_f => _f.name != file.name));
+      try {
+        const blob = await convert(file);
+        await saveFile(blob);
+        _files = _files.filter(_f => _f.name != file.name);
+      } catch {}
     }
+    setFiles(_files);
     setBusy(false);
   }
 
