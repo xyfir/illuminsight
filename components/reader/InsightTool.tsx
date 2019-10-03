@@ -23,29 +23,38 @@ export type InsightToolProps = {
   onInsight: (insights: Illuminsight.InsightsIndex) => void;
 };
 
+let selectionTimeout: NodeJS.Timer | undefined;
+
 export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
-  const [selectionText, setSelectionText] = React.useState<string>();
-  const [selectionNode, setSelectionNode] = React.useState<Node>();
   const [active, setActive] = React.useState(false);
   const { recipe } = React.useContext(ReaderContext);
   const classes = useStyles();
 
   function onSelectionChange() {
-    const selection = document.getSelection()!;
+    if (selectionTimeout) clearTimeout(selectionTimeout);
 
-    // Text has been deselected
-    // Delay removal from state by half a second
-    if (!selection.toString() && selectionText) {
-      setTimeout(() => {
-        setSelectionText(undefined);
-        setSelectionNode(undefined);
-      }, 500);
-    }
-    // Update state
-    else {
-      setSelectionText(selection.toString() || undefined);
-      setSelectionNode(selection.focusNode || undefined);
-    }
+    selectionTimeout = setTimeout(async () => {
+      const selected = document.getSelection()!;
+      console.log(selected.toString());
+      if (!selected.toString()) return;
+
+      const domrect = selected.focusNode!.parentElement!.getBoundingClientRect() as DOMRect;
+      const element = getElement(domrect.x, domrect.y) as HTMLElement;
+
+      // Generate insights for AST block
+      const index = +element.getAttribute('ast')!;
+      const insights = await generateInsights({
+        highlight: true,
+        recipe,
+        text: selected.toString().trim()
+      });
+      insightsIndex[index] = insightsIndex[index]
+        ? insightsIndex[index].concat(insights)
+        : insights;
+
+      // Send modified insights back to Reader
+      onInsight(insightsIndex);
+    }, 500);
   }
 
   /**
@@ -93,58 +102,37 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
     setActive(true);
 
     try {
-      // Generate insights from selected text
-      if (selectionText && selectionNode) {
-        const rect = selectionNode.parentElement!.getBoundingClientRect() as DOMRect;
-        const element = getElement(rect.x, rect.y) as HTMLElement;
+      // Get elements
+      const tool = event.target as HTMLButtonElement;
+      const ast = document.getElementById('ast')!;
 
-        // Get index of AST element
-        const index = +element.getAttribute('ast')!;
+      // Get needed coordinates
+      const { x, y } = tool.getBoundingClientRect() as DOMRect;
 
-        // Generate insights for AST block
-        const insights = await generateInsights({
-          highlight: true,
-          recipe,
-          text: selectionText.trim()
-        });
-        insightsIndex[index] = insightsIndex[index]
-          ? insightsIndex[index].concat(insights)
-          : insights;
+      // Get line height of AST container
+      const lineHeight = +getComputedStyle(ast)!.lineHeight!.split('px')[0];
+
+      // Find adjacent element with a bit of guesswork
+      let element: HTMLElement | undefined = undefined;
+      for (let i = 0; i < 3; i++) {
+        element = getElement(x + 1, y + 50 + i * lineHeight);
+        if (element) break;
       }
-      // Generate insights from element's text
+      if (!element) return setActive(false);
+
+      // Get index of AST element
+      const index = +element.getAttribute('ast')!;
+
+      // Remove insights
+      if (insightsIndex[index]) {
+        delete insightsIndex[index];
+      }
+      // Parse insights from element's text
       else {
-        // Get elements
-        const tool = event.target as HTMLButtonElement;
-        const ast = document.getElementById('ast')!;
-
-        // Get needed coordinates
-        const { x, y } = tool.getBoundingClientRect() as DOMRect;
-
-        // Get line height of AST container
-        const lineHeight = +getComputedStyle(ast)!.lineHeight!.split('px')[0];
-
-        // Find adjacent element with a bit of guesswork
-        let element: HTMLElement | undefined = undefined;
-        for (let i = 0; i < 3; i++) {
-          element = getElement(x + 1, y + 50 + i * lineHeight);
-          if (element) break;
-        }
-        if (!element) return setActive(false);
-
-        // Get index of AST element
-        const index = +element.getAttribute('ast')!;
-
-        // Remove insights
-        if (insightsIndex[index]) {
-          delete insightsIndex[index];
-        }
-        // Parse insights from element's text
-        else {
-          insightsIndex[index] = await generateInsights({
-            recipe,
-            text: element.innerText
-          });
-        }
+        insightsIndex[index] = await generateInsights({
+          recipe,
+          text: element.innerText
+        });
       }
 
       // Send modified insights back to Reader
@@ -173,7 +161,6 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
         className={classes.button}
         disabled={active}
         onClick={onClick}
-        color={selectionText ? 'primary' : 'default'}
       >
         <InsightIcon />
       </IconButton>
