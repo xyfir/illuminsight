@@ -38,7 +38,7 @@ export const App = () => {
       <ThemeProvider theme={themes[themeType]}>
         <CssBaseline />
         <SnackbarProvider
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         >
           <BrowserRouter>
             <main className={classes.main}>
