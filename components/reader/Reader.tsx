@@ -25,6 +25,7 @@ const styles = (theme: Theme) =>
     },
     ast: {
       fontFamily: 'serif',
+      textAlign: 'justify',
       overflow: 'hidden',
       fontSize: `${+localStorage.getItem('fontSize')! || 125}%`,
       margin: '1em auto !important',
@@ -34,12 +35,12 @@ const styles = (theme: Theme) =>
         display: 'block',
         margin: 'auto'
       },
+      '& div': {
+        margin: '1em 0'
+      },
       '& a': {
         textDecoration: 'none',
         color: theme.palette.primary.main
-      },
-      '& p': {
-        textAlign: 'justify'
       }
     }
   });
