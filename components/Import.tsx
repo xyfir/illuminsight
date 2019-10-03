@@ -159,15 +159,17 @@ export function Import({ match }: RouteComponentProps) {
       'Sherlock_Homes',
       'Tale_of_Two_Cities'
     ];
+    const _files: File[] = [];
     for (let id of ids) {
       const res = await axios.get(
         `https://raw.githubusercontent.com/xyfir/illuminsight/master/files/${id}.epub`,
         { responseType: 'blob' }
       );
-
-      // Set file so that user can choose which to import
-      setFiles(files.concat([new File([res.data], `${id}.epub`)]));
+      _files.push(new File([res.data], `${id}.epub`));
     }
+
+    // Set files so that user can choose which to import
+    setFiles(_files);
   }
 
   // Trigger sample books download if needed on first mount
