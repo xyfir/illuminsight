@@ -6,6 +6,19 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.7.1] - 2019-10-04
+
+### Changed
+
+- Improve insight generation of selected text
+- Move alerts to bottom of screen
+- Improve content styling
+
+### Fixed
+
+- Importing sample library
+- Importing multiple files
+
 ## [0.7.0] - 2019-09-17
 
 ### Added
@@ -19,9 +32,9 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [0.6.1] - 2019-09-15
 
-### Fixed
+### Changed
 
-- Insight generation from selected text
+- Improve insight generation from selected text
 
 ## [0.6.0] - 2019-08-13
 
@@ -109,7 +122,8 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 - Everything
 
-[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.7.0...HEAD
+[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.7.1...HEAD
+[0.7.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.7.1
 [0.7.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.7.0
 [0.6.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.6.1
 [0.6.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.6.0
