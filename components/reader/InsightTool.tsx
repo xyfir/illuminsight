@@ -35,11 +35,16 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
 
     selectionTimeout = setTimeout(async () => {
       const selected = document.getSelection()!;
-      console.log(selected.toString());
       if (!selected.toString()) return;
 
-      const domrect = selected.focusNode!.parentElement!.getBoundingClientRect() as DOMRect;
-      const element = getElement(domrect.x, domrect.y) as HTMLElement;
+      // Get node's ancestor elements to choose block element from
+      const elements = [selected.focusNode!.parentElement!];
+      while (true) {
+        const el = elements[elements.length - 1].parentElement;
+        if (!el) break;
+        else elements.push(el);
+      }
+      const element = getElement(elements) as HTMLElement;
 
       // Generate insights for AST block
       const index = +element.getAttribute('ast')!;
@@ -58,12 +63,9 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
   }
 
   /**
-   * Get element to parse insights from.
+   * Get element to attach insights to.
    */
-  function getElement(x: number, y: number): HTMLElement | undefined {
-    // Get elements to right of tool
-    let elements = document.elementsFromPoint(x, y) as HTMLElement[];
-
+  function getElement(elements: HTMLElement[]): HTMLElement | undefined {
     // Remove #ast and any ancestors
     elements.splice(elements.findIndex(el => el.id == 'ast'), elements.length);
 
@@ -115,7 +117,11 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
       // Find adjacent element with a bit of guesswork
       let element: HTMLElement | undefined = undefined;
       for (let i = 0; i < 3; i++) {
-        element = getElement(x + 1, y + 50 + i * lineHeight);
+        // Get elements to right of tool
+        element = getElement(document.elementsFromPoint(
+          x + 1,
+          y + 50 + i * lineHeight
+        ) as HTMLElement[]);
         if (element) break;
       }
       if (!element) return setActive(false);
