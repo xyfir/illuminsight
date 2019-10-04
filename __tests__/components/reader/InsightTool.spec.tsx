@@ -111,38 +111,4 @@ test('<InsightTool>', async () => {
   // Insights were generated and set to correct AST element index
   await wait(() => expect(mockFetch).toHaveBeenCalled());
   expect(_insightsIndex).toMatchObject({ 2: [{ text: 'Illuminsight' }] });
-
-  // Mock selection
-  mockGetSelection.mockReturnValueOnce({
-    toString: () => 'hello world',
-    focusNode: {
-      parentElement: { getBoundingClientRect: () => ({ x: 0, y: 0 }) }
-    }
-  });
-  document.dispatchEvent(new Event('selectionchange'));
-
-  // Mock functions for getting text block from selection node
-  mockElementsFromPoint.mockReturnValueOnce([
-    { getAttribute: jest.fn(() => '3'), innerText: ' ' },
-    { id: 'ast' }
-  ]);
-  mockGetComputedStyle.mockReturnValueOnce({ display: 'block' });
-
-  // Click insight tool with highlighted text
-  fireEvent.click(getByTitle('Toggle insights for text block below'));
-
-  // Validate insight was generated from selection and added to previous
-  await wait(() => expect(Object.keys(_insightsIndex)).toBeArrayOfSize(2));
-  expect(_insightsIndex[3]).toMatchObject([{ wikis: [], text: 'hello world' }]);
-
-  // Mock empty selection
-  mockGetSelection.mockReturnValueOnce({ toString: () => '' });
-  document.dispatchEvent(new Event('selectionchange'));
-
-  // Click insight tool again to disable insights
-  setMockReturnsForBlock();
-  fireEvent.click(getByTitle('Toggle insights for text block below'));
-
-  // Validate insights were toggled off for AST element index
-  expect(_insightsIndex).toMatchObject({});
 });
