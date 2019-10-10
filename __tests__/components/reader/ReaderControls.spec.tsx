@@ -27,11 +27,7 @@ test('<ReaderControls>', async () => {
       <SnackbarProvider>
         <MemoryRouter>
           <ReaderContext.Provider value={state}>
-            <ReaderControls
-              onNavigate={setPub}
-              onInsight={() => 1}
-              history={history}
-            />
+            <ReaderControls onNavigate={setPub} history={history} />
           </ReaderContext.Provider>
         </MemoryRouter>
       </SnackbarProvider>

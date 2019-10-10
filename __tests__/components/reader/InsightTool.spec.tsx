@@ -1,4 +1,6 @@
+import { ReaderContext, ReaderState } from 'components/reader/Reader';
 import { fireEvent, render, wait } from '@testing-library/react';
+import { defaultRecipe } from 'lib/reader/recipes';
 import { Illuminsight } from 'types';
 import { InsightTool } from 'components/reader/InsightTool';
 import * as React from 'react';
@@ -71,12 +73,20 @@ test('<InsightTool>', async () => {
   }
 
   // Wrap <InsightTool>
-  let _insightsIndex: Illuminsight.InsightsIndex = {};
+  const _insightsIndex: Illuminsight.InsightsIndex = {};
+  let state: ReaderState = {
+    insightsIndex: _insightsIndex,
+    dispatch: () => undefined,
+    recipe: defaultRecipe,
+    ast: []
+  };
   function InsightToolConsumer() {
-    const [insightsIndex, setInsightsIndex] = React.useState(_insightsIndex);
-    _insightsIndex = insightsIndex;
+    const [_state, setState] = React.useState(state);
+    state.dispatch = partial => setState({ ..._state, ...partial });
     return (
-      <InsightTool onInsight={setInsightsIndex} insightsIndex={insightsIndex} />
+      <ReaderContext.Provider value={_state}>
+        <InsightTool />
+      </ReaderContext.Provider>
     );
   }
 

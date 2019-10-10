@@ -329,7 +329,6 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         >
           <ReaderControls
             onNavigate={this.loadSection}
-            onInsight={i => this.setState({ insightsIndex: i })}
             history={this.history}
           />
 

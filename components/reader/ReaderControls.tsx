@@ -1,9 +1,9 @@
 import { getRecipes, downloadRecipe, getRecipeName } from 'lib/reader/recipes';
-import { InsightToolProps, InsightTool } from 'components/reader/InsightTool';
 import { ExtendedReaderControls } from 'components/reader/ExtendedReaderControls';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { ReaderContext } from 'components/reader/Reader';
 import { Illuminsight } from 'types';
+import { InsightTool } from 'components/reader/InsightTool';
 import { useSnackbar } from 'notistack';
 import { Toolbar } from 'components/app/Toolbar';
 import localForage from 'localforage';
@@ -19,15 +19,13 @@ import {
 
 export function ReaderControls({
   onNavigate,
-  onInsight,
   history
 }: {
   onNavigate: (pub: Illuminsight.Pub) => void;
-  onInsight: InsightToolProps['onInsight'];
   history: Illuminsight.Marker[];
 }) {
-  const { insightsIndex, dispatch, pub } = React.useContext(ReaderContext);
   const { enqueueSnackbar } = useSnackbar();
+  const { dispatch, pub } = React.useContext(ReaderContext);
 
   /** Attempt to match pub to recipe in cookbook */
   async function findRecipe() {
@@ -160,7 +158,7 @@ export function ReaderControls({
       )}
 
       {/* Insight tool */}
-      <InsightTool insightsIndex={insightsIndex} onInsight={onInsight} />
+      <InsightTool />
 
       {/* Next section */}
       {pub.sections - 1 > pub.bookmark.section ? (

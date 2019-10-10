@@ -1,7 +1,6 @@
 import { Highlight as InsightIcon } from '@material-ui/icons';
 import { generateInsights } from 'lib/reader/generate-insights';
 import { ReaderContext } from 'components/reader/Reader';
-import { Illuminsight } from 'types';
 import * as React from 'react';
 import {
   createStyles,
@@ -18,16 +17,11 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-export type InsightToolProps = {
-  insightsIndex: Illuminsight.InsightsIndex;
-  onInsight: (insights: Illuminsight.InsightsIndex) => void;
-};
-
 let selectionTimeout: NodeJS.Timer | undefined;
 
-export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
+export function InsightTool() {
+  const { insightsIndex, dispatch, recipe } = React.useContext(ReaderContext);
   const [active, setActive] = React.useState(false);
-  const { recipe } = React.useContext(ReaderContext);
   const classes = useStyles();
 
   function onSelectionChange() {
@@ -58,7 +52,7 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
         : insights;
 
       // Send modified insights back to Reader
-      onInsight(insightsIndex);
+      dispatch({ insightsIndex });
     }, 500);
   }
 
@@ -142,7 +136,7 @@ export function InsightTool({ insightsIndex, onInsight }: InsightToolProps) {
       }
 
       // Send modified insights back to Reader
-      onInsight(insightsIndex);
+      dispatch({ insightsIndex });
     } catch (err) {
       console.error(err);
     }
