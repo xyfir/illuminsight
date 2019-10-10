@@ -16,9 +16,12 @@ import {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    chip: {
-      marginBottom: '0.3em',
+    button: {
       marginRight: '0.3em'
+    },
+    chip: {
+      marginBottom: '0.3em !important',
+      marginRight: '0.3em !important'
     }
   })
 );
@@ -54,8 +57,22 @@ export function Insights({ index }: { index: number }) {
     }
   }
 
+  function onClose() {
+    delete insightsIndex[index];
+    dispatch({ insightsIndex });
+  }
+
   return (
     <div>
+      <IconButton
+        aria-label="Close insights"
+        className={classes.button}
+        onClick={onClose}
+        size="small"
+      >
+        <CloseIcon />
+      </IconButton>
+
       {/* Insight list (suggested | expanded) */}
       {expand.index == -1 || expand.type ? (
         insights.map((insight, i) => (
@@ -99,7 +116,9 @@ export function Insights({ index }: { index: number }) {
           {/* Collapse insights */}
           <IconButton
             aria-label="Back to previous insights"
+            className={classes.button}
             onClick={() => setExpand(resetExpanded())}
+            size="small"
           >
             <BackIcon />
           </IconButton>
