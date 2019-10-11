@@ -13,12 +13,12 @@ self.addEventListener('install', event => {
       const manifest: { [x: string]: string } = await fetch(
         '/webpack.json'
       ).then(res => res.json());
-      assets = Object.values(manifest).filter(e => e != '/sw.js');
 
-      // Cache the homepage
-      assets.push('/');
-
-      // Cache all assets
+      // Cache assets
+      assets = Object.values(manifest).filter(
+        e => e != '/sw.js' && !e.endsWith('.png') && !e.endsWith('.gz')
+      );
+      assets.push('/'); // homepage
       const cache = await caches.open(CACHE);
       await cache.addAll(assets);
       return;
