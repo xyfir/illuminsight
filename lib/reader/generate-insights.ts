@@ -60,12 +60,12 @@ export async function generateInsights({
   }
 
   if (!insights) return [];
-  insightloop: for (let insight of insights) {
+  insightloop: for (const insight of insights) {
     // Set all
     insight.all = all;
 
     // Get wiki articles
-    for (let wikiRecipe of recipe.wikis) {
+    for (const wikiRecipe of recipe.wikis) {
       const doc = await getWikiArticle(insight.text, wikiRecipe);
       if (doc) {
         insight.wikis.push({ recipe: wikiRecipe, doc });
@@ -78,7 +78,7 @@ export async function generateInsights({
     if (insight.definitions && !all) continue;
 
     // Build search insights
-    for (let searchRecipe of recipe.searches) {
+    for (const searchRecipe of recipe.searches) {
       // With context
       if (searchRecipe.context) {
         insight.searches.push({

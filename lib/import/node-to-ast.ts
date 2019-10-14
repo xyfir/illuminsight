@@ -14,7 +14,7 @@ export function nodeToAST(
   /**
    * Preserve whitespace if a child of a `<pre>` element.
    */
-  pre: boolean = false,
+  pre = false,
 ): Illuminsight.AST | undefined {
   // Element node
   if (node.nodeType == node.ELEMENT_NODE) {
@@ -24,7 +24,7 @@ export function nodeToAST(
     if (EXCLUDED_ELEMENTS.includes(ast.n)) return;
 
     // Copy all but excluded attributes
-    for (let attr of (node as Element).attributes) {
+    for (const attr of (node as Element).attributes) {
       if (EXCLUDED_ATTRIBUTES.includes(attr.name)) continue;
 
       const name = REPLACEMENT_ATTRIBUTES[attr.name] || attr.name;
@@ -33,7 +33,7 @@ export function nodeToAST(
     }
 
     // Recursively build AST for child nodes
-    for (let childNode of node.childNodes) {
+    for (const childNode of node.childNodes) {
       const childAST = nodeToAST(childNode, pre || ast.n == 'pre');
       if (childAST) {
         // Add child to list

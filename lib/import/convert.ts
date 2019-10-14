@@ -26,7 +26,7 @@ export async function convert(file: Blob): Promise<Blob> {
       .slice(0, -1)
       .join('/');
 
-    for (let file of Object.keys(epub.files)) {
+    for (const file of Object.keys(epub.files)) {
       // Remove those not in rootDir
       if (!file.startsWith(rootDir)) {
         epub.remove(file);
@@ -59,7 +59,7 @@ export async function convert(file: Blob): Promise<Blob> {
   let words = 0;
 
   // Loop through package>manifest>item elements
-  for (let item of opfDoc.getElementsByTagName('item')) {
+  for (const item of opfDoc.getElementsByTagName('item')) {
     const mediaType = item.getAttribute('media-type');
     const href = item.getAttribute('href');
     const id = item.getAttribute('id');
@@ -107,7 +107,7 @@ export async function convert(file: Blob): Promise<Blob> {
       linkMap[href] = section;
 
       // Count words in AST nodes
-      for (let node of ast.c) words += countWords(node);
+      for (const node of ast.c) words += countWords(node);
 
       // Write AST of <body>'s children to file and delete original
       astpub.file(section, JSON.stringify(ast.c));
@@ -124,12 +124,12 @@ export async function convert(file: Blob): Promise<Blob> {
     );
 
     // Loop through all attributes we need to convert
-    for (let attr of LINK_ATTRIBUTES) {
+    for (const attr of LINK_ATTRIBUTES) {
       // Find nodes with attribute
       const nodes = getByAttributeName(attr, ast);
 
       // Loop through nodes with attribute that needs conversion
-      for (let node of nodes) {
+      for (const node of nodes) {
         for (let [oldLink, newLink] of Object.entries(linkMap)) {
           if (typeof node == 'string' || !node.a) continue;
 
@@ -182,7 +182,7 @@ export async function convert(file: Blob): Promise<Blob> {
 
   // Build Table of Contents
   const toc: Illuminsight.Pub['toc'] = [];
-  for (let navPoint of navPoints) {
+  for (const navPoint of navPoints) {
     const title = navPoint.querySelector('navLabel > text') as Element;
     const src = navPoint.querySelector('content') as Element;
 

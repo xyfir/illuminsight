@@ -42,7 +42,7 @@ test('countWords()', async () => {
 
   // Count words in AST nodes
   let words = 0;
-  for (let node of ast) words += countWords(node);
+  for (const node of ast) words += countWords(node);
 
   // Validate that words counted has not changed
   expect(words).toBe(185);

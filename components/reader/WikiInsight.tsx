@@ -124,7 +124,7 @@ export function WikiInsight({
     if (!insight.recipe.api.includes('wikipedia.org/w/api')) {
       // (Array.from() required!)
       const imgs = Array.from(div.getElementsByTagName('img'));
-      for (let img of imgs) img.remove();
+      for (const img of imgs) img.remove();
     }
 
     return div.innerHTML;

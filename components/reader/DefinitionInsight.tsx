@@ -36,7 +36,7 @@ export function DefinitionInsight({
 }) {
   // Find highest priority language with available definitions
   let language = '';
-  for (let lang of languages) {
+  for (const lang of languages) {
     if (definitions[lang]) {
       language = lang;
       break;
@@ -53,11 +53,11 @@ export function DefinitionInsight({
 
     // Remove images (Array.from() required!)
     const imgs = Array.from(div.getElementsByTagName('img'));
-    for (let img of imgs) img.remove();
+    for (const img of imgs) img.remove();
 
     // Remove links (Array.from() required!)
     const links = Array.from(div.getElementsByTagName('a'));
-    for (let a of links) {
+    for (const a of links) {
       const span = document.createElement('span');
       span.innerHTML = a.innerHTML;
       a.replaceWith(span);

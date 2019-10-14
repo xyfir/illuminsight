@@ -248,8 +248,8 @@ class _Edit extends React.Component<EditProps, EditState> {
 
   async saveTags(pubs: Illuminsight.Pub[]) {
     // Delete orphaned tags
-    let tags = this.state.tags!;
-    for (let tag of tags) {
+    let tags = this.state.tags;
+    for (const tag of tags) {
       if (pubs.findIndex((p) => p.tags.includes(tag.id)) == -1)
         tags = tags.filter((t) => t.id != tag.id);
     }

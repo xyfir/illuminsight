@@ -77,7 +77,7 @@ export function InsightTool() {
 
     // Get last block element
     let block: HTMLElement | undefined = undefined;
-    for (let el of elements) {
+    for (const el of elements) {
       if (getComputedStyle(el).display == 'block') block = el;
     }
     if (!block) return;

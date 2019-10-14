@@ -65,8 +65,8 @@ export const ReaderContext = React.createContext<ReaderState>({
 });
 
 class _Reader extends React.Component<ReaderProps, ReaderState> {
-  lastScrollSave: number = 0;
-  lastScroll: number = 0;
+  lastScrollSave = 0;
+  lastScroll = 0;
   history: Illuminsight.Marker[] = [];
   imgURLs: string[] = [];
   zip?: JSZip;
@@ -179,7 +179,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     // Calculate bookmark.element
     const elements = document.querySelectorAll<HTMLElement>('#ast *[ast]');
     let element = -1;
-    for (let el of elements) {
+    for (const el of elements) {
       if (el.offsetTop >= (event.target as HTMLDivElement).scrollTop) {
         element = +el.getAttribute('ast')!;
         break;
@@ -259,7 +259,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
       const imgNodes = getByTagName('img', ast).concat(
         getByTagName('image', ast),
       );
-      for (let node of imgNodes) {
+      for (const node of imgNodes) {
         if (typeof node == 'string' || !node.a) continue;
 
         // Load image from zip file

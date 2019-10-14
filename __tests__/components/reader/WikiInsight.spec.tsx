@@ -81,7 +81,7 @@ test('<WikiInsight>', async () => {
 
   // Validate only selected section was rendered
   expect(() => getByText('Other recurring characters')).toThrow();
-  let els = getAllByText('Characters');
+  const els = getAllByText('Characters');
   expect(els).toBeArrayOfSize(2);
   expect(els[0].tagName).toBe('SPAN');
   expect(els[1].tagName).toBe('H1');

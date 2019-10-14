@@ -89,7 +89,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
             <ListItemIcon>
               <RemoveIcon />
             </ListItemIcon>
-            <ListItemText primary={getRecipeName(active.id!)} />
+            <ListItemText primary={getRecipeName(active.id)} />
           </ListItem>
         </List>
       ) : null}

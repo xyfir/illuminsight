@@ -9,7 +9,7 @@ export function getByTagName(
 ): Illuminsight.AST[] {
   const matches: Illuminsight.AST[] = [];
 
-  for (let node of ast) {
+  for (const node of ast) {
     // Ignore string nodes
     if (typeof node == 'string') continue;
 

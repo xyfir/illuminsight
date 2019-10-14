@@ -74,7 +74,7 @@ test('<InsightTool>', async () => {
 
   // Wrap <InsightTool>
   const _insightsIndex: Illuminsight.InsightsIndex = {};
-  let state: ReaderState = {
+  const state: ReaderState = {
     insightsIndex: _insightsIndex,
     dispatch: () => undefined,
     recipe: defaultRecipe,

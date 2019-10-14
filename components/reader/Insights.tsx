@@ -160,7 +160,7 @@ export function Insights({ index }: { index: number }) {
       {expand.type == 'wiki' ? (
         // Selected Wikipedia insight
         <WikiInsight
-          insight={expanded.wikis[expand.subIndex!]}
+          insight={expanded.wikis[expand.subIndex]}
           key={expand.index}
         />
       ) : expand.type == 'definition' ? (

@@ -111,7 +111,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   // Filter by tags
   let matches = selectedTags.length
     ? pubs.filter((pub) => {
-        for (let tag of selectedTags) {
+        for (const tag of selectedTags) {
           if (!pub.tags.includes(tag)) return false;
         }
         return true;

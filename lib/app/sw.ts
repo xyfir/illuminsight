@@ -3,45 +3,48 @@ import pkg from '../../package.json';
 const CACHE = `illuminsight-${pkg.version}`;
 let assets: string[] = [];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const evt = event as any;
   console.log('SW: install', evt);
 
   evt.waitUntil(
-    (async () => {
+    (async (): Promise<void> => {
       // Download webpack assets manifest
       const manifest: { [x: string]: string } = await fetch(
-        '/webpack.json'
-      ).then(res => res.json());
+        '/webpack.json',
+      ).then((res) => res.json());
 
       // Cache assets
       assets = Object.values(manifest).filter(
-        e => e != '/sw.js' && !e.endsWith('.png') && !e.endsWith('.gz')
+        (e) => e != '/sw.js' && !e.endsWith('.png') && !e.endsWith('.gz'),
       );
       assets.push('/'); // homepage
       const cache = await caches.open(CACHE);
       await cache.addAll(assets);
       return;
-    })()
+    })(),
   );
 });
 
-self.addEventListener('activate', event => {
+self.addEventListener('activate', (event) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const evt = event as any;
   console.log('SW: activate', evt);
 
   // Delete old cache entries not in current version's asset list
   evt.waitUntil(
-    (async () => {
+    (async (): Promise<void> => {
       let keys = await caches.keys();
-      keys = keys.filter(key => key != CACHE);
-      await Promise.all(keys.map(key => caches.delete(key)));
+      keys = keys.filter((key) => key != CACHE);
+      await Promise.all(keys.map((key) => caches.delete(key)));
       console.log(`SW: clearing ${keys.length} entries from cache`);
-    })()
+    })(),
   );
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const evt = event as any;
   console.log('SW: fetch', evt.request.url);
 
@@ -49,8 +52,8 @@ self.addEventListener('fetch', event => {
   evt.respondWith(
     caches
       .match(evt.request)
-      .then(cachedResponse =>
-        cachedResponse ? cachedResponse : fetch(evt.request)
-      )
+      .then((cachedResponse) =>
+        cachedResponse ? cachedResponse : fetch(evt.request),
+      ),
   );
 });

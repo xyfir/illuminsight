@@ -12,7 +12,7 @@ export function countWords(node: Illuminsight.AST): number {
   // Count words recursively in child nodes
   else if (node.c) {
     let words = 0;
-    for (let child of node.c) words += countWords(child);
+    for (const child of node.c) words += countWords(child);
     return words;
   }
   return 0;
