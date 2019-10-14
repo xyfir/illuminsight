@@ -1,9 +1,12 @@
 language: node_js
 node_js: node
 script:
-- cp example.env .env
-- npm t
-- npm run build
+  - cp example.env .env
+  - npm run check-types
+  - npm run check-linter
+  - npm run check-format
+  - npm run test
+  - npm run build
 deploy:
   - provider: npm
     email: contact@xyfir.com
