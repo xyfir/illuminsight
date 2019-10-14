@@ -4,7 +4,7 @@
     "**/.git": true
   },
   "search.exclude": {
-    "**/*.snap": true,
+    "**/mobile/res": true,
     "**/dist": true
   },
   "search.useIgnoreFiles": false
