@@ -1,4 +1,4 @@
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { Illuminsight } from 'types';
 import { useSnackbar } from 'notistack';
@@ -17,73 +17,59 @@ import {
   makeStyles,
   ListItem,
   Button,
-  List
+  List,
 } from '@material-ui/core';
 import {
   InsertDriveFile as FileIcon,
   RemoveCircle as RemoveIcon,
-  Add as AddIcon
+  Add as AddIcon,
 } from '@material-ui/icons';
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      padding: theme.spacing(3)
+      padding: theme.spacing(3),
     },
     fileInput: {
-      display: 'none'
+      display: 'none',
     },
     fieldset: {
       marginBottom: '1.5em',
       padding: '0',
       border: 'none',
-      margin: '0'
+      margin: '0',
     },
     importingText: {
       fontWeight: 'bold',
       marginBottom: '1em',
-      fontSize: '125%'
+      fontSize: '125%',
     },
     importingContainer: {
-      marginBottom: '2em'
-    }
-  })
+      marginBottom: '2em',
+    },
+  }),
 );
 
-export function Import({ match }: RouteComponentProps) {
+export function Import({ match }: RouteComponentProps): JSX.Element {
   const { enqueueSnackbar } = useSnackbar();
   const [files, setFiles] = React.useState<File[]>([]);
   const [busy, setBusy] = React.useState(false);
   const classes = useStyles();
 
-  async function onImportFiles() {
-    setBusy(true);
-    let _files: File[] = files.slice();
-    for (let file of files) {
-      try {
-        const blob = await convert(file);
-        await saveFile(blob);
-        _files = _files.filter(_f => _f.name != file.name);
-      } catch {}
-    }
-    setFiles(_files);
-    setBusy(false);
-  }
-
-  async function saveFile(blob: Blob) {
+  async function saveFile(blob: Blob): Promise<void> {
     // Parse zip file
     const zip = await JSZip.loadAsync(blob);
 
     // Extract meta.json
     const pub: Illuminsight.Pub = JSON.parse(
-      await zip.file('meta.json').async('text')
+      await zip.file('meta.json').async('text'),
     );
 
     // Extract cover if available and save copy outside of zip
     if (pub.cover) {
       await localForage.setItem(
         `pub-cover-${pub.id}`,
-        await zip.file(pub.cover).async('blob')
+        await zip.file(pub.cover).async('blob'),
       );
     }
 
@@ -118,17 +104,17 @@ export function Import({ match }: RouteComponentProps) {
     inferredTags = Array.from(
       new Set(
         inferredTags
-          .map(t => t.toLocaleLowerCase())
-          .map(t => t.replace(/\s+/g, '-'))
-      )
+          .map((t) => t.toLocaleLowerCase())
+          .map((t) => t.replace(/\s+/g, '-')),
+      ),
     );
 
     // Convert inferredTags to actual tags in tag-list
     // Link tags to pub and insert into meta.json
     let id = Date.now();
-    for (let inferredTag of inferredTags) {
+    for (const inferredTag of inferredTags) {
       // Check if this tag already exists
-      const tag = tags.find(t => t.name == inferredTag);
+      const tag = tags.find((t) => t.name == inferredTag);
 
       // Link to existing tag
       if (tag) {
@@ -147,7 +133,7 @@ export function Import({ match }: RouteComponentProps) {
     pubs.push(pub);
     await localForage.setItem(
       `pub-${pub.id}`,
-      await zip.generateAsync({ type: 'blob' })
+      await zip.generateAsync({ type: 'blob' }),
     );
     await localForage.setItem('tag-list', tags);
     await localForage.setItem('pub-list', pubs);
@@ -155,19 +141,35 @@ export function Import({ match }: RouteComponentProps) {
     enqueueSnackbar(`${pub.name} added to library`);
   }
 
-  async function downloadSampleBooks() {
+  async function onImportFiles(): Promise<void> {
+    setBusy(true);
+    let _files: File[] = files.slice();
+    for (const file of files) {
+      try {
+        const blob = await convert(file);
+        await saveFile(blob);
+        _files = _files.filter((_f) => _f.name != file.name);
+      } catch {
+        continue;
+      }
+    }
+    setFiles(_files);
+    setBusy(false);
+  }
+
+  async function downloadSampleBooks(): Promise<void> {
     // Download sample books from Github repo
     const ids = [
       'Alice_in_Wonderland',
       'Frankenstein',
       'Sherlock_Homes',
-      'Tale_of_Two_Cities'
+      'Tale_of_Two_Cities',
     ];
     const _files: File[] = [];
-    for (let id of ids) {
+    for (const id of ids) {
       const res = await axios.get(
         `https://raw.githubusercontent.com/xyfir/illuminsight/master/files/${id}.epub`,
-        { responseType: 'blob' }
+        { responseType: 'blob' },
       );
       _files.push(new File([res.data], `${id}.epub`));
     }
@@ -183,7 +185,7 @@ export function Import({ match }: RouteComponentProps) {
   }, []);
 
   return (
-    <form onSubmit={e => e.preventDefault()} className={classes.root}>
+    <form onSubmit={(e): void => e.preventDefault()} className={classes.root}>
       <GeneralToolbar />
 
       {busy ? (
@@ -200,13 +202,13 @@ export function Import({ match }: RouteComponentProps) {
           id="file-input"
           type="file"
           multiple
-          onChange={e =>
+          onChange={(e): void =>
             setFiles(
               files.concat(
                 [...(e.target.files as FileList)].filter(
-                  f => files.findIndex(_f => f.name == _f.name) == -1
-                )
-              )
+                  (f) => files.findIndex((_f) => f.name == _f.name) == -1,
+                ),
+              ),
             )
           }
           className={classes.fileInput}
@@ -220,12 +222,12 @@ export function Import({ match }: RouteComponentProps) {
 
         {files.length ? (
           <List dense>
-            {files.map(f => (
+            {files.map((f) => (
               <ListItem key={f.name}>
                 <IconButton
                   aria-label="Remove"
-                  onClick={() =>
-                    setFiles(files.filter(_f => _f.name != f.name))
+                  onClick={(): void =>
+                    setFiles(files.filter((_f) => _f.name != f.name))
                   }
                 >
                   <RemoveIcon />

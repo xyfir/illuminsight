@@ -1,5 +1,5 @@
+/* eslint-disable */
 import { Illuminsight } from 'types';
-import { setConfig } from 'react-hot-loader';
 import localForage from 'localforage';
 import { render } from 'react-dom';
 import * as React from 'react';
@@ -21,18 +21,16 @@ declare global {
     }
   }
 }
+/* eslint-enable */
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () =>
+  window.addEventListener('load', () => {
     navigator.serviceWorker
       .register('/sw.js')
-      .then(r => console.log('SW', r))
-      .catch(e => console.error('SW', e))
-  );
+      .then((r) => console.log('SW', r))
+      .catch((e) => console.error('SW', e));
+  });
 }
-
-/** @todo remove -- https://github.com/gaearon/react-hot-loader/issues/1262 */
-setConfig({ reloadHooks: false });
 
 localForage.config({ driver: localForage.INDEXEDDB, name: 'illuminsight' });
 
