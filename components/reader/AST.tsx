@@ -12,7 +12,7 @@ export function AST({ ast }: { ast: Illuminsight.AST }) {
         ? React.createElement(
             ast.n,
             { ...(ast.a || {}), ast: index },
-            ast.c && ast.c.map((child, i) => <AST key={i} ast={child} />)
+            ast.c && ast.c.map((child, i) => <AST key={i} ast={child} />),
           )
         : ast}
 

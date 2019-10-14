@@ -6,30 +6,30 @@ import {
   makeStyles,
   Typography,
   Button,
-  Paper
+  Paper,
 } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
     partOfSpeech: {
-      fontSize: '100%'
+      fontSize: '100%',
     },
     language: {
       marginBottom: '1em',
-      fontSize: '120%'
+      fontSize: '120%',
     },
     root: {
       maxHeight: '40vh',
       overflow: 'auto',
       padding: '0.5em',
-      margin: '1em 0.3em'
-    }
-  })
+      margin: '1em 0.3em',
+    },
+  }),
 );
 
 export function DefinitionInsight({
   definitions,
-  languages
+  languages,
 }: {
   definitions: Illuminsight.DefinitionInsight;
   languages: Illuminsight.Pub['languages'];
@@ -70,8 +70,8 @@ export function DefinitionInsight({
     <Paper className={classes.root} elevation={2}>
       {/* Languages */}
       {Object.keys(definitions)
-        .filter(lang => (expand ? true : lang == language))
-        .map(lang => (
+        .filter((lang) => (expand ? true : lang == language))
+        .map((lang) => (
           <div key={lang}>
             {/* Language */}
             {expand || lang != language ? (
@@ -94,7 +94,7 @@ export function DefinitionInsight({
                     <li key={j}>
                       <Typography
                         dangerouslySetInnerHTML={{
-                          __html: cleanHTML(dd.definition)
+                          __html: cleanHTML(dd.definition),
                         }}
                       />
 

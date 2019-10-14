@@ -21,10 +21,10 @@ test('<Edit>', async () => {
 
   // Load ASTPub
   let zip = await JSZip.loadAsync(
-    readFileSync(resolve(process.enve.FILES_DIRECTORY, 'ebook.astpub'))
+    readFileSync(resolve(process.enve.FILES_DIRECTORY, 'ebook.astpub')),
   );
   let pub: Illuminsight.Pub = JSON.parse(
-    await zip.file('meta.json').async('text')
+    await zip.file('meta.json').async('text'),
   );
 
   // Fake bookmark so we can test reset function
@@ -52,7 +52,7 @@ test('<Edit>', async () => {
         </Switch>
       </MemoryRouter>
     </SnackbarProvider>,
-    { container: document.getElementById('content')! }
+    { container: document.getElementById('content')! },
   );
 
   // Validate mock loading file from localForage
@@ -66,16 +66,16 @@ test('<Edit>', async () => {
   // Set new data
   fireEvent.change(getByLabelText('Name'), { target: { value: 'Name' } });
   fireEvent.change(getByLabelText('Author(s)'), {
-    target: { value: 'Some Author' }
+    target: { value: 'Some Author' },
   });
   // fireEvent.change(getByLabelText('Published'), {
   //   target: { value: '2020-07-20' }
   // });
   fireEvent.change(getByLabelText('Publisher'), {
-    target: { value: 'Publisher' }
+    target: { value: 'Publisher' },
   });
   fireEvent.change(getByLabelText('Series'), {
-    target: { value: 'Some Series' }
+    target: { value: 'Some Series' },
   });
 
   // Validate bookmark
@@ -92,7 +92,7 @@ test('<Edit>', async () => {
   // Set cover
   expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);
   fireEvent.change(getByLabelText('Set Cover'), {
-    target: { files: [new File([], 'cover.png')] }
+    target: { files: [new File([], 'cover.png')] },
   });
 
   // Validate old cover url was revoked and new generated
@@ -113,8 +113,8 @@ test('<Edit>', async () => {
   // Delete tag charlie: [alpha, charlie, echo, bravo]
   fireEvent.click(
     container.querySelectorAll(
-      'div[role="button"] > svg[role="presentation"]'
-    )[1]
+      'div[role="button"] > svg[role="presentation"]',
+    )[1],
   );
 
   // Add new language: French
@@ -124,8 +124,8 @@ test('<Edit>', async () => {
   // Delete language: English
   fireEvent.click(
     container.querySelectorAll(
-      'div[role="button"] > svg[role="presentation"]'
-    )[3]
+      'div[role="button"] > svg[role="presentation"]',
+    )[3],
   );
 
   // Click save
@@ -149,7 +149,7 @@ test('<Edit>', async () => {
     // published: 1595203200000,
     publisher: 'Publisher',
     cover: 'res/cover.png',
-    bookmark: { element: 0, section: 0 }
+    bookmark: { element: 0, section: 0 },
   };
   expect(pub).toMatchObject(_pub);
 

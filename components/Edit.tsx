@@ -16,7 +16,7 @@ import {
   Button,
   Theme,
   Chip,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import {
   BookmarkBorder as BookmarkIcon,
@@ -28,7 +28,7 @@ import {
   Label as NameIcon,
   Home as PublisherIcon,
   Save as SaveIcon,
-  Add as AddIcon
+  Add as AddIcon,
 } from '@material-ui/icons';
 
 const styles = (theme: Theme) =>
@@ -36,41 +36,41 @@ const styles = (theme: Theme) =>
     coverContainer: {
       flexDirection: 'column',
       alignItems: 'center',
-      display: 'flex'
+      display: 'flex',
     },
     coverInput: {
-      display: 'none'
+      display: 'none',
     },
     bookmark: {
       alignItems: 'center',
       display: 'flex',
-      margin: '2em 0'
+      margin: '2em 0',
     },
     buttons: {
       justifyContent: 'center',
       display: 'flex',
       '& > button': {
-        margin: '0.5em'
-      }
+        margin: '0.5em',
+      },
     },
     add: {
       alignItems: 'center',
       display: 'flex',
       '& > button': {
-        marginLeft: '0.3em'
-      }
+        marginLeft: '0.3em',
+      },
     },
     cover: {
       maxWidth: '10em',
-      margin: '0.5em 0'
+      margin: '0.5em 0',
     },
     chip: {
       marginBottom: '0.5em',
-      marginRight: '0.5em'
+      marginRight: '0.5em',
     },
     root: {
-      padding: '1em'
-    }
+      padding: '1em',
+    },
   });
 
 interface EditState {
@@ -105,14 +105,14 @@ class _Edit extends React.Component<EditProps, EditState> {
       // Parse zip file and meta
       this.zip = await JSZip.loadAsync(file);
       const pub: Illuminsight.Pub = JSON.parse(
-        await this.zip.file('meta.json').async('text')
+        await this.zip.file('meta.json').async('text'),
       );
 
       // Load cover and generate blob url
       let cover;
       if (pub.cover) {
         cover = URL.createObjectURL(
-          await this.zip.file(pub.cover).async('blob')
+          await this.zip.file(pub.cover).async('blob'),
         );
       }
 
@@ -134,7 +134,7 @@ class _Edit extends React.Component<EditProps, EditState> {
   onResetBookmark() {
     this.onChange('bookmark', {
       element: 0,
-      section: 0
+      section: 0,
     } as Illuminsight.Pub['bookmark']);
   }
 
@@ -173,7 +173,7 @@ class _Edit extends React.Component<EditProps, EditState> {
     const name = tag.toLowerCase().replace(/\s+/g, '-');
 
     // Check if tag already exists
-    let _tag = tags.find(t => t.name == name);
+    let _tag = tags.find((t) => t.name == name);
 
     // Create new tag
     if (!_tag) {
@@ -193,7 +193,7 @@ class _Edit extends React.Component<EditProps, EditState> {
 
     // Remove pub from list
     let pubs: Illuminsight.Pub[] = await localForage.getItem('pub-list');
-    pubs = pubs.filter(p => p.id != pub.id);
+    pubs = pubs.filter((p) => p.id != pub.id);
     await localForage.setItem('pub-list', pubs);
 
     // Delete pub files
@@ -224,20 +224,20 @@ class _Edit extends React.Component<EditProps, EditState> {
     // Save file
     await localForage.setItem(
       `pub-${pub.id}`,
-      await this.zip.generateAsync({ type: 'blob' })
+      await this.zip.generateAsync({ type: 'blob' }),
     );
 
     // Extract cover if available and save copy outside of zip
     if (pub.cover) {
       await localForage.setItem(
         `pub-cover-${pub.id}`,
-        await this.zip.file(pub.cover).async('blob')
+        await this.zip.file(pub.cover).async('blob'),
       );
     }
 
     // Save pub-list
     const pubs: Illuminsight.Pub[] = await localForage.getItem('pub-list');
-    const index = pubs.findIndex(p => p.id == pub.id);
+    const index = pubs.findIndex((p) => p.id == pub.id);
     pubs[index] = pub;
     await localForage.setItem('pub-list', pubs);
 
@@ -250,8 +250,8 @@ class _Edit extends React.Component<EditProps, EditState> {
     // Delete orphaned tags
     let tags = this.state.tags!;
     for (let tag of tags) {
-      if (pubs.findIndex(p => p.tags.includes(tag.id)) == -1)
-        tags = tags.filter(t => t.id != tag.id);
+      if (pubs.findIndex((p) => p.tags.includes(tag.id)) == -1)
+        tags = tags.filter((t) => t.id != tag.id);
     }
     await localForage.setItem('tag-list', tags);
   }
@@ -271,14 +271,14 @@ class _Edit extends React.Component<EditProps, EditState> {
           value={pub.name}
           margin="normal"
           variant="outlined"
-          onChange={e => this.onChange('name', e.target.value)}
+          onChange={(e) => this.onChange('name', e.target.value)}
           fullWidth
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <NameIcon />
               </InputAdornment>
-            )
+            ),
           }}
           placeholder="A Tale of Two Cities"
         />
@@ -289,14 +289,14 @@ class _Edit extends React.Component<EditProps, EditState> {
           value={pub.authors}
           margin="normal"
           variant="outlined"
-          onChange={e => this.onChange('authors', e.target.value)}
+          onChange={(e) => this.onChange('authors', e.target.value)}
           fullWidth
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <AuthorsIcon />
               </InputAdornment>
-            )
+            ),
           }}
           placeholder="Ernest Hemingway"
         />
@@ -307,14 +307,14 @@ class _Edit extends React.Component<EditProps, EditState> {
           value={pub.series}
           margin="normal"
           variant="outlined"
-          onChange={e => this.onChange('series', e.target.value)}
+          onChange={(e) => this.onChange('series', e.target.value)}
           fullWidth
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <SeriesIcon />
               </InputAdornment>
-            )
+            ),
           }}
           placeholder="The Lord of the Rings"
         />
@@ -325,14 +325,14 @@ class _Edit extends React.Component<EditProps, EditState> {
           value={pub.publisher}
           margin="normal"
           variant="outlined"
-          onChange={e => this.onChange('publisher', e.target.value)}
+          onChange={(e) => this.onChange('publisher', e.target.value)}
           fullWidth
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <PublisherIcon />
               </InputAdornment>
-            )
+            ),
           }}
           placeholder="Penguin Random House"
         />
@@ -343,7 +343,9 @@ class _Edit extends React.Component<EditProps, EditState> {
             id="cover-input"
             type="file"
             multiple
-            onChange={e => this.onUploadCover((e.target.files as FileList)[0])}
+            onChange={(e) =>
+              this.onUploadCover((e.target.files as FileList)[0])
+            }
             className={classes.coverInput}
           />
           <label htmlFor="cover-input">
@@ -361,7 +363,7 @@ class _Edit extends React.Component<EditProps, EditState> {
             value={tag}
             margin="normal"
             variant="outlined"
-            onChange={e => this.setState({ tag: e.target.value })}
+            onChange={(e) => this.setState({ tag: e.target.value })}
             fullWidth
             placeholder="#tag"
           />
@@ -375,13 +377,13 @@ class _Edit extends React.Component<EditProps, EditState> {
         </div>
 
         <div>
-          {pub.tags.map(tag => (
+          {pub.tags.map((tag) => (
             <Chip
               className={classes.chip}
               onDelete={() =>
-                this.onChange('tags', pub.tags.filter(t => t != tag))
+                this.onChange('tags', pub.tags.filter((t) => t != tag))
               }
-              label={`#${tags.find(t => t.id == tag)!.name}`}
+              label={`#${tags.find((t) => t.id == tag)!.name}`}
             />
           ))}
         </div>
@@ -393,7 +395,7 @@ class _Edit extends React.Component<EditProps, EditState> {
             value={language}
             margin="normal"
             variant="outlined"
-            onChange={e => this.setState({ language: e.target.value })}
+            onChange={(e) => this.setState({ language: e.target.value })}
             fullWidth
             placeholder="Language"
           />
@@ -407,11 +409,14 @@ class _Edit extends React.Component<EditProps, EditState> {
         </div>
 
         <div>
-          {pub.languages.map(lang => (
+          {pub.languages.map((lang) => (
             <Chip
               className={classes.chip}
               onDelete={() =>
-                this.onChange('languages', pub.languages.filter(l => l != lang))
+                this.onChange(
+                  'languages',
+                  pub.languages.filter((l) => l != lang),
+                )
               }
               label={ISO6391.getName(lang)}
             />

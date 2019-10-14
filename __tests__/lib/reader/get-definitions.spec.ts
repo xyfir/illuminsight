@@ -13,6 +13,6 @@ test('getDefinitions()', async () => {
 
   // Validate axios.get() was called
   expect(mockGet).toHaveBeenCalledWith(
-    'https://en.wiktionary.org/api/rest_v1/page/definition/test'
+    'https://en.wiktionary.org/api/rest_v1/page/definition/test',
   );
 });

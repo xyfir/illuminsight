@@ -18,7 +18,7 @@ test('<ReaderControls>', async () => {
     dispatch: () => undefined,
     recipe: defaultRecipe,
     pub: testPub,
-    ast: []
+    ast: [],
   };
   const ReaderControlsConsumer = () => {
     const [pub, setPub] = React.useState(testPub);
@@ -44,7 +44,7 @@ test('<ReaderControls>', async () => {
 
   // Mock loading recipe list
   mockGet.mockResolvedValueOnce({
-    data: [{ i: 'jane-austen', a: 'Jane Austen', b: 'Pride and Prejudice' }]
+    data: [{ i: 'jane-austen', a: 'Jane Austen', b: 'Pride and Prejudice' }],
   });
 
   // Mock loading full recipe once matched to pub
@@ -56,7 +56,7 @@ test('<ReaderControls>', async () => {
 
   // Render <ReaderControls> inside <ReaderControlsConsumer>
   const { getByLabelText, getByTitle, getByText } = render(
-    <ReaderControlsConsumer />
+    <ReaderControlsConsumer />,
   );
   await waitForDomChange();
 
@@ -75,7 +75,7 @@ test('<ReaderControls>', async () => {
   expect(mockSetItem).toHaveBeenCalledTimes(1);
   expect(mockSetItem).toHaveBeenCalledWith(
     `pub-recipe-${testPub.id}`,
-    mockRecipe
+    mockRecipe,
   );
 
   // Validate controls

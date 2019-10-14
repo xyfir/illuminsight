@@ -664,5 +664,5 @@ export const stopwords = [
   'yourselves',
   "you've",
   'z',
-  'zero'
+  'zero',
 ];

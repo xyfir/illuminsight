@@ -16,7 +16,7 @@ test('<Library>', async () => {
   const tags: Illuminsight.Tag[] = [
     { id: id++, name: 'tag-0' },
     { id: id++, name: 'tag-1' },
-    { id: id++, name: 'tag-2' }
+    { id: id++, name: 'tag-2' },
   ];
   mockGetItem.mockResolvedValueOnce(tags);
 
@@ -34,7 +34,7 @@ test('<Library>', async () => {
       starred: false,
       tags: [tags[0].id],
       version: process.enve.ASTPUB_VERSION,
-      words: '123'
+      words: '123',
     },
     {
       authors: 'Charles Dickens',
@@ -48,7 +48,7 @@ test('<Library>', async () => {
       starred: true,
       tags: [tags[0].id, tags[1].id],
       version: process.enve.ASTPUB_VERSION,
-      words: '123k'
+      words: '123k',
     },
     {
       authors: 'Herman Melville',
@@ -62,8 +62,8 @@ test('<Library>', async () => {
       starred: false,
       tags: [tags[2].id],
       version: process.enve.ASTPUB_VERSION,
-      words: '1.23m'
-    }
+      words: '1.23m',
+    },
   ];
   mockGetItem.mockResolvedValueOnce(pubs);
 
@@ -75,7 +75,7 @@ test('<Library>', async () => {
     <StaticRouter>
       <Library />
     </StaticRouter>,
-    { container: document.getElementById('content')! }
+    { container: document.getElementById('content')! },
   );
   await waitForDomChange();
 
@@ -109,7 +109,7 @@ test('<Library>', async () => {
 
   // Filter by search
   fireEvent.change(getByPlaceholderText('A Tale of Two Cities'), {
-    target: { value: 'moby dick' }
+    target: { value: 'moby dick' },
   });
   getByText('Moby Dick; Or, The Whale');
   expect(() => getByText('Pride and Prejudice')).toThrow();

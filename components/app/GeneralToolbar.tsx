@@ -8,7 +8,7 @@ import {
   Brightness2 as MoonIcon,
   LibraryAdd as ImportIcon,
   WbSunny as SunIcon,
-  GetApp as InstallIcon
+  GetApp as InstallIcon,
 } from '@material-ui/icons';
 
 // Types don't yet exist for BeforeInstallPromptEvent

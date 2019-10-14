@@ -19,8 +19,8 @@ test('<RecipeManager>', async () => {
       { i: 'test' },
       { i: 'hello-world', b: 'books' },
       { i: 'foo-bar', a: 'authors' },
-      { i: 'lorem', s: 'series' }
-    ]
+      { i: 'lorem', s: 'series' },
+    ],
   });
 
   // Wrap <RecipeManager>
@@ -28,7 +28,7 @@ test('<RecipeManager>', async () => {
     insightsIndex: {},
     dispatch: mockDispatch,
     recipe: defaultRecipe,
-    ast: []
+    ast: [],
   };
   const { getByLabelText, getAllByText, getByText } = render(
     <MemoryRouter initialEntries={['/read/1234']}>
@@ -37,7 +37,7 @@ test('<RecipeManager>', async () => {
           <Route path="/read/:pubId" component={RecipeManager} />
         </Switch>
       </ReaderContext.Provider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
   await waitForDomChange();
 
@@ -92,11 +92,11 @@ test('<RecipeManager>', async () => {
   expect(mockSetItem).toHaveBeenNthCalledWith(
     2,
     'pub-recipe-1234',
-    defaultRecipe
+    defaultRecipe,
   );
   expect(mockDispatch).toHaveBeenCalledTimes(2);
   expect(mockDispatch.mock.calls[1][0]).toMatchObject({
-    recipe: defaultRecipe
+    recipe: defaultRecipe,
   });
 
   // Validate there's no active recipe

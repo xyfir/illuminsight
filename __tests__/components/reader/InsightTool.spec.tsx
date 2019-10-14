@@ -11,7 +11,7 @@ test('<InsightTool>', async () => {
   // Mock final element that insight tool will zero in on
   const mockElement = {
     innerText: 'My name is Illuminsight.',
-    getAttribute: jest.fn(() => '2')
+    getAttribute: jest.fn(() => '2'),
   };
 
   // Add mocks
@@ -49,11 +49,11 @@ test('<InsightTool>', async () => {
       {
         tagName: 'DIV',
         innerText: ' '.repeat(10001),
-        getAttribute: mockGetAttribute
+        getAttribute: mockGetAttribute,
       },
       { id: 'ast' },
       {},
-      {}
+      {},
     ]);
     mockGetComputedStyle.mockReturnValueOnce({ display: 'block' });
 
@@ -64,7 +64,7 @@ test('<InsightTool>', async () => {
       mockElement, // block (last)
       { innerText: ' ', getAttribute: mockGetAttribute }, // block
       { innerText: ' ', getAttribute: mockGetAttribute }, // inline
-      { id: 'ast' }
+      { id: 'ast' },
     ]);
     mockGetComputedStyle.mockReturnValueOnce({ display: 'inline' });
     mockGetComputedStyle.mockReturnValueOnce({ display: 'block' });
@@ -78,11 +78,11 @@ test('<InsightTool>', async () => {
     insightsIndex: _insightsIndex,
     dispatch: () => undefined,
     recipe: defaultRecipe,
-    ast: []
+    ast: [],
   };
   function InsightToolConsumer() {
     const [_state, setState] = React.useState(state);
-    state.dispatch = partial => setState({ ..._state, ...partial });
+    state.dispatch = (partial) => setState({ ..._state, ...partial });
     return (
       <ReaderContext.Provider value={_state}>
         <InsightTool />

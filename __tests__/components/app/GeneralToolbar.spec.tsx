@@ -9,7 +9,7 @@ test('<GeneralToolbar />', async () => {
     <MemoryRouter>
       <GeneralToolbar />
     </MemoryRouter>,
-    { container: document.getElementById('content')! }
+    { container: document.getElementById('content')! },
   );
 
   // Test available controls

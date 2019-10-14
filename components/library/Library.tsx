@@ -11,7 +11,7 @@ import Fuse from 'fuse.js';
 import {
   FilterList as FilterIcon,
   Search as SearchIcon,
-  Star as StarIcon
+  Star as StarIcon,
 } from '@material-ui/icons';
 import {
   InputAdornment,
@@ -26,63 +26,63 @@ import {
   Hidden,
   Drawer,
   Theme,
-  List
+  List,
 } from '@material-ui/core';
 
 const styles = (theme: Theme) =>
   createStyles({
     selectedTagAvatar: {
       backgroundColor: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText
+      color: theme.palette.primary.contrastText,
     },
     infiniteScroll: {
       overflowY: 'auto',
       height: '100%',
-      flex: 1
+      flex: 1,
     },
     importSample: {
-      textAlign: 'center'
+      textAlign: 'center',
     },
     drawerPaper: {
       zIndex: theme.zIndex.appBar - 1,
-      width: 240
+      width: 240,
     },
     pubAuthors: {
       marginBottom: '0.3em',
       fontSize: '110%',
-      color: theme.palette.getContrastText(theme.palette.background.default)
+      color: theme.palette.getContrastText(theme.palette.background.default),
     },
     pubName: {
       fontSize: '150%',
       display: 'flex',
-      color: theme.palette.getContrastText(theme.palette.background.default)
+      color: theme.palette.getContrastText(theme.palette.background.default),
     },
     pubInfo: {
       fontSize: '100%',
-      color: theme.palette.grey[500]
+      color: theme.palette.grey[500],
     },
     toolbar: theme.mixins.toolbar,
     content: {
       [theme.breakpoints.up('sm')]: {
-        marginLeft: 240
+        marginLeft: 240,
       },
       flexDirection: 'column',
-      display: 'flex'
+      display: 'flex',
     },
     pub: {
-      textDecoration: 'none'
+      textDecoration: 'none',
     },
     drawer: {
       [theme.breakpoints.up('sm')]: {
         width: 240,
-        flexShrink: 0
-      }
+        flexShrink: 0,
+      },
     },
     root: {
       flexDirection: 'column',
       padding: theme.spacing(3),
-      display: 'flex'
-    }
+      display: 'flex',
+    },
   });
 
 function _Library({ classes }: WithStyles<typeof styles>) {
@@ -100,17 +100,17 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   React.useEffect(() => {
     localForage
       .getItem('tag-list')
-      .then(tags => {
+      .then((tags) => {
         if (tags !== null) setTags(tags as Illuminsight.Tag[]);
         return localForage.getItem('pub-list');
       })
-      .then(pubs => setPubs((pubs as Illuminsight.Pub[]) || []))
-      .catch(err => console.error(err));
+      .then((pubs) => setPubs((pubs as Illuminsight.Pub[]) || []))
+      .catch((err) => console.error(err));
   }, []);
 
   // Filter by tags
   let matches = selectedTags.length
-    ? pubs.filter(pub => {
+    ? pubs.filter((pub) => {
         for (let tag of selectedTags) {
           if (!pub.tags.includes(tag)) return false;
         }
@@ -123,7 +123,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
     const fuse = new Fuse(matches, {
       shouldSort: true,
       threshold: 0.4,
-      keys: ['name', 'link', 'authors']
+      keys: ['name', 'link', 'authors'],
     });
     matches = fuse.search(search);
   }
@@ -188,7 +188,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
           value={search}
           margin="normal"
           variant="outlined"
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
           fullWidth
           InputProps={{
             startAdornment: (
@@ -208,7 +208,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
                   </IconButton>
                 </InputAdornment>
               </Hidden>
-            )
+            ),
           }}
           placeholder="A Tale of Two Cities"
         />
@@ -226,12 +226,12 @@ function _Library({ classes }: WithStyles<typeof styles>) {
           <InfiniteScroll
             useWindow={false}
             threshold={25}
-            loadMore={p => setPage(p)}
+            loadMore={(p) => setPage(p)}
             hasMore={matches.length > paginatedMatches.length}
             loader={<Typography key="loader">...</Typography>}
           >
             <List dense>
-              {paginatedMatches.map(match => (
+              {paginatedMatches.map((match) => (
                 <Link
                   to={`/read/${match.id}`}
                   key={match.id}
@@ -258,12 +258,12 @@ function _Library({ classes }: WithStyles<typeof styles>) {
                       <Typography className={classes.pubInfo}>
                         {match.tags
                           .map(
-                            tag =>
+                            (tag) =>
                               `#${
                                 (tags.find(
-                                  t => t.id == tag
+                                  (t) => t.id == tag,
                                 ) as Illuminsight.Tag).name
-                              }`
+                              }`,
                           )
                           .join(' ')}
                       </Typography>

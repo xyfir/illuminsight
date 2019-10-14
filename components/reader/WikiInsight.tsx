@@ -7,7 +7,7 @@ import {
   ExpandMore as ExpandMoreIcon,
   ListAlt as StatisticsIcon,
   Home as HomeIcon,
-  Toc as TOCIcon
+  Toc as TOCIcon,
 } from '@material-ui/icons';
 import {
   createStyles,
@@ -17,7 +17,7 @@ import {
   makeStyles,
   Button,
   Paper,
-  Chip
+  Chip,
 } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
@@ -25,34 +25,34 @@ const useStyles = makeStyles(() =>
     paperHeader: {
       marginBottom: '0.3em',
       alignItems: 'center',
-      display: 'flex'
+      display: 'flex',
     },
     iconButton: {
-      marginRight: '0.1em'
+      marginRight: '0.1em',
     },
     tocLink: {
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
     article: {
       overflowX: 'hidden',
       fontSize: 'initial',
       '& > .section': {
-        overflowX: 'auto'
-      }
+        overflowX: 'auto',
+      },
     },
     paper: {
       overflowY: 'auto',
       maxHeight: '60vh',
       padding: '0.3em',
-      margin: '1em 0.3em'
-    }
-  })
+      margin: '1em 0.3em',
+    },
+  }),
 );
 
 type SectionKey = 'all' | 'toc' | 'main' | 'main+stats' | number;
 
 export function WikiInsight({
-  insight
+  insight,
 }: {
   insight: Illuminsight.WikiInsight;
 }) {
@@ -92,7 +92,7 @@ export function WikiInsight({
     // Load article
     const newArticle = await getWikiArticle(
       a.getAttribute('href')!.substr(2),
-      insight.recipe
+      insight.recipe,
     );
     if (newArticle) {
       setArticles(articles.slice(0, articleKey + 1).concat(newArticle));
@@ -116,7 +116,7 @@ export function WikiInsight({
     if (sectionKey == 'main+stats') {
       div.innerHTML += article
         .infoboxes()
-        .map(i => i.html())
+        .map((i) => i.html())
         .join('\n');
     }
 
@@ -144,7 +144,7 @@ export function WikiInsight({
   /** Render a wiki article's table of contents */
   function WikiTOC({
     sections,
-    depth
+    depth,
   }: {
     sections: wtf.Section[];
     depth: number;
@@ -152,14 +152,14 @@ export function WikiInsight({
     return (
       <ul>
         {sections
-          .filter(section => section.indentation() == depth)
-          .map(section => (
+          .filter((section) => section.indentation() == depth)
+          .map((section) => (
             <li key={section.title()}>
               <a
                 className={classes.tocLink}
                 onClick={() =>
                   setSectionKey(
-                    article.sections().findIndex(s => s === section)
+                    article.sections().findIndex((s) => s === section),
                   )
                 }
               >
@@ -215,11 +215,11 @@ export function WikiInsight({
 
             {/* Intermediate sections */}
             {getSectionAncestors(article.sections()[sectionKey]).map(
-              section => (
+              (section) => (
                 <Chip
                   onClick={() =>
                     setSectionKey(
-                      article.sections().findIndex(s => s === section)
+                      article.sections().findIndex((s) => s === section),
                     )
                   }
                   variant="outlined"
@@ -227,7 +227,7 @@ export function WikiInsight({
                   size="small"
                   key={section.title()}
                 />
-              )
+              ),
             )}
 
             {/* Current section */}

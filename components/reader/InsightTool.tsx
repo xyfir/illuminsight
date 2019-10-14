@@ -6,15 +6,15 @@ import {
   createStyles,
   IconButton,
   makeStyles,
-  Tooltip
+  Tooltip,
 } from '@material-ui/core';
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     button: {
-      transform: 'rotate(180deg)'
-    }
-  })
+      transform: 'rotate(180deg)',
+    },
+  }),
 );
 
 let selectionTimeout: NodeJS.Timer | undefined;
@@ -45,7 +45,7 @@ export function InsightTool() {
       const insights = await generateInsights({
         highlight: true,
         recipe,
-        text: selected.toString().trim()
+        text: selected.toString().trim(),
       });
       insightsIndex[index] = insightsIndex[index]
         ? insightsIndex[index].concat(insights)
@@ -61,10 +61,13 @@ export function InsightTool() {
    */
   function getElement(elements: HTMLElement[]): HTMLElement | undefined {
     // Remove #ast and any ancestors
-    elements.splice(elements.findIndex(el => el.id == 'ast'), elements.length);
+    elements.splice(
+      elements.findIndex((el) => el.id == 'ast'),
+      elements.length,
+    );
 
     // Remove non-ast elements
-    elements = elements.filter(el => el.getAttribute('ast') !== null);
+    elements = elements.filter((el) => el.getAttribute('ast') !== null);
 
     // Reverse list so it's [parent,child]
     elements.reverse();
@@ -114,7 +117,7 @@ export function InsightTool() {
         // Get elements to right of tool
         element = getElement(document.elementsFromPoint(
           x + 1,
-          y + 50 + i * lineHeight
+          y + 50 + i * lineHeight,
         ) as HTMLElement[]);
         if (element) break;
       }
@@ -131,7 +134,7 @@ export function InsightTool() {
       else {
         insightsIndex[index] = await generateInsights({
           recipe,
-          text: element.innerText
+          text: element.innerText,
         });
       }
 

@@ -9,14 +9,14 @@ test('<WikiInsight>', async () => {
   const { getByLabelText, getAllByText, getByText } = render(
     <WikiInsight
       insight={{ recipe: defaultRecipe.wikis[0], doc: wtf(testWikitext) }}
-    />
+    />,
   );
 
   // Validate only main section was rendered
   getByText("McCarthy's fifth book", { exact: false });
   // in second section:
   expect(() =>
-    getByText('The novel follows an adolescent runaway', { exact: false })
+    getByText('The novel follows an adolescent runaway', { exact: false }),
   ).toThrow();
   // in infobox:
   expect(() => getByText('historical novel')).toThrow();
@@ -25,10 +25,10 @@ test('<WikiInsight>', async () => {
   let el = getByText('Source: Wikipedia:');
   el = el.querySelector('a')!;
   expect(el.textContent).toBe(
-    'Blood Meridian or The Evening Redness in the West'
+    'Blood Meridian or The Evening Redness in the West',
   );
   expect((el as HTMLAnchorElement).href).toBe(
-    'https://en.wikipedia.org/wiki/Blood%20Meridian%20or%20The%20Evening%20Redness%20in%20the%20West'
+    'https://en.wikipedia.org/wiki/Blood%20Meridian%20or%20The%20Evening%20Redness%20in%20the%20West',
   );
 
   // Trigger 'main+stats' section
@@ -61,7 +61,7 @@ test('<WikiInsight>', async () => {
   // Characters > Other recurring characters
   el = getByText('Other recurring characters');
   expect(el.parentElement!.parentElement!.parentElement!.textContent).toBe(
-    'CharactersMajor charactersOther recurring characters'
+    'CharactersMajor charactersOther recurring characters',
   );
 
   // Validate content from section we want isn't rendered
@@ -88,7 +88,7 @@ test('<WikiInsight>', async () => {
 
   // Trigger section change from breadcrumbs to main "Blood Meridian or The Evening Redness in the West"
   fireEvent.click(
-    getByText('Blood Meridian or The Evening Redness in the West')
+    getByText('Blood Meridian or The Evening Redness in the West'),
   );
 
   // Validate we're back to main section

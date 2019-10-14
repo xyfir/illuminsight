@@ -5,7 +5,7 @@ import { Illuminsight } from 'types';
  */
 export function getByAttributeName(
   name: string,
-  ast: Illuminsight.AST[]
+  ast: Illuminsight.AST[],
 ): Illuminsight.AST[] {
   const matches: Illuminsight.AST[] = [];
 

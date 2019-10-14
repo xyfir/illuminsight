@@ -6,26 +6,26 @@ export const defaultRecipe: Illuminsight.Recipe = {
   searches: [
     {
       name: 'Google',
-      url: 'https://www.google.com/search?q='
-    }
+      url: 'https://www.google.com/search?q=',
+    },
   ],
   wikis: [
     {
       name: 'Wikipedia',
       api: 'https://en.wikipedia.org/w/api.php',
-      url: 'https://en.wikipedia.org/wiki/'
-    }
+      url: 'https://en.wikipedia.org/wiki/',
+    },
   ],
-  id: 'illuminsight-default'
+  id: 'illuminsight-default',
 };
 
 export async function downloadRecipe(
   recipeId: Illuminsight.Recipe['id'],
-  pubId: Illuminsight.Pub['id']
+  pubId: Illuminsight.Pub['id'],
 ): Promise<Illuminsight.Recipe> {
   // Download recipe
   const res = await axios.get(
-    `https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/dist/recipes/${recipeId}.min.json`
+    `https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/dist/recipes/${recipeId}.min.json`,
   );
   const recipe: Illuminsight.Recipe = res.data;
 
@@ -37,16 +37,16 @@ export async function downloadRecipe(
 
 export async function getRecipes() {
   const res = await axios.get(
-    'https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/dist/recipes/.index.min.json'
+    'https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/dist/recipes/.index.min.json',
   );
 
   // Expand minified recipes
   const minified: Illuminsight.MinifiedRecipeIndex = res.data;
-  return minified.map(m => ({
+  return minified.map((m) => ({
     id: m.i,
     books: m.b,
     series: m.s,
-    authors: m.a
+    authors: m.a,
   }));
 }
 

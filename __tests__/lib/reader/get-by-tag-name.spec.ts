@@ -8,15 +8,15 @@ test('getByTagName()', () => {
       c: [
         {
           n: 'div',
-          c: ['Hello', { n: 'hr' }]
+          c: ['Hello', { n: 'hr' }],
         },
         'Hello 2',
         {
           n: 'div',
-          c: [{ n: 'hr' }]
-        }
-      ]
-    }
+          c: [{ n: 'hr' }],
+        },
+      ],
+    },
   ];
   expect(getByTagName('hr', ast)).toMatchObject([{ n: 'hr' }, { n: 'hr' }]);
 });

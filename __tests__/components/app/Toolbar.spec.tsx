@@ -7,9 +7,9 @@ test('<Toolbar>', async () => {
     <Toolbar>
       <p>Hello world</p>
     </Toolbar>,
-    { container: document.getElementById('content')! }
+    { container: document.getElementById('content')! },
   );
   expect(baseElement.querySelector('#toolbar p')!.textContent).toBe(
-    'Hello world'
+    'Hello world',
   );
 });

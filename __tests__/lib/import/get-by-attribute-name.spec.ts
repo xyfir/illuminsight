@@ -12,9 +12,9 @@ test('getByAttributeName()', () => {
             'Hello',
             {
               n: 'a',
-              a: { href: 'href1' }
-            }
-          ]
+              a: { href: 'href1' },
+            },
+          ],
         },
         'Hello 2',
         {
@@ -22,17 +22,17 @@ test('getByAttributeName()', () => {
           c: [
             {
               n: 'a',
-              a: { href: 'href2' }
-            }
+              a: { href: 'href2' },
+            },
           ],
-          a: { wrong: 'wrong' }
-        }
-      ]
-    }
+          a: { wrong: 'wrong' },
+        },
+      ],
+    },
   ];
 
   expect(getByAttributeName('href', ast)).toMatchObject([
     { n: 'a', a: { href: 'href1' } },
-    { n: 'a', a: { href: 'href2' } }
+    { n: 'a', a: { href: 'href2' } },
   ]);
 });

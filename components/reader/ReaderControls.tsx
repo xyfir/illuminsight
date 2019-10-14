@@ -14,12 +14,12 @@ import {
   NavigateBefore as PreviousIcon,
   NavigateNext as NextIcon,
   Replay as BackIcon,
-  Home as HomeIcon
+  Home as HomeIcon,
 } from '@material-ui/icons';
 
 export function ReaderControls({
   onNavigate,
-  history
+  history,
 }: {
   onNavigate: (pub: Illuminsight.Pub) => void;
   history: Illuminsight.Marker[];
@@ -44,7 +44,7 @@ export function ReaderControls({
     }[] = new Fuse(recipes, {
       includeScore: true,
       threshold: 0.3,
-      keys: ['id', 'books']
+      keys: ['id', 'books'],
     }).search(pub!.name);
 
     // Search by pub series
@@ -54,8 +54,8 @@ export function ReaderControls({
         ...new Fuse(recipes, {
           includeScore: true,
           threshold: 0.4,
-          keys: ['id', 'series']
-        }).search(pub!.series)
+          keys: ['id', 'series'],
+        }).search(pub!.series),
       );
     }
 
@@ -66,8 +66,8 @@ export function ReaderControls({
         ...new Fuse(recipes, {
           includeScore: true,
           threshold: 0.4,
-          keys: ['id', 'authors']
-        }).search(pub!.authors)
+          keys: ['id', 'authors'],
+        }).search(pub!.authors),
       );
     }
 
@@ -75,12 +75,12 @@ export function ReaderControls({
     const [match] = matches
       .reduce(
         (reduced, match) => {
-          const _match = reduced.find(m => m.item.id == match.item.id);
+          const _match = reduced.find((m) => m.item.id == match.item.id);
           if (_match) _match.score -= match.score;
           else reduced.push(match);
           return reduced;
         },
-        [] as typeof matches
+        [] as typeof matches,
       )
       .sort((a, b) => a.score - b.score)
       .filter((match, i, arr) => {
@@ -88,7 +88,7 @@ export function ReaderControls({
         if (match.score >= 0.5) return false;
 
         // Remove if other have same score
-        if (arr.filter(m => m.score == match.score).length > 1) return false;
+        if (arr.filter((m) => m.score == match.score).length > 1) return false;
 
         return true;
       });

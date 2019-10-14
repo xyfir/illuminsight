@@ -23,34 +23,34 @@ test('<Insights>', async () => {
           searches: [
             {
               name: 'Google',
-              url: 'https://www.google.com/search?q=Cormac%20McCarthy'
-            }
+              url: 'https://www.google.com/search?q=Cormac%20McCarthy',
+            },
           ],
           wikis: [],
-          text: 'Cormac McCarthy'
+          text: 'Cormac McCarthy',
         },
         {
           definitions: testDefinitions,
           searches: [
             {
               name: 'Google',
-              url: 'https://www.google.com/search?q=Blood%20Meridian'
-            }
+              url: 'https://www.google.com/search?q=Blood%20Meridian',
+            },
           ],
           wikis: [{ recipe: defaultRecipe.wikis[0], doc: wtf(testWikitext) }],
-          text: 'Blood Meridian'
-        }
-      ]
+          text: 'Blood Meridian',
+        },
+      ],
     },
     dispatch: jest.fn(),
     recipe: defaultRecipe,
     pub: testPub,
-    ast: []
+    ast: [],
   };
   const { getByLabelText, getAllByText, getByText } = render(
     <ReaderContext.Provider value={state}>
       <Insights index={0} />
-    </ReaderContext.Provider>
+    </ReaderContext.Provider>,
   );
 
   // Click "Cormac McCarthy" insight
@@ -59,7 +59,7 @@ test('<Insights>', async () => {
   // Expect "Cormac McCarthy" insight to have opened search
   expect(mockOpen).toHaveBeenCalledTimes(1);
   expect(mockOpen).toHaveBeenCalledWith(
-    'https://www.google.com/search?q=Cormac%20McCarthy'
+    'https://www.google.com/search?q=Cormac%20McCarthy',
   );
 
   // Click "Blood Meridian" insight
@@ -73,7 +73,7 @@ test('<Insights>', async () => {
 
   // Expect wiki article to have closed
   expect(() =>
-    getByText('novel by American author', { exact: false })
+    getByText('novel by American author', { exact: false }),
   ).toThrow();
 
   // Click secondary action to view all insights of text
@@ -92,7 +92,7 @@ test('<Insights>', async () => {
   // Expect "Search" insight to have opened Google search
   expect(mockOpen).toHaveBeenCalledTimes(2);
   expect(mockOpen).toHaveBeenCalledWith(
-    'https://www.google.com/search?q=Blood%20Meridian'
+    'https://www.google.com/search?q=Blood%20Meridian',
   );
 
   // Click "Wikipedia" insight

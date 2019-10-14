@@ -1,7 +1,7 @@
 import { Illuminsight } from 'types';
 
 const REPLACEMENT_ATTRIBUTES: { [attr: string]: string } = {
-  'xlink:href': 'href'
+  'xlink:href': 'href',
 };
 const EXCLUDED_ATTRIBUTES = ['class', 'style', 'tag'];
 const EXCLUDED_ELEMENTS = ['iframe', 'script', 'style', 'link'];
@@ -14,7 +14,7 @@ export function nodeToAST(
   /**
    * Preserve whitespace if a child of a `<pre>` element.
    */
-  pre: boolean = false
+  pre: boolean = false,
 ): Illuminsight.AST | undefined {
   // Element node
   if (node.nodeType == node.ELEMENT_NODE) {

@@ -10,10 +10,10 @@ test('<Cover>', async () => {
   // Mock localForage and URL
   const mockRevokeObjectURL = ((URL as any).revokeObjectURL = jest.fn());
   const mockCreateObjectURL = ((URL as any).createObjectURL = jest.fn(
-    () => blobUrl
+    () => blobUrl,
   ));
   const mockGetItem = ((localForage as any).getItem = jest.fn(() =>
-    Promise.resolve(blob)
+    Promise.resolve(blob),
   ));
 
   // Render cover and expect an icon (image not loaded yet)

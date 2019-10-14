@@ -12,15 +12,15 @@ const styles = (theme: Theme) =>
       minWidth: '6em',
       display: 'flex',
       width: '6em',
-      color: theme.palette.grey[500]
+      color: theme.palette.grey[500],
     },
     icon: {
-      fontSize: '5em'
+      fontSize: '5em',
     },
     img: {
       maxHeight: '100%',
-      maxWidth: '100%'
-    }
+      maxWidth: '100%',
+    },
   });
 
 function _Cover({ classes, id }: WithStyles<typeof styles> & { id: number }) {
@@ -32,7 +32,7 @@ function _Cover({ classes, id }: WithStyles<typeof styles> & { id: number }) {
     let _url: string;
     localForage
       .getItem(`pub-cover-${id}`)
-      .then(cover => {
+      .then((cover) => {
         if (cover === null) return;
         _url = URL.createObjectURL(cover as Blob);
         setUrl(_url);

@@ -13,7 +13,7 @@ import {
   MoreVert as MoreIcon,
   WbSunny as SunIcon,
   Edit as EditIcon,
-  Toc as TOCIcon
+  Toc as TOCIcon,
 } from '@material-ui/icons';
 import {
   ListSubheader,
@@ -28,23 +28,23 @@ import {
   Tooltip,
   Dialog,
   Menu,
-  List
+  List,
 } from '@material-ui/core';
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     linkMenuItem: {
       textDecoration: 'none',
-      color: theme.palette.getContrastText(theme.palette.background.paper)
-    }
-  })
+      color: theme.palette.getContrastText(theme.palette.background.paper),
+    },
+  }),
 );
 
 type DialogView = false | 'toc' | 'recipes' | 'font-size';
 
 export function ExtendedReaderControls({
   navigate,
-  history
+  history,
 }: {
   navigate: (marker: Illuminsight.Pub['toc'][0]) => void;
   history: Illuminsight.Marker[];
@@ -83,7 +83,7 @@ export function ExtendedReaderControls({
   return (
     <React.Fragment>
       <Tooltip title="View more menu items">
-        <IconButton onClick={e => setAnchorEl(e.currentTarget)}>
+        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
           <MoreIcon />
         </IconButton>
       </Tooltip>

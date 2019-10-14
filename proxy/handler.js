@@ -7,7 +7,7 @@ module.exports.corsProxy = (event, context, callback) => {
   if (!params.url) {
     return callback(null, {
       statusCode: 400,
-      body: 'Unable get url from "url" query parameter'
+      body: 'Unable get url from "url" query parameter',
     });
   }
 
@@ -19,7 +19,7 @@ module.exports.corsProxy = (event, context, callback) => {
         method: event.httpMethod,
         json:
           event.httpMethod == 'POST' ? JSON.parse(originalRequestBody) : null,
-        url: params.url
+        url: params.url,
       },
       (err, originalResponse, body) => {
         if (err) {
@@ -35,14 +35,14 @@ module.exports.corsProxy = (event, context, callback) => {
           headers: {
             'Access-Control-Allow-Credentials': true,
             'Access-Control-Allow-Origin': '*',
-            'content-type': originalResponse.headers['content-type']
+            'content-type': originalResponse.headers['content-type'],
           },
-          body: proxyBody
+          body: proxyBody,
         };
 
         callback(null, proxyResponse);
         resolve(proxyResponse);
-      }
+      },
     );
   });
 };

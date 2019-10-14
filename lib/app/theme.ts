@@ -10,18 +10,18 @@ export const themes = {
     palette: {
       type: 'light',
       primary: { main: '#1976d2' },
-      secondary: { main: '#00e5ff' }
-    }
+      secondary: { main: '#00e5ff' },
+    },
   }),
   dark: createMuiTheme({
     palette: {
       type: 'dark',
       primary: { main: '#1976d2' },
-      secondary: { main: '#00e5ff' }
-    }
-  })
+      secondary: { main: '#00e5ff' },
+    },
+  }),
 };
 
 export const ToggleThemeContext = createContext<ToggleThemeContextValue>(
-  () => 0
+  () => 0,
 );

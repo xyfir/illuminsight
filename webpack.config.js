@@ -16,24 +16,24 @@ module.exports = {
 
   entry: {
     app: './lib/app/index.ts',
-    sw: './lib/app/sw.ts'
+    sw: './lib/app/sw.ts',
   },
 
   output: {
     globalObject: 'this',
     publicPath: '/',
-    filename: chunkData =>
+    filename: (chunkData) =>
       chunkData.chunk.name === 'sw' ? 'sw.js' : '[name].[hash].js',
     pathinfo: false,
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
 
   resolve: {
     alias: {
-      'react-dom': '@hot-loader/react-dom'
+      'react-dom': '@hot-loader/react-dom',
     },
     modules: [__dirname, 'node_modules'],
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
 
   module: {
@@ -52,15 +52,15 @@ module.exports = {
                 targets: {
                   browsers: [
                     'last 2 Chrome versions',
-                    'last 2 Firefox versions'
+                    'last 2 Firefox versions',
                     // 'last 1 iOS versions',
                     // 'last 1 Android versions'
-                  ]
-                }
-              }
-            ]
-          ]
-        }
+                  ],
+                },
+              },
+            ],
+          ],
+        },
       },
       {
         test: /\.(js|jsx|ts|tsx)$/,
@@ -68,7 +68,7 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'components'),
           path.resolve(__dirname, 'constants'),
-          path.resolve(__dirname, 'lib')
+          path.resolve(__dirname, 'lib'),
         ],
         exclude: /node_modules|sw\.js/,
         options: {
@@ -80,20 +80,20 @@ module.exports = {
                 targets: {
                   browsers: [
                     'last 2 Chrome versions',
-                    'last 2 Firefox versions'
+                    'last 2 Firefox versions',
                     // 'last 1 iOS versions',
                     // 'last 1 Android versions'
-                  ]
-                }
-              }
+                  ],
+                },
+              },
             ],
-            '@babel/preset-react'
+            '@babel/preset-react',
           ],
           plugins: [
             '@babel/plugin-proposal-class-properties',
-            'react-hot-loader/babel'
-          ]
-        }
+            'react-hot-loader/babel',
+          ],
+        },
       },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       {
@@ -103,12 +103,12 @@ module.exports = {
             loader: 'file-loader',
             options: {
               publicPath: '/',
-              name: '[name].[hash].[ext]'
-            }
-          }
-        ]
-      }
-    ]
+              name: '[name].[hash].[ext]',
+            },
+          },
+        ],
+      },
+    ],
   },
 
   plugins: [
@@ -117,15 +117,15 @@ module.exports = {
       'process.enve': Object.entries(process.enve).reduce((o, [k, v]) => {
         o[k] = JSON.stringify(v);
         return o;
-      }, {})
+      }, {}),
     }),
     new CleanWebpackPlugin({
       cleanAfterEveryBuildPatterns: ['**/*', '!manifest.json'],
-      cleanOnceBeforeBuildPatterns: ['**/*', '!manifest.json']
+      cleanOnceBeforeBuildPatterns: ['**/*', '!manifest.json'],
     }),
     new HtmlWebpackPlugin({
       excludeChunks: ['sw'],
-      template: 'template.html'
+      template: 'template.html',
     }),
     new WebappWebpackPlugin({
       favicons: {
@@ -148,26 +148,26 @@ module.exports = {
           firefox: true,
           windows: false,
           yandex: false,
-          coast: false
+          coast: false,
         },
         lang: 'en-US',
-        dir: 'ltr'
+        dir: 'ltr',
       },
       inject: true,
       prefix: '',
       cache: true,
-      logo: './icon.png'
+      logo: './icon.png',
     }),
     PROD ? new CompressionPlugin({ filename: '[path].gz' }) : null,
     PROD ? null : new webpack.HotModuleReplacementPlugin(),
-    new ManifestPlugin({ fileName: 'webpack.json' })
-  ].filter(p => p !== null),
+    new ManifestPlugin({ fileName: 'webpack.json' }),
+  ].filter((p) => p !== null),
 
   devtool: PROD ? false : 'inline-source-map',
 
   watchOptions: {
     aggregateTimeout: 500,
-    ignored: ['node_modules', 'dist']
+    ignored: ['node_modules', 'dist'],
   },
 
   devServer: {
@@ -177,6 +177,6 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     writeToDisk: true,
     port: process.enve.DEV_SERVER_PORT,
-    hot: true
-  }
+    hot: true,
+  },
 };

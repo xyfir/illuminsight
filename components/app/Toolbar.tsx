@@ -4,15 +4,15 @@ import {
   createStyles,
   makeStyles,
   Toolbar as MUIToolbar,
-  AppBar
+  AppBar,
 } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
     toolbar: {
-      justifyContent: 'space-between'
-    }
-  })
+      justifyContent: 'space-between',
+    },
+  }),
 );
 
 let toolbar: HTMLDivElement;
@@ -30,6 +30,6 @@ export function Toolbar({ children }: { children: React.ReactNode }) {
     <AppBar position="fixed" color="default">
       <MUIToolbar className={classes.toolbar}>{children}</MUIToolbar>
     </AppBar>,
-    toolbar
+    toolbar,
   );
 }

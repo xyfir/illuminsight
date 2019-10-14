@@ -13,7 +13,7 @@ import {
   waitForElement,
   fireEvent,
   render,
-  wait
+  wait,
 } from '@testing-library/react';
 
 test('<Import> epub', async () => {
@@ -26,7 +26,7 @@ test('<Import> epub', async () => {
         </Switch>
       </MemoryRouter>
     </SnackbarProvider>,
-    { container: document.getElementById('content')! }
+    { container: document.getElementById('content')! },
   );
 
   // Create zip file
@@ -36,7 +36,7 @@ test('<Import> epub', async () => {
 
   // Add files
   fireEvent.change(getByLabelText('Upload EPUB'), {
-    target: { files: [new File([], 'book.epub'), new File([], 'book2.epub')] }
+    target: { files: [new File([], 'book.epub'), new File([], 'book2.epub')] },
   });
   await waitForElement(() => getByText('book.epub'));
 
@@ -66,7 +66,7 @@ test('<Import> epub', async () => {
   // Import from files
   fireEvent.click(getByText('Import from Files'));
   await waitForElementToBeRemoved(() =>
-    getByText('Importing content. This may take a while...')
+    getByText('Importing content. This may take a while...'),
   );
 
   // Validate localforage
@@ -81,7 +81,7 @@ test('<Import> epub', async () => {
   expect(mockSetItem.mock.calls[1][0]).toBe(`pub-${testPub.id}`);
   const _zip = await JSZip.loadAsync(mockSetItem.mock.calls[1][1]);
   const _pub: Illuminsight.Pub = JSON.parse(
-    await _zip.file('meta.json').async('text')
+    await _zip.file('meta.json').async('text'),
   );
   expect(testPub.tags).not.toMatchObject(_pub.tags);
   expect({ ...testPub, tags: _pub.tags }).toMatchObject(_pub);
@@ -109,7 +109,7 @@ test('<Import> sample', async () => {
         </Switch>
       </MemoryRouter>
     </SnackbarProvider>,
-    { container: document.getElementById('content')! }
+    { container: document.getElementById('content')! },
   );
 
   // Validate downloads/uploads

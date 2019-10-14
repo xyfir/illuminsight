@@ -10,15 +10,15 @@ import {
   ListItem,
   Avatar,
   Theme,
-  List
+  List,
 } from '@material-ui/core';
 
 const styles = (theme: Theme) =>
   createStyles({
     selectedTagAvatar: {
       backgroundColor: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText
-    }
+      color: theme.palette.primary.contrastText,
+    },
   });
 
 function _Tags({
@@ -26,9 +26,11 @@ function _Tags({
   selectedTags,
   classes,
   matches,
-  tags
+  tags,
 }: {
-  setSelectedTags: React.Dispatch<React.SetStateAction<Illuminsight.Tag['id'][]>>;
+  setSelectedTags: React.Dispatch<
+    React.SetStateAction<Illuminsight.Tag['id'][]>
+  >;
   selectedTags: Illuminsight.Tag['id'][];
   matches: Illuminsight.Pub[];
   tags: Illuminsight.Tag[];
@@ -37,10 +39,10 @@ function _Tags({
   const availableTags = Array.from(
     new Set(
       matches
-        .map(m => m.tags)
+        .map((m) => m.tags)
         .flat()
-        .filter(t => !selectedTags.includes(t))
-    )
+        .filter((t) => !selectedTags.includes(t)),
+    ),
   );
 
   return (
@@ -49,12 +51,12 @@ function _Tags({
       {selectedTags.length ? (
         <List dense>
           <ListSubheader>Active Filters</ListSubheader>
-          {selectedTags.map(tag => (
+          {selectedTags.map((tag) => (
             <ListItem
               key={tag}
               button
               onClick={() =>
-                setSelectedTags(selectedTags.filter(t => t != tag))
+                setSelectedTags(selectedTags.filter((t) => t != tag))
               }
               selected
             >
@@ -62,7 +64,9 @@ function _Tags({
                 <Avatar className={classes.selectedTagAvatar}>#</Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={(tags.find(t => t.id == tag) as Illuminsight.Tag).name}
+                primary={
+                  (tags.find((t) => t.id == tag) as Illuminsight.Tag).name
+                }
               />
             </ListItem>
           ))}
@@ -73,7 +77,7 @@ function _Tags({
       {availableTags.length ? (
         <List dense>
           <ListSubheader>Tags</ListSubheader>
-          {availableTags.map(tag => (
+          {availableTags.map((tag) => (
             <ListItem
               key={tag}
               button
@@ -83,7 +87,9 @@ function _Tags({
                 <Avatar>#</Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={(tags.find(t => t.id == tag) as Illuminsight.Tag).name}
+                primary={
+                  (tags.find((t) => t.id == tag) as Illuminsight.Tag).name
+                }
               />
             </ListItem>
           ))}

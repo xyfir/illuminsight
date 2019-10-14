@@ -11,7 +11,7 @@ import {
   waitForDomChange,
   fireEvent,
   render,
-  wait
+  wait,
 } from '@testing-library/react';
 
 test('<Reader>', async () => {
@@ -31,10 +31,10 @@ test('<Reader>', async () => {
 
   // Load ASTPub
   let zip = await JSZip.loadAsync(
-    readFileSync(resolve(process.enve.FILES_DIRECTORY, 'ebook.astpub'))
+    readFileSync(resolve(process.enve.FILES_DIRECTORY, 'ebook.astpub')),
   );
   let pub: Illuminsight.Pub = JSON.parse(
-    await zip.file('meta.json').async('text')
+    await zip.file('meta.json').async('text'),
   );
 
   // Set bookmark so we can test that it navigates to it
@@ -57,7 +57,7 @@ test('<Reader>', async () => {
     getByTestId,
     getByTitle,
     getByText,
-    container
+    container,
   } = render(
     <SnackbarProvider>
       <MemoryRouter initialEntries={[`/read/${pub.id}`]}>
@@ -66,7 +66,7 @@ test('<Reader>', async () => {
         </Switch>
       </MemoryRouter>
     </SnackbarProvider>,
-    { container: document.getElementById('content')! }
+    { container: document.getElementById('content')! },
   );
 
   // Validate mock loading file from localForage
@@ -89,7 +89,7 @@ test('<Reader>', async () => {
 
   // Validate bookmarked element was scrolled to (default element 0)
   await wait(() =>
-    expect(mockSVGElementScrollIntoView).toHaveBeenCalledTimes(1)
+    expect(mockSVGElementScrollIntoView).toHaveBeenCalledTimes(1),
   );
 
   // Go to next section
@@ -109,7 +109,7 @@ test('<Reader>', async () => {
   pub = JSON.parse(await zip.file('meta.json').async('text'));
   expect(pub.bookmark).toMatchObject({
     section: 1,
-    element: 0
+    element: 0,
   } as Illuminsight.Pub['bookmark']);
 
   // Mock document.querySelectorAll()
@@ -120,8 +120,8 @@ test('<Reader>', async () => {
       { offsetTop: 50 },
       { offsetTop: 100, getAttribute: jest.fn(() => 2) },
       { offsetTop: 150 },
-      { offsetTop: 200 }
-    ]
+      { offsetTop: 200 },
+    ],
   ));
 
   // Scroll through reader content
@@ -133,7 +133,7 @@ test('<Reader>', async () => {
   pub = JSON.parse(await zip.file('meta.json').async('text'));
   expect(pub.bookmark).toMatchObject({
     section: 1,
-    element: 2
+    element: 2,
   } as Illuminsight.Pub['bookmark']);
 
   // Validate onScroll() throttles itself
@@ -158,6 +158,6 @@ test('<Reader>', async () => {
   pub = JSON.parse(await zip.file('meta.json').async('text'));
   expect(pub.bookmark).toMatchObject({
     section: 4,
-    element: 'link2H_4_0002'
+    element: 'link2H_4_0002',
   } as Illuminsight.Pub['bookmark']);
 });

@@ -4,7 +4,7 @@ export const testTags: Illuminsight.Tag[] = [
   { id: 1556915133433, name: 'alpha' },
   { id: 1556915133434, name: 'bravo' },
   { id: 1556915133435, name: 'charlie' },
-  { id: 1556915133436, name: 'delta' }
+  { id: 1556915133436, name: 'delta' },
 ];
 
 export const testPub: Illuminsight.Pub = {
@@ -18,19 +18,19 @@ export const testPub: Illuminsight.Pub = {
   toc: [
     { section: 0, element: 0, title: 'Title' },
     { section: 1, element: 0, title: 'Pride and Prejudice' },
-    { section: 2, element: 0, title: 'Index' }
+    { section: 2, element: 0, title: 'Index' },
   ],
   sections: 3,
   starred: false,
   tags: [],
   version: process.enve.ASTPUB_VERSION,
-  words: '123'
+  words: '123',
 };
 
 export const testAST: Illuminsight.AST[] = [
   {
     n: 'h1',
-    c: ['Heading 1']
+    c: ['Heading 1'],
   },
   {
     n: 'p',
@@ -39,7 +39,7 @@ export const testAST: Illuminsight.AST[] = [
       {
         n: 'a',
         c: ['with a link'],
-        a: { href: 'https://example.com' }
+        a: { href: 'https://example.com' },
       },
       'and',
       {
@@ -47,65 +47,65 @@ export const testAST: Illuminsight.AST[] = [
         c: [
           {
             n: 'strong',
-            c: ['strongly']
+            c: ['strongly'],
           },
-          'emphasised text'
-        ]
+          'emphasised text',
+        ],
       },
       'and',
       {
         n: 'code',
-        c: ['inline code']
-      }
-    ]
+        c: ['inline code'],
+      },
+    ],
   },
   {
     n: 'h2',
-    c: ['Heading 2']
+    c: ['Heading 2'],
   },
   { n: 'hr' },
   {
     n: 'img',
     a: {
       src: 'images/0.png',
-      alt: 'A picture of ...'
-    }
+      alt: 'A picture of ...',
+    },
   },
   {
     n: 'ul',
     c: [
       {
         n: 'li',
-        c: ['UL item #1']
+        c: ['UL item #1'],
       },
       {
         n: 'li',
-        c: ['UL item #2']
-      }
-    ]
+        c: ['UL item #2'],
+      },
+    ],
   },
   {
     n: 'ol',
     c: [
       {
         n: 'li',
-        c: ['OL item #1']
+        c: ['OL item #1'],
       },
       {
         n: 'li',
-        c: ['OL item #2']
-      }
-    ]
+        c: ['OL item #2'],
+      },
+    ],
   },
   {
     n: 'pre',
     c: [
       {
         n: 'code',
-        c: ['code block line 1\ncode block line 2']
-      }
-    ]
-  }
+        c: ['code block line 1\ncode block line 2'],
+      },
+    ],
+  },
 ];
 
 export const alternateTestAST: Illuminsight.AST[] = [
@@ -113,33 +113,33 @@ export const alternateTestAST: Illuminsight.AST[] = [
   {
     n: 'p',
     c: [
-      '... dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus quam id leo in vitae. Gravida quis blandit turpis cursus in hac. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed. Sed cras ornare arcu dui. Nisi porta lorem mollis aliquam ut porttitor leo a. Sit amet cursus sit amet dictum sit amet. Faucibus in ornare quam viverra orci sagittis. Quis vel eros donec ac odio tempor. Elementum curabitur vitae nunc sed velit dignissim sodales ut. Lacus laoreet non curabitur gravida arcu ac. Tempor orci eu lobortis elementum nibh tellus. Nisi est sit amet facilisis. Tristique risus nec feugiat in fermentum posuere urna.'
-    ]
+      '... dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus quam id leo in vitae. Gravida quis blandit turpis cursus in hac. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed. Sed cras ornare arcu dui. Nisi porta lorem mollis aliquam ut porttitor leo a. Sit amet cursus sit amet dictum sit amet. Faucibus in ornare quam viverra orci sagittis. Quis vel eros donec ac odio tempor. Elementum curabitur vitae nunc sed velit dignissim sodales ut. Lacus laoreet non curabitur gravida arcu ac. Tempor orci eu lobortis elementum nibh tellus. Nisi est sit amet facilisis. Tristique risus nec feugiat in fermentum posuere urna.',
+    ],
   },
   {
     n: 'p',
     c: [
-      'Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Sit amet luctus venenatis lectus magna fringilla. Consectetur adipiscing elit duis tristique sollicitudin. Metus aliquam eleifend mi in nulla posuere. Orci eu lobortis elementum nibh tellus molestie nunc. Consequat semper viverra nam libero justo laoreet sit. Consequat mauris nunc congue nisi. Sem integer vitae justo eget. Habitant morbi tristique senectus et netus. Id neque aliquam vestibulum morbi blandit. Porta non pulvinar neque laoreet suspendisse interdum consectetur libero id. Sit amet facilisis magna etiam tempor orci eu lobortis elementum. Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque. Vel facilisis volutpat est velit.'
-    ]
+      'Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Sit amet luctus venenatis lectus magna fringilla. Consectetur adipiscing elit duis tristique sollicitudin. Metus aliquam eleifend mi in nulla posuere. Orci eu lobortis elementum nibh tellus molestie nunc. Consequat semper viverra nam libero justo laoreet sit. Consequat mauris nunc congue nisi. Sem integer vitae justo eget. Habitant morbi tristique senectus et netus. Id neque aliquam vestibulum morbi blandit. Porta non pulvinar neque laoreet suspendisse interdum consectetur libero id. Sit amet facilisis magna etiam tempor orci eu lobortis elementum. Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque. Vel facilisis volutpat est velit.',
+    ],
   },
   {
     n: 'p',
     c: [
-      'Turpis massa tincidunt dui ut ornare lectus sit amet. Ultricies mi eget mauris pharetra et. Velit egestas dui id ornare arcu odio ut. Posuere lorem ipsum dolor sit amet consectetur. Risus quis varius quam quisque id. Ultrices gravida dictum fusce ut placerat orci nulla pellentesque. Viverra vitae congue eu consequat ac felis donec et odio. Nunc eget lorem dolor sed viverra. At lectus urna duis convallis convallis. Pharetra pharetra massa massa ultricies mi. Sem nulla pharetra diam sit amet nisl suscipit adipiscing. Aenean euismod elementum nisi quis eleifend quam adipiscing vitae. Lectus quam id leo in vitae turpis massa sed. Viverra tellus in hac habitasse platea dictumst. Netus et malesuada fames ac turpis egestas.'
-    ]
+      'Turpis massa tincidunt dui ut ornare lectus sit amet. Ultricies mi eget mauris pharetra et. Velit egestas dui id ornare arcu odio ut. Posuere lorem ipsum dolor sit amet consectetur. Risus quis varius quam quisque id. Ultrices gravida dictum fusce ut placerat orci nulla pellentesque. Viverra vitae congue eu consequat ac felis donec et odio. Nunc eget lorem dolor sed viverra. At lectus urna duis convallis convallis. Pharetra pharetra massa massa ultricies mi. Sem nulla pharetra diam sit amet nisl suscipit adipiscing. Aenean euismod elementum nisi quis eleifend quam adipiscing vitae. Lectus quam id leo in vitae turpis massa sed. Viverra tellus in hac habitasse platea dictumst. Netus et malesuada fames ac turpis egestas.',
+    ],
   },
   {
     n: 'p',
     c: [
-      'Pellentesque pulvinar pellentesque habitant morbi tristique senectus. Dignissim suspendisse in est ante in nibh. Facilisis mauris sit amet massa vitae tortor condimentum. Sit amet nulla facilisi morbi tempus. In vitae turpis massa sed elementum tempus egestas sed. Vel quam elementum pulvinar etiam non quam lacus. Massa massa ultricies mi quis hendrerit dolor magna. Libero nunc consequat interdum varius sit amet mattis vulputate enim. Viverra justo nec ultrices dui sapien. Pellentesque elit eget gravida cum sociis natoque penatibus. Diam volutpat commodo sed egestas egestas fringilla phasellus. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada.'
-    ]
+      'Pellentesque pulvinar pellentesque habitant morbi tristique senectus. Dignissim suspendisse in est ante in nibh. Facilisis mauris sit amet massa vitae tortor condimentum. Sit amet nulla facilisi morbi tempus. In vitae turpis massa sed elementum tempus egestas sed. Vel quam elementum pulvinar etiam non quam lacus. Massa massa ultricies mi quis hendrerit dolor magna. Libero nunc consequat interdum varius sit amet mattis vulputate enim. Viverra justo nec ultrices dui sapien. Pellentesque elit eget gravida cum sociis natoque penatibus. Diam volutpat commodo sed egestas egestas fringilla phasellus. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada.',
+    ],
   },
   {
     n: 'p',
     c: [
-      'Erat imperdiet sed euismod nisi porta lorem mollis aliquam ut. Gravida cum sociis natoque penatibus et. Sit amet est placerat in egestas erat imperdiet. Eu feugiat pretium nibh ipsum consequat nisl vel pretium. Massa id neque aliquam vestibulum morbi blandit cursus risus at. Praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla. At ultrices mi tempus imperdiet nulla malesuada pellentesque. Nunc vel risus commodo viverra maecenas. Mattis nunc sed blandit libero volutpat sed cras ornare arcu. Sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium.'
-    ]
-  }
+      'Erat imperdiet sed euismod nisi porta lorem mollis aliquam ut. Gravida cum sociis natoque penatibus et. Sit amet est placerat in egestas erat imperdiet. Eu feugiat pretium nibh ipsum consequat nisl vel pretium. Massa id neque aliquam vestibulum morbi blandit cursus risus at. Praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla. At ultrices mi tempus imperdiet nulla malesuada pellentesque. Nunc vel risus commodo viverra maecenas. Mattis nunc sed blandit libero volutpat sed cras ornare arcu. Sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium.',
+    ],
+  },
 ];
 
 export const testDefinitions: Illuminsight.DefinitionInsight = {
@@ -150,37 +150,37 @@ export const testDefinitions: Illuminsight.DefinitionInsight = {
       definitions: [
         {
           definition:
-            'A <a rel="mw:WikiLink" href="/wiki/challenge#Noun" title="challenge">challenge</a>, <a rel="mw:WikiLink" href="/wiki/trial" title="trial">trial</a>.'
+            'A <a rel="mw:WikiLink" href="/wiki/challenge#Noun" title="challenge">challenge</a>, <a rel="mw:WikiLink" href="/wiki/trial" title="trial">trial</a>.',
         },
         {
           definition:
-            'A <a rel="mw:WikiLink" href="/wiki/cupel" title="cupel">cupel</a> or cupelling hearth in which precious metals are melted for trial and refinement.'
+            'A <a rel="mw:WikiLink" href="/wiki/cupel" title="cupel">cupel</a> or cupelling hearth in which precious metals are melted for trial and refinement.',
         },
         {
           definition:
-            'An <a rel="mw:WikiLink" href="/wiki/examination" title="examination">examination</a>, given often during the academic <a rel="mw:WikiLink" href="/wiki/term" title="term">term</a>.'
+            'An <a rel="mw:WikiLink" href="/wiki/examination" title="examination">examination</a>, given often during the academic <a rel="mw:WikiLink" href="/wiki/term" title="term">term</a>.',
         },
         {
           definition:
-            'A <a rel="mw:WikiLink" href="/wiki/session" title="session">session</a> in which a product or piece of equipment is <a rel="mw:WikiLink" href="/wiki/examine" title="examine">examined</a> under everyday or extreme conditions to <a rel="mw:WikiLink" href="/wiki/evaluate" title="evaluate">evaluate</a> its <a rel="mw:WikiLink" href="/wiki/durability" title="durability">durability</a>, etc.'
+            'A <a rel="mw:WikiLink" href="/wiki/session" title="session">session</a> in which a product or piece of equipment is <a rel="mw:WikiLink" href="/wiki/examine" title="examine">examined</a> under everyday or extreme conditions to <a rel="mw:WikiLink" href="/wiki/evaluate" title="evaluate">evaluate</a> its <a rel="mw:WikiLink" href="/wiki/durability" title="durability">durability</a>, etc.',
         },
         {
           definition:
-            'A <a rel="mw:WikiLink" href="/wiki/Test_match" title="Test match">Test match</a>.'
+            'A <a rel="mw:WikiLink" href="/wiki/Test_match" title="Test match">Test match</a>.',
         },
         {
           definition:
-            'The external <a rel="mw:WikiLink" href="/wiki/calciferous" title="calciferous">calciferous</a> shell, or <a rel="mw:WikiLink" href="/wiki/endoskeleton" title="endoskeleton">endoskeleton</a>, of an <a rel="mw:WikiLink" href="/wiki/echinoderm" title="echinoderm">echinoderm</a>, e.g. <a rel="mw:WikiLink" href="/wiki/sand_dollar" title="sand dollar">sand dollars</a> and <a rel="mw:WikiLink" href="/wiki/sea_urchin" title="sea urchin">sea urchins</a>.<figure class="mw-default-size mw-halign-right" typeof="mw:Image/Thumb"><a href="/wiki/File:Sea_urchin_tests.jpg"><img resource="./File:Sea_urchin_tests.jpg" src="//upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sea_urchin_tests.jpg/220px-Sea_urchin_tests.jpg" data-file-width="2178" data-file-height="2086" data-file-type="bitmap" height="211" width="220" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sea_urchin_tests.jpg/440px-Sea_urchin_tests.jpg 2x, //upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sea_urchin_tests.jpg/330px-Sea_urchin_tests.jpg 1.5x"></a><figcaption>Two sea urchin tests</figcaption></figure>'
+            'The external <a rel="mw:WikiLink" href="/wiki/calciferous" title="calciferous">calciferous</a> shell, or <a rel="mw:WikiLink" href="/wiki/endoskeleton" title="endoskeleton">endoskeleton</a>, of an <a rel="mw:WikiLink" href="/wiki/echinoderm" title="echinoderm">echinoderm</a>, e.g. <a rel="mw:WikiLink" href="/wiki/sand_dollar" title="sand dollar">sand dollars</a> and <a rel="mw:WikiLink" href="/wiki/sea_urchin" title="sea urchin">sea urchins</a>.<figure class="mw-default-size mw-halign-right" typeof="mw:Image/Thumb"><a href="/wiki/File:Sea_urchin_tests.jpg"><img resource="./File:Sea_urchin_tests.jpg" src="//upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sea_urchin_tests.jpg/220px-Sea_urchin_tests.jpg" data-file-width="2178" data-file-height="2086" data-file-type="bitmap" height="211" width="220" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sea_urchin_tests.jpg/440px-Sea_urchin_tests.jpg 2x, //upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sea_urchin_tests.jpg/330px-Sea_urchin_tests.jpg 1.5x"></a><figcaption>Two sea urchin tests</figcaption></figure>',
         },
         {
           definition:
-            '<a rel="mw:WikiLink" href="/wiki/testa" title="testa">Testa</a>; <a rel="mw:WikiLink" href="/wiki/seed_coat" title="seed coat">seed coat</a>.'
+            '<a rel="mw:WikiLink" href="/wiki/testa" title="testa">Testa</a>; <a rel="mw:WikiLink" href="/wiki/seed_coat" title="seed coat">seed coat</a>.',
         },
         {
           definition:
-            '<a rel="mw:WikiLink" href="/wiki/judgment" title="judgment">Judgment</a>; <a rel="mw:WikiLink" href="/wiki/distinction" title="distinction">distinction</a>; <a rel="mw:WikiLink" href="/wiki/discrimination" title="discrimination">discrimination</a>.'
-        }
-      ]
+            '<a rel="mw:WikiLink" href="/wiki/judgment" title="judgment">Judgment</a>; <a rel="mw:WikiLink" href="/wiki/distinction" title="distinction">distinction</a>; <a rel="mw:WikiLink" href="/wiki/discrimination" title="discrimination">discrimination</a>.',
+        },
+      ],
     },
     {
       partOfSpeech: 'Verb',
@@ -191,14 +191,15 @@ export const testDefinitions: Illuminsight.DefinitionInsight = {
             'To <a rel="mw:WikiLink" href="/wiki/challenge#Verb" title="challenge">challenge</a>.',
           parsedExamples: [
             {
-              example: '<i>Climbing the mountain <b>tested</b> our stamina.</i>'
-            }
+              example:
+                '<i>Climbing the mountain <b>tested</b> our stamina.</i>',
+            },
           ],
-          examples: ['<i>Climbing the mountain <b>tested</b> our stamina.</i>']
+          examples: ['<i>Climbing the mountain <b>tested</b> our stamina.</i>'],
         },
         {
           definition:
-            'To <a rel="mw:WikiLink" href="/wiki/refine" title="refine">refine</a> (gold, silver, etc.) in a <a rel="mw:WikiLink" href="/wiki/test" title="test">test</a> or <a rel="mw:WikiLink" href="/wiki/cupel" title="cupel">cupel</a>; to subject to <a rel="mw:WikiLink" href="/wiki/cupellation" title="cupellation">cupellation</a>.'
+            'To <a rel="mw:WikiLink" href="/wiki/refine" title="refine">refine</a> (gold, silver, etc.) in a <a rel="mw:WikiLink" href="/wiki/test" title="test">test</a> or <a rel="mw:WikiLink" href="/wiki/cupel" title="cupel">cupel</a>; to subject to <a rel="mw:WikiLink" href="/wiki/cupellation" title="cupellation">cupellation</a>.',
         },
         {
           definition:
@@ -206,37 +207,37 @@ export const testDefinitions: Illuminsight.DefinitionInsight = {
           parsedExamples: [
             {
               example:
-                '<i>to <b>test</b> the soundness of a principle; to <b>test</b> the validity of an argument</i>'
-            }
+                '<i>to <b>test</b> the soundness of a principle; to <b>test</b> the validity of an argument</i>',
+            },
           ],
           examples: [
-            '<i>to <b>test</b> the soundness of a principle; to <b>test</b> the validity of an argument</i>'
-          ]
+            '<i>to <b>test</b> the soundness of a principle; to <b>test</b> the validity of an argument</i>',
+          ],
         },
         {
           definition:
-            'To administer or assign an examination, often given during the academic term, to (somebody).'
+            'To administer or assign an examination, often given during the academic term, to (somebody).',
         },
         {
           definition:
-            'To place a product or piece of equipment under everyday and/or extreme conditions and examine it for its durability, etc.'
+            'To place a product or piece of equipment under everyday and/or extreme conditions and examine it for its durability, etc.',
         },
         {
           definition: 'To be shown to be by test.',
           parsedExamples: [
-            { example: 'He <b>tested</b> positive for cancer.' }
+            { example: 'He <b>tested</b> positive for cancer.' },
           ],
-          examples: ['He <b>tested</b> positive for cancer.']
+          examples: ['He <b>tested</b> positive for cancer.'],
         },
         {
           definition:
             'To examine or try, as by the use of some <a rel="mw:WikiLink" href="/wiki/reagent" title="reagent">reagent</a>.',
           parsedExamples: [
-            { example: '<i>to <b>test</b> a solution by litmus paper</i>' }
+            { example: '<i>to <b>test</b> a solution by litmus paper</i>' },
           ],
-          examples: ['<i>to <b>test</b> a solution by litmus paper</i>']
-        }
-      ]
+          examples: ['<i>to <b>test</b> a solution by litmus paper</i>'],
+        },
+      ],
     },
     {
       partOfSpeech: 'Noun',
@@ -244,9 +245,9 @@ export const testDefinitions: Illuminsight.DefinitionInsight = {
       definitions: [
         {
           definition:
-            'A <a rel="mw:WikiLink" href="/wiki/witness" title="witness">witness</a>.'
-        }
-      ]
+            'A <a rel="mw:WikiLink" href="/wiki/witness" title="witness">witness</a>.',
+        },
+      ],
     },
     {
       partOfSpeech: 'Verb',
@@ -254,13 +255,13 @@ export const testDefinitions: Illuminsight.DefinitionInsight = {
       definitions: [
         {
           definition:
-            'To <a rel="mw:WikiLink" href="/wiki/attest" title="attest">attest</a> (a document) legally, and <a rel="mw:WikiLink" href="/wiki/date" title="date">date</a> it.'
+            'To <a rel="mw:WikiLink" href="/wiki/attest" title="attest">attest</a> (a document) legally, and <a rel="mw:WikiLink" href="/wiki/date" title="date">date</a> it.',
         },
         {
           definition:
-            'To make a <a rel="mw:WikiLink" href="/wiki/testament" title="testament">testament</a>, or <a rel="mw:WikiLink" href="/wiki/will" title="will">will</a>.'
-        }
-      ]
+            'To make a <a rel="mw:WikiLink" href="/wiki/testament" title="testament">testament</a>, or <a rel="mw:WikiLink" href="/wiki/will" title="will">will</a>.',
+        },
+      ],
     },
     {
       partOfSpeech: 'Noun',
@@ -268,10 +269,10 @@ export const testDefinitions: Illuminsight.DefinitionInsight = {
       definitions: [
         {
           definition:
-            '<a rel="mw:WikiLink" href="/wiki/testosterone" title="testosterone">testosterone</a>'
-        }
-      ]
-    }
+            '<a rel="mw:WikiLink" href="/wiki/testosterone" title="testosterone">testosterone</a>',
+        },
+      ],
+    },
   ],
   fr: [
     {
@@ -280,13 +281,13 @@ export const testDefinitions: Illuminsight.DefinitionInsight = {
       definitions: [
         {
           definition:
-            '<a rel="mw:WikiLink" href="/wiki/test#English" title="test">test</a>, a <a rel="mw:WikiLink" href="/wiki/cupel" title="cupel">cupel</a> or cupelling hearth in which precious metals are melted for trial and refinement.'
+            '<a rel="mw:WikiLink" href="/wiki/test#English" title="test">test</a>, a <a rel="mw:WikiLink" href="/wiki/cupel" title="cupel">cupel</a> or cupelling hearth in which precious metals are melted for trial and refinement.',
         },
         {
           definition:
-            '<a rel="mw:WikiLink" href="/wiki/test#English" title="test">test</a>, the external <a rel="mw:WikiLink" href="/wiki/calciferous" title="calciferous">calciferous</a> shell, or <a rel="mw:WikiLink" href="/wiki/endoskeleton" title="endoskeleton">endoskeleton</a>, of an <a rel="mw:WikiLink" href="/wiki/echinoderm" title="echinoderm">echinoderm</a>.'
-        }
-      ]
+            '<a rel="mw:WikiLink" href="/wiki/test#English" title="test">test</a>, the external <a rel="mw:WikiLink" href="/wiki/calciferous" title="calciferous">calciferous</a> shell, or <a rel="mw:WikiLink" href="/wiki/endoskeleton" title="endoskeleton">endoskeleton</a>, of an <a rel="mw:WikiLink" href="/wiki/echinoderm" title="echinoderm">echinoderm</a>.',
+        },
+      ],
     },
     {
       partOfSpeech: 'Noun',
@@ -294,11 +295,11 @@ export const testDefinitions: Illuminsight.DefinitionInsight = {
       definitions: [
         {
           definition:
-            'a <a rel="mw:WikiLink" href="/wiki/test#English" title="test">test</a>, a <a rel="mw:WikiLink" href="/wiki/tryout" title="tryout">tryout</a>, a <a rel="mw:WikiLink" href="/wiki/review" title="review">review</a>'
-        }
-      ]
-    }
-  ]
+            'a <a rel="mw:WikiLink" href="/wiki/test#English" title="test">test</a>, a <a rel="mw:WikiLink" href="/wiki/tryout" title="tryout">tryout</a>, a <a rel="mw:WikiLink" href="/wiki/review" title="review">review</a>',
+        },
+      ],
+    },
+  ],
 };
 
 export const testWikitext = `{{other uses}}

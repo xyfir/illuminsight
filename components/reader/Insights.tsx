@@ -11,19 +11,19 @@ import {
   ChevronLeft as BackIcon,
   TextFormat as DefinitionIcon,
   Search as SearchIcon,
-  Info as WikiIcon
+  Info as WikiIcon,
 } from '@material-ui/icons';
 
 const useStyles = makeStyles(() =>
   createStyles({
     button: {
-      marginRight: '0.3em'
+      marginRight: '0.3em',
     },
     chip: {
       marginBottom: '0.3em !important',
-      marginRight: '0.3em !important'
-    }
-  })
+      marginRight: '0.3em !important',
+    },
+  }),
 );
 
 type InsightType = 'definition' | 'search' | 'wiki';
@@ -33,7 +33,7 @@ const resetExpanded = (): ExpandedInsight => ({ subIndex: -1, index: -1 });
 
 export function Insights({ index }: { index: number }) {
   const { insightsIndex, dispatch, recipe, pub } = React.useContext(
-    ReaderContext
+    ReaderContext,
   );
   const [expand, setExpand] = React.useState(resetExpanded());
   const classes = useStyles();
@@ -51,8 +51,8 @@ export function Insights({ index }: { index: number }) {
       dispatch({
         insightsIndex: {
           ...insightsIndex,
-          [index]: await generateInsights({ insights, recipe, all: true })
-        }
+          [index]: await generateInsights({ insights, recipe, all: true }),
+        },
       });
     }
   }
@@ -97,7 +97,7 @@ export function Insights({ index }: { index: number }) {
                 ? setExpand({
                     subIndex: 0,
                     index: i,
-                    type: insight.wikis.length ? 'wiki' : 'definition'
+                    type: insight.wikis.length ? 'wiki' : 'definition',
                   })
                 : window.open(insight.searches[0].url)
             }
@@ -146,7 +146,7 @@ export function Insights({ index }: { index: number }) {
           ) : null}
 
           {/* Search insights */}
-          {expanded.searches.map(search => (
+          {expanded.searches.map((search) => (
             <Chip
               icon={search.context ? <SearchContextIcon /> : <SearchIcon />}
               label={search.name}

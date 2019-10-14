@@ -14,7 +14,7 @@ test('getWikiArticle()', async () => {
 
   /// Validate request
   expect(mockFetch).toHaveBeenCalledWith('test', undefined, {
-    wikiUrl: 'https://en.wikipedia.org/w/api.php'
+    wikiUrl: 'https://en.wikipedia.org/w/api.php',
   });
 
   // Get article from custom proxied wiki
@@ -25,6 +25,6 @@ test('getWikiArticle()', async () => {
 
   /// Validate request
   expect(mockFetch).toHaveBeenCalledWith('test2', undefined, {
-    wikiUrl: process.enve.PROXY_URL + 'http://example.com'
+    wikiUrl: process.enve.PROXY_URL + 'http://example.com',
   });
 });

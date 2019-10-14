@@ -8,7 +8,7 @@ const REGEX = /(?:[^.\s!?])\s+((?:[A-Z][-A-Za-z']*(?: *[A-Z][-A-Za-z']*)*))|(?:[
 const textToInsight = (text: string): Illuminsight.Insight => ({
   searches: [],
   wikis: [],
-  text
+  text,
 });
 
 /** Generate insights from provided data. */
@@ -17,7 +17,7 @@ export async function generateInsights({
   insights,
   recipe,
   text,
-  all
+  all,
 }: {
   /**
    * Was `text` sourced from a user highlight?
@@ -40,22 +40,22 @@ export async function generateInsights({
           new Set(
             // Grab anything that looks like a proper noun (English mainly)
             (text.match(REGEX) || [])
-              .map(item => item.substr(2))
+              .map((item) => item.substr(2))
               // Remove any items that are contained in stopwords array
-              .filter(item => !stopwords.includes(item.toLowerCase()))
+              .filter((item) => !stopwords.includes(item.toLowerCase()))
               // Trim whitespace
-              .map(item => item.trim())
+              .map((item) => item.trim()),
           ),
-          insight => textToInsight(insight)
+          (insight) => textToInsight(insight),
         );
   }
   // Clean the insights array
   else if (insights) {
-    insights = insights.map(i => ({
+    insights = insights.map((i) => ({
       definitions: undefined,
       searches: [],
       wikis: [],
-      text: i.text
+      text: i.text,
     }));
   }
 
@@ -86,14 +86,14 @@ export async function generateInsights({
           name: `${searchRecipe.name} + Context`,
           url:
             searchRecipe.url +
-            encodeURIComponent(`${searchRecipe.context} ${insight.text}`)
+            encodeURIComponent(`${searchRecipe.context} ${insight.text}`),
         });
       }
 
       // Without context
       insight.searches.push({
         name: searchRecipe.name,
-        url: searchRecipe.url + encodeURIComponent(insight.text)
+        url: searchRecipe.url + encodeURIComponent(insight.text),
       });
     }
   }

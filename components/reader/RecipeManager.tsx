@@ -8,7 +8,7 @@ import {
   downloadRecipe,
   defaultRecipe,
   getRecipeName,
-  getRecipes
+  getRecipes,
 } from 'lib/reader/recipes';
 import {
   InputAdornment,
@@ -18,20 +18,20 @@ import {
   TextField,
   ListItem,
   List,
-  ListItemIcon
+  ListItemIcon,
 } from '@material-ui/core';
 import {
   Remove as RemoveIcon,
   Search as SearchIcon,
-  Add as AddIcon
+  Add as AddIcon,
 } from '@material-ui/icons';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      height: '36em'
-    }
-  })
+      height: '36em',
+    },
+  }),
 );
 
 function _RecipeManager({ match }: RouteComponentProps) {
@@ -75,7 +75,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
     const fuse = new Fuse(recipes, {
       shouldSort: true,
       threshold: 0.4,
-      keys: ['id', 'books', 'series', 'authors']
+      keys: ['id', 'books', 'series', 'authors'],
     });
     matches = fuse.search(search);
   }
@@ -101,21 +101,21 @@ function _RecipeManager({ match }: RouteComponentProps) {
         value={search}
         margin="normal"
         variant="outlined"
-        onChange={e => setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
         fullWidth
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <SearchIcon />
             </InputAdornment>
-          )
+          ),
         }}
         placeholder="The Lord of the Rings"
       />
 
       {/* Recipe search matches */}
       <List dense>
-        {matches.slice(0, 10).map(r => (
+        {matches.slice(0, 10).map((r) => (
           <ListItem button onClick={() => onSet(r.id)} key={r.id}>
             <ListItemIcon>
               <AddIcon />

@@ -20,8 +20,8 @@ const styles = (theme: Theme) =>
       padding: '1em',
       ' & > div': {
         maxWidth: '40em',
-        margin: 'auto'
-      }
+        margin: 'auto',
+      },
     },
     ast: {
       fontFamily: 'serif',
@@ -33,16 +33,16 @@ const styles = (theme: Theme) =>
       '& img': {
         maxWidth: '100%',
         display: 'block',
-        margin: 'auto'
+        margin: 'auto',
       },
       '& div': {
-        margin: '1em 0'
+        margin: '1em 0',
       },
       '& a': {
         textDecoration: 'none',
-        color: theme.palette.primary.main
-      }
-    }
+        color: theme.palette.primary.main,
+      },
+    },
   });
 
 type ReaderProps = WithStyles<typeof styles> &
@@ -61,7 +61,7 @@ export const ReaderContext = React.createContext<ReaderState>({
   insightsIndex: {},
   dispatch: () => undefined,
   recipe: defaultRecipe,
-  ast: []
+  ast: [],
 });
 
 class _Reader extends React.Component<ReaderProps, ReaderState> {
@@ -73,9 +73,9 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
   state: ReaderState = {
     insightsIndex: {},
-    dispatch: state => this.setState(state as ReaderState),
+    dispatch: (state) => this.setState(state as ReaderState),
     recipe: defaultRecipe,
-    ast: []
+    ast: [],
   };
 
   constructor(props: ReaderProps) {
@@ -87,8 +87,10 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     const { pubId } = this.props.match.params as { pubId: number };
     localForage
       .getItem(`pub-recipe-${pubId}`)
-      .then(res => res && this.setState({ recipe: res as Illuminsight.Recipe }))
-      .catch(err => undefined);
+      .then(
+        (res) => res && this.setState({ recipe: res as Illuminsight.Recipe }),
+      )
+      .catch((err) => undefined);
 
     this.loadZip();
   }
@@ -109,7 +111,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     if (this.state.pub) this.saveFile(this.state.pub);
 
     // Revoke image blob urls
-    this.imgURLs.forEach(url => URL.revokeObjectURL(url));
+    this.imgURLs.forEach((url) => URL.revokeObjectURL(url));
   }
 
   /**
@@ -214,7 +216,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
       // Load meta.json
       const pub: Illuminsight.Pub = JSON.parse(
-        await this.zip.file('meta.json').async('text')
+        await this.zip.file('meta.json').async('text'),
       );
 
       // Load section
@@ -245,17 +247,17 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
     try {
       // Revoke previous blob urls
-      this.imgURLs.forEach(url => URL.revokeObjectURL(url));
+      this.imgURLs.forEach((url) => URL.revokeObjectURL(url));
       this.imgURLs = [];
 
       // Load AST for section
       const ast: Illuminsight.AST[] = JSON.parse(
-        await zip.file(`ast/${pub.bookmark.section}.json`).async('text')
+        await zip.file(`ast/${pub.bookmark.section}.json`).async('text'),
       );
 
       // Find images in AST
       const imgNodes = getByTagName('img', ast).concat(
-        getByTagName('image', ast)
+        getByTagName('image', ast),
       );
       for (let node of imgNodes) {
         if (typeof node == 'string' || !node.a) continue;
@@ -292,7 +294,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     zip.file('meta.json', JSON.stringify(pub));
     await localForage.setItem(
       `pub-${pub.id}`,
-      await zip.generateAsync({ type: 'blob' })
+      await zip.generateAsync({ type: 'blob' }),
     );
   }
 
@@ -325,7 +327,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
         <div
           data-testid="reader"
           className={classes.root}
-          onScroll={e => this.onScroll(e)}
+          onScroll={(e) => this.onScroll(e)}
         >
           <ReaderControls
             onNavigate={this.loadSection}
@@ -334,7 +336,7 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
 
           <div
             className={classes.ast}
-            onClick={e => this.onLinkClick(e)}
+            onClick={(e) => this.onLinkClick(e)}
             id="ast"
           >
             {ast.map((node, i) => (

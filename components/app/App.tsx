@@ -9,21 +9,21 @@ import { Reader } from 'components/reader/Reader';
 import * as React from 'react';
 import { Edit } from 'components/Edit';
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     toolbar: theme.mixins.toolbar,
     main: {
       flexDirection: 'column',
       overflow: 'auto',
       display: 'flex',
-      height: '100vh'
-    }
-  })
+      height: '100vh',
+    },
+  }),
 );
 
 export const App = () => {
   const [themeType, setThemeType] = React.useState<ThemeType>(
-    localStorage.theme || 'light'
+    localStorage.theme || 'light',
   );
   const classes = useStyles();
 

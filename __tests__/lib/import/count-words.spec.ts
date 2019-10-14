@@ -8,14 +8,14 @@ test('countWords()', async () => {
       n: 'h4',
       a: { id: 'h4' },
       c: [
-        '"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."'
-      ]
+        '"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."',
+      ],
     },
     {
       n: 'h5',
       c: [
-        '"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."'
-      ]
+        '"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."',
+      ],
     },
     { n: 'hr' },
     {
@@ -25,19 +25,19 @@ test('countWords()', async () => {
         {
           n: 'a',
           a: { href: 'https://example.com' },
-          c: ['Nullam posuere tempor dictum.']
+          c: ['Nullam posuere tempor dictum.'],
         },
-        'Donec nibh lectus, efficitur eu est quis, suscipit tempus lectus. Praesent eu sagittis libero, eu dapibus elit. Aliquam sed sapien magna. Fusce iaculis ultrices sapien, id fringilla nibh placerat eget. Phasellus cursus commodo velit sed condimentum. Praesent finibus euismod pharetra. Etiam vestibulum venenatis ligula.'
-      ]
+        'Donec nibh lectus, efficitur eu est quis, suscipit tempus lectus. Praesent eu sagittis libero, eu dapibus elit. Aliquam sed sapien magna. Fusce iaculis ultrices sapien, id fringilla nibh placerat eget. Phasellus cursus commodo velit sed condimentum. Praesent finibus euismod pharetra. Etiam vestibulum venenatis ligula.',
+      ],
     },
     {
       n: 'p',
       c: [
         'Nunc lobortis posuere nulla,',
         { n: 'a', a: { href: 'lorem.html#h4' }, c: ['vel vestibulum'] },
-        'massa viverra vitae. Maecenas porttitor dui et malesuada maximus. Aenean non elementum risus, et luctus ex. Duis feugiat orci quam, a condimentum justo sagittis eget. Curabitur vulputate turpis vitae tellus convallis imperdiet. Vivamus imperdiet massa neque, aliquam feugiat odio molestie nec. Donec suscipit, felis sit amet scelerisque dapibus, leo nisi semper quam, id vehicula ligula purus in dui. Sed cursus diam ut metus egestas tempus.'
-      ]
-    }
+        'massa viverra vitae. Maecenas porttitor dui et malesuada maximus. Aenean non elementum risus, et luctus ex. Duis feugiat orci quam, a condimentum justo sagittis eget. Curabitur vulputate turpis vitae tellus convallis imperdiet. Vivamus imperdiet massa neque, aliquam feugiat odio molestie nec. Donec suscipit, felis sit amet scelerisque dapibus, leo nisi semper quam, id vehicula ligula purus in dui. Sed cursus diam ut metus egestas tempus.',
+      ],
+    },
   ];
 
   // Count words in AST nodes

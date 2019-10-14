@@ -16,7 +16,7 @@ export async function convert(file: Blob): Promise<Blob> {
   const [opfFile] = epub.file(/\bcontent\.opf$/);
   const opfDoc = parser.parseFromString(
     await opfFile.async('text'),
-    'application/xhtml+xml'
+    'application/xhtml+xml',
   );
 
   // Change root dir of EPUB zip to be OPF's containing folder
@@ -35,7 +35,7 @@ export async function convert(file: Blob): Promise<Blob> {
       else {
         epub.file(
           file.substr(rootDir.length + 1),
-          await epub.file(file).async('blob')
+          await epub.file(file).async('blob'),
         );
         epub.remove(file);
       }
@@ -92,7 +92,7 @@ export async function convert(file: Blob): Promise<Blob> {
       const xhtmlFile = epub.file(href);
       const xhtmlDoc = parser.parseFromString(
         await xhtmlFile.async('text'),
-        'application/xhtml+xml'
+        'application/xhtml+xml',
       );
 
       // Check for body element since document could be XML (like toc.ncx)
@@ -120,7 +120,7 @@ export async function convert(file: Blob): Promise<Blob> {
     // Read section's AST
     const section = `ast/${sectionIndex}.json`;
     const ast: Illuminsight.AST[] = JSON.parse(
-      await astpub.file(section).async('text')
+      await astpub.file(section).async('text'),
     );
 
     // Loop through all attributes we need to convert
@@ -165,7 +165,7 @@ export async function convert(file: Blob): Promise<Blob> {
   const [tocFile] = epub.file(/\btoc\.ncx$/);
   const tocDoc = parser.parseFromString(
     await tocFile.async('text'),
-    'application/xhtml+xml'
+    'application/xhtml+xml',
   );
 
   // Load elements from Table of Contents
@@ -176,7 +176,7 @@ export async function convert(file: Blob): Promise<Blob> {
     navPoints = navPoints.sort(
       (a, b) =>
         Number(a.getAttribute('playOrder')) -
-        Number(b.getAttribute('playorder'))
+        Number(b.getAttribute('playorder')),
     );
   }
 
@@ -187,7 +187,7 @@ export async function convert(file: Blob): Promise<Blob> {
     const src = navPoint.querySelector('content') as Element;
 
     const match = (src.getAttribute('src') as string).match(
-      /^([^#]+)(#(.*))?$/
+      /^([^#]+)(#(.*))?$/,
     ) as RegExpMatchArray;
     toc.push({
       // old link -> new link -> index
@@ -195,7 +195,7 @@ export async function convert(file: Blob): Promise<Blob> {
         .split('/')[1]
         .split('.')[0],
       element: match[3] || 0,
-      title: (title.textContent as string).trim()
+      title: (title.textContent as string).trim(),
     });
   }
 
@@ -217,7 +217,7 @@ export async function convert(file: Blob): Promise<Blob> {
     version: process.enve.ASTPUB_VERSION,
     authors:
       Array.from(opfDoc.getElementsByTagName('dc:creator'))
-        .map(creator => creator.textContent)
+        .map((creator) => creator.textContent)
         .join(', ') || undefined,
     sections,
     bookmark: { section: 0, element: 0 },
@@ -230,8 +230,8 @@ export async function convert(file: Blob): Promise<Blob> {
       if (pub) return pub.textContent as string;
     })(),
     languages: Array.from(opfDoc.getElementsByTagName('dc:language'))
-      .map(lang => lang.textContent!.trim().split('-')[0])
-      .filter(lang => lang != 'und')
+      .map((lang) => lang.textContent!.trim().split('-')[0])
+      .filter((lang) => lang != 'und'),
   };
   pub.languages = pub.languages.length ? pub.languages : ['en'];
 
@@ -241,6 +241,6 @@ export async function convert(file: Blob): Promise<Blob> {
   // Return compressed blob
   return await astpub.generateAsync({
     compressionOptions: { level: 9 },
-    type: 'blob'
+    type: 'blob',
   });
 }

@@ -21,7 +21,7 @@ test('generateInsights()', async () => {
   let insights = await generateInsights({
     recipe: defaultRecipe,
     text:
-      'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.'
+      'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.',
   });
   const items = [
     'Illuminsight',
@@ -29,7 +29,7 @@ test('generateInsights()', async () => {
     'San Diego',
     'July',
     'NASA',
-    'President Eisenhower'
+    'President Eisenhower',
   ];
 
   // Validate insights from text block
@@ -44,7 +44,7 @@ test('generateInsights()', async () => {
       // First found a wiki article so didn't generate definitions or searches
       case 0:
         expect(insights[i].wikis).toMatchObject([
-          { doc: {}, recipe: defaultRecipe.wikis[0] }
+          { doc: {}, recipe: defaultRecipe.wikis[0] },
         ]);
         expect(insights[i].searches).toBeArrayOfSize(0);
         expect(insights[i].definitions).toBeUndefined();
@@ -61,9 +61,9 @@ test('generateInsights()', async () => {
           {
             name: 'Google',
             url: `https://www.google.com/search?q=${encodeURIComponent(
-              items[i]
-            )}`
-          }
+              items[i],
+            )}`,
+          },
         ]);
         expect(insights[i].wikis).toBeArrayOfSize(0);
         expect(insights[i].definitions).toBeUndefined();
@@ -74,7 +74,7 @@ test('generateInsights()', async () => {
   const insights2 = await generateInsights({
     highlight: true,
     recipe: defaultRecipe,
-    text: 'hello world'
+    text: 'hello world',
   });
 
   /// Validate insights from highlight
@@ -85,11 +85,11 @@ test('generateInsights()', async () => {
     searches: [
       {
         name: 'Google',
-        url: 'https://www.google.com/search?q=hello%20world'
-      }
+        url: 'https://www.google.com/search?q=hello%20world',
+      },
     ],
     wikis: [],
-    text: 'hello world'
+    text: 'hello world',
   };
   expect(insights2[0]).toMatchObject(_insight);
 
@@ -102,7 +102,7 @@ test('generateInsights()', async () => {
     recipe: defaultRecipe,
     text:
       'What is so special about Illuminsight? The second largest city in California is San Diego. In July of 1958, NASA was created while President Eisenhower was in office.',
-    all: true
+    all: true,
   });
 
   // Validate first insight has all possible insights

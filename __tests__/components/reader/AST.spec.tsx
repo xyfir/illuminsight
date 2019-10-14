@@ -13,13 +13,13 @@ test('<AST>', async () => {
         {
           searches: [{ name: 'Google', url: '' }],
           wikis: [],
-          text: 'Illuminsight'
-        }
-      ]
+          text: 'Illuminsight',
+        },
+      ],
     },
     dispatch: () => undefined,
     recipe: defaultRecipe,
-    ast: []
+    ast: [],
   };
   const { getByAltText, getByText, container } = render(
     <ReaderContext.Provider value={state}>
@@ -28,7 +28,7 @@ test('<AST>', async () => {
           <AST ast={node} key={i} />
         ))}
       </div>
-    </ReaderContext.Provider>
+    </ReaderContext.Provider>,
   );
   let el: HTMLElement;
 
