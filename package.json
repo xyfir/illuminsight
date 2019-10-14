@@ -10,6 +10,7 @@
     "watch-check": "npm run check -- -w",
     "watch-test": "npm run test -- --watch",
     "coverage": "npm run test -- --coverage",
+    "format": "prettier --write **/*.{ts,js,md,tsx,html}",
     "check": "tsc --noEmit",
     "build": "webpack-cli",
     "test": "jest --detectOpenHandles --runInBand"
