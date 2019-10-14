@@ -12,7 +12,7 @@
     "watch-build": "npm run build -- --watch",
     "check-types": "tsc --noEmit",
     "watch-test": "npm run test -- --watch",
-    "fix-linter": "npm run lint --fix",
+    "fix-linter": "npm run check-linter -- --fix",
     "coverage": "npm run test -- --coverage",
     "format": "prettier --write **/*.{ts,js,md,tsx,html}",
     "build": "webpack-cli",
