@@ -9,5 +9,7 @@ export async function getDefinitions(
       `https://en.wiktionary.org/api/rest_v1/page/definition/${text}`,
     );
     return res.data;
-  } catch {}
+  } catch {
+    return;
+  }
 }

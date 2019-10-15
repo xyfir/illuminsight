@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-export const App = () => {
+export const App = (): JSX.Element => {
   const [themeType, setThemeType] = React.useState<ThemeType>(
     localStorage.theme || 'light',
   );
   const classes = useStyles();
 
-  function toggleTheme() {
+  function toggleTheme(): void {
     const type = themeType == 'dark' ? 'light' : 'dark';
     localStorage.theme = type;
     setThemeType(type);

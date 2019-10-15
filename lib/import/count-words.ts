@@ -7,7 +7,7 @@ export function countWords(node: Illuminsight.AST): number {
   // Count words in string
   if (typeof node == 'string') {
     const text = node.trim();
-    return !text ? 0 : text.split(/\s+|\-+/).length;
+    return !text ? 0 : text.split(/\s+|-+/).length;
   }
   // Count words recursively in child nodes
   else if (node.c) {

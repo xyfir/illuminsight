@@ -17,9 +17,8 @@ import {
   InputAdornment,
   createStyles,
   IconButton,
-  WithStyles,
+  makeStyles,
   Typography,
-  withStyles,
   TextField,
   ListItem,
   Button,
@@ -29,7 +28,7 @@ import {
   List,
 } from '@material-ui/core';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     selectedTagAvatar: {
       backgroundColor: theme.palette.primary.main,
@@ -83,9 +82,10 @@ const styles = (theme: Theme) =>
       padding: theme.spacing(3),
       display: 'flex',
     },
-  });
+  }),
+);
 
-function _Library({ classes }: WithStyles<typeof styles>) {
+export function Library(): JSX.Element {
   const [selectedTags, setSelectedTags] = React.useState<
     Illuminsight.Tag['id'][]
   >([]);
@@ -94,6 +94,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
   const [pubs, setPubs] = React.useState<Illuminsight.Pub[]>([]);
   const [tags, setTags] = React.useState<Illuminsight.Tag[]>([]);
   const [page, setPage] = React.useState(0);
+  const classes = useStyles();
   const now = new Date();
 
   // Load pubs and tags from local storage on mount
@@ -150,7 +151,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
             open={showDrawer}
             anchor="left"
             variant="temporary"
-            onClose={() => setShowDrawer(false)}
+            onClose={(): void => setShowDrawer(false)}
             classes={{ paper: classes.drawerPaper }}
           >
             <Tags
@@ -188,7 +189,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
           value={search}
           margin="normal"
           variant="outlined"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e): void => setSearch(e.target.value)}
           fullWidth
           InputProps={{
             startAdornment: (
@@ -201,7 +202,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="Show filters"
-                    onClick={() => setShowDrawer(true)}
+                    onClick={(): void => setShowDrawer(true)}
                     color="secondary"
                   >
                     <FilterIcon />
@@ -216,7 +217,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
         {/* Import sample library */}
         {pubs.length ? null : (
           <p className={classes.importSample}>
-            You don't have any books.
+            You do not have any books.
             <Button href="/import/sample">Import sample library?</Button>
           </p>
         )}
@@ -226,7 +227,7 @@ function _Library({ classes }: WithStyles<typeof styles>) {
           <InfiniteScroll
             useWindow={false}
             threshold={25}
-            loadMore={(p) => setPage(p)}
+            loadMore={(p): void => setPage(p)}
             hasMore={matches.length > paginatedMatches.length}
             loader={<Typography key="loader">...</Typography>}
           >
@@ -278,5 +279,3 @@ function _Library({ classes }: WithStyles<typeof styles>) {
     </div>
   );
 }
-
-export const Library = withStyles(styles)(_Library);

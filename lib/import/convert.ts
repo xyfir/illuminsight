@@ -130,8 +130,11 @@ export async function convert(file: Blob): Promise<Blob> {
 
       // Loop through nodes with attribute that needs conversion
       for (const node of nodes) {
-        for (let [oldLink, newLink] of Object.entries(linkMap)) {
+        for (const entry of Object.entries(linkMap)) {
           if (typeof node == 'string' || !node.a) continue;
+
+          const oldLink = entry[0];
+          let newLink = entry[1];
 
           // Check if attribute contains the old link
           const attribute = node.a[attr];
@@ -139,7 +142,7 @@ export async function convert(file: Blob): Promise<Blob> {
 
           // Retain #hashes
           if (attribute.includes('#') && !attribute.endsWith('#')) {
-            const [, hash] = attribute.match(/#(.+)/) as RegExpMatchArray;
+            const [, hash] = /#(.+)/.exec(attribute) as RegExpExecArray;
 
             // Check if link contains hash for current section
             // Replace new link with the hash
@@ -186,9 +189,9 @@ export async function convert(file: Blob): Promise<Blob> {
     const title = navPoint.querySelector('navLabel > text') as Element;
     const src = navPoint.querySelector('content') as Element;
 
-    const match = (src.getAttribute('src') as string).match(
-      /^([^#]+)(#(.*))?$/,
-    ) as RegExpMatchArray;
+    const match = /^([^#]+)(#(.*))?$/.exec(src.getAttribute(
+      'src',
+    ) as string) as RegExpExecArray;
     toc.push({
       // old link -> new link -> index
       section: +linkMap[decodeURIComponent(match[1])]
@@ -221,11 +224,11 @@ export async function convert(file: Blob): Promise<Blob> {
         .join(', ') || undefined,
     sections,
     bookmark: { section: 0, element: 0 },
-    published: (() => {
+    published: ((): number | undefined => {
       const date = opfDoc.getElementsByTagName('dc:date')[0];
       if (date) return new Date(date.textContent as string).getTime();
     })(),
-    publisher: (() => {
+    publisher: ((): string | undefined => {
       const pub = opfDoc.getElementsByTagName('dc:publisher')[0];
       if (pub) return pub.textContent as string;
     })(),

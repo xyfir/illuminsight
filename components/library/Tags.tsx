@@ -5,26 +5,25 @@ import {
   ListSubheader,
   createStyles,
   ListItemText,
-  WithStyles,
-  withStyles,
+  makeStyles,
   ListItem,
   Avatar,
   Theme,
   List,
 } from '@material-ui/core';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     selectedTagAvatar: {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.primary.contrastText,
     },
-  });
+  }),
+);
 
-function _Tags({
+export function Tags({
   setSelectedTags,
   selectedTags,
-  classes,
   matches,
   tags,
 }: {
@@ -34,7 +33,9 @@ function _Tags({
   selectedTags: Illuminsight.Tag['id'][];
   matches: Illuminsight.Pub[];
   tags: Illuminsight.Tag[];
-} & WithStyles<typeof styles>) {
+}): JSX.Element {
+  const classes = useStyles();
+
   // Unselected tags linked to matching pubs
   const availableTags = Array.from(
     new Set(
@@ -55,7 +56,7 @@ function _Tags({
             <ListItem
               key={tag}
               button
-              onClick={() =>
+              onClick={(): void =>
                 setSelectedTags(selectedTags.filter((t) => t != tag))
               }
               selected
@@ -81,7 +82,7 @@ function _Tags({
             <ListItem
               key={tag}
               button
-              onClick={() => setSelectedTags(selectedTags.concat(tag))}
+              onClick={(): void => setSelectedTags(selectedTags.concat(tag))}
             >
               <ListItemAvatar>
                 <Avatar>#</Avatar>
@@ -98,5 +99,3 @@ function _Tags({
     </React.Fragment>
   );
 }
-
-export const Tags = withStyles(styles)(_Tags);

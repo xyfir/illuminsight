@@ -35,7 +35,7 @@ export async function downloadRecipe(
   return recipe;
 }
 
-export async function getRecipes() {
+export async function getRecipes(): Promise<Illuminsight.RecipeIndex> {
   const res = await axios.get(
     'https://raw.githubusercontent.com/xyfir/illuminsight-cookbook/master/dist/recipes/.index.min.json',
   );
@@ -51,6 +51,6 @@ export async function getRecipes() {
 }
 
 /** Convert recipe id to text to display to user */
-export function getRecipeName(id: Illuminsight.Recipe['id']) {
+export function getRecipeName(id: Illuminsight.Recipe['id']): string {
   return id.replace(/-/g, ' ');
 }

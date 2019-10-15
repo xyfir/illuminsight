@@ -1,9 +1,9 @@
-import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { CropSquare as SquareIcon } from '@material-ui/icons';
 import localForage from 'localforage';
 import * as React from 'react';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       justifyContent: 'center',
@@ -21,10 +21,12 @@ const styles = (theme: Theme) =>
       maxHeight: '100%',
       maxWidth: '100%',
     },
-  });
+  }),
+);
 
-function _Cover({ classes, id }: WithStyles<typeof styles> & { id: number }) {
+export function Cover({ id }: { id: number }): JSX.Element {
   const [url, setUrl] = React.useState('');
+  const classes = useStyles();
 
   // Load cover from local storage and create object URL from blob
   // Revoke object URL on unmount or id change
@@ -39,7 +41,7 @@ function _Cover({ classes, id }: WithStyles<typeof styles> & { id: number }) {
       })
       .catch(() => undefined);
 
-    return () => {
+    return (): void => {
       if (_url) URL.revokeObjectURL(_url);
     };
   }, [id]);
@@ -54,5 +56,3 @@ function _Cover({ classes, id }: WithStyles<typeof styles> & { id: number }) {
     </div>
   );
 }
-
-export const Cover = withStyles(styles)(_Cover);

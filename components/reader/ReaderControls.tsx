@@ -23,12 +23,12 @@ export function ReaderControls({
 }: {
   onNavigate: (pub: Illuminsight.Pub) => void;
   history: Illuminsight.Marker[];
-}) {
+}): JSX.Element | null {
   const { enqueueSnackbar } = useSnackbar();
   const { dispatch, pub } = React.useContext(ReaderContext);
 
   /** Attempt to match pub to recipe in cookbook */
-  async function findRecipe() {
+  async function findRecipe(): Promise<void> {
     // Abort if a recipe is already set
     const recipe = await localForage.getItem(`pub-recipe-${pub!.id}`);
     if (recipe) return;
@@ -102,7 +102,7 @@ export function ReaderControls({
   }
 
   /** Navigate by updating pub bookmark */
-  function navigate(marker: Illuminsight.Marker) {
+  function navigate(marker: Illuminsight.Marker): void {
     const _pub = { ...pub! };
     _pub.bookmark = marker;
     onNavigate(_pub);
@@ -131,7 +131,7 @@ export function ReaderControls({
         <Tooltip title="Go to previous section">
           <IconButton
             disabled={pub.bookmark.section == 0}
-            onClick={() =>
+            onClick={(): void =>
               navigate({ section: pub.bookmark.section - 1, element: 0 })
             }
           >
@@ -147,7 +147,7 @@ export function ReaderControls({
       {/* Back (history) */}
       {history.length ? (
         <Tooltip title="Go back">
-          <IconButton onClick={() => navigate(history.pop()!)}>
+          <IconButton onClick={(): void => navigate(history.pop()!)}>
             <BackIcon />
           </IconButton>
         </Tooltip>
@@ -164,7 +164,7 @@ export function ReaderControls({
       {pub.sections - 1 > pub.bookmark.section ? (
         <Tooltip title="Go to next section">
           <IconButton
-            onClick={() =>
+            onClick={(): void =>
               navigate({ section: pub.bookmark.section + 1, element: 0 })
             }
           >

@@ -55,7 +55,7 @@ export function WikiInsight({
   insight,
 }: {
   insight: Illuminsight.WikiInsight;
-}) {
+}): JSX.Element {
   const [sectionKey, setSectionKey] = React.useState<SectionKey>('main');
   const [articleKey, setArticleKey] = React.useState(0);
   const [articles, setArticles] = React.useState([insight.doc]);
@@ -63,7 +63,7 @@ export function WikiInsight({
   const classes = useStyles();
 
   /** Go back to previous article in history */
-  function onPreviousArticle() {
+  function onPreviousArticle(): void {
     setSectionKey('main');
     setArticleKey(articleKey - 1);
   }
@@ -72,7 +72,7 @@ export function WikiInsight({
    * Triggered whenever an element in article is clicked. Handles wiki links,
    *  ignores everything else.
    */
-  async function onLinkClick(event: React.MouseEvent) {
+  async function onLinkClick(event: React.MouseEvent): Promise<void> {
     const a = event.target as HTMLAnchorElement;
 
     // If not a link, bubble up
@@ -102,7 +102,7 @@ export function WikiInsight({
   }
 
   /** Build HTML to display for section */
-  function getSectionHTML() {
+  function getSectionHTML(): string {
     // Container for manipulating HTML
     const div = document.createElement('div');
 
@@ -148,7 +148,7 @@ export function WikiInsight({
   }: {
     sections: wtf.Section[];
     depth: number;
-  }) {
+  }): JSX.Element {
     return (
       <ul>
         {sections
@@ -157,7 +157,7 @@ export function WikiInsight({
             <li key={section.title()}>
               <a
                 className={classes.tocLink}
-                onClick={() =>
+                onClick={(): void =>
                   setSectionKey(
                     article.sections().findIndex((s) => s === section),
                   )
@@ -195,7 +195,7 @@ export function WikiInsight({
           <IconButton
             aria-label="Wiki article table of contents"
             className={classes.iconButton}
-            onClick={() => setSectionKey('toc')}
+            onClick={(): void => setSectionKey('toc')}
           >
             <TOCIcon />
           </IconButton>
@@ -206,7 +206,7 @@ export function WikiInsight({
           <Breadcrumbs aria-label="Breadcrumb" maxItems={4}>
             {/* Root section */}
             <Chip
-              onClick={() => setSectionKey('main')}
+              onClick={(): void => setSectionKey('main')}
               variant="outlined"
               label={article.title()}
               icon={<HomeIcon />}
@@ -217,7 +217,7 @@ export function WikiInsight({
             {getSectionAncestors(article.sections()[sectionKey]).map(
               (section) => (
                 <Chip
-                  onClick={() =>
+                  onClick={(): void =>
                     setSectionKey(
                       article.sections().findIndex((s) => s === section),
                     )
@@ -253,14 +253,17 @@ export function WikiInsight({
           />
 
           {sectionKey == 'main' || sectionKey == 'main+stats' ? (
-            <Button onClick={() => setSectionKey('all')} variant="text">
+            <Button onClick={(): void => setSectionKey('all')} variant="text">
               <ExpandMoreIcon />
               Continue Reading
             </Button>
           ) : null}
 
           {sectionKey == 'main' && article.infoboxes().length ? (
-            <Button onClick={() => setSectionKey('main+stats')} variant="text">
+            <Button
+              onClick={(): void => setSectionKey('main+stats')}
+              variant="text"
+            >
               <StatisticsIcon />
               Show Statistics
             </Button>

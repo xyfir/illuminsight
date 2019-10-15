@@ -17,7 +17,11 @@ const useStyles = makeStyles(() =>
 
 let toolbar: HTMLDivElement;
 
-export function Toolbar({ children }: { children: React.ReactNode }) {
+export function Toolbar({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
   const classes = useStyles();
 
   if (!toolbar) {

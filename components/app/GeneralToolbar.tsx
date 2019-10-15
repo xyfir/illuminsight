@@ -14,18 +14,18 @@ import {
 // Types don't yet exist for BeforeInstallPromptEvent
 let beforeInstallPromptEvent: any = null;
 
-export function GeneralToolbar() {
+export function GeneralToolbar(): JSX.Element {
   const [install, setInstall] = React.useState(!!beforeInstallPromptEvent);
   const toggleTheme = React.useContext(ToggleThemeContext);
 
   /** Listen for beforeinstallprompt event */
-  function onBeforeInstallPrompt(event: any) {
+  function onBeforeInstallPrompt(event: any): void {
     beforeInstallPromptEvent = event;
     setInstall(true);
   }
 
   /** Begin PWA installation */
-  function onInstall() {
+  function onInstall(): void {
     beforeInstallPromptEvent.prompt();
     beforeInstallPromptEvent = null;
     setInstall(false);
@@ -34,7 +34,7 @@ export function GeneralToolbar() {
   // Listen for beforeinstallprompt event
   React.useEffect(() => {
     window.addEventListener('beforeinstallprompt', onBeforeInstallPrompt);
-    return () =>
+    return (): void =>
       window.removeEventListener('beforeinstallprompt', onBeforeInstallPrompt);
   }, []);
 
