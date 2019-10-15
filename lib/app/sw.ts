@@ -4,7 +4,6 @@ const CACHE = `illuminsight-${pkg.version}`;
 let assets: string[] = [];
 
 self.addEventListener('install', (event) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const evt = event as any;
   console.log('SW: install', evt);
 
@@ -28,7 +27,6 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const evt = event as any;
   console.log('SW: activate', evt);
 
@@ -44,7 +42,6 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const evt = event as any;
   console.log('SW: fetch', evt.request.url);
 
