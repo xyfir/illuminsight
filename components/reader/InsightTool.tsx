@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     button: {
       transform: 'rotate(180deg)',
@@ -19,42 +19,10 @@ const useStyles = makeStyles((theme) =>
 
 let selectionTimeout: NodeJS.Timer | undefined;
 
-export function InsightTool() {
+export function InsightTool(): JSX.Element {
   const { insightsIndex, dispatch, recipe } = React.useContext(ReaderContext);
   const [active, setActive] = React.useState(false);
   const classes = useStyles();
-
-  function onSelectionChange() {
-    if (selectionTimeout) clearTimeout(selectionTimeout);
-
-    selectionTimeout = setTimeout(async () => {
-      const selected = document.getSelection()!;
-      if (!selected.toString()) return;
-
-      // Get node's ancestor elements to choose block element from
-      const elements = [selected.focusNode!.parentElement!];
-      while (true) {
-        const el = elements[elements.length - 1].parentElement;
-        if (!el) break;
-        else elements.push(el);
-      }
-      const element = getElement(elements) as HTMLElement;
-
-      // Generate insights for AST block
-      const index = +element.getAttribute('ast')!;
-      const insights = await generateInsights({
-        highlight: true,
-        recipe,
-        text: selected.toString().trim(),
-      });
-      insightsIndex[index] = insightsIndex[index]
-        ? insightsIndex[index].concat(insights)
-        : insights;
-
-      // Send modified insights back to Reader
-      dispatch({ insightsIndex });
-    }, 500);
-  }
 
   /**
    * Get element to attach insights to.
@@ -93,10 +61,46 @@ export function InsightTool() {
     return block;
   }
 
+  function onSelectionChange(): void {
+    if (selectionTimeout) clearTimeout(selectionTimeout);
+
+    async function afterTimeout(): Promise<void> {
+      const selected = document.getSelection()!;
+      if (!selected.toString()) return;
+
+      // Get node's ancestor elements to choose block element from
+      const elements = [selected.focusNode!.parentElement!];
+      let el: HTMLElement | null;
+      do {
+        el = elements[elements.length - 1].parentElement;
+        if (el) elements.push(el);
+      } while (el);
+      const element = getElement(elements) as HTMLElement;
+
+      // Generate insights for AST block
+      const index = +element.getAttribute('ast')!;
+      const insights = await generateInsights({
+        highlight: true,
+        recipe,
+        text: selected.toString().trim(),
+      });
+      insightsIndex[index] = insightsIndex[index]
+        ? insightsIndex[index].concat(insights)
+        : insights;
+
+      // Send modified insights back to Reader
+      dispatch({ insightsIndex });
+    }
+
+    selectionTimeout = setTimeout(() => {
+      afterTimeout();
+    }, 500);
+  }
+
   /**
    * Handle clicks to insight tool
    */
-  async function onClick(event: React.MouseEvent) {
+  async function onClick(event: React.MouseEvent): Promise<void> {
     if (active) return;
     setActive(true);
 
@@ -129,17 +133,16 @@ export function InsightTool() {
       // Remove insights
       if (insightsIndex[index]) {
         delete insightsIndex[index];
+        dispatch({ insightsIndex });
       }
       // Parse insights from element's text
       else {
-        insightsIndex[index] = await generateInsights({
+        const insights = await generateInsights({
           recipe,
           text: element.innerText,
         });
+        dispatch({ insightsIndex: { ...insightsIndex, [index]: insights } });
       }
-
-      // Send modified insights back to Reader
-      dispatch({ insightsIndex });
     } catch (err) {
       console.error(err);
     }
@@ -150,7 +153,7 @@ export function InsightTool() {
   // Listen for selection changes
   React.useEffect(() => {
     document.addEventListener('selectionchange', onSelectionChange);
-    return () =>
+    return (): void =>
       document.removeEventListener('selectionchange', onSelectionChange);
   }, []);
 
