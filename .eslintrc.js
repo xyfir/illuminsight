@@ -23,7 +23,9 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react'],
   rules: {
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
   },
   settings: {
     react: {
