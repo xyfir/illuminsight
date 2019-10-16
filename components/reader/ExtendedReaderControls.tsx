@@ -48,14 +48,14 @@ export function ExtendedReaderControls({
 }: {
   navigate: (marker: Illuminsight.Pub['toc'][0]) => void;
   history: Illuminsight.Marker[];
-}) {
+}): JSX.Element | null {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [dialog, setDialog] = React.useState<DialogView>(false);
   const toggleTheme = React.useContext(ToggleThemeContext);
   const { pub } = React.useContext(ReaderContext);
   const classes = useStyles();
 
-  function onChangeFontSize(action: '+' | '-') {
+  function onChangeFontSize(action: '+' | '-'): void {
     let fontSize = +localStorage.getItem('fontSize')! || 125;
 
     if (action == '+' && fontSize == 200) return;
@@ -66,12 +66,12 @@ export function ExtendedReaderControls({
     document.getElementById('ast')!.style.fontSize = `${fontSize}%`;
   }
 
-  function onMenuItemClick(view: DialogView) {
+  function onMenuItemClick(view: DialogView): void {
     setDialog(view);
     setAnchorEl(null);
   }
 
-  function onSelect(tocMarker: Illuminsight.Pub['toc'][0]) {
+  function onSelect(tocMarker: Illuminsight.Pub['toc'][0]): void {
     if (!pub) return;
     history.push(pub.bookmark);
     navigate(tocMarker);
@@ -83,7 +83,7 @@ export function ExtendedReaderControls({
   return (
     <React.Fragment>
       <Tooltip title="View more menu items">
-        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+        <IconButton onClick={(e): void => setAnchorEl(e.currentTarget)}>
           <MoreIcon />
         </IconButton>
       </Tooltip>
@@ -91,10 +91,10 @@ export function ExtendedReaderControls({
       <Menu
         id="more"
         open={Boolean(anchorEl)}
-        onClose={() => setAnchorEl(null)}
+        onClose={(): void => setAnchorEl(null)}
         anchorEl={anchorEl}
       >
-        <MenuItem onClick={() => onMenuItemClick('toc')}>
+        <MenuItem onClick={(): void => onMenuItemClick('toc')}>
           <ListItemIcon>
             <TOCIcon />
           </ListItemIcon>
@@ -108,7 +108,7 @@ export function ExtendedReaderControls({
             Edit Metadata
           </MenuItem>
         </Link>
-        <MenuItem onClick={() => onMenuItemClick('font-size')}>
+        <MenuItem onClick={(): void => onMenuItemClick('font-size')}>
           <ListItemIcon>
             <FontSizeIcon />
           </ListItemIcon>
@@ -120,7 +120,7 @@ export function ExtendedReaderControls({
           </ListItemIcon>
           Toggle Theme
         </MenuItem>
-        <MenuItem onClick={() => onMenuItemClick('recipes')}>
+        <MenuItem onClick={(): void => onMenuItemClick('recipes')}>
           <ListItemIcon>
             <RecipeIcon />
           </ListItemIcon>
@@ -132,7 +132,7 @@ export function ExtendedReaderControls({
       <Dialog
         aria-labelledby="dialog"
         maxWidth={false}
-        onClose={() => setDialog(false)}
+        onClose={(): void => setDialog(false)}
         open={!!dialog}
       >
         <DialogContent>
@@ -140,13 +140,13 @@ export function ExtendedReaderControls({
             <React.Fragment>
               <IconButton
                 aria-label="Decrease font size"
-                onClick={() => onChangeFontSize('-')}
+                onClick={(): void => onChangeFontSize('-')}
               >
                 <DecreaseIcon />
               </IconButton>
               <IconButton
                 aria-label="Increase font size"
-                onClick={() => onChangeFontSize('+')}
+                onClick={(): void => onChangeFontSize('+')}
               >
                 <IncreaseIcon />
               </IconButton>
@@ -159,7 +159,11 @@ export function ExtendedReaderControls({
                 Table of Contents
               </ListSubheader>
               {pub.toc.map((section, i) => (
-                <ListItem key={i} button onClick={() => onSelect(section)}>
+                <ListItem
+                  key={i}
+                  button
+                  onClick={(): void => onSelect(section)}
+                >
                   <ListItemText primary={section.title} />
                 </ListItem>
               ))}

@@ -13,6 +13,7 @@ import {
   Search as SearchIcon,
   Info as WikiIcon,
 } from '@material-ui/icons';
+import { Illuminsight } from 'types';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -31,7 +32,7 @@ type ExpandedInsight = { subIndex: number; index: number; type?: InsightType };
 
 const resetExpanded = (): ExpandedInsight => ({ subIndex: -1, index: -1 });
 
-export function Insights({ index }: { index: number }) {
+export function Insights({ index }: { index: number }): JSX.Element | null {
   const { insightsIndex, dispatch, recipe, pub } = React.useContext(
     ReaderContext,
   );
@@ -43,7 +44,7 @@ export function Insights({ index }: { index: number }) {
   const expanded = insights[expand.index];
 
   /** Generate all insights and expand to show list */
-  async function onExpandAll(i: number) {
+  async function onExpandAll(i: number): Promise<void> {
     setExpand({ subIndex: -1, index: i });
 
     // Generate all insights
@@ -57,7 +58,21 @@ export function Insights({ index }: { index: number }) {
     }
   }
 
-  function onClose() {
+  function onClick(insight: Illuminsight.Insight, i: number): void {
+    if (expand.index == i) {
+      setExpand(resetExpanded());
+    } else if (insight.wikis.length || insight.definitions) {
+      setExpand({
+        subIndex: 0,
+        index: i,
+        type: insight.wikis.length ? 'wiki' : 'definition',
+      });
+    } else {
+      window.open(insight.searches[0].url);
+    }
+  }
+
+  function onClose(): void {
     delete insightsIndex[index];
     dispatch({ insightsIndex });
   }
@@ -90,19 +105,9 @@ export function Insights({ index }: { index: number }) {
               )
             }
             label={insight.text}
-            onClick={() =>
-              expand.index == i
-                ? setExpand(resetExpanded())
-                : insight.wikis.length || insight.definitions
-                ? setExpand({
-                    subIndex: 0,
-                    index: i,
-                    type: insight.wikis.length ? 'wiki' : 'definition',
-                  })
-                : window.open(insight.searches[0].url)
-            }
+            onClick={(): void => onClick(insight, i)}
             // onDelete/deleteIcon are repurposed for expanding all insights
-            onDelete={() => onExpandAll(i)}
+            onDelete={(): Promise<void> => onExpandAll(i)}
             className={classes.chip}
             deleteIcon={
               <ExpandMoreIcon
@@ -117,7 +122,7 @@ export function Insights({ index }: { index: number }) {
           <IconButton
             aria-label="Back to previous insights"
             className={classes.button}
-            onClick={() => setExpand(resetExpanded())}
+            onClick={(): void => setExpand(resetExpanded())}
             size="small"
           >
             <BackIcon />
@@ -126,9 +131,10 @@ export function Insights({ index }: { index: number }) {
           {/* Wiki insights */}
           {expanded.wikis.map((wiki, i) => (
             <Chip
+              key={i}
               icon={<WikiIcon />}
               label={wiki.recipe.name}
-              onClick={() =>
+              onClick={(): void =>
                 setExpand({ ...expand, type: 'wiki', subIndex: i })
               }
               className={classes.chip}
@@ -140,7 +146,7 @@ export function Insights({ index }: { index: number }) {
             <Chip
               icon={<DefinitionIcon />}
               label="Definition"
-              onClick={() => setExpand({ ...expand, type: 'definition' })}
+              onClick={(): void => setExpand({ ...expand, type: 'definition' })}
               className={classes.chip}
             />
           ) : null}
@@ -148,9 +154,10 @@ export function Insights({ index }: { index: number }) {
           {/* Search insights */}
           {expanded.searches.map((search) => (
             <Chip
+              key={search.name}
               icon={search.context ? <SearchContextIcon /> : <SearchIcon />}
               label={search.name}
-              onClick={() => window.open(search.url)}
+              onClick={(): Window | null => window.open(search.url)}
               className={classes.chip}
             />
           ))}

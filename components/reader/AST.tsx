@@ -3,7 +3,7 @@ import { Insights } from 'components/reader/Insights';
 import { Indexer } from 'lib/reader/Indexer';
 import * as React from 'react';
 
-export function AST({ ast }: { ast: Illuminsight.AST }) {
+export function AST({ ast }: { ast: Illuminsight.AST }): JSX.Element {
   const index = Indexer.index;
 
   return (

@@ -33,7 +33,7 @@ export function DefinitionInsight({
 }: {
   definitions: Illuminsight.DefinitionInsight;
   languages: Illuminsight.Pub['languages'];
-}) {
+}): JSX.Element {
   // Find highest priority language with available definitions
   let language = '';
   for (const lang of languages) {
@@ -118,7 +118,7 @@ export function DefinitionInsight({
 
       {/* Expand all definitions */}
       {expand || Object.keys(definitions).length == 1 ? null : (
-        <Button variant="text" onClick={() => setExpand(true)}>
+        <Button variant="text" onClick={(): void => setExpand(true)}>
           <ExpandMoreIcon />
           All Definitions
         </Button>

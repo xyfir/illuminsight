@@ -34,7 +34,7 @@ const useStyles = makeStyles(() =>
   }),
 );
 
-function _RecipeManager({ match }: RouteComponentProps) {
+function _RecipeManager({ match }: RouteComponentProps): JSX.Element {
   const [recipes, setRecipes] = React.useState<Illuminsight.RecipeIndex>([]);
   const { dispatch, recipe } = React.useContext(ReaderContext);
   const [active, setActive] = React.useState<Illuminsight.Recipe | null>(null);
@@ -51,10 +51,10 @@ function _RecipeManager({ match }: RouteComponentProps) {
     // Load recipes
     getRecipes()
       .then(setRecipes)
-      .catch(console.error);
+      .catch((e) => console.error(e));
   }, []);
 
-  async function onRemove() {
+  async function onRemove(): Promise<void> {
     // Replace with default recipe
     // Better than removing it because we know the user has _chosen_ the default
     await localForage.setItem(`pub-recipe-${pubId}`, defaultRecipe);
@@ -64,7 +64,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
     dispatch({ recipe: defaultRecipe });
   }
 
-  async function onSet(id: Illuminsight.Recipe['id']) {
+  async function onSet(id: Illuminsight.Recipe['id']): Promise<void> {
     const _recipe = await downloadRecipe(id, pubId);
     setActive(_recipe);
     dispatch({ recipe: _recipe });
@@ -101,7 +101,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
         value={search}
         margin="normal"
         variant="outlined"
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e): void => setSearch(e.target.value)}
         fullWidth
         InputProps={{
           startAdornment: (
@@ -116,7 +116,7 @@ function _RecipeManager({ match }: RouteComponentProps) {
       {/* Recipe search matches */}
       <List dense>
         {matches.slice(0, 10).map((r) => (
-          <ListItem button onClick={() => onSet(r.id)} key={r.id}>
+          <ListItem button onClick={(): void => onSet(r.id)} key={r.id}>
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
