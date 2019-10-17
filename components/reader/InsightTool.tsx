@@ -135,20 +135,20 @@ export function InsightTool(): JSX.Element {
       // Remove insights
       if (insightsIndex[index]) {
         delete insightsIndex[index];
-        setInsightsIndex(insightsIndex);
       }
       // Parse insights from element's text
       else {
-        const insights = await generateInsights({
+        // eslint-disable-next-line require-atomic-updates
+        insightsIndex[index] = await generateInsights({
           recipe,
           text: element.innerText,
         });
-        setInsightsIndex({ ...insightsIndex, [index]: insights });
       }
     } catch (err) {
       console.error(err);
     }
 
+    setInsightsIndex(insightsIndex);
     setActive(false);
   }
 

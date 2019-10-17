@@ -116,7 +116,11 @@ function _RecipeManager({ match }: RouteComponentProps): JSX.Element {
       {/* Recipe search matches */}
       <List dense>
         {matches.slice(0, 10).map((r) => (
-          <ListItem button onClick={(): void => onSet(r.id)} key={r.id}>
+          <ListItem
+            button
+            onClick={(): Promise<void> => onSet(r.id)}
+            key={r.id}
+          >
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>

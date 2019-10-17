@@ -71,7 +71,7 @@ const useStyles = makeStyles(() =>
   }),
 );
 
-let zip: JSZip;
+let zip: JSZip | undefined;
 
 export function Edit(): JSX.Element | null {
   const [language, setLanguage] = React.useState<
@@ -228,9 +228,9 @@ export function Edit(): JSX.Element | null {
       }
 
       // Set state
-      setPub(pub);
-      setTags(tags);
       setCover(cover);
+      setTags(tags);
+      setPub(pub);
     } catch (err) {
       // Notify user of error and send them back
       console.error(err);
@@ -239,13 +239,14 @@ export function Edit(): JSX.Element | null {
     }
   }
 
-  // on mount
+  function onUnmount(): void {
+    if (cover) URL.revokeObjectURL(cover);
+    zip = undefined;
+  }
+
   React.useEffect(() => {
     onMount();
-    return (): void => {
-      if (cover) URL.revokeObjectURL(cover);
-      zip = undefined;
-    };
+    return onUnmount;
   }, []);
 
   if (!pub) return null;
