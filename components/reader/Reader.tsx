@@ -1,17 +1,17 @@
-import { createStyles, WithStyles, withStyles, Theme } from '@material-ui/core';
-import { WithSnackbarProps, withSnackbar } from 'notistack';
-import { RouteComponentProps } from 'react-router';
+import { useRouteMatch, useHistory } from 'react-router-dom';
+import { createStyles, makeStyles } from '@material-ui/core';
 import { ReaderControls } from 'components/reader/ReaderControls';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
 import { Illuminsight } from 'types';
+import { useSnackbar } from 'notistack';
 import { Indexer } from 'lib/reader/Indexer';
 import localForage from 'localforage';
 import * as React from 'react';
 import { AST } from 'components/reader/AST';
 import JSZip from 'jszip';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       '-webkit-overflow-scrolling': 'touch',
@@ -43,265 +43,75 @@ const styles = (theme: Theme) =>
         color: theme.palette.primary.main,
       },
     },
-  });
+  }),
+);
 
-type ReaderProps = WithStyles<typeof styles> &
-  RouteComponentProps &
-  WithSnackbarProps;
-
-export interface ReaderState {
+export interface ReaderContextState {
+  setInsightsIndex: (insightsIndex: Illuminsight.InsightsIndex) => void;
   insightsIndex: Illuminsight.InsightsIndex;
-  dispatch: (state: Partial<ReaderState>) => void;
+  setRecipe: (recipe: Illuminsight.Recipe) => void;
   recipe: Illuminsight.Recipe;
   pub?: Illuminsight.Pub;
   ast: Illuminsight.AST[];
 }
 
-export const ReaderContext = React.createContext<ReaderState>({
+const defaultContextState: ReaderContextState = {
+  setInsightsIndex: () => undefined,
   insightsIndex: {},
-  dispatch: () => undefined,
+  setRecipe: () => undefined,
   recipe: defaultRecipe,
   ast: [],
-});
+};
 
-class _Reader extends React.Component<ReaderProps, ReaderState> {
-  lastScrollSave = 0;
-  lastScroll = 0;
-  history: Illuminsight.Marker[] = [];
-  imgURLs: string[] = [];
-  zip?: JSZip;
+export const ReaderContext = React.createContext<ReaderContextState>(
+  defaultContextState,
+);
+let zip: JSZip | undefined;
 
-  state: ReaderState = {
-    insightsIndex: {},
-    dispatch: (state) => this.setState(state as ReaderState),
-    recipe: defaultRecipe,
-    ast: [],
-  };
+export function Reader(): JSX.Element {
+  const [lastScrollSave, setLastScrollSave] = React.useState(0);
+  const [insightsIndex, setInsightsIndex] = React.useState<
+    Illuminsight.InsightsIndex
+  >({});
+  const [contextState] = React.useState<ReaderContextState>(
+    Object.assign({}, defaultContextState),
+  );
+  const [lastScroll, setLastScroll] = React.useState(0);
+  const [recipe, setRecipe] = React.useState<Illuminsight.Recipe>(
+    defaultRecipe,
+  );
+  const { enqueueSnackbar } = useSnackbar();
+  const [pub, setPub] = React.useState<Illuminsight.Pub | undefined>();
+  const [ast, setAST] = React.useState<Illuminsight.AST[]>([]);
+  const routeHistory = useHistory();
+  const [history] = React.useState<Illuminsight.Marker[]>([]);
+  const [imgURLs] = React.useState<string[]>([]);
+  const classes = useStyles();
+  const match = useRouteMatch();
+  Indexer.reset();
 
-  constructor(props: ReaderProps) {
-    super(props);
-    this.loadSection = this.loadSection.bind(this);
-  }
-
-  componentDidMount() {
-    const { pubId } = this.props.match.params as { pubId: number };
-    localForage
-      .getItem(`pub-recipe-${pubId}`)
-      .then(
-        (res) => res && this.setState({ recipe: res as Illuminsight.Recipe }),
-      )
-      .catch((err) => undefined);
-
-    this.loadZip();
-  }
-
-  componentDidUpdate(prevProps: any, prevState: ReaderState) {
-    const { pub } = this.state;
-
-    // Scroll to bookmarked element on first load and section change
-    if (
-      pub &&
-      (!prevState.pub || prevState.pub.bookmark.section != pub.bookmark.section)
-    )
-      this.scrollToBookmark(pub);
-  }
-
-  componentWillUnmount() {
-    // Save file immediately
-    if (this.state.pub) this.saveFile(this.state.pub);
-
-    // Revoke image blob urls
-    this.imgURLs.forEach((url) => URL.revokeObjectURL(url));
-  }
-
-  /**
-   * Triggered whenever an element in `#ast` is clicked. Handles links, ignores
-   *  everything else.
-   */
-  onLinkClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    const a = e.target as HTMLAnchorElement;
-
-    // If not a link and parent isn't #ast, bubble up
-    if (a.tagName != 'A' && a.parentElement!.id != 'ast') {
-      e.target = a.parentElement!;
-      this.onLinkClick(e);
-      return;
-    }
-    e.preventDefault();
-
-    // Empty link, do nothing
-    if (!a.href) return;
-
-    // External link, open in new tab
-    if (a.origin != location.origin) return window.open(a.href);
-
-    const pub = { ...this.state.pub! };
-
-    // Hash link for current section, focus #hash
-    if (a.pathname == location.pathname && a.hash.length > 1) {
-      // Get element by hash
-      const el = document.getElementById(a.hash.substr(1));
-      if (!el) return;
-
-      // Save current location to history
-      this.history.push({ ...pub.bookmark });
-
-      // Set location as bookmark and navigate to it
-      pub.bookmark = { ...pub.bookmark, element: a.hash.substr(1) };
-      this.loadSection(pub);
-      return;
-    }
-
-    // Link for another section, change and optionally focus #hash
-    const match = a.href.match(/\/ast\/(\d+)\.json(?:#(.*))?$/);
-    if (match) {
-      // Save current location to history
-      this.history.push(pub.bookmark);
-
-      // Set location as bookmark and navigate to it
-      pub.bookmark = { section: +match[1], element: match[2] || 0 };
-      this.loadSection(pub);
-    }
-  }
-
-  /**
-   * Triggered when user scrolls reader.
-   */
-  onScroll(event: React.UIEvent<HTMLDivElement>) {
-    const { pub } = this.state;
-    if (!pub) return;
-
-    // Throttle onScroll() to max one per second
-    const now = Date.now();
-    if (this.lastScroll + 1000 >= now) return;
-    this.lastScroll = now;
-
-    // Calculate bookmark.element
-    const elements = document.querySelectorAll<HTMLElement>('#ast *[ast]');
-    let element = -1;
-    for (const el of elements) {
-      if (el.offsetTop >= (event.target as HTMLDivElement).scrollTop) {
-        element = +el.getAttribute('ast')!;
-        break;
-      }
-    }
-
-    // Update bookmark if needed
-    if (pub.bookmark.element != element) {
-      pub.bookmark.element = element;
-      this.setState({ pub });
-
-      // Only save to file once a minute from scrolling
-      if (now - 60 * 1000 > this.lastScrollSave) {
-        this.lastScrollSave = Date.now();
-        this.saveFile(pub);
-      }
-    }
-  }
-
-  /**
-   * Load zip file for corresponding pub.
-   */
-  async loadZip() {
-    const { enqueueSnackbar, history, match } = this.props;
-    const { pubId } = match.params as { pubId: number };
-
-    try {
-      // Load file from localForage
-      const file = await localForage.getItem(`pub-${pubId}`);
-      if (file === null) throw 'Could not load data from storage';
-
-      // Parse zip file
-      this.zip = await JSZip.loadAsync(file as Blob);
-
-      // Load meta.json
-      const pub: Illuminsight.Pub = JSON.parse(
-        await this.zip.file('meta.json').async('text'),
-      );
-
-      // Load section
-      await this.loadSection(pub);
-    } catch (err) {
-      // Notify user of error and send them back
-      console.error(err);
-      enqueueSnackbar(typeof err == 'string' ? err : 'Cannot read content');
-      history.goBack();
-    }
-  }
-
-  /**
-   * Load section from zip file by bookmark.
-   */
-  async loadSection(pub: Illuminsight.Pub) {
-    const { pub: oldPub } = this.state;
-
-    // Catch unexpected issues
-    if (pub === oldPub) throw 'loadSection() received same pub from state!';
-
-    // Section hasn't changed so all we need to do is scroll to bookmark
-    if (oldPub && oldPub.bookmark.section == pub.bookmark.section)
-      return this.scrollToBookmark(pub);
-
-    const { enqueueSnackbar, history } = this.props;
-    const zip = this.zip as JSZip;
-
-    try {
-      // Revoke previous blob urls
-      this.imgURLs.forEach((url) => URL.revokeObjectURL(url));
-      this.imgURLs = [];
-
-      // Load AST for section
-      const ast: Illuminsight.AST[] = JSON.parse(
-        await zip.file(`ast/${pub.bookmark.section}.json`).async('text'),
-      );
-
-      // Find images in AST
-      const imgNodes = getByTagName('img', ast).concat(
-        getByTagName('image', ast),
-      );
-      for (const node of imgNodes) {
-        if (typeof node == 'string' || !node.a) continue;
-
-        // Load image from zip file
-        const imgBlob = await zip
-          .file(node.n == 'img' ? node.a.src : node.a['href'])
-          .async('blob');
-
-        // Convert node's src to use object url
-        const url = URL.createObjectURL(imgBlob);
-        node.a[node.n == 'img' ? 'src' : 'href'] = url;
-        this.imgURLs.push(url);
-      }
-
-      // Update file if we've changed sections (not first load)
-      if (this.state.pub) await this.saveFile(pub);
-
-      // Update state
-      this.setState({ insightsIndex: {}, pub, ast });
-    } catch (err) {
-      // Notify user of error and send them back
-      console.error(err);
-      enqueueSnackbar(typeof err == 'string' ? err : 'Cannot read content');
-      history.goBack();
-    }
-  }
+  contextState.setInsightsIndex = setInsightsIndex;
+  contextState.insightsIndex = insightsIndex;
+  contextState.setRecipe = setRecipe;
+  contextState.recipe = recipe;
+  contextState.ast = ast;
+  contextState.pub = pub;
 
   /**
    * Save meta.json in zip file and update storage.
    */
-  async saveFile(pub: Illuminsight.Pub) {
-    const zip = this.zip as JSZip;
-    zip.file('meta.json', JSON.stringify(pub));
+  async function saveFile(pub: Illuminsight.Pub): Promise<void> {
+    zip!.file('meta.json', JSON.stringify(pub));
     await localForage.setItem(
       `pub-${pub.id}`,
-      await zip.generateAsync({ type: 'blob' }),
+      await zip!.generateAsync({ type: 'blob' }),
     );
   }
 
   /**
    * Scroll to `pub.bookmark.element` if able.
    */
-  scrollToBookmark(pub: Illuminsight.Pub) {
+  function scrollToBookmark(pub: Illuminsight.Pub): void {
     const { element } = pub.bookmark;
 
     // Get by id
@@ -316,37 +126,232 @@ class _Reader extends React.Component<ReaderProps, ReaderState> {
     }
   }
 
-  render() {
-    const { classes } = this.props;
-    const { ast } = this.state;
+  /**
+   * Load section from zip file by bookmark.
+   */
+  async function loadSection(newPub: Illuminsight.Pub): Promise<void> {
+    const oldPub = pub;
 
-    Indexer.reset();
+    // Catch unexpected issues
+    if (newPub === oldPub) throw 'loadSection() received same pub from state!';
 
-    return (
-      <ReaderContext.Provider value={this.state}>
-        <div
-          data-testid="reader"
-          className={classes.root}
-          onScroll={(e) => this.onScroll(e)}
-        >
-          <ReaderControls
-            onNavigate={this.loadSection}
-            history={this.history}
-          />
+    // Section hasn't changed so all we need to do is scroll to bookmark
+    if (oldPub && oldPub.bookmark.section == newPub.bookmark.section)
+      return scrollToBookmark(newPub);
 
-          <div
-            className={classes.ast}
-            onClick={(e) => this.onLinkClick(e)}
-            id="ast"
-          >
-            {ast.map((node, i) => (
-              <AST key={i} ast={node} />
-            ))}
-          </div>
-        </div>
-      </ReaderContext.Provider>
-    );
+    try {
+      // Revoke previous blob urls
+      imgURLs.forEach((url) => URL.revokeObjectURL(url));
+
+      // Load AST for section
+      const ast: Illuminsight.AST[] = JSON.parse(
+        await zip!.file(`ast/${newPub.bookmark.section}.json`).async('text'),
+      );
+
+      // Find images in AST
+      const imgNodes = getByTagName('img', ast).concat(
+        getByTagName('image', ast),
+      );
+      for (const node of imgNodes) {
+        if (typeof node == 'string' || !node.a) continue;
+
+        // Load image from zip file
+        const imgBlob = await zip!
+          .file(node.n == 'img' ? node.a.src : node.a['href'])
+          .async('blob');
+
+        // Convert node's src to use object url
+        const url = URL.createObjectURL(imgBlob);
+        node.a[node.n == 'img' ? 'src' : 'href'] = url;
+        imgURLs.push(url);
+      }
+
+      // Update file if we've changed sections (not first load)
+      if (oldPub) await saveFile(newPub);
+
+      // Update state
+      setInsightsIndex({});
+      setPub(newPub);
+      setAST(ast);
+    } catch (err) {
+      // Notify user of error and send them back
+      console.error(err);
+      enqueueSnackbar(typeof err == 'string' ? err : 'Cannot read content');
+      routeHistory.goBack();
+    }
   }
-}
 
-export const Reader = withStyles(styles)(withSnackbar(_Reader));
+  /**
+   * Triggered whenever an element in `#ast` is clicked. Handles links, ignores
+   *  everything else.
+   */
+  function onLinkClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+    const a = e.target as HTMLAnchorElement;
+
+    // If not a link and parent isn't #ast, bubble up
+    if (a.tagName != 'A' && a.parentElement!.id != 'ast') {
+      e.target = a.parentElement!;
+      onLinkClick(e);
+      return;
+    }
+    e.preventDefault();
+
+    // Empty link, do nothing
+    if (!a.href) return;
+
+    // External link, open in new tab
+    if (a.origin != location.origin) {
+      window.open(a.href);
+      return;
+    }
+
+    const _pub = { ...pub! };
+
+    // Hash link for current section, focus #hash
+    if (a.pathname == location.pathname && a.hash.length > 1) {
+      // Get element by hash
+      const el = document.getElementById(a.hash.substr(1));
+      if (!el) return;
+
+      // Save current location to history
+      history.push({ ..._pub.bookmark });
+
+      // Set location as bookmark and navigate to it
+      _pub.bookmark = { ..._pub.bookmark, element: a.hash.substr(1) };
+      loadSection(_pub);
+      return;
+    }
+
+    // Link for another section, change and optionally focus #hash
+    const match = /\/ast\/(\d+)\.json(?:#(.*))?$/.exec(a.href);
+    if (match) {
+      // Save current location to history
+      history.push(_pub.bookmark);
+
+      // Set location as bookmark and navigate to it
+      _pub.bookmark = { section: +match[1], element: match[2] || 0 };
+      loadSection(_pub);
+    }
+  }
+
+  /**
+   * Triggered when user scrolls reader.
+   */
+  function onScroll(event: React.UIEvent<HTMLDivElement>): void {
+    if (!pub) return;
+
+    // Throttle onScroll() to max one per second
+    const now = Date.now();
+    if (lastScroll + 1000 >= now) return;
+    setLastScroll(now);
+
+    // Calculate bookmark.element
+    const elements = document.querySelectorAll<HTMLElement>('#ast *[ast]');
+    let element = -1;
+    for (const el of elements) {
+      if (el.offsetTop >= (event.target as HTMLDivElement).scrollTop) {
+        element = +el.getAttribute('ast')!;
+        break;
+      }
+    }
+
+    // Update bookmark if needed
+    if (pub.bookmark.element != element) {
+      pub.bookmark.element = element;
+      setPub(pub);
+
+      // Only save to file once a minute from scrolling
+      if (now - 60 * 1000 > lastScrollSave) {
+        setLastScrollSave(Date.now());
+        saveFile(pub);
+      }
+    }
+  }
+
+  /**
+   * Load zip file for corresponding pub.
+   */
+  async function loadZip(): Promise<void> {
+    const { pubId } = match!.params as { pubId: number };
+
+    try {
+      // Load file from localForage
+      const file = await localForage.getItem(`pub-${pubId}`);
+      if (file === null) throw 'Could not load data from storage';
+
+      // Parse zip file
+      zip = await JSZip.loadAsync(file as Blob);
+
+      // Load meta.json
+      const pub: Illuminsight.Pub = JSON.parse(
+        await zip.file('meta.json').async('text'),
+      );
+
+      // Load section
+      await loadSection(pub);
+    } catch (err) {
+      // Notify user of error and send them back
+      console.error(err);
+      enqueueSnackbar(typeof err == 'string' ? err : 'Cannot read content');
+      routeHistory.goBack();
+    }
+  }
+
+  // on mount
+  React.useEffect(() => {
+    const { pubId } = match!.params as { pubId: number };
+
+    // Load zip and recipe
+    localForage
+      .getItem(`pub-recipe-${pubId}`)
+      .then((res) => res && setRecipe(res as Illuminsight.Recipe))
+      .catch(() => undefined);
+    loadZip();
+
+    return (): void => {
+      if (pub) saveFile(pub);
+      imgURLs.forEach((url) => URL.revokeObjectURL(url));
+      zip = undefined;
+    };
+  }, []);
+
+  // Scroll to bookmark on initial pub load
+  // This triggers BEFORE AST is rendered for some reason...
+  React.useEffect(() => {
+    if (!pub) return;
+    const interval = setInterval(() => {
+      if (document.getElementById('ast')!.innerText) {
+        clearInterval(interval);
+        scrollToBookmark(pub);
+      }
+    }, 100);
+    return (): void => clearInterval(interval);
+  }, [pub]);
+
+  // Scroll to bookmark when section changes
+  React.useEffect(() => {
+    if (pub) scrollToBookmark(pub);
+  }, [pub && pub.bookmark.section]);
+
+  return (
+    <ReaderContext.Provider value={contextState}>
+      <div
+        data-testid="reader"
+        className={classes.root}
+        onScroll={(e): void => onScroll(e)}
+      >
+        <ReaderControls onNavigate={loadSection} history={history} />
+
+        <div
+          className={classes.ast}
+          onClick={(e): void => onLinkClick(e)}
+          id="ast"
+        >
+          {ast.map((node, i) => (
+            <AST key={i} ast={node} />
+          ))}
+        </div>
+      </div>
+    </ReaderContext.Provider>
+  );
+}
