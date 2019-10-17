@@ -1,13 +1,14 @@
-import { ReaderContext, ReaderState } from 'components/reader/Reader';
+import { ReaderContext, ReaderContextState } from 'components/reader/Reader';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { testAST } from 'lib/test/data';
 import { render } from '@testing-library/react';
 import * as React from 'react';
 import { AST } from 'components/reader/AST';
 
-test('<AST>', async () => {
+test('<AST>', () => {
   // Render AST
-  const state: ReaderState = {
+  const state: ReaderContextState = {
+    setInsightsIndex: () => undefined,
     insightsIndex: {
       2: [
         {
@@ -17,7 +18,7 @@ test('<AST>', async () => {
         },
       ],
     },
-    dispatch: () => undefined,
+    setRecipe: () => undefined,
     recipe: defaultRecipe,
     ast: [],
   };

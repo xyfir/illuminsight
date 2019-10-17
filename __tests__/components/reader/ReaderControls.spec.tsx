@@ -1,5 +1,5 @@
 import { waitForDomChange, fireEvent, render } from '@testing-library/react';
-import { ReaderContext, ReaderState } from 'components/reader/Reader';
+import { ReaderContextState, ReaderContext } from 'components/reader/Reader';
 import { SnackbarProvider } from 'notistack';
 import { ReaderControls } from 'components/reader/ReaderControls';
 import { defaultRecipe } from 'lib/reader/recipes';
@@ -13,14 +13,15 @@ import axios from 'axios';
 test('<ReaderControls>', async () => {
   // Wrap <ReaderControls>
   const history: Illuminsight.Marker[] = [];
-  const state: ReaderState = {
+  const state: ReaderContextState = {
+    setInsightsIndex: () => undefined,
     insightsIndex: {},
-    dispatch: () => undefined,
+    setRecipe: () => undefined,
     recipe: defaultRecipe,
     pub: testPub,
     ast: [],
   };
-  const ReaderControlsConsumer = () => {
+  const ReaderControlsConsumer = (): JSX.Element => {
     const [pub, setPub] = React.useState(testPub);
     state.pub = pub;
     return (
@@ -55,9 +56,7 @@ test('<ReaderControls>', async () => {
   mockGetItem.mockResolvedValueOnce(undefined);
 
   // Render <ReaderControls> inside <ReaderControlsConsumer>
-  const { getByLabelText, getByTitle, getByText } = render(
-    <ReaderControlsConsumer />,
-  );
+  const { getByTitle } = render(<ReaderControlsConsumer />);
   await waitForDomChange();
 
   // Validate a saved recipe was checked for

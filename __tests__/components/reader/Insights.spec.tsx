@@ -1,5 +1,5 @@
 import { testDefinitions, testWikitext, testPub } from 'lib/test/data';
-import { ReaderContext, ReaderState } from 'components/reader/Reader';
+import { ReaderContextState, ReaderContext } from 'components/reader/Reader';
 import { fireEvent, render, wait } from '@testing-library/react';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { Insights } from 'components/reader/Insights';
@@ -16,7 +16,8 @@ test('<Insights>', async () => {
   // !! Due to dispatch being a mock, this state is static
   // !! Though insights lack 'all' key, insightsIndex already has all insights
   //    and won't be modified when component attempts to generate all
-  const state: ReaderState = {
+  const state: ReaderContextState = {
+    setInsightsIndex: jest.fn(),
     insightsIndex: {
       0: [
         {
@@ -42,7 +43,7 @@ test('<Insights>', async () => {
         },
       ],
     },
-    dispatch: jest.fn(),
+    setRecipe: () => undefined,
     recipe: defaultRecipe,
     pub: testPub,
     ast: [],

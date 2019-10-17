@@ -1,4 +1,4 @@
-import { ReaderContext, ReaderState } from 'components/reader/Reader';
+import { ReaderContextState, ReaderContext } from 'components/reader/Reader';
 import { fireEvent, render, wait } from '@testing-library/react';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { Illuminsight } from 'types';
@@ -15,6 +15,7 @@ test('<InsightTool>', async () => {
   };
 
   // Add mocks
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const mockGetBoundingClientRect = (HTMLButtonElement.prototype.getBoundingClientRect = jest.fn());
   const mockElementsFromPoint = ((document as any).elementsFromPoint = jest.fn());
   const mockGetComputedStyle = ((window as any).getComputedStyle = jest.fn());
@@ -35,7 +36,7 @@ test('<InsightTool>', async () => {
   // Mock getting #ast
   const mockGetElementById = ((document as any).getElementById = jest.fn());
 
-  function setMockReturnsForBlock() {
+  function setMockReturnsForBlock(): void {
     // Mock position of insight tool
     mockGetBoundingClientRect.mockReturnValueOnce({ x: 0, y: 0 });
 
@@ -74,15 +75,18 @@ test('<InsightTool>', async () => {
 
   // Wrap <InsightTool>
   const _insightsIndex: Illuminsight.InsightsIndex = {};
-  const state: ReaderState = {
+  const state: ReaderContextState = {
+    setInsightsIndex: () => undefined,
     insightsIndex: _insightsIndex,
-    dispatch: () => undefined,
+    setRecipe: () => undefined,
     recipe: defaultRecipe,
     ast: [],
   };
-  function InsightToolConsumer() {
+  function InsightToolConsumer(): JSX.Element {
     const [_state, setState] = React.useState(state);
-    state.dispatch = (partial) => setState({ ..._state, ...partial });
+    state.setInsightsIndex = (insightsIndex): void =>
+      setState({ ..._state, insightsIndex });
+    state.setRecipe = (recipe): void => setState({ ..._state, recipe });
     return (
       <ReaderContext.Provider value={_state}>
         <InsightTool />
