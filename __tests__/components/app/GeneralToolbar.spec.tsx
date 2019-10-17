@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router';
 import { render } from '@testing-library/react';
 import * as React from 'react';
 
-test('<GeneralToolbar />', async () => {
+test('<GeneralToolbar />', () => {
   // Render GeneralToolbar
   const { getByTitle } = render(
     <MemoryRouter>

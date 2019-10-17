@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { readFileSync } from 'fs';
@@ -139,6 +140,7 @@ test('<Reader>', async () => {
   // Validate onScroll() throttles itself
   fireEvent.scroll(getByTestId('reader'), { target: { scrollTop: 200 } });
   expect(mockQuerySelectorAll).toHaveBeenCalledTimes(1);
+  // eslint-disable-next-line require-atomic-updates
   document.querySelectorAll = querySelectorAll;
 
   // Skip two sections

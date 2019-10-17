@@ -1,7 +1,7 @@
 import { Illuminsight } from 'types';
 import { countWords } from 'lib/import/count-words';
 
-test('countWords()', async () => {
+test('countWords()', () => {
   const ast: Illuminsight.AST[] = [
     { n: 'h1', a: { id: 'h1' }, c: ['Lorem Ipsum'] },
     {

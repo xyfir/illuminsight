@@ -3,7 +3,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { testDefinitions } from 'lib/test/data';
 import * as React from 'react';
 
-test('<DefinitionInsight>', async () => {
+test('<DefinitionInsight>', () => {
   const { getAllByText, getByText, container } = render(
     <DefinitionInsight
       definitions={testDefinitions}
@@ -37,7 +37,7 @@ test('<DefinitionInsight>', async () => {
   getByText('French');
 });
 
-test('<DefinitionInsight languages={["none"]}>', async () => {
+test('<DefinitionInsight languages={["none"]}>', () => {
   const { getByText } = render(
     <DefinitionInsight definitions={testDefinitions} languages={['none']} />,
   );
