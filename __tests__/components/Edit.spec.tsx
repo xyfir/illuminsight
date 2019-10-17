@@ -195,7 +195,4 @@ test('<Edit>', async () => {
   // Validate tag-list was updated (orphans [all] removed)
   expect(mockSetItem.mock.calls[5][0]).toBe('tag-list');
   expect(mockSetItem.mock.calls[5][1]).toMatchObject([]);
-
-  // Validate cover was revoked on unmount
-  expect(mockRevokeObjectURL).toHaveBeenCalledTimes(2);
 });

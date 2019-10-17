@@ -76,7 +76,7 @@ test('<RecipeManager>', async () => {
   expect(mockSetItem).toHaveBeenCalledTimes(1);
   expect(mockSetItem).toHaveBeenCalledWith('pub-recipe-1234', recipe);
   expect(mockSetRecipe).toHaveBeenCalledTimes(1);
-  expect(mockSetRecipe.mock.calls[0][0]).toMatchObject({ recipe });
+  expect(mockSetRecipe.mock.calls[0][0]).toMatchObject(recipe);
 
   // Validate recipe is displayed as active
   expect(getAllByText('lorem')).toBeArrayOfSize(2);
@@ -96,9 +96,7 @@ test('<RecipeManager>', async () => {
     defaultRecipe,
   );
   expect(mockSetRecipe).toHaveBeenCalledTimes(2);
-  expect(mockSetRecipe.mock.calls[1][0]).toMatchObject({
-    recipe: defaultRecipe,
-  });
+  expect(mockSetRecipe.mock.calls[1][0]).toMatchObject(defaultRecipe);
 
   // Validate there's no active recipe
   expect(getAllByText('lorem')).toBeArrayOfSize(1);
