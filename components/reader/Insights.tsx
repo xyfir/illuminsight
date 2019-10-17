@@ -33,7 +33,7 @@ type ExpandedInsight = { subIndex: number; index: number; type?: InsightType };
 const resetExpanded = (): ExpandedInsight => ({ subIndex: -1, index: -1 });
 
 export function Insights({ index }: { index: number }): JSX.Element | null {
-  const { insightsIndex, dispatch, recipe, pub } = React.useContext(
+  const { setInsightsIndex, insightsIndex, recipe, pub } = React.useContext(
     ReaderContext,
   );
   const [expand, setExpand] = React.useState(resetExpanded());
@@ -49,11 +49,9 @@ export function Insights({ index }: { index: number }): JSX.Element | null {
 
     // Generate all insights
     if (!insights[0].all) {
-      dispatch({
-        insightsIndex: {
-          ...insightsIndex,
-          [index]: await generateInsights({ insights, recipe, all: true }),
-        },
+      setInsightsIndex({
+        ...insightsIndex,
+        [index]: await generateInsights({ insights, recipe, all: true }),
       });
     }
   }
@@ -74,7 +72,7 @@ export function Insights({ index }: { index: number }): JSX.Element | null {
 
   function onClose(): void {
     delete insightsIndex[index];
-    dispatch({ insightsIndex });
+    setInsightsIndex(insightsIndex);
   }
 
   return (

@@ -20,7 +20,9 @@ const useStyles = makeStyles(() =>
 let selectionTimeout: NodeJS.Timer | undefined;
 
 export function InsightTool(): JSX.Element {
-  const { insightsIndex, dispatch, recipe } = React.useContext(ReaderContext);
+  const { setInsightsIndex, insightsIndex, recipe } = React.useContext(
+    ReaderContext,
+  );
   const [active, setActive] = React.useState(false);
   const classes = useStyles();
 
@@ -89,7 +91,7 @@ export function InsightTool(): JSX.Element {
         : insights;
 
       // Send modified insights back to Reader
-      dispatch({ insightsIndex });
+      setInsightsIndex(insightsIndex);
     }
 
     selectionTimeout = setTimeout(() => {
@@ -133,7 +135,7 @@ export function InsightTool(): JSX.Element {
       // Remove insights
       if (insightsIndex[index]) {
         delete insightsIndex[index];
-        dispatch({ insightsIndex });
+        setInsightsIndex(insightsIndex);
       }
       // Parse insights from element's text
       else {
@@ -141,7 +143,7 @@ export function InsightTool(): JSX.Element {
           recipe,
           text: element.innerText,
         });
-        dispatch({ insightsIndex: { ...insightsIndex, [index]: insights } });
+        setInsightsIndex({ ...insightsIndex, [index]: insights });
       }
     } catch (err) {
       console.error(err);

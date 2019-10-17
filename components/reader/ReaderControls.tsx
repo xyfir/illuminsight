@@ -25,7 +25,7 @@ export function ReaderControls({
   history: Illuminsight.Marker[];
 }): JSX.Element | null {
   const { enqueueSnackbar } = useSnackbar();
-  const { dispatch, pub } = React.useContext(ReaderContext);
+  const { setRecipe, pub } = React.useContext(ReaderContext);
 
   /** Attempt to match pub to recipe in cookbook */
   async function findRecipe(): Promise<void> {
@@ -96,7 +96,7 @@ export function ReaderControls({
     // Choose recipe with lowest (best) score that passes threshold
     if (match && match.score < 0.5) {
       const recipe = await downloadRecipe(match.item.id, pub!.id);
-      dispatch({ recipe });
+      setRecipe(recipe);
       enqueueSnackbar(`"${getRecipeName(recipe.id)}" recipe loaded`);
     }
   }

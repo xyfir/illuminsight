@@ -36,7 +36,7 @@ const useStyles = makeStyles(() =>
 
 function _RecipeManager({ match }: RouteComponentProps): JSX.Element {
   const [recipes, setRecipes] = React.useState<Illuminsight.RecipeIndex>([]);
-  const { dispatch, recipe } = React.useContext(ReaderContext);
+  const { setRecipe, recipe } = React.useContext(ReaderContext);
   const [active, setActive] = React.useState<Illuminsight.Recipe | null>(null);
   const [search, setSearch] = React.useState('');
   const { pubId } = match.params as { pubId: number };
@@ -61,13 +61,13 @@ function _RecipeManager({ match }: RouteComponentProps): JSX.Element {
 
     // Update state
     setActive(null);
-    dispatch({ recipe: defaultRecipe });
+    setRecipe(defaultRecipe);
   }
 
   async function onSet(id: Illuminsight.Recipe['id']): Promise<void> {
     const _recipe = await downloadRecipe(id, pubId);
     setActive(_recipe);
-    dispatch({ recipe: _recipe });
+    setRecipe(_recipe);
   }
 
   // Filter by search
