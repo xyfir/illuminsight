@@ -23,7 +23,7 @@ test(
     HTMLHeadingElement.prototype.scrollIntoView = jest.fn();
     HTMLAnchorElement.prototype.scrollIntoView = jest.fn();
     HTMLDivElement.prototype.scrollIntoView = jest.fn();
-    SVGElement.prototype.scrollIntoView = jest.fn();
+    const mockSVGElementScrollIntoView = (SVGElement.prototype.scrollIntoView = jest.fn());
 
     // Mock localForage and URL
     const mockRevokeObjectURL = ((URL as any).revokeObjectURL = jest.fn());
@@ -93,9 +93,10 @@ test(
     expect(mockRevokeObjectURL).toHaveBeenCalledTimes(0);
 
     // Validate bookmarked element was scrolled to (default element 0)
-    // await wait(() =>
-    //   expect(mockSVGElementScrollIntoView).toHaveBeenCalledTimes(1),
-    // );
+    await wait(() =>
+      expect(mockSVGElementScrollIntoView).toHaveBeenCalledTimes(1),
+    );
+    console.log('fuck');
 
     // Go to next section
     fireEvent.click(getByTitle('Go to next section'));

@@ -170,9 +170,9 @@ export function Reader(): JSX.Element {
       if (oldPub) await saveFile(newPub);
 
       // Update state
-      setInsightsIndex({});
-      setPub(newPub);
       setAST(ast);
+      setPub(newPub);
+      setInsightsIndex({});
     } catch (err) {
       // Notify user of error and send them back
       console.error(err);
@@ -315,23 +315,7 @@ export function Reader(): JSX.Element {
     };
   }, []);
 
-  // Scroll to bookmark on initial pub load
-  // This triggers BEFORE AST is rendered for some reason...
-  React.useEffect(() => {
-    if (!pub) return;
-    const interval = setInterval(() => {
-      if (
-        document.getElementById('ast')!.textContent ||
-        typeof test == 'object'
-      ) {
-        clearInterval(interval);
-        scrollToBookmark(pub);
-      }
-    }, 100);
-    return (): void => clearInterval(interval);
-  }, [pub]);
-
-  // Scroll to bookmark when section changes
+  // Scroll to bookmark on load and when section changes
   React.useEffect(() => {
     if (pub) scrollToBookmark(pub);
   }, [pub && pub.bookmark.section]);
