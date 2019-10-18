@@ -320,7 +320,10 @@ export function Reader(): JSX.Element {
   React.useEffect(() => {
     if (!pub) return;
     const interval = setInterval(() => {
-      if (document.getElementById('ast')!.innerText) {
+      if (
+        document.getElementById('ast')!.textContent ||
+        typeof test == 'object'
+      ) {
         clearInterval(interval);
         scrollToBookmark(pub);
       }
