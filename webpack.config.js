@@ -67,7 +67,7 @@ module.exports = {
         loader: 'babel-loader',
         include: [
           path.resolve(__dirname, 'components'),
-          path.resolve(__dirname, 'constants'),
+          path.resolve(__dirname, 'store'),
           path.resolve(__dirname, 'lib'),
         ],
         exclude: /node_modules|sw\.js/,
