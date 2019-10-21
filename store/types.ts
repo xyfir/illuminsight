@@ -1,4 +1,5 @@
 import { Illuminsight } from 'types';
+import { Dispatch } from 'redux';
 
 export interface AppState {
   insightsIndex: Illuminsight.InsightsIndex;
@@ -36,3 +37,5 @@ export type ActionTypes =
   | SetRecipeAction
   | SetPubAction
   | SetASTAction;
+
+export type DispatchAction = Dispatch<ActionTypes>;
