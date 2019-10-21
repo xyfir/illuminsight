@@ -1,7 +1,9 @@
+import { setInsightsIndex, setAST, setPub, setRecipe } from 'store/actions';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { DispatchAction, AppState } from 'store/types';
 import { ReaderControls } from 'components/reader/ReaderControls';
-import { defaultRecipe } from 'lib/reader/recipes';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
 import { Illuminsight } from 'types';
 import { useSnackbar } from 'notistack';
@@ -46,56 +48,20 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-export interface ReaderContextState {
-  setInsightsIndex: (insightsIndex: Illuminsight.InsightsIndex) => void;
-  insightsIndex: Illuminsight.InsightsIndex;
-  setRecipe: (recipe: Illuminsight.Recipe) => void;
-  recipe: Illuminsight.Recipe;
-  pub?: Illuminsight.Pub;
-  ast: Illuminsight.AST[];
-}
-
-const defaultContextState: ReaderContextState = {
-  setInsightsIndex: () => undefined,
-  insightsIndex: {},
-  setRecipe: () => undefined,
-  recipe: defaultRecipe,
-  ast: [],
-};
-
-export const ReaderContext = React.createContext<ReaderContextState>(
-  defaultContextState,
-);
 let zip: JSZip | undefined;
 
 export function Reader(): JSX.Element {
   const [lastScrollSave, setLastScrollSave] = React.useState(0);
-  const [insightsIndex, setInsightsIndex] = React.useState<
-    Illuminsight.InsightsIndex
-  >({});
-  const [contextState] = React.useState<ReaderContextState>(
-    Object.assign({}, defaultContextState),
-  );
   const [lastScroll, setLastScroll] = React.useState(0);
-  const [recipe, setRecipe] = React.useState<Illuminsight.Recipe>(
-    defaultRecipe,
-  );
   const { enqueueSnackbar } = useSnackbar();
-  const [pub, setPub] = React.useState<Illuminsight.Pub | undefined>();
-  const [ast, setAST] = React.useState<Illuminsight.AST[]>([]);
+  const { pub, ast } = useSelector((s: AppState) => s);
   const routeHistory = useHistory();
   const [history] = React.useState<Illuminsight.Marker[]>([]);
   const [imgURLs] = React.useState<string[]>([]);
+  const dispatch = useDispatch<DispatchAction>();
   const classes = useStyles();
   const match = useRouteMatch();
   Indexer.reset();
-
-  contextState.setInsightsIndex = setInsightsIndex;
-  contextState.insightsIndex = insightsIndex;
-  contextState.setRecipe = setRecipe;
-  contextState.recipe = recipe;
-  contextState.ast = ast;
-  contextState.pub = pub;
 
   /**
    * Save meta.json in zip file and update storage.
@@ -170,9 +136,9 @@ export function Reader(): JSX.Element {
       if (oldPub) await saveFile(newPub);
 
       // Update state
-      setAST(ast);
-      setPub(newPub);
-      setInsightsIndex({});
+      dispatch(setAST(ast));
+      dispatch(setPub(newPub));
+      dispatch(setInsightsIndex({}));
     } catch (err) {
       // Notify user of error and send them back
       console.error(err);
@@ -304,7 +270,7 @@ export function Reader(): JSX.Element {
     // Load zip and recipe
     localForage
       .getItem(`pub-recipe-${pubId}`)
-      .then((res) => res && setRecipe(res as Illuminsight.Recipe))
+      .then((res) => res && dispatch(setRecipe(res as Illuminsight.Recipe)))
       .catch(() => undefined);
     loadZip();
 
@@ -321,24 +287,22 @@ export function Reader(): JSX.Element {
   }, [pub && pub.bookmark.section]);
 
   return (
-    <ReaderContext.Provider value={contextState}>
-      <div
-        data-testid="reader"
-        className={classes.root}
-        onScroll={(e): void => onScroll(e)}
-      >
-        <ReaderControls onNavigate={loadSection} history={history} />
+    <div
+      data-testid="reader"
+      className={classes.root}
+      onScroll={(e): void => onScroll(e)}
+    >
+      <ReaderControls onNavigate={loadSection} history={history} />
 
-        <div
-          className={classes.ast}
-          onClick={(e): void => onLinkClick(e)}
-          id="ast"
-        >
-          {ast.map((node, i) => (
-            <AST key={i} ast={node} />
-          ))}
-        </div>
+      <div
+        className={classes.ast}
+        onClick={(e): void => onLinkClick(e)}
+        id="ast"
+      >
+        {ast.map((node, i) => (
+          <AST key={i} ast={node} />
+        ))}
       </div>
-    </ReaderContext.Provider>
+    </div>
   );
 }
