@@ -3,11 +3,18 @@ import { createStyles, CssBaseline, makeStyles } from '@material-ui/core';
 import { ToggleThemeContext, ThemeType, themes } from 'lib/app/theme';
 import { SnackbarProvider } from 'notistack';
 import { ThemeProvider } from '@material-ui/styles';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { Library } from 'components/library/Library';
+import { reducer } from 'store/reducers';
 import { Import } from 'components/Import';
 import { Reader } from 'components/reader/Reader';
 import * as React from 'react';
 import { Edit } from 'components/Edit';
+
+// https://redux.js.org/recipes/usage-with-typescript
+
+const store = createStore(reducer);
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -34,26 +41,28 @@ export const App = (): JSX.Element => {
   }
 
   return (
-    <ToggleThemeContext.Provider value={toggleTheme}>
-      <ThemeProvider theme={themes[themeType]}>
-        <CssBaseline />
-        <SnackbarProvider
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <BrowserRouter>
-            <main className={classes.main}>
-              <div className={classes.toolbar} />
-              <Switch>
-                <Route path="/import/:type" component={Import} />
-                <Route path="/read/:pubId" component={Reader} />
-                <Route path="/edit/:pubId" component={Edit} />
-                <Route path="/library" component={Library} />
-                <Redirect exact from="/" to="/library" />
-              </Switch>
-            </main>
-          </BrowserRouter>
-        </SnackbarProvider>
-      </ThemeProvider>
-    </ToggleThemeContext.Provider>
+    <Provider store={store}>
+      <ToggleThemeContext.Provider value={toggleTheme}>
+        <ThemeProvider theme={themes[themeType]}>
+          <CssBaseline />
+          <SnackbarProvider
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          >
+            <BrowserRouter>
+              <main className={classes.main}>
+                <div className={classes.toolbar} />
+                <Switch>
+                  <Route path="/import/:type" component={Import} />
+                  <Route path="/read/:pubId" component={Reader} />
+                  <Route path="/edit/:pubId" component={Edit} />
+                  <Route path="/library" component={Library} />
+                  <Redirect exact from="/" to="/library" />
+                </Switch>
+              </main>
+            </BrowserRouter>
+          </SnackbarProvider>
+        </ThemeProvider>
+      </ToggleThemeContext.Provider>
+    </Provider>
   );
 };
