@@ -1,6 +1,8 @@
 import { RouteComponentProps, withRouter } from 'react-router';
-import { ReaderContext } from 'components/reader/Reader';
+import { useSelector, useDispatch } from 'react-redux';
+import { DispatchAction, AppState } from 'store/types';
 import { Illuminsight } from 'types';
+import { setRecipe } from 'store/actions';
 import localForage from 'localforage';
 import * as React from 'react';
 import Fuse from 'fuse.js';
@@ -13,12 +15,12 @@ import {
 import {
   InputAdornment,
   createStyles,
+  ListItemIcon,
   ListItemText,
   makeStyles,
   TextField,
   ListItem,
   List,
-  ListItemIcon,
 } from '@material-ui/core';
 import {
   Remove as RemoveIcon,
@@ -36,11 +38,12 @@ const useStyles = makeStyles(() =>
 
 function _RecipeManager({ match }: RouteComponentProps): JSX.Element {
   const [recipes, setRecipes] = React.useState<Illuminsight.RecipeIndex>([]);
-  const { setRecipe, recipe } = React.useContext(ReaderContext);
   const [active, setActive] = React.useState<Illuminsight.Recipe | null>(null);
   const [search, setSearch] = React.useState('');
   const { pubId } = match.params as { pubId: number };
+  const dispatch = useDispatch<DispatchAction>();
   const classes = useStyles();
+  const recipe = useSelector((s: AppState) => s.recipe);
   let matches: Illuminsight.RecipeIndex = recipes.slice();
 
   // Load data on mount
@@ -61,13 +64,13 @@ function _RecipeManager({ match }: RouteComponentProps): JSX.Element {
 
     // Update state
     setActive(null);
-    setRecipe(defaultRecipe);
+    dispatch(setRecipe(defaultRecipe));
   }
 
   async function onSet(id: Illuminsight.Recipe['id']): Promise<void> {
     const _recipe = await downloadRecipe(id, pubId);
     setActive(_recipe);
-    setRecipe(_recipe);
+    dispatch(setRecipe(_recipe));
   }
 
   // Filter by search
