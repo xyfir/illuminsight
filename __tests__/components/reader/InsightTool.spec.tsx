@@ -1,8 +1,10 @@
-import { ReaderContextState, ReaderContext } from 'components/reader/Reader';
 import { fireEvent, render, wait } from '@testing-library/react';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { Illuminsight } from 'types';
 import { InsightTool } from 'components/reader/InsightTool';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { reducer } from 'store/reducers';
 import * as React from 'react';
 import axios from 'axios';
 import wtf from 'wtf_wikipedia';
@@ -75,22 +77,16 @@ test('<InsightTool>', async () => {
 
   // Wrap <InsightTool>
   const _insightsIndex: Illuminsight.InsightsIndex = {};
-  const state: ReaderContextState = {
-    setInsightsIndex: () => undefined,
+  const store = createStore(reducer, {
     insightsIndex: _insightsIndex,
-    setRecipe: () => undefined,
     recipe: defaultRecipe,
     ast: [],
-  };
+  });
   function InsightToolConsumer(): JSX.Element {
-    const [_state, setState] = React.useState(state);
-    state.setInsightsIndex = (insightsIndex): void =>
-      setState({ ..._state, insightsIndex });
-    state.setRecipe = (recipe): void => setState({ ..._state, recipe });
     return (
-      <ReaderContext.Provider value={_state}>
+      <Provider store={store}>
         <InsightTool />
-      </ReaderContext.Provider>
+      </Provider>
     );
   }
 

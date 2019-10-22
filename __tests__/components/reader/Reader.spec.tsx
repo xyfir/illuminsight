@@ -3,6 +3,9 @@ import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { readFileSync } from 'fs';
 import { Illuminsight } from 'types';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { reducer } from 'store/reducers';
 import localForage from 'localforage';
 import { resolve } from 'path';
 import { Reader } from 'components/reader/Reader';
@@ -57,6 +60,7 @@ test(
     mockCreateObjectURL.mockReturnValue(blobUrl);
 
     // Render <Reader>
+    const store = createStore(reducer);
     const {
       getAllByText,
       getByTestId,
@@ -64,13 +68,15 @@ test(
       getByText,
       container,
     } = render(
-      <SnackbarProvider>
-        <MemoryRouter initialEntries={[`/read/${pub.id}`]}>
-          <Switch>
-            <Route path="/read/:pubId" component={Reader} />
-          </Switch>
-        </MemoryRouter>
-      </SnackbarProvider>,
+      <Provider store={store}>
+        <SnackbarProvider>
+          <MemoryRouter initialEntries={[`/read/${pub.id}`]}>
+            <Switch>
+              <Route path="/read/:pubId" component={Reader} />
+            </Switch>
+          </MemoryRouter>
+        </SnackbarProvider>
+      </Provider>,
       { container: document.getElementById('content')! },
     );
 

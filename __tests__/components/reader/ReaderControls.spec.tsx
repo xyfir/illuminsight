@@ -1,35 +1,39 @@
 import { waitForDomChange, fireEvent, render } from '@testing-library/react';
-import { ReaderContextState, ReaderContext } from 'components/reader/Reader';
 import { SnackbarProvider } from 'notistack';
 import { ReaderControls } from 'components/reader/ReaderControls';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { MemoryRouter } from 'react-router-dom';
 import { Illuminsight } from 'types';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { reducer } from 'store/reducers';
 import { testPub } from 'lib/test/data';
 import localForage from 'localforage';
 import * as React from 'react';
 import axios from 'axios';
+import { setPub } from 'store/actions';
 
 test('<ReaderControls>', async () => {
   // Wrap <ReaderControls>
   const history: Illuminsight.Marker[] = [];
-  const state: ReaderContextState = {
-    setInsightsIndex: () => undefined,
+  const store = createStore(reducer, {
     insightsIndex: {},
-    setRecipe: () => undefined,
     recipe: defaultRecipe,
     pub: testPub,
     ast: [],
-  };
+  });
   const ReaderControlsConsumer = (): JSX.Element => {
-    const [pub, setPub] = React.useState(testPub);
-    state.pub = pub;
     return (
       <SnackbarProvider>
         <MemoryRouter>
-          <ReaderContext.Provider value={state}>
-            <ReaderControls onNavigate={setPub} history={history} />
-          </ReaderContext.Provider>
+          <Provider store={store}>
+            <ReaderControls
+              onNavigate={(p): void => {
+                store.dispatch(setPub(p));
+              }}
+              history={history}
+            />
+          </Provider>
         </MemoryRouter>
       </SnackbarProvider>
     );

@@ -1,5 +1,7 @@
-import { ReaderContext, ReaderContextState } from 'components/reader/Reader';
 import { defaultRecipe } from 'lib/reader/recipes';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { reducer } from 'store/reducers';
 import { testAST } from 'lib/test/data';
 import { render } from '@testing-library/react';
 import * as React from 'react';
@@ -7,8 +9,7 @@ import { AST } from 'components/reader/AST';
 
 test('<AST>', () => {
   // Render AST
-  const state: ReaderContextState = {
-    setInsightsIndex: () => undefined,
+  const store = createStore(reducer, {
     insightsIndex: {
       2: [
         {
@@ -18,18 +19,17 @@ test('<AST>', () => {
         },
       ],
     },
-    setRecipe: () => undefined,
     recipe: defaultRecipe,
     ast: [],
-  };
+  });
   const { getByAltText, getByText, container } = render(
-    <ReaderContext.Provider value={state}>
+    <Provider store={store}>
       <div>
         {testAST.map((node, i) => (
           <AST ast={node} key={i} />
         ))}
       </div>
-    </ReaderContext.Provider>,
+    </Provider>,
   );
   let el: HTMLElement;
 

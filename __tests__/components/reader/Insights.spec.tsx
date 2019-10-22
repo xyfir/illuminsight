@@ -1,8 +1,10 @@
 import { testDefinitions, testWikitext, testPub } from 'lib/test/data';
-import { ReaderContextState, ReaderContext } from 'components/reader/Reader';
 import { fireEvent, render, wait } from '@testing-library/react';
 import { defaultRecipe } from 'lib/reader/recipes';
+import { createStore } from 'redux';
 import { Insights } from 'components/reader/Insights';
+import { Provider } from 'react-redux';
+import { reducer } from 'store/reducers';
 import * as React from 'react';
 import axios from 'axios';
 import wtf from 'wtf_wikipedia';
@@ -13,11 +15,7 @@ test('<Insights>', async () => {
   const mockOpen = ((window as any).open = jest.fn());
   const mockGet = ((axios as any).get = jest.fn());
 
-  // !! Due to dispatch being a mock, this state is static
-  // !! Though insights lack 'all' key, insightsIndex already has all insights
-  //    and won't be modified when component attempts to generate all
-  const state: ReaderContextState = {
-    setInsightsIndex: jest.fn(),
+  const store = createStore(reducer, {
     insightsIndex: {
       0: [
         {
@@ -43,15 +41,14 @@ test('<Insights>', async () => {
         },
       ],
     },
-    setRecipe: () => undefined,
     recipe: defaultRecipe,
     pub: testPub,
     ast: [],
-  };
+  });
   const { getByLabelText, getAllByText, getByText } = render(
-    <ReaderContext.Provider value={state}>
+    <Provider store={store}>
       <Insights index={0} />
-    </ReaderContext.Provider>,
+    </Provider>,
   );
 
   // Click "Cormac McCarthy" insight
