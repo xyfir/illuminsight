@@ -1,7 +1,8 @@
 import { ToggleThemeContext } from 'lib/app/theme';
 import { RecipeManager } from 'components/reader/RecipeManager';
-import { ReaderContext } from 'components/reader/Reader';
 import { Illuminsight } from 'types';
+import { useSelector } from 'react-redux';
+import { AppState } from 'store/types';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -52,8 +53,8 @@ export function ExtendedReaderControls({
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [dialog, setDialog] = React.useState<DialogView>(false);
   const toggleTheme = React.useContext(ToggleThemeContext);
-  const { pub } = React.useContext(ReaderContext);
   const classes = useStyles();
+  const pub = useSelector((s: AppState) => s.pub);
 
   function onChangeFontSize(action: '+' | '-'): void {
     let fontSize = +localStorage.getItem('fontSize')! || 125;

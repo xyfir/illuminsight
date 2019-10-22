@@ -12,8 +12,6 @@ import { Reader } from 'components/reader/Reader';
 import * as React from 'react';
 import { Edit } from 'components/Edit';
 
-// https://redux.js.org/recipes/usage-with-typescript
-
 const store = createStore(reducer);
 
 const useStyles = makeStyles((theme) =>

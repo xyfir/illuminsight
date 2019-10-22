@@ -1,7 +1,9 @@
 import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { DispatchAction, AppState } from 'store/types';
 import { DefinitionInsight } from 'components/reader/DefinitionInsight';
 import { generateInsights } from 'lib/reader/generate-insights';
-import { ReaderContext } from 'components/reader/Reader';
+import { setInsightsIndex } from 'store/actions';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
 import {
@@ -33,10 +35,9 @@ type ExpandedInsight = { subIndex: number; index: number; type?: InsightType };
 const resetExpanded = (): ExpandedInsight => ({ subIndex: -1, index: -1 });
 
 export function Insights({ index }: { index: number }): JSX.Element | null {
-  const { setInsightsIndex, insightsIndex, recipe, pub } = React.useContext(
-    ReaderContext,
-  );
+  const { insightsIndex, recipe, pub } = useSelector((s: AppState) => s);
   const [expand, setExpand] = React.useState(resetExpanded());
+  const dispatch = useDispatch<DispatchAction>();
   const classes = useStyles();
 
   const insights = insightsIndex[index];
@@ -49,10 +50,12 @@ export function Insights({ index }: { index: number }): JSX.Element | null {
 
     // Generate all insights
     if (!insights[0].all) {
-      setInsightsIndex({
-        ...insightsIndex,
-        [index]: await generateInsights({ insights, recipe, all: true }),
-      });
+      dispatch(
+        setInsightsIndex({
+          ...insightsIndex,
+          [index]: await generateInsights({ insights, recipe, all: true }),
+        }),
+      );
     }
   }
 
@@ -72,7 +75,7 @@ export function Insights({ index }: { index: number }): JSX.Element | null {
 
   function onClose(): void {
     delete insightsIndex[index];
-    setInsightsIndex(insightsIndex);
+    dispatch(setInsightsIndex(insightsIndex));
   }
 
   return (

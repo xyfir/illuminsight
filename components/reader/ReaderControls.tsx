@@ -1,10 +1,12 @@
 import { getRecipes, downloadRecipe, getRecipeName } from 'lib/reader/recipes';
+import { useDispatch, useSelector } from 'react-redux';
+import { DispatchAction, AppState } from 'store/types';
 import { ExtendedReaderControls } from 'components/reader/ExtendedReaderControls';
 import { IconButton, Tooltip } from '@material-ui/core';
-import { ReaderContext } from 'components/reader/Reader';
 import { Illuminsight } from 'types';
 import { InsightTool } from 'components/reader/InsightTool';
 import { useSnackbar } from 'notistack';
+import { setRecipe } from 'store/actions';
 import { Toolbar } from 'components/app/Toolbar';
 import localForage from 'localforage';
 import * as React from 'react';
@@ -25,7 +27,8 @@ export function ReaderControls({
   history: Illuminsight.Marker[];
 }): JSX.Element | null {
   const { enqueueSnackbar } = useSnackbar();
-  const { setRecipe, pub } = React.useContext(ReaderContext);
+  const dispatch = useDispatch<DispatchAction>();
+  const pub = useSelector((s: AppState) => s.pub);
 
   /** Attempt to match pub to recipe in cookbook */
   async function findRecipe(): Promise<void> {
@@ -96,7 +99,7 @@ export function ReaderControls({
     // Choose recipe with lowest (best) score that passes threshold
     if (match && match.score < 0.5) {
       const recipe = await downloadRecipe(match.item.id, pub!.id);
-      setRecipe(recipe);
+      dispatch(setRecipe(recipe));
       enqueueSnackbar(`"${getRecipeName(recipe.id)}" recipe loaded`);
     }
   }

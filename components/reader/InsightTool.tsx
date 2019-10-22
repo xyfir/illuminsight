@@ -1,6 +1,8 @@
 import { Highlight as InsightIcon } from '@material-ui/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { DispatchAction, AppState } from 'store/types';
 import { generateInsights } from 'lib/reader/generate-insights';
-import { ReaderContext } from 'components/reader/Reader';
+import { setInsightsIndex } from 'store/actions';
 import * as React from 'react';
 import {
   createStyles,
@@ -20,10 +22,9 @@ const useStyles = makeStyles(() =>
 let selectionTimeout: NodeJS.Timer | undefined;
 
 export function InsightTool(): JSX.Element {
-  const { setInsightsIndex, insightsIndex, recipe } = React.useContext(
-    ReaderContext,
-  );
+  const { insightsIndex, recipe } = useSelector((s: AppState) => s);
   const [active, setActive] = React.useState(false);
+  const dispatch = useDispatch<DispatchAction>();
   const classes = useStyles();
 
   /**
@@ -91,7 +92,7 @@ export function InsightTool(): JSX.Element {
         : insights;
 
       // Send modified insights back to Reader
-      setInsightsIndex(insightsIndex);
+      dispatch(setInsightsIndex(insightsIndex));
     }
 
     selectionTimeout = setTimeout(() => {
@@ -148,7 +149,7 @@ export function InsightTool(): JSX.Element {
       console.error(err);
     }
 
-    setInsightsIndex(insightsIndex);
+    dispatch(setInsightsIndex(insightsIndex));
     setActive(false);
   }
 
