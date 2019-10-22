@@ -1,8 +1,8 @@
+import { removeInsights, addInsights } from 'store/actions';
 import { Highlight as InsightIcon } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { DispatchAction, AppState } from 'store/types';
 import { generateInsights } from 'lib/reader/generate-insights';
-import { setInsightsIndex } from 'store/actions';
 import * as React from 'react';
 import {
   createStyles,
@@ -81,18 +81,16 @@ export function InsightTool(): JSX.Element {
       const element = getElement(elements) as HTMLElement;
 
       // Generate insights for AST block
-      const index = +element.getAttribute('ast')!;
-      const insights = await generateInsights({
-        highlight: true,
-        recipe,
-        text: selected.toString().trim(),
-      });
-      insightsIndex[index] = insightsIndex[index]
-        ? insightsIndex[index].concat(insights)
-        : insights;
-
-      // Send modified insights back to Reader
-      dispatch(setInsightsIndex(insightsIndex));
+      dispatch(
+        addInsights(
+          +element.getAttribute('ast')!,
+          await generateInsights({
+            highlight: true,
+            recipe,
+            text: selected.toString().trim(),
+          }),
+        ),
+      );
     }
 
     selectionTimeout = setTimeout(() => {
@@ -135,21 +133,24 @@ export function InsightTool(): JSX.Element {
 
       // Remove insights
       if (insightsIndex[index]) {
-        delete insightsIndex[index];
+        dispatch(removeInsights(index));
       }
       // Parse insights from element's text
       else {
-        // eslint-disable-next-line require-atomic-updates
-        insightsIndex[index] = await generateInsights({
-          recipe,
-          text: element.innerText,
-        });
+        dispatch(
+          addInsights(
+            index,
+            await generateInsights({
+              recipe,
+              text: element.innerText,
+            }),
+          ),
+        );
       }
     } catch (err) {
       console.error(err);
     }
 
-    dispatch(setInsightsIndex(insightsIndex));
     setActive(false);
   }
 

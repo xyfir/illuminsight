@@ -1,9 +1,9 @@
 import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
+import { removeInsights, addInsights } from 'store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { DispatchAction, AppState } from 'store/types';
 import { DefinitionInsight } from 'components/reader/DefinitionInsight';
 import { generateInsights } from 'lib/reader/generate-insights';
-import { setInsightsIndex } from 'store/actions';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import * as React from 'react';
 import {
@@ -51,10 +51,10 @@ export function Insights({ index }: { index: number }): JSX.Element | null {
     // Generate all insights
     if (!insights[0].all) {
       dispatch(
-        setInsightsIndex({
-          ...insightsIndex,
-          [index]: await generateInsights({ insights, recipe, all: true }),
-        }),
+        addInsights(
+          index,
+          await generateInsights({ insights, recipe, all: true }),
+        ),
       );
     }
   }
@@ -74,8 +74,7 @@ export function Insights({ index }: { index: number }): JSX.Element | null {
   }
 
   function onClose(): void {
-    delete insightsIndex[index];
-    dispatch(setInsightsIndex(insightsIndex));
+    dispatch(removeInsights(index));
   }
 
   return (
