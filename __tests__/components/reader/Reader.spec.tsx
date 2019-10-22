@@ -102,7 +102,6 @@ test(
     await wait(() =>
       expect(mockSVGElementScrollIntoView).toHaveBeenCalledTimes(1),
     );
-    console.log('fuck');
 
     // Go to next section
     fireEvent.click(getByTitle('Go to next section'));
