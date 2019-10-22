@@ -14,6 +14,21 @@ export interface SetInsightsAction {
   payload: Illuminsight.InsightsIndex;
 }
 
+export const REMOVE_INSIGHTS = 'REMOVE_INSIGHTS';
+export interface RemoveInsightsAction {
+  type: typeof REMOVE_INSIGHTS;
+  payload: number;
+}
+
+export const ADD_INSIGHTS = 'ADD_INSIGHTS';
+export interface AddInsightsAction {
+  type: typeof ADD_INSIGHTS;
+  payload: {
+    index: number;
+    insights: Illuminsight.Insight[];
+  };
+}
+
 export const SET_RECIPE = 'SET_RECIPE';
 export interface SetRecipeAction {
   type: typeof SET_RECIPE;
@@ -33,7 +48,9 @@ export interface SetASTAction {
 }
 
 export type ActionTypes =
+  | RemoveInsightsAction
   | SetInsightsAction
+  | AddInsightsAction
   | SetRecipeAction
   | SetPubAction
   | SetASTAction;

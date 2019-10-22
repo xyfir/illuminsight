@@ -1,9 +1,13 @@
 import { Illuminsight } from 'types';
 import {
+  RemoveInsightsAction,
   SET_INSIGHTS_INDEX,
   SetInsightsAction,
+  AddInsightsAction,
   SetRecipeAction,
+  REMOVE_INSIGHTS,
   SetASTAction,
+  ADD_INSIGHTS,
   SetPubAction,
   SET_RECIPE,
   SET_PUB,
@@ -14,6 +18,17 @@ export function setInsightsIndex(
   insightsIndex: Illuminsight.InsightsIndex,
 ): SetInsightsAction {
   return { type: SET_INSIGHTS_INDEX, payload: insightsIndex };
+}
+
+export function removeInsights(index: number): RemoveInsightsAction {
+  return { type: REMOVE_INSIGHTS, payload: index };
+}
+
+export function addInsights(
+  index: number,
+  insights: Illuminsight.Insight[],
+): AddInsightsAction {
+  return { type: ADD_INSIGHTS, payload: { index, insights } };
 }
 
 export function setRecipe(recipe: Illuminsight.Recipe): SetRecipeAction {
