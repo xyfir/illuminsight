@@ -1,6 +1,4 @@
 import { fireEvent, render, wait } from '@testing-library/react';
-import { defaultRecipe } from 'lib/reader/recipes';
-import { Illuminsight } from 'types';
 import { InsightTool } from 'components/reader/InsightTool';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -76,12 +74,7 @@ test('<InsightTool>', async () => {
   }
 
   // Wrap <InsightTool>
-  const _insightsIndex: Illuminsight.InsightsIndex = {};
-  const store = createStore(reducer, {
-    insightsIndex: _insightsIndex,
-    recipe: defaultRecipe,
-    ast: [],
-  });
+  const store = createStore(reducer);
   function InsightToolConsumer(): JSX.Element {
     return (
       <Provider store={store}>
@@ -120,5 +113,7 @@ test('<InsightTool>', async () => {
 
   // Insights were generated and set to correct AST element index
   await wait(() => expect(mockFetch).toHaveBeenCalled());
-  expect(_insightsIndex).toMatchObject({ 2: [{ text: 'Illuminsight' }] });
+  expect(store.getState().insightsIndex).toMatchObject({
+    2: [{ text: 'Illuminsight' }],
+  });
 });
