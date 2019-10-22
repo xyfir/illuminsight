@@ -15,6 +15,12 @@ test('<Insights>', async () => {
   const mockOpen = ((window as any).open = jest.fn());
   const mockGet = ((axios as any).get = jest.fn());
 
+  // Mock getting definitions / wiki
+  mockGet.mockResolvedValueOnce(null);
+  mockGet.mockResolvedValueOnce({ data: testDefinitions });
+  mockFetch.mockResolvedValueOnce(null);
+  mockFetch.mockResolvedValueOnce(wtf(testWikitext));
+
   const store = createStore(reducer, {
     insightsIndex: {
       0: [
@@ -36,7 +42,8 @@ test('<Insights>', async () => {
               url: 'https://www.google.com/search?q=Blood%20Meridian',
             },
           ],
-          wikis: [{ recipe: defaultRecipe.wikis[0], doc: wtf(testWikitext) }],
+          wikis: [],
+          // wikis: [{ recipe: defaultRecipe.wikis[0], doc: wtf(testWikitext) }],
           text: 'Blood Meridian',
         },
       ],
@@ -63,16 +70,14 @@ test('<Insights>', async () => {
   // Click "Blood Meridian" insight
   fireEvent.click(getByText('Blood Meridian'));
 
-  // Expect "Blood Meridian" insight to have opened wiki article
-  getByText('novel by American author', { exact: false });
+  // Expect "Blood Meridian" insight to have opened definitions
+  getAllByText('noun');
 
-  // Click "Blood Meridian" insight again to close wiki article
+  // Click "Blood Meridian" insight again to definitions
   fireEvent.click(getAllByText('Blood Meridian')[0]);
 
-  // Expect wiki article to have closed
-  expect(() =>
-    getByText('novel by American author', { exact: false }),
-  ).toThrow();
+  // Expect definitions to have closed
+  expect(() => getAllByText('noun')).toThrow();
 
   // Click secondary action to view all insights of text
   fireEvent.click(getByLabelText('View all insights for "Blood Meridian"'));
