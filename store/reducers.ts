@@ -3,6 +3,7 @@ import {
   SET_INSIGHTS_INDEX,
   REMOVE_INSIGHTS,
   ADD_INSIGHTS,
+  TOGGLE_THEME,
   ActionTypes,
   SET_RECIPE,
   AppState,
@@ -13,6 +14,7 @@ import {
 const initialState: AppState = {
   insightsIndex: {},
   recipe: defaultRecipe,
+  theme: localStorage.theme || 'light',
   ast: [],
 };
 
@@ -37,6 +39,8 @@ export function reducer(
           [action.payload.index]: action.payload.insights,
         },
       };
+    case TOGGLE_THEME:
+      return { ...state, theme: state.theme == 'dark' ? 'light' : 'dark' };
     case SET_RECIPE:
       return { ...state, recipe: action.payload };
     case SET_PUB:
