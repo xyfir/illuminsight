@@ -11,7 +11,7 @@ import {
   SET_AST,
 } from 'store/types';
 
-const initialState: AppState = {
+export const initialState: AppState = {
   insightsIndex: {},
   recipe: defaultRecipe,
   theme: localStorage.theme || 'light',
