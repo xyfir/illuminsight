@@ -43,7 +43,6 @@ test('<Insights>', async () => {
             },
           ],
           wikis: [],
-          // wikis: [{ recipe: defaultRecipe.wikis[0], doc: wtf(testWikitext) }],
           text: 'Blood Meridian',
         },
       ],
