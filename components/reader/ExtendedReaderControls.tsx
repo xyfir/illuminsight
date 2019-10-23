@@ -1,7 +1,8 @@
-import { ToggleThemeContext } from 'lib/app/theme';
+import { useSelector, useDispatch } from 'react-redux';
+import { DispatchAction } from 'store/types';
 import { RecipeManager } from 'components/reader/RecipeManager';
 import { Illuminsight } from 'types';
-import { useSelector } from 'react-redux';
+import { toggleTheme } from 'store/actions';
 import { AppState } from 'store/types';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
@@ -52,7 +53,7 @@ export function ExtendedReaderControls({
 }): JSX.Element | null {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [dialog, setDialog] = React.useState<DialogView>(false);
-  const toggleTheme = React.useContext(ToggleThemeContext);
+  const dispatch = useDispatch<DispatchAction>();
   const classes = useStyles();
   const pub = useSelector((s: AppState) => s.pub);
 
@@ -77,6 +78,10 @@ export function ExtendedReaderControls({
     history.push(pub.bookmark);
     navigate(tocMarker);
     setDialog(false);
+  }
+
+  function onToggleTheme(): void {
+    dispatch(toggleTheme());
   }
 
   if (!pub) return null;
@@ -115,7 +120,7 @@ export function ExtendedReaderControls({
           </ListItemIcon>
           Set Font Size
         </MenuItem>
-        <MenuItem onClick={toggleTheme}>
+        <MenuItem onClick={onToggleTheme}>
           <ListItemIcon>
             {localStorage.theme == 'dark' ? <SunIcon /> : <MoonIcon />}
           </ListItemIcon>

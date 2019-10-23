@@ -1,5 +1,7 @@
 import { IconButton, Tooltip } from '@material-ui/core';
-import { ToggleThemeContext } from 'lib/app/theme';
+import { DispatchAction } from 'store/types';
+import { toggleTheme } from 'store/actions';
+import { useDispatch } from 'react-redux';
 import { Toolbar } from 'components/app/Toolbar';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
@@ -16,7 +18,7 @@ let beforeInstallPromptEvent: any = null;
 
 export function GeneralToolbar(): JSX.Element {
   const [install, setInstall] = React.useState(!!beforeInstallPromptEvent);
-  const toggleTheme = React.useContext(ToggleThemeContext);
+  const dispatch = useDispatch<DispatchAction>();
 
   /** Listen for beforeinstallprompt event */
   function onBeforeInstallPrompt(event: any): void {
@@ -31,6 +33,10 @@ export function GeneralToolbar(): JSX.Element {
     setInstall(false);
   }
 
+  function onToggleTheme(): void {
+    dispatch(toggleTheme());
+  }
+
   // Listen for beforeinstallprompt event
   React.useEffect(() => {
     window.addEventListener('beforeinstallprompt', onBeforeInstallPrompt);
@@ -41,7 +47,7 @@ export function GeneralToolbar(): JSX.Element {
   return (
     <Toolbar>
       <Tooltip title="Toggle light/dark theme">
-        <IconButton onClick={toggleTheme}>
+        <IconButton onClick={onToggleTheme}>
           {localStorage.theme == 'dark' ? <SunIcon /> : <MoonIcon />}
         </IconButton>
       </Tooltip>

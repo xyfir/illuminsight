@@ -1,9 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { createContext } from 'react';
 
 export type ThemeType = 'light' | 'dark';
-
-export type ToggleThemeContextValue = () => void;
 
 export const themes = {
   light: createMuiTheme({
@@ -21,7 +18,3 @@ export const themes = {
     },
   }),
 };
-
-export const ToggleThemeContext = createContext<ToggleThemeContextValue>(
-  () => 0,
-);
