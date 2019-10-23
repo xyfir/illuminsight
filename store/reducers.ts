@@ -34,11 +34,7 @@ export function reducer(
         ...state,
         insightsIndex: {
           ...state.insightsIndex,
-          [action.payload.index]: state.insightsIndex[action.payload.index]
-            ? state.insightsIndex[action.payload.index].concat(
-                action.payload.insights,
-              )
-            : action.payload.insights,
+          [action.payload.index]: action.payload.insights,
         },
       };
     case SET_RECIPE:
