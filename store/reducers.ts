@@ -1,8 +1,6 @@
 import { defaultRecipe } from 'lib/reader/recipes';
 import {
-  SET_INSIGHTS_INDEX,
-  REMOVE_INSIGHTS,
-  ADD_INSIGHTS,
+  SET_INSIGHTS,
   TOGGLE_THEME,
   ActionTypes,
   SET_RECIPE,
@@ -12,7 +10,6 @@ import {
 } from 'store/types';
 
 export const initialState: AppState = {
-  insightsIndex: {},
   recipe: defaultRecipe,
   theme: localStorage.theme || 'light',
   ast: [],
@@ -23,22 +20,8 @@ export function reducer(
   action: ActionTypes,
 ): AppState {
   switch (action.type) {
-    case SET_INSIGHTS_INDEX:
-      return { ...state, insightsIndex: action.payload };
-    case REMOVE_INSIGHTS:
-      return ((): AppState => {
-        const insightsIndex = { ...state.insightsIndex };
-        delete insightsIndex[action.payload];
-        return { ...state, insightsIndex };
-      })();
-    case ADD_INSIGHTS:
-      return {
-        ...state,
-        insightsIndex: {
-          ...state.insightsIndex,
-          [action.payload.index]: action.payload.insights,
-        },
-      };
+    case SET_INSIGHTS:
+      return { ...state, insights: action.payload };
     case TOGGLE_THEME:
       return { ...state, theme: state.theme == 'dark' ? 'light' : 'dark' };
     case SET_RECIPE:

@@ -17,7 +17,6 @@ test('<ReaderControls>', async () => {
   // Wrap <ReaderControls>
   const history: Illuminsight.Marker[] = [];
   const store = createStore(reducer, {
-    insightsIndex: {},
     recipe: defaultRecipe,
     pub: testPub,
     ast: [],

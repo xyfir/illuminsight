@@ -92,17 +92,11 @@ export namespace Illuminsight {
     doc: wtf.Document;
   }
 
-  export interface Insight {
+  export interface Insights {
     definitions?: DefinitionInsight;
     searches: SearchInsight[];
     wikis: WikiInsight[];
     text: string;
-    /** Does insight contain all possible insights? */
-    all?: boolean;
-  }
-
-  export interface InsightsIndex {
-    [element: number]: Insight[];
   }
 
   export type RecipeIndex = {

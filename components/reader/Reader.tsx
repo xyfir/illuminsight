@@ -1,4 +1,4 @@
-import { setInsightsIndex, setAST, setPub, setRecipe } from 'store/actions';
+import { setInsights, setAST, setPub, setRecipe } from 'store/actions';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -138,7 +138,7 @@ export function Reader(): JSX.Element {
       // Update state
       dispatch(setAST(ast));
       dispatch(setPub(newPub));
-      dispatch(setInsightsIndex({}));
+      dispatch(setInsights(undefined));
     } catch (err) {
       // Notify user of error and send them back
       console.error(err);

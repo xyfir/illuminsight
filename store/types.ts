@@ -3,32 +3,17 @@ import { ThemeType } from 'lib/app/theme';
 import { Dispatch } from 'redux';
 
 export interface AppState {
-  insightsIndex: Illuminsight.InsightsIndex;
+  insights?: Illuminsight.Insights;
   recipe: Illuminsight.Recipe;
   theme: ThemeType;
   pub?: Illuminsight.Pub;
   ast: Illuminsight.AST[];
 }
 
-export const SET_INSIGHTS_INDEX = 'SET_INSIGHTS_INDEX';
+export const SET_INSIGHTS = 'SET_INSIGHTS';
 export interface SetInsightsAction {
-  type: typeof SET_INSIGHTS_INDEX;
-  payload: Illuminsight.InsightsIndex;
-}
-
-export const REMOVE_INSIGHTS = 'REMOVE_INSIGHTS';
-export interface RemoveInsightsAction {
-  type: typeof REMOVE_INSIGHTS;
-  payload: number;
-}
-
-export const ADD_INSIGHTS = 'ADD_INSIGHTS';
-export interface AddInsightsAction {
-  type: typeof ADD_INSIGHTS;
-  payload: {
-    index: number;
-    insights: Illuminsight.Insight[];
-  };
+  type: typeof SET_INSIGHTS;
+  payload: Illuminsight.Insights | undefined;
 }
 
 export const TOGGLE_THEME = 'TOGGLE_THEME';
@@ -55,9 +40,7 @@ export interface SetASTAction {
 }
 
 export type ActionTypes =
-  | RemoveInsightsAction
   | SetInsightsAction
-  | AddInsightsAction
   | ToggleThemeAction
   | SetRecipeAction
   | SetPubAction

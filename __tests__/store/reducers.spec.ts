@@ -2,38 +2,17 @@ import { initialState, reducer } from 'store/reducers';
 import { Illuminsight } from 'types';
 import { testPub } from 'lib/test/data';
 import {
-  setInsightsIndex,
-  removeInsights,
-  addInsights,
+  setInsights,
   toggleTheme,
   setRecipe,
   setPub,
   setAST,
 } from 'store/actions';
 
-test('setInsightsIndex()', () => {
-  const insightsIndex = {};
-  const state = reducer(undefined, setInsightsIndex(insightsIndex));
-  expect(state.insightsIndex).toBe(insightsIndex);
-});
-
-test('removeInsights()', () => {
-  const insightsIndex: Illuminsight.InsightsIndex = {
-    123: [{ searches: [], wikis: [], text: '' }],
-  };
-  const state = reducer(
-    { ...initialState, insightsIndex },
-    removeInsights(123),
-  );
-  expect(state.insightsIndex[123]).toBeUndefined();
-});
-
-test('addInsights()', () => {
-  const insights: Illuminsight.Insight[] = [
-    { searches: [], wikis: [], text: '' },
-  ];
-  const state = reducer(undefined, addInsights(123, insights));
-  expect(state.insightsIndex).toMatchObject({ 123: insights });
+test('setInsights()', () => {
+  const insights: Illuminsight.Insights = { searches: [], wikis: [], text: '' };
+  const state = reducer(undefined, setInsights(insights));
+  expect(state.insights).toBe(insights);
 });
 
 test('toggleTheme()', () => {

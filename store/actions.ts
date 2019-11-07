@@ -1,36 +1,21 @@
 import { Illuminsight } from 'types';
 import {
-  RemoveInsightsAction,
-  SET_INSIGHTS_INDEX,
   SetInsightsAction,
-  AddInsightsAction,
   ToggleThemeAction,
   SetRecipeAction,
-  REMOVE_INSIGHTS,
+  SET_INSIGHTS,
   SetASTAction,
   TOGGLE_THEME,
-  ADD_INSIGHTS,
   SetPubAction,
   SET_RECIPE,
   SET_PUB,
   SET_AST,
 } from 'store/types';
 
-export function setInsightsIndex(
-  insightsIndex: Illuminsight.InsightsIndex,
+export function setInsights(
+  insights: Illuminsight.Insights | undefined,
 ): SetInsightsAction {
-  return { type: SET_INSIGHTS_INDEX, payload: insightsIndex };
-}
-
-export function removeInsights(index: number): RemoveInsightsAction {
-  return { type: REMOVE_INSIGHTS, payload: index };
-}
-
-export function addInsights(
-  index: number,
-  insights: Illuminsight.Insight[],
-): AddInsightsAction {
-  return { type: ADD_INSIGHTS, payload: { index, insights } };
+  return { type: SET_INSIGHTS, payload: insights };
 }
 
 export function toggleTheme(): ToggleThemeAction {
