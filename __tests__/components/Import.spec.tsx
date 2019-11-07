@@ -1,7 +1,10 @@
 import { MemoryRouter, Switch, Route } from 'react-router';
 import { SnackbarProvider } from 'notistack';
 import { Illuminsight } from 'types';
+import { createStore } from 'redux';
 import * as convert from 'lib/import/convert';
+import { Provider } from 'react-redux';
+import { reducer } from 'store/reducers';
 import { testPub } from 'lib/test/data';
 import localForage from 'localforage';
 import { Import } from 'components/Import';
@@ -18,13 +21,16 @@ import {
 
 test('<Import> epub', async () => {
   // Render <Import>
+  const store = createStore(reducer);
   const { getAllByLabelText, getByLabelText, getByText } = render(
     <SnackbarProvider>
-      <MemoryRouter initialEntries={['/import/epub']}>
-        <Switch>
-          <Route path="/import/:type" component={Import} />
-        </Switch>
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/import/epub']}>
+          <Switch>
+            <Route path="/import/:type" component={Import} />
+          </Switch>
+        </MemoryRouter>
+      </Provider>
     </SnackbarProvider>,
     { container: document.getElementById('content')! },
   );
@@ -101,13 +107,16 @@ test('<Import> sample', async () => {
   mockGet.mockResolvedValue({ data: new Buffer([]) });
 
   // Render <Import>
+  const store = createStore(reducer);
   const { getByText } = render(
     <SnackbarProvider>
-      <MemoryRouter initialEntries={['/import/sample']}>
-        <Switch>
-          <Route path="/import/:type" component={Import} />
-        </Switch>
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/import/sample']}>
+          <Switch>
+            <Route path="/import/:type" component={Import} />
+          </Switch>
+        </MemoryRouter>
+      </Provider>
     </SnackbarProvider>,
     { container: document.getElementById('content')! },
   );

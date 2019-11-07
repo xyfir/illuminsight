@@ -1,7 +1,10 @@
 import { waitForDomChange, fireEvent, render } from '@testing-library/react';
 import { StaticRouter } from 'react-router-dom';
 import { Illuminsight } from 'types';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { Library } from 'components/library/Library';
+import { reducer } from 'store/reducers';
 import localForage from 'localforage';
 import * as React from 'react';
 
@@ -72,9 +75,12 @@ test('<Library>', async () => {
   mockGetItem.mockResolvedValue(null);
 
   // Render <Library>
+  const store = createStore(reducer);
   const { getByPlaceholderText, getByText } = render(
     <StaticRouter>
-      <Library />
+      <Provider store={store}>
+        <Library />
+      </Provider>
     </StaticRouter>,
     { container: document.getElementById('content')! },
   );

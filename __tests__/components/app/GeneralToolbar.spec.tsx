@@ -1,14 +1,20 @@
 import { GeneralToolbar } from 'components/app/GeneralToolbar';
 import { MemoryRouter } from 'react-router';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { reducer } from 'store/reducers';
 import { render } from '@testing-library/react';
 import * as React from 'react';
 
 test('<GeneralToolbar />', () => {
   // Render GeneralToolbar
+  const store = createStore(reducer);
   const { getByTitle } = render(
-    <MemoryRouter>
-      <GeneralToolbar />
-    </MemoryRouter>,
+    <Provider store={store}>
+      <MemoryRouter>
+        <GeneralToolbar />
+      </MemoryRouter>
+    </Provider>,
     { container: document.getElementById('content')! },
   );
 

@@ -3,7 +3,10 @@ import { fireEvent, render, wait } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
 import { readFileSync } from 'fs';
 import { Illuminsight } from 'types';
+import { createStore } from 'redux';
 import { testTags } from 'lib/test/data';
+import { Provider } from 'react-redux';
+import { reducer } from 'store/reducers';
 import localForage from 'localforage';
 import { resolve } from 'path';
 import * as React from 'react';
@@ -44,13 +47,16 @@ test('<Edit>', async () => {
   mockGetItem.mockResolvedValueOnce(testTags);
 
   // Render <Edit>
+  const store = createStore(reducer);
   const { getByLabelText, getByText, container } = render(
     <SnackbarProvider>
-      <MemoryRouter initialEntries={[`/edit/${pub.id}`]}>
-        <Switch>
-          <Route path="/edit/:pubId" component={Edit} />
-        </Switch>
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={[`/edit/${pub.id}`]}>
+          <Switch>
+            <Route path="/edit/:pubId" component={Edit} />
+          </Switch>
+        </MemoryRouter>
+      </Provider>
     </SnackbarProvider>,
     { container: document.getElementById('content')! },
   );
