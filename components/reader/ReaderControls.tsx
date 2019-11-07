@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DispatchAction, AppState } from 'store/types';
 import { ExtendedReaderControls } from 'components/reader/ExtendedReaderControls';
 import { IconButton, Tooltip } from '@material-ui/core';
+import { InsightGenerator } from 'components/reader/InsightGenerator';
 import { Illuminsight } from 'types';
-import { InsightTool } from 'components/reader/InsightTool';
 import { useSnackbar } from 'notistack';
 import { setRecipe } from 'store/actions';
+import { Insights } from 'components/reader/Insights';
 import { Toolbar } from 'components/app/Toolbar';
 import localForage from 'localforage';
 import * as React from 'react';
@@ -160,9 +161,6 @@ export function ReaderControls({
         </IconButton>
       )}
 
-      {/* Insight tool */}
-      <InsightTool />
-
       {/* Next section */}
       {pub.sections - 1 > pub.bookmark.section ? (
         <Tooltip title="Go to next section">
@@ -182,6 +180,10 @@ export function ReaderControls({
 
       {/* More menu items */}
       <ExtendedReaderControls navigate={navigate} history={history} />
+
+      {/* Insights (not rendered to toolbar) */}
+      <InsightGenerator />
+      <Insights />
     </Toolbar>
   );
 }
