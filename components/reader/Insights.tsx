@@ -1,10 +1,10 @@
-import { createStyles, IconButton, makeStyles, Chip } from '@material-ui/core';
-import { removeInsights, addInsights } from 'store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { DispatchAction, AppState } from 'store/types';
 import { DefinitionInsight } from 'components/reader/DefinitionInsight';
 import { generateInsights } from 'lib/reader/generate-insights';
+import { Illuminsight } from 'types';
 import { WikiInsight } from 'components/reader/WikiInsight';
+import { setInsights } from 'store/actions';
 import * as React from 'react';
 import {
   YoutubeSearchedFor as SearchContextIcon,
@@ -15,169 +15,35 @@ import {
   Search as SearchIcon,
   Info as WikiIcon,
 } from '@material-ui/icons';
-import { Illuminsight } from 'types';
+import {
+  createStyles,
+  IconButton,
+  makeStyles,
+  Paper,
+  Chip,
+} from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    button: {
-      marginRight: '0.3em',
-    },
-    chip: {
-      marginBottom: '0.3em !important',
-      marginRight: '0.3em !important',
-    },
+    expanded: {},
+    root: {},
   }),
 );
 
-type InsightType = 'definition' | 'search' | 'wiki';
-type ExpandedInsight = { subIndex: number; index: number; type?: InsightType };
-
-const resetExpanded = (): ExpandedInsight => ({ subIndex: -1, index: -1 });
-
-export function Insights({ index }: { index: number }): JSX.Element | null {
-  const { insightsIndex, recipe, pub } = useSelector((s: AppState) => s);
-  const [expand, setExpand] = React.useState(resetExpanded());
+export function Insights(): JSX.Element | null {
+  const { insights, recipe, pub } = useSelector((s: AppState) => s);
+  const [expanded, setExpanded] = React.useState(false);
   const dispatch = useDispatch<DispatchAction>();
   const classes = useStyles();
 
-  const insights = insightsIndex[index];
   if (!insights) return null;
-  const expanded = insights[expand.index];
-
-  /** Generate all insights and expand to show list */
-  async function onExpandAll(i: number): Promise<void> {
-    setExpand({ subIndex: -1, index: i });
-
-    // Generate all insights
-    if (!insights[0].all) {
-      dispatch(
-        addInsights(
-          index,
-          await generateInsights({ insights, recipe, all: true }),
-        ),
-      );
-    }
-  }
-
-  function onClick(insight: Illuminsight.Insight, i: number): void {
-    if (expand.index == i) {
-      setExpand(resetExpanded());
-    } else if (insight.wikis.length || insight.definitions) {
-      setExpand({
-        subIndex: 0,
-        index: i,
-        type: insight.wikis.length ? 'wiki' : 'definition',
-      });
-    } else {
-      window.open(insight.searches[0].url);
-    }
-  }
-
-  function onClose(): void {
-    dispatch(removeInsights(index));
-  }
 
   return (
-    <div>
-      <IconButton
-        aria-label="Close insights"
-        className={classes.button}
-        onClick={onClose}
-        size="small"
-      >
-        <CloseIcon />
-      </IconButton>
-
-      {/* Insight list (suggested | expanded) */}
-      {expand.index == -1 || expand.type ? (
-        insights.map((insight, i) => (
-          <Chip
-            key={insight.text}
-            icon={
-              expand.index == i ? (
-                <CloseIcon />
-              ) : insight.wikis.length ? (
-                <WikiIcon />
-              ) : insight.definitions ? (
-                <DefinitionIcon />
-              ) : (
-                <SearchIcon />
-              )
-            }
-            label={insight.text}
-            onClick={(): void => onClick(insight, i)}
-            // onDelete/deleteIcon are repurposed for expanding all insights
-            onDelete={(): Promise<void> => onExpandAll(i)}
-            className={classes.chip}
-            deleteIcon={
-              <ExpandMoreIcon
-                aria-label={`View all insights for "${insight.text}"`}
-              />
-            }
-          />
-        ))
-      ) : (
-        <React.Fragment>
-          {/* Collapse insights */}
-          <IconButton
-            aria-label="Back to previous insights"
-            className={classes.button}
-            onClick={(): void => setExpand(resetExpanded())}
-            size="small"
-          >
-            <BackIcon />
-          </IconButton>
-
-          {/* Wiki insights */}
-          {expanded.wikis.map((wiki, i) => (
-            <Chip
-              key={i}
-              icon={<WikiIcon />}
-              label={wiki.recipe.name}
-              onClick={(): void =>
-                setExpand({ ...expand, type: 'wiki', subIndex: i })
-              }
-              className={classes.chip}
-            />
-          ))}
-
-          {/* Definition */}
-          {expanded.definitions ? (
-            <Chip
-              icon={<DefinitionIcon />}
-              label="Definition"
-              onClick={(): void => setExpand({ ...expand, type: 'definition' })}
-              className={classes.chip}
-            />
-          ) : null}
-
-          {/* Search insights */}
-          {expanded.searches.map((search) => (
-            <Chip
-              key={search.name}
-              icon={search.context ? <SearchContextIcon /> : <SearchIcon />}
-              label={search.name}
-              onClick={(): Window | null => window.open(search.url)}
-              className={classes.chip}
-            />
-          ))}
-        </React.Fragment>
-      )}
-
-      {expand.type == 'wiki' ? (
-        // Selected Wikipedia insight
-        <WikiInsight
-          insight={expanded.wikis[expand.subIndex]}
-          key={expand.index}
-        />
-      ) : expand.type == 'definition' ? (
-        // Selected Wiktionary insight
-        <DefinitionInsight
-          definitions={expanded.definitions!}
-          languages={pub!.languages}
-          key={expand.index}
-        />
-      ) : null}
-    </div>
+    <Paper
+      className={`${classes.root} ${expanded ? classes.expanded : ''}`}
+      elevation={1}
+    >
+      hello
+    </Paper>
   );
 }

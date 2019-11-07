@@ -1,7 +1,3 @@
-import { defaultRecipe } from 'lib/reader/recipes';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { reducer } from 'store/reducers';
 import { testAST } from 'lib/test/data';
 import { render } from '@testing-library/react';
 import * as React from 'react';
@@ -9,27 +5,12 @@ import { AST } from 'components/reader/AST';
 
 test('<AST>', () => {
   // Render AST
-  const store = createStore(reducer, {
-    insightsIndex: {
-      2: [
-        {
-          searches: [{ name: 'Google', url: '' }],
-          wikis: [],
-          text: 'Illuminsight',
-        },
-      ],
-    },
-    recipe: defaultRecipe,
-    ast: [],
-  });
   const { getByAltText, getByText, container } = render(
-    <Provider store={store}>
-      <div>
-        {testAST.map((node, i) => (
-          <AST ast={node} key={i} />
-        ))}
-      </div>
-    </Provider>,
+    <div>
+      {testAST.map((node, i) => (
+        <AST ast={node} key={i} />
+      ))}
+    </div>,
   );
   let el: HTMLElement;
 
@@ -40,10 +21,6 @@ test('<AST>', () => {
   // p
   el = getByText('This is a paragraph', { exact: false });
   expect(el.tagName).toBe('P');
-
-  // Insight rendered after p
-  getByText('Illuminsight');
-  expect(el.nextElementSibling!.textContent).toBe('Illuminsight');
 
   // p > a
   el = getByText('with a link');
