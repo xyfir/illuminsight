@@ -118,6 +118,16 @@ export function Insights(): JSX.Element | null {
 
       <div className={classes.body}>
         <nav>
+          {/* Definition */}
+          {insights.definitions ? (
+            <Chip
+              icon={<DefinitionIcon />}
+              label="Definition"
+              onClick={(): void => setViewer({ definitions: true })}
+              className={classes.chip}
+            />
+          ) : null}
+
           {/* Wiki insights */}
           {insights.wikis.map((wiki, i) => (
             <Chip
@@ -128,16 +138,6 @@ export function Insights(): JSX.Element | null {
               className={classes.chip}
             />
           ))}
-
-          {/* Definition */}
-          {insights.definitions ? (
-            <Chip
-              icon={<DefinitionIcon />}
-              label="Definition"
-              onClick={(): void => setViewer({ definitions: true })}
-              className={classes.chip}
-            />
-          ) : null}
 
           {/* Search insights */}
           {insights.searches.map((search, i) => (
