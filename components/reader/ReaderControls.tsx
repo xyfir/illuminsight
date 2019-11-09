@@ -28,8 +28,8 @@ export function ReaderControls({
   history: Illuminsight.Marker[];
 }): JSX.Element | null {
   const { enqueueSnackbar } = useSnackbar();
+  const { insights, pub } = useSelector((s: AppState) => s);
   const dispatch = useDispatch<DispatchAction>();
-  const pub = useSelector((s: AppState) => s.pub);
 
   /** Attempt to match pub to recipe in cookbook */
   async function findRecipe(): Promise<void> {
@@ -183,7 +183,7 @@ export function ReaderControls({
 
       {/* Insights (not rendered to toolbar) */}
       <InsightGenerator />
-      <Insights />
+      <Insights key={insights && insights.text} />
     </Toolbar>
   );
 }
