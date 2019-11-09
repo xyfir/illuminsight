@@ -19,19 +19,28 @@ import {
   Chip,
 } from '@material-ui/core';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     iconButton: {
       marginRight: '0.1em',
     },
+    sourceLink: {
+      textDecoration: 'none',
+      color: theme.palette.primary.main,
+    },
     tocLink: {
       cursor: 'pointer',
+      color: theme.palette.primary.main,
     },
     article: {
       overflowX: 'hidden',
       fontSize: 'initial',
       '& > .section': {
         overflowX: 'auto',
+      },
+      '& a': {
+        textDecoration: 'none',
+        color: theme.palette.primary.main,
       },
     },
     header: {
@@ -181,6 +190,7 @@ export function WikiInsight({
             aria-label="Go back to previous article"
             className={classes.iconButton}
             onClick={onPreviousArticle}
+            size="small"
           >
             <BackIcon />
           </IconButton>
@@ -192,6 +202,7 @@ export function WikiInsight({
             aria-label="Wiki article table of contents"
             className={classes.iconButton}
             onClick={(): void => setSectionKey('toc')}
+            size="small"
           >
             <TOCIcon />
           </IconButton>
@@ -232,7 +243,12 @@ export function WikiInsight({
         ) : (
           <Typography variant="caption">
             Source: {insight.recipe.name}:{' '}
-            <a href={insight.recipe.url + article.title()}>{article.title()}</a>
+            <a
+              className={classes.sourceLink}
+              href={insight.recipe.url + article.title()}
+            >
+              {article.title()}
+            </a>
           </Typography>
         )}
       </header>
