@@ -27,5 +27,5 @@ Files are named sequentially, from a zero-based index that's incremented as each
 
 - `ast/` contains the AST content for each section/chapter.
 - `res/` contains media files, primarily images.
-- `meta.json` describes the file. Check the [Pub](https://github.com/MrXyfir/illuminsight/blob/master/types.d.ts) interface for its schema.
+- `meta.json` describes the file. Check the [Pub](https://github.com/xyfir/illuminsight/blob/master/types.d.ts) interface for its schema.
 - `res/cover.ext` is the file's cover image, where `ext` is the actual file extension.
