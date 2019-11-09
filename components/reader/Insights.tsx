@@ -33,13 +33,22 @@ type InsightViewer = {
 const useStyles = makeStyles(() =>
   createStyles({
     expanded: {
-      top: '0%',
+      top: '0% !important',
     },
     header: {
+      marginBottom: '1em',
       display: 'flex',
+    },
+    title: {
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflowX: 'hidden',
+      fontSize: '150%',
+      flex: '1',
     },
     root: {
       position: 'fixed',
+      padding: '1em',
       zIndex: 99,
       bottom: '0%',
       right: '0%',
@@ -66,32 +75,37 @@ export function Insights(): JSX.Element | null {
     <Paper
       className={`${classes.root} ${expanded ? classes.expanded : ''}`}
       elevation={1}
+      square
     >
       <header className={classes.header}>
         {/* Title */}
-        <Typography variant="h3">{insights.text}</Typography>
+        <Typography variant="h3" className={classes.title}>
+          {insights.text}
+        </Typography>
 
-        {/* Expand / restore */}
-        {expanded ? (
-          <Tooltip title="Restore insights panel size">
-            <IconButton onClick={(): void => setExpanded(false)}>
-              <ExpandLessIcon />
+        <div>
+          {/* Expand / restore */}
+          {expanded ? (
+            <Tooltip placement="left" title="Restore insights panel size">
+              <IconButton onClick={(): void => setExpanded(false)} size="small">
+                <ExpandMoreIcon />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Tooltip placement="left" title="Expand insights panel">
+              <IconButton onClick={(): void => setExpanded(true)} size="small">
+                <ExpandLessIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+
+          {/* Close */}
+          <Tooltip placement="left" title="Close insights panel">
+            <IconButton onClick={onClose} size="small">
+              <CloseIcon />
             </IconButton>
           </Tooltip>
-        ) : (
-          <Tooltip title="Expand insights panel">
-            <IconButton onClick={(): void => setExpanded(true)}>
-              <ExpandMoreIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-
-        {/* Close */}
-        <Tooltip title="Close insights panel">
-          <IconButton onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
-        </Tooltip>
+        </div>
       </header>
 
       <nav>
