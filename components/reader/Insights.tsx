@@ -46,14 +46,22 @@ const useStyles = makeStyles(() =>
       fontSize: '150%',
       flex: '1',
     },
+    body: {
+      overflow: 'auto',
+    },
     root: {
+      flexDirection: 'column',
       position: 'fixed',
+      display: 'flex',
       padding: '1em',
       zIndex: 99,
       bottom: '0%',
       right: '0%',
       left: '0%',
       top: '60%',
+    },
+    chip: {
+      marginRight: '0.3em',
     },
   }),
 );
@@ -108,52 +116,57 @@ export function Insights(): JSX.Element | null {
         </div>
       </header>
 
-      <nav>
-        {/* Wiki insights */}
-        {insights.wikis.map((wiki, i) => (
-          <Chip
-            key={i}
-            icon={<WikiIcon />}
-            label={wiki.recipe.name}
-            onClick={(): void => setViewer({ wiki: true, index: i })}
-          />
-        ))}
+      <div className={classes.body}>
+        <nav>
+          {/* Wiki insights */}
+          {insights.wikis.map((wiki, i) => (
+            <Chip
+              key={i}
+              icon={<WikiIcon />}
+              label={wiki.recipe.name}
+              onClick={(): void => setViewer({ wiki: true, index: i })}
+              className={classes.chip}
+            />
+          ))}
 
-        {/* Definition */}
-        {insights.definitions ? (
-          <Chip
-            icon={<DefinitionIcon />}
-            label="Definition"
-            onClick={(): void => setViewer({ definitions: true })}
+          {/* Definition */}
+          {insights.definitions ? (
+            <Chip
+              icon={<DefinitionIcon />}
+              label="Definition"
+              onClick={(): void => setViewer({ definitions: true })}
+              className={classes.chip}
+            />
+          ) : null}
+
+          {/* Search insights */}
+          {insights.searches.map((search, i) => (
+            <Chip
+              key={i}
+              icon={search.context ? <SearchContextIcon /> : <SearchIcon />}
+              label={search.name}
+              onClick={(): void => {
+                window.open(search.url);
+              }}
+              className={classes.chip}
+            />
+          ))}
+        </nav>
+
+        {/* Insight viewer */}
+        {viewer.definitions || (viewer.auto && insights.definitions) ? (
+          // Selected Wiktionary insight
+          <DefinitionInsight
+            definitions={insights.definitions!}
+            languages={pub!.languages}
+          />
+        ) : viewer.wiki || (viewer.auto && insights.wikis.length) ? (
+          // Selected Wikipedia insight
+          <WikiInsight
+            insight={insights.wikis[viewer.wiki ? viewer.index! : 0]}
           />
         ) : null}
-
-        {/* Search insights */}
-        {insights.searches.map((search, i) => (
-          <Chip
-            key={i}
-            icon={search.context ? <SearchContextIcon /> : <SearchIcon />}
-            label={search.name}
-            onClick={(): void => {
-              window.open(search.url);
-            }}
-          />
-        ))}
-      </nav>
-
-      {/* Insight viewer */}
-      {viewer.definitions || (viewer.auto && insights.definitions) ? (
-        // Selected Wiktionary insight
-        <DefinitionInsight
-          definitions={insights.definitions!}
-          languages={pub!.languages}
-        />
-      ) : viewer.wiki || (viewer.auto && insights.wikis.length) ? (
-        // Selected Wikipedia insight
-        <WikiInsight
-          insight={insights.wikis[viewer.wiki ? viewer.index! : 0]}
-        />
-      ) : null}
+      </div>
     </Paper>
   );
 }

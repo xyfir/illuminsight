@@ -16,17 +16,11 @@ import {
   IconButton,
   makeStyles,
   Button,
-  Paper,
   Chip,
 } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    paperHeader: {
-      marginBottom: '0.3em',
-      alignItems: 'center',
-      display: 'flex',
-    },
     iconButton: {
       marginRight: '0.1em',
     },
@@ -40,10 +34,12 @@ const useStyles = makeStyles(() =>
         overflowX: 'auto',
       },
     },
-    paper: {
-      overflowY: 'auto',
-      maxHeight: '60vh',
-      padding: '0.3em',
+    header: {
+      marginBottom: '0.3em',
+      alignItems: 'center',
+      display: 'flex',
+    },
+    root: {
       margin: '1em 0.3em',
     },
   }),
@@ -177,8 +173,8 @@ export function WikiInsight({
   }
 
   return (
-    <Paper className={classes.paper} elevation={2}>
-      <header className={classes.paperHeader}>
+    <div className={classes.root}>
+      <header className={classes.header}>
         {/* Previous article button */}
         {articleKey ? (
           <IconButton
@@ -270,6 +266,6 @@ export function WikiInsight({
           ) : null}
         </React.Fragment>
       )}
-    </Paper>
+    </div>
   );
 }

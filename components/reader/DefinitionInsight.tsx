@@ -6,7 +6,6 @@ import {
   makeStyles,
   Typography,
   Button,
-  Paper,
 } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
@@ -19,9 +18,6 @@ const useStyles = makeStyles(() =>
       fontSize: '120%',
     },
     root: {
-      maxHeight: '40vh',
-      overflow: 'auto',
-      padding: '0.5em',
       margin: '1em 0.3em',
     },
   }),
@@ -67,7 +63,7 @@ export function DefinitionInsight({
   }
 
   return (
-    <Paper className={classes.root} elevation={2}>
+    <div className={classes.root}>
       {/* Languages */}
       {Object.keys(definitions)
         .filter((lang) => (expand ? true : lang == language))
@@ -123,6 +119,6 @@ export function DefinitionInsight({
           All Definitions
         </Button>
       )}
-    </Paper>
+    </div>
   );
 }
