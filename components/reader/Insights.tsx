@@ -1,49 +1,145 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { DispatchAction, AppState } from 'store/types';
 import { DefinitionInsight } from 'components/reader/DefinitionInsight';
-import { generateInsights } from 'lib/reader/generate-insights';
-import { Illuminsight } from 'types';
 import { WikiInsight } from 'components/reader/WikiInsight';
 import { setInsights } from 'store/actions';
 import * as React from 'react';
 import {
   YoutubeSearchedFor as SearchContextIcon,
   CloseOutlined as CloseIcon,
-  ChevronRight as ExpandMoreIcon,
-  ChevronLeft as BackIcon,
   TextFormat as DefinitionIcon,
+  ExpandLess as ExpandLessIcon,
+  ExpandMore as ExpandMoreIcon,
   Search as SearchIcon,
   Info as WikiIcon,
 } from '@material-ui/icons';
 import {
   createStyles,
-  IconButton,
+  Typography,
   makeStyles,
+  IconButton,
+  Tooltip,
   Paper,
   Chip,
 } from '@material-ui/core';
 
+type InsightViewer = {
+  definitions?: boolean;
+  index?: number;
+  wiki?: boolean;
+  auto?: boolean;
+};
+
 const useStyles = makeStyles(() =>
   createStyles({
-    expanded: {},
-    root: {},
+    expanded: {
+      top: '0%',
+    },
+    header: {
+      display: 'flex',
+    },
+    root: {
+      position: 'fixed',
+      zIndex: 99,
+      bottom: '0%',
+      right: '0%',
+      left: '0%',
+      top: '60%',
+    },
   }),
 );
 
 export function Insights(): JSX.Element | null {
-  const { insights, recipe, pub } = useSelector((s: AppState) => s);
   const [expanded, setExpanded] = React.useState(false);
+  const [viewer, setViewer] = React.useState<InsightViewer>({ auto: true });
+  const { insights, pub } = useSelector((s: AppState) => s);
   const dispatch = useDispatch<DispatchAction>();
   const classes = useStyles();
 
   if (!insights) return null;
+
+  function onClose(): void {
+    dispatch(setInsights(undefined));
+  }
 
   return (
     <Paper
       className={`${classes.root} ${expanded ? classes.expanded : ''}`}
       elevation={1}
     >
-      hello
+      <header className={classes.header}>
+        {/* Title */}
+        <Typography variant="h3">{insights.text}</Typography>
+
+        {/* Expand / restore */}
+        {expanded ? (
+          <Tooltip title="Restore insights panel size">
+            <IconButton onClick={(): void => setExpanded(false)}>
+              <ExpandLessIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title="Expand insights panel">
+            <IconButton onClick={(): void => setExpanded(true)}>
+              <ExpandMoreIcon />
+            </IconButton>
+          </Tooltip>
+        )}
+
+        {/* Close */}
+        <Tooltip title="Close insights panel">
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
+      </header>
+
+      <nav>
+        {/* Wiki insights */}
+        {insights.wikis.map((wiki, i) => (
+          <Chip
+            key={i}
+            icon={<WikiIcon />}
+            label={wiki.recipe.name}
+            onClick={(): void => setViewer({ wiki: true, index: i })}
+          />
+        ))}
+
+        {/* Definition */}
+        {insights.definitions ? (
+          <Chip
+            icon={<DefinitionIcon />}
+            label="Definition"
+            onClick={(): void => setViewer({ definitions: true })}
+          />
+        ) : null}
+
+        {/* Search insights */}
+        {insights.searches.map((search, i) => (
+          <Chip
+            key={i}
+            icon={search.context ? <SearchContextIcon /> : <SearchIcon />}
+            label={search.name}
+            onClick={(): void => {
+              window.open(search.url);
+            }}
+          />
+        ))}
+      </nav>
+
+      {/* Insight viewer */}
+      {viewer.definitions || (viewer.auto && insights.definitions) ? (
+        // Selected Wiktionary insight
+        <DefinitionInsight
+          definitions={insights.definitions!}
+          languages={pub!.languages}
+        />
+      ) : viewer.wiki || (viewer.auto && insights.wikis.length) ? (
+        // Selected Wikipedia insight
+        <WikiInsight
+          insight={insights.wikis[viewer.wiki ? viewer.index! : 0]}
+        />
+      ) : null}
     </Paper>
   );
 }
