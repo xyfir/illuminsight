@@ -1,12 +1,10 @@
 # [illuminsight](https://app.illuminsight.com) — read smarter
 
-💡 **[illuminsight](https://app.illuminsight.com)** 👀 effortlessly extracts insights from content in EPUB files to provide context and relevant data.
+💡 **[illuminsight](https://app.illuminsight.com)** 👀 effortlessly generates insights for selected text within your EPUB-format books, showing you relevant, contextualized data at a glance.
 
-<img src="https://i.imgur.com/LhFvyz9.jpg" />
+<img src="https://i.imgur.com/QjpyhyJ.jpg" />
 
-Once you're reading, tap the insight tool icon 🔦 and **illuminsight will automatically find notable items within the text, providing you with quick access to Wikipedia articles, web searches, and definitions** inserted into the content.
-
-You can optionally highlight text before tapping the insight tool icon 🔦 to help illuminsight know exactly what you'd like to generate insights for.
+Once you're reading, highlight any text and **illuminsight will automatically find data on the web, providing you with quick access to Wikipedia articles, web searches, definitions**, and more, directly in the ebook reader.
 
 All data is stored solely on your device.
 
@@ -19,8 +17,8 @@ All data is stored solely on your device.
 
 ## Documentation
 
-- [ASTPUB](https://github.com/Xyfir/illuminsight/blob/master/docs/astpub.md) — Learn more about our unique ASTPUB content format.
-- [Self-hosting](https://github.com/Xyfir/illuminsight/blob/master/docs/self-host.md) — Learn how to set up illuminsight for local development.
+- [ASTPUB](https://github.com/xyfir/illuminsight/blob/master/docs/astpub.md) — Learn more about our unique ASTPUB content format.
+- [Self-hosting](https://github.com/xyfir/illuminsight/blob/master/docs/self-host.md) — Learn how to set up illuminsight for local development.
 
 ## License
 
