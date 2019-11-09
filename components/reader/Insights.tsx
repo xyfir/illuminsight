@@ -50,6 +50,7 @@ const useStyles = makeStyles(() =>
     },
     root: {
       flexDirection: 'column',
+      transition: '0.5s',
       position: 'fixed',
       display: 'flex',
       padding: '1em',
@@ -57,7 +58,7 @@ const useStyles = makeStyles(() =>
       bottom: '0%',
       right: '0%',
       left: '0%',
-      top: '60%',
+      top: '50%',
     },
     chip: {
       marginRight: '0.3em',
