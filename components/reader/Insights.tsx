@@ -18,7 +18,6 @@ import {
   Typography,
   makeStyles,
   IconButton,
-  Tooltip,
   Paper,
   Chip,
 } from '@material-ui/core';
@@ -94,25 +93,31 @@ export function Insights(): JSX.Element | null {
         <div>
           {/* Expand / restore */}
           {expanded ? (
-            <Tooltip placement="left" title="Restore insights panel size">
-              <IconButton onClick={(): void => setExpanded(false)} size="small">
-                <ExpandMoreIcon />
-              </IconButton>
-            </Tooltip>
+            <IconButton
+              onClick={(): void => setExpanded(false)}
+              title="Restore insights panel size"
+              size="small"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
           ) : (
-            <Tooltip placement="left" title="Expand insights panel">
-              <IconButton onClick={(): void => setExpanded(true)} size="small">
-                <ExpandLessIcon />
-              </IconButton>
-            </Tooltip>
+            <IconButton
+              onClick={(): void => setExpanded(true)}
+              title="Expand insights panel"
+              size="small"
+            >
+              <ExpandLessIcon />
+            </IconButton>
           )}
 
           {/* Close */}
-          <Tooltip placement="left" title="Close insights panel">
-            <IconButton onClick={onClose} size="small">
-              <CloseIcon />
-            </IconButton>
-          </Tooltip>
+          <IconButton
+            onClick={onClose}
+            title="Close insights panel"
+            size="small"
+          >
+            <CloseIcon />
+          </IconButton>
         </div>
       </header>
 
