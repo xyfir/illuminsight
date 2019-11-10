@@ -13,7 +13,7 @@ import {
 } from 'store/types';
 
 export function setInsights(
-  insights: Illuminsight.Insights | undefined,
+  insights: SetInsightsAction['payload'],
 ): SetInsightsAction {
   return { type: SET_INSIGHTS, payload: insights };
 }
@@ -26,7 +26,7 @@ export function setRecipe(recipe: Illuminsight.Recipe): SetRecipeAction {
   return { type: SET_RECIPE, payload: recipe };
 }
 
-export function setPub(pub: Illuminsight.Pub): SetPubAction {
+export function setPub(pub: SetPubAction['payload']): SetPubAction {
   return { type: SET_PUB, payload: pub };
 }
 

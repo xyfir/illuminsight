@@ -30,7 +30,7 @@ export interface SetRecipeAction {
 export const SET_PUB = 'SET_PUB';
 export interface SetPubAction {
   type: typeof SET_PUB;
-  payload: Illuminsight.Pub;
+  payload: Illuminsight.Pub | undefined;
 }
 
 export const SET_AST = 'SET_AST';
