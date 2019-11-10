@@ -21,6 +21,11 @@ export interface ToggleThemeAction {
   type: typeof TOGGLE_THEME;
 }
 
+export const RESET_STATE = 'RESET_STATE';
+export interface ResetStateAction {
+  type: typeof RESET_STATE;
+}
+
 export const SET_RECIPE = 'SET_RECIPE';
 export interface SetRecipeAction {
   type: typeof SET_RECIPE;
@@ -42,6 +47,7 @@ export interface SetASTAction {
 export type ActionTypes =
   | SetInsightsAction
   | ToggleThemeAction
+  | ResetStateAction
   | SetRecipeAction
   | SetPubAction
   | SetASTAction;

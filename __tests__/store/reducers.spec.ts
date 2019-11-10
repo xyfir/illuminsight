@@ -4,6 +4,7 @@ import { testPub } from 'lib/test/data';
 import {
   setInsights,
   toggleTheme,
+  resetState,
   setRecipe,
   setPub,
   setAST,
@@ -20,6 +21,14 @@ test('toggleTheme()', () => {
   expect(state.theme).toBe('dark');
   state = reducer(state, toggleTheme());
   expect(state.theme).toBe('light');
+});
+
+test('resetState()', () => {
+  const state = reducer(
+    { ...initialState(), ast: [{ n: 'hr' }] },
+    resetState(),
+  );
+  expect(state).toMatchObject(initialState());
 });
 
 test('setRecipe()', () => {
@@ -39,8 +48,8 @@ test('setAST()', () => {
   expect(state.ast).toBe(ast);
 });
 
-test('initialState', () => {
+test('initialState()', () => {
   // @ts-ignore
   const state = reducer(undefined, {});
-  expect(state).toBe(initialState);
+  expect(state).toMatchObject(initialState());
 });

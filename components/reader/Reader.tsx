@@ -1,10 +1,8 @@
-import { setInsights, setAST, setPub, setRecipe } from 'store/actions';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { DispatchAction, AppState } from 'store/types';
 import { ReaderControls } from 'components/reader/ReaderControls';
-import { defaultRecipe } from 'lib/reader/recipes';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
 import { Illuminsight } from 'types';
 import { useSnackbar } from 'notistack';
@@ -13,6 +11,13 @@ import localForage from 'localforage';
 import * as React from 'react';
 import { AST } from 'components/reader/AST';
 import JSZip from 'jszip';
+import {
+  setInsights,
+  resetState,
+  setRecipe,
+  setAST,
+  setPub,
+} from 'store/actions';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -280,11 +285,8 @@ export function Reader(): JSX.Element {
       imgURLs.forEach((url) => URL.revokeObjectURL(url));
       zip = undefined;
 
-      // Update state
-      dispatch(setInsights(undefined));
-      dispatch(setRecipe(defaultRecipe));
-      dispatch(setPub(undefined));
-      dispatch(setAST([]));
+      // Reset state
+      dispatch(resetState());
     };
   }, []);
 

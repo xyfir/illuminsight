@@ -2,10 +2,12 @@ import { Illuminsight } from 'types';
 import {
   SetInsightsAction,
   ToggleThemeAction,
+  ResetStateAction,
   SetRecipeAction,
   SET_INSIGHTS,
   SetASTAction,
   TOGGLE_THEME,
+  RESET_STATE,
   SetPubAction,
   SET_RECIPE,
   SET_PUB,
@@ -20,6 +22,10 @@ export function setInsights(
 
 export function toggleTheme(): ToggleThemeAction {
   return { type: TOGGLE_THEME };
+}
+
+export function resetState(): ResetStateAction {
+  return { type: RESET_STATE };
 }
 
 export function setRecipe(recipe: Illuminsight.Recipe): SetRecipeAction {
