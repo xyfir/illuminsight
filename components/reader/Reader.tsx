@@ -4,6 +4,7 @@ import { createStyles, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { DispatchAction, AppState } from 'store/types';
 import { ReaderControls } from 'components/reader/ReaderControls';
+import { defaultRecipe } from 'lib/reader/recipes';
 import { getByTagName } from 'lib/reader/get-by-tag-name';
 import { Illuminsight } from 'types';
 import { useSnackbar } from 'notistack';
@@ -278,6 +279,12 @@ export function Reader(): JSX.Element {
       if (pub) saveFile(pub);
       imgURLs.forEach((url) => URL.revokeObjectURL(url));
       zip = undefined;
+
+      // Update state
+      dispatch(setInsights(undefined));
+      dispatch(setRecipe(defaultRecipe));
+      dispatch(setPub(undefined));
+      dispatch(setAST([]));
     };
   }, []);
 
