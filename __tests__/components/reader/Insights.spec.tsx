@@ -1,4 +1,4 @@
-import { testDefinitions, testWikitext } from 'lib/test/data';
+import { testDefinitions, testWikitext, testPub } from 'lib/test/data';
 import { fireEvent, render } from '@testing-library/react';
 import { defaultRecipe } from 'lib/reader/recipes';
 import { createStore } from 'redux';
@@ -29,9 +29,10 @@ test('<Insights>', () => {
       text: 'Blood Meridian',
     },
     recipe: defaultRecipe,
+    pub: testPub,
     ast: [],
   });
-  const { getByLabelText, getAllByText, getByText } = render(
+  const { getAllByText, getByTitle, getByText } = render(
     <Provider store={store}>
       <Insights />
     </Provider>,
@@ -66,14 +67,14 @@ test('<Insights>', () => {
   getAllByText('noun');
 
   // Validate panel is not expanded
-  getByLabelText('Expand insights panel');
-  expect(() => getByLabelText('Restore insights panel size')).toThrow();
+  getByTitle('Expand insights panel');
+  expect(() => getByTitle('Restore insights panel size')).toThrow();
 
   // Expand panel
-  fireEvent.click(getByLabelText('Expand insights panel'));
-  getByLabelText('Restore insights panel size');
+  fireEvent.click(getByTitle('Expand insights panel'));
+  getByTitle('Restore insights panel size');
 
   // Close panel
-  fireEvent.click(getByLabelText('Close insights panel'));
-  expect(() => getByLabelText('Close insights panel')).toThrow();
+  fireEvent.click(getByTitle('Close insights panel'));
+  expect(() => getByTitle('Close insights panel')).toThrow();
 });
