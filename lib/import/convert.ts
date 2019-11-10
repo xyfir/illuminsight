@@ -189,9 +189,9 @@ export async function convert(file: Blob): Promise<Blob> {
     const title = navPoint.querySelector('navLabel > text') as Element;
     const src = navPoint.querySelector('content') as Element;
 
-    const match = /^([^#]+)(#(.*))?$/.exec(src.getAttribute(
-      'src',
-    ) as string) as RegExpExecArray;
+    const match = /^([^#]+)(#(.*))?$/.exec(
+      src.getAttribute('src') as string,
+    ) as RegExpExecArray;
     toc.push({
       // old link -> new link -> index
       section: +linkMap[decodeURIComponent(match[1])]

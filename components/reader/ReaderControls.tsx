@@ -77,15 +77,12 @@ export function ReaderControls({
 
     // Subtract and sort by scores (smaller = better)
     const [match] = matches
-      .reduce(
-        (reduced, match) => {
-          const _match = reduced.find((m) => m.item.id == match.item.id);
-          if (_match) _match.score -= match.score;
-          else reduced.push(match);
-          return reduced;
-        },
-        [] as typeof matches,
-      )
+      .reduce((reduced, match) => {
+        const _match = reduced.find((m) => m.item.id == match.item.id);
+        if (_match) _match.score -= match.score;
+        else reduced.push(match);
+        return reduced;
+      }, [] as typeof matches)
       .sort((a, b) => a.score - b.score)
       .filter((match, i, arr) => {
         // Remove if 0.5 or over

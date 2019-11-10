@@ -365,7 +365,10 @@ export function Edit(): JSX.Element | null {
           <Chip
             className={classes.chip}
             onDelete={(): void =>
-              onChange('tags', pub.tags.filter((t) => t != tag))
+              onChange(
+                'tags',
+                pub.tags.filter((t) => t != tag),
+              )
             }
             label={`#${tags.find((t) => t.id == tag)!.name}`}
             key={tag}
@@ -398,7 +401,10 @@ export function Edit(): JSX.Element | null {
           <Chip
             className={classes.chip}
             onDelete={(): void =>
-              onChange('languages', pub.languages.filter((l) => l != lang))
+              onChange(
+                'languages',
+                pub.languages.filter((l) => l != lang),
+              )
             }
             label={ISO6391.getName(lang)}
             key={lang}
