@@ -1,5 +1,7 @@
 language: node_js
-node_js: node
+# Remove when dependencies can compile with Node v13
+node_js:
+  - 12
 script:
   - cp example.env .env
   # Disable until Jest types are fixed
