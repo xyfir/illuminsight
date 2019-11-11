@@ -2,7 +2,7 @@
 
 <widget
   xmlns:gap="http://phonegap.com/ns/1.0"
-  version="0.8.0"
+  version="1.0.0"
   xmlns="http://www.w3.org/ns/widgets"
   id="com.xyfir.illuminsight"
 >
