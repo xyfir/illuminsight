@@ -13,7 +13,7 @@ export async function convert(file: Blob): Promise<Blob> {
   const epub = await JSZip.loadAsync(file);
 
   // Parse OPF
-  const [opfFile] = epub.file(/\bcontent\.opf$/);
+  const [opfFile] = epub.file(/\b(content|package)\.opf$/);
   const opfDoc = parser.parseFromString(
     await opfFile.async('text'),
     'application/xhtml+xml',
