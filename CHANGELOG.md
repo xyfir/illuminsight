@@ -6,6 +6,21 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [1.0.0] - 2019-
+
+### Added
+
+- Native iOS / Android apps with PhoneGap
+- ESLint
+- Redux
+
+### Changed
+
+- Completely rework insights system
+- Improve caching and decrease size
+- Improve code formatting
+- Improve Travis CI testing
+
 ## [0.7.1] - 2019-10-04
 
 ### Changed
@@ -122,7 +137,8 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 - Everything
 
-[unreleased]: https://github.com/Xyfir/illuminsight/compare/0.7.1...HEAD
+[unreleased]: https://github.com/Xyfir/illuminsight/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/Xyfir/illuminsight/releases/tag/1.0.0
 [0.7.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.7.1
 [0.7.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.7.0
 [0.6.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.6.1
