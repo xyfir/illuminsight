@@ -30,12 +30,7 @@ const useStyles = makeStyles((theme) =>
       margin: '0.5em',
     },
     root: {
-      justifyContent: 'center',
-      flexDirection: 'column',
       textAlign: 'center',
-      overflowY: 'auto',
-      display: 'flex',
-      height: '100vh',
     },
     h1: {
       marginBottom: '0.2em',
@@ -69,6 +64,12 @@ const useStyles = makeStyles((theme) =>
 
 export function Home(): JSX.Element {
   const classes = useStyles();
+
+  React.useEffect(() => {
+    const s = document.createElement('script');
+    s.src = 'https://platform.twitter.com/widgets.js';
+    document.head.appendChild(s);
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -118,13 +119,13 @@ export function Home(): JSX.Element {
       <section className={classes.section}>
         <a
           data-link-color="#1976d2"
-          data-height="500"
+          data-height="700"
+          data-width="500"
           className={`twitter-timeline ${classes.a}`}
           href="https://twitter.com/illuminsight?ref_src=twsrc%5Etfw"
         >
           tweets by illuminsight
         </a>
-        <script src="https://platform.twitter.com/widgets.js" />
       </section>
 
       <Grid container component="footer">
