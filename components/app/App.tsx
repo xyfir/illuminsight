@@ -11,6 +11,7 @@ import { Reader } from 'components/reader/Reader';
 import { Import } from 'components/Import';
 import { themes } from 'lib/app/theme';
 import * as React from 'react';
+import { Home } from 'components/app/Home';
 import { Edit } from 'components/Edit';
 
 const store = createStore(reducer);
@@ -47,7 +48,12 @@ const WrappedApp = (): JSX.Element => {
               <Route path="/read/:pubId" component={Reader} />
               <Route path="/edit/:pubId" component={Edit} />
               <Route path="/library" component={Library} />
-              <Redirect exact from="/" to="/library" />
+
+              {location.hostname == 'app.illuminsight.com' ? (
+                <Redirect exact from="/" to="/library" />
+              ) : (
+                <Route path="/" component={Home} />
+              )}
             </Switch>
           </main>
         </BrowserRouter>
