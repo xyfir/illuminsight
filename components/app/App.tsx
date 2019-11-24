@@ -40,23 +40,23 @@ const WrappedApp = (): JSX.Element => {
       <SnackbarProvider
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <BrowserRouter>
-          <main className={classes.main}>
-            <div className={classes.toolbar} />
-            <Switch>
-              <Route path="/import/:type" component={Import} />
-              <Route path="/read/:pubId" component={Reader} />
-              <Route path="/edit/:pubId" component={Edit} />
-              <Route path="/library" component={Library} />
-
-              {location.hostname == 'app.illuminsight.com' ? (
+        {location.hostname == 'www.illuminsight.com' ||
+        (location.hostname == 'localhost' && location.pathname == '/') ? (
+          <Home />
+        ) : (
+          <BrowserRouter>
+            <main className={classes.main}>
+              <div className={classes.toolbar} />
+              <Switch>
+                <Route path="/import/:type" component={Import} />
+                <Route path="/read/:pubId" component={Reader} />
+                <Route path="/edit/:pubId" component={Edit} />
+                <Route path="/library" component={Library} />
                 <Redirect exact from="/" to="/library" />
-              ) : (
-                <Route path="/" component={Home} />
-              )}
-            </Switch>
-          </main>
-        </BrowserRouter>
+              </Switch>
+            </main>
+          </BrowserRouter>
+        )}
       </SnackbarProvider>
     </ThemeProvider>
   );
