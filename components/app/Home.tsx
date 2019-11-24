@@ -30,7 +30,12 @@ const useStyles = makeStyles((theme) =>
       margin: '0.5em',
     },
     root: {
+      justifyContent: 'center',
+      flexDirection: 'column',
       textAlign: 'center',
+      overflowY: 'auto',
+      display: 'flex',
+      height: '100vh',
     },
     h1: {
       marginBottom: '0.2em',
@@ -128,11 +133,6 @@ export function Home(): JSX.Element {
             community and support
           </Typography>
           <ul className={classes.ul}>
-            <li>
-              <a href="mailto:contact@xyfir.com" className={classes.a}>
-                send us an email
-              </a>
-            </li>
             <li>
               <a href="https://twitter.com/illuminsight" className={classes.a}>
                 twitter
