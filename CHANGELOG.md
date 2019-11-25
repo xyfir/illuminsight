@@ -6,11 +6,17 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
-## [1.0.0] - 2019-
+## [1.1.0] - 2019-11-24
 
 ### Added
 
-- Native iOS / Android apps with PhoneGap
+- Homepage
+
+## [1.0.0] - 2019-11-23
+
+### Added
+
+- Native iOS / Android apps
 - ESLint
 - Redux
 
@@ -137,8 +143,9 @@ This project adheres to [Semantic Versioning](https://semver.org).
 
 - Everything
 
-[unreleased]: https://github.com/Xyfir/illuminsight/compare/1.0.0...HEAD
-[1.0.0]: https://github.com/Xyfir/illuminsight/releases/tag/1.0.0
+[unreleased]: https://github.com/Xyfir/illuminsight/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Xyfir/illuminsight/releases/tag/v1.1.0
+[1.0.0]: https://github.com/Xyfir/illuminsight/releases/tag/v1.0.0
 [0.7.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.7.1
 [0.7.0]: https://github.com/Xyfir/illuminsight/releases/tag/0.7.0
 [0.6.1]: https://github.com/Xyfir/illuminsight/releases/tag/0.6.1
